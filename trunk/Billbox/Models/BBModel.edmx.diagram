@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5f1ec7bb99224332a975fecc4414d023" Name="Diagram1">
+        <EntityTypeShape EntityType="BillboxModel.Agent" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BillboxModel.AgentBranch" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BillboxModel.AgentSetting" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BillboxModel.AgentUser" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BillboxModel.AgentUserLevel" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BillboxModel.AgentUserRight" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BillboxModel.CaptureField" Width="1.5" PointX="5.25" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BillboxModel.LoginSession" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BillboxModel.Parish" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BillboxModel.Payment" Width="1.5" PointX="5.25" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BillboxModel.PaymentCaptureField" Width="1.5" PointX="7.5" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BillboxModel.PaymentInfo" Width="1.5" PointX="7.5" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BillboxModel.PaymentPaymentTypeCaptureField" Width="1.5" PointX="7.5" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BillboxModel.PaymentType" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BillboxModel.PaymentTypeCaptureField" Width="1.5" PointX="5.25" PointY="24.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BillboxModel.Setting" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BillboxModel.Subscriber" Width="1.5" PointX="3" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BillboxModel.User" Width="1.5" PointX="3" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BillboxModel.UserLevel" Width="1.5" PointX="0.75" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BillboxModel.UserRight" Width="1.5" PointX="3" PointY="24.375" IsExpanded="true" />
+        <AssociationConnector Association="BillboxModel.FK_Agent_Parish" ManuallyRouted="false" />
+        <AssociationConnector Association="BillboxModel.FK_AgentBranch_Agent" ManuallyRouted="false" />
+        <AssociationConnector Association="BillboxModel.FK_AgentUser_Agent" ManuallyRouted="false" />
+        <AssociationConnector Association="BillboxModel.FK_Payment_Agent" ManuallyRouted="false" />
+        <AssociationConnector Association="BillboxModel.FK_AgentUser_AgentUserLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="BillboxModel.FK_CaptureField_Subscriber" ManuallyRouted="false" />
+        <AssociationConnector Association="BillboxModel.FK_Subscriber_Parish" ManuallyRouted="false" />
+        <AssociationConnector Association="BillboxModel.FK_User_Parish" ManuallyRouted="false" />
+        <AssociationConnector Association="BillboxModel.FK_PaymentCaptureField_Payment" ManuallyRouted="false" />
+        <AssociationConnector Association="BillboxModel.FK_PaymentInfo_Payment" ManuallyRouted="false" />
+        <AssociationConnector Association="BillboxModel.FK_PaymentPaymentTypeCaptureField_Payment" ManuallyRouted="false" />
+        <AssociationConnector Association="BillboxModel.FK_PaymentInfo_PaymentType" ManuallyRouted="false" />
+        <AssociationConnector Association="BillboxModel.FK_PaymentPaymentTypeCaptureField_PaymentCaptureField" ManuallyRouted="false" />
+        <AssociationConnector Association="BillboxModel.FK_PaymentTypeCaptureField_PaymentType" ManuallyRouted="false" />
+        <AssociationConnector Association="BillboxModel.FK_User_UserLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="BillboxModel.AgentUserRight_AgentUserLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="BillboxModel.UserRight_UserLevel" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
