@@ -18,7 +18,6 @@ namespace Billbox.Models
         {
             this.AgentBranches = new HashSet<AgentBranch>();
             this.AgentUsers = new HashSet<AgentUser>();
-            this.Payments = new HashSet<Payment>();
         }
     
         public int AgentId { get; set; }
@@ -33,6 +32,5 @@ namespace Billbox.Models
         public virtual Parish Parish { get; set; }
         public virtual ICollection<AgentBranch> AgentBranches { get; set; }
         public virtual ICollection<AgentUser> AgentUsers { get; set; }
-        public virtual ICollection<Payment> Payments { get; set; }
     }
 }

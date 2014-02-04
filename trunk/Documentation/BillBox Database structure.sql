@@ -247,6 +247,7 @@ GO
 
 create table Payment (
 	PaymentId INT IDENTITY(1,1) PRIMARY KEY NOT NULL, 
+	SubscriberId INT NOT NULL,
 	InvoiceNumber INT NOT NULL, 
 	AgentId INT NOT NULL, 
 	AgentBranchId INT NOT NULL, 
@@ -260,8 +261,10 @@ create table Payment (
 GO
 
 ALTER TABLE Payment
-ADD CONSTRAINT FK_Payment_Agent FOREIGN KEY (AgentId) REFERENCES Agent (AgentId) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT FK_Payment_Subscriber FOREIGN KEY (SubscriberId) REFERENCES Subscriber (SubscriberId) ON DELETE CASCADE ON UPDATE CASCADE;
 /*
+ALTER TABLE Payment
+ADD CONSTRAINT FK_Payment_Agent FOREIGN KEY (AgentId) REFERENCES Agent (AgentId) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE Payment
 ADD CONSTRAINT FK_Payment_AgentBranch FOREIGN KEY (AgentBranchId) REFERENCES AgentBranch (BranchId) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE Payment
@@ -289,6 +292,7 @@ ADD CONSTRAINT FK_PaymentCaptureField_CaptureField FOREIGN KEY (CaptureFieldId) 
 GO
 
 create table PaymentInfo (
+	PaymentInfoId INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	PaymentId INT NOT NULL, 
 	PaymentTypeId INT NOT NULL, 
 	InvoiceNumber INT NOT NULL, 

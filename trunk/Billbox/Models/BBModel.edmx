@@ -4,110 +4,103 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BillboxModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="BillboxModelStoreContainer">
-          <EntitySet Name="Agent" EntityType="BillboxModel.Store.Agent" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="AgentBranch" EntityType="BillboxModel.Store.AgentBranch" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="AgentSettings" EntityType="BillboxModel.Store.AgentSettings" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="AgentUser" EntityType="BillboxModel.Store.AgentUser" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="AgentUserLevel" EntityType="BillboxModel.Store.AgentUserLevel" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="AgentUserRight" EntityType="BillboxModel.Store.AgentUserRight" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="AgentUserRight_AgentUserLevel" EntityType="BillboxModel.Store.AgentUserRight_AgentUserLevel" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="CaptureField" EntityType="BillboxModel.Store.CaptureField" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="LoginSession" EntityType="BillboxModel.Store.LoginSession" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Parish" EntityType="BillboxModel.Store.Parish" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Payment" EntityType="BillboxModel.Store.Payment" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PaymentCaptureField" EntityType="BillboxModel.Store.PaymentCaptureField" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PaymentInfo" EntityType="BillboxModel.Store.PaymentInfo" store:Type="Tables" store:Schema="dbo" store:Name="PaymentInfo">
-            <DefiningQuery>SELECT 
-      [PaymentInfo].[PaymentId] AS [PaymentId], 
-      [PaymentInfo].[PaymentTypeId] AS [PaymentTypeId], 
-      [PaymentInfo].[InvoiceNumber] AS [InvoiceNumber], 
-      [PaymentInfo].[Amount] AS [Amount]
-      FROM [dbo].[PaymentInfo] AS [PaymentInfo]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="PaymentPaymentTypeCaptureField" EntityType="BillboxModel.Store.PaymentPaymentTypeCaptureField" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PaymentType" EntityType="BillboxModel.Store.PaymentType" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PaymentTypeCaptureField" EntityType="BillboxModel.Store.PaymentTypeCaptureField" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Settings" EntityType="BillboxModel.Store.Settings" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Subscriber" EntityType="BillboxModel.Store.Subscriber" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="User" EntityType="BillboxModel.Store.User" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="UserLevel" EntityType="BillboxModel.Store.UserLevel" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="UserRight" EntityType="BillboxModel.Store.UserRight" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="UserRight_UserLevel" EntityType="BillboxModel.Store.UserRight_UserLevel" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_Agent_Parish" Association="BillboxModel.Store.FK_Agent_Parish">
+      <Schema Namespace="BBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="BBModelStoreContainer">
+          <EntitySet Name="Agent" EntityType="BBModel.Store.Agent" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AgentBranch" EntityType="BBModel.Store.AgentBranch" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AgentSettings" EntityType="BBModel.Store.AgentSettings" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AgentUser" EntityType="BBModel.Store.AgentUser" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AgentUserLevel" EntityType="BBModel.Store.AgentUserLevel" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AgentUserRight" EntityType="BBModel.Store.AgentUserRight" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AgentUserRight_AgentUserLevel" EntityType="BBModel.Store.AgentUserRight_AgentUserLevel" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CaptureField" EntityType="BBModel.Store.CaptureField" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LoginSession" EntityType="BBModel.Store.LoginSession" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Parish" EntityType="BBModel.Store.Parish" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Payment" EntityType="BBModel.Store.Payment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PaymentCaptureField" EntityType="BBModel.Store.PaymentCaptureField" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PaymentInfo" EntityType="BBModel.Store.PaymentInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PaymentPaymentTypeCaptureField" EntityType="BBModel.Store.PaymentPaymentTypeCaptureField" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PaymentType" EntityType="BBModel.Store.PaymentType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PaymentTypeCaptureField" EntityType="BBModel.Store.PaymentTypeCaptureField" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Settings" EntityType="BBModel.Store.Settings" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Subscriber" EntityType="BBModel.Store.Subscriber" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="User" EntityType="BBModel.Store.User" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserLevel" EntityType="BBModel.Store.UserLevel" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserRight" EntityType="BBModel.Store.UserRight" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserRight_UserLevel" EntityType="BBModel.Store.UserRight_UserLevel" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Agent_Parish" Association="BBModel.Store.FK_Agent_Parish">
             <End Role="Parish" EntitySet="Parish" />
             <End Role="Agent" EntitySet="Agent" />
           </AssociationSet>
-          <AssociationSet Name="FK_AgentBranch_Agent" Association="BillboxModel.Store.FK_AgentBranch_Agent">
+          <AssociationSet Name="FK_AgentBranch_Agent" Association="BBModel.Store.FK_AgentBranch_Agent">
             <End Role="Agent" EntitySet="Agent" />
             <End Role="AgentBranch" EntitySet="AgentBranch" />
           </AssociationSet>
-          <AssociationSet Name="FK_AgentUser_Agent" Association="BillboxModel.Store.FK_AgentUser_Agent">
+          <AssociationSet Name="FK_AgentUser_Agent" Association="BBModel.Store.FK_AgentUser_Agent">
             <End Role="Agent" EntitySet="Agent" />
             <End Role="AgentUser" EntitySet="AgentUser" />
           </AssociationSet>
-          <AssociationSet Name="FK_AgentUser_AgentUserLevel" Association="BillboxModel.Store.FK_AgentUser_AgentUserLevel">
+          <AssociationSet Name="FK_AgentUser_AgentUserLevel" Association="BBModel.Store.FK_AgentUser_AgentUserLevel">
             <End Role="AgentUserLevel" EntitySet="AgentUserLevel" />
             <End Role="AgentUser" EntitySet="AgentUser" />
           </AssociationSet>
-          <AssociationSet Name="FK_AgentUserRight_AgentUserLevel_AgentUserLevel" Association="BillboxModel.Store.FK_AgentUserRight_AgentUserLevel_AgentUserLevel">
+          <AssociationSet Name="FK_AgentUserRight_AgentUserLevel_AgentUserLevel" Association="BBModel.Store.FK_AgentUserRight_AgentUserLevel_AgentUserLevel">
             <End Role="AgentUserLevel" EntitySet="AgentUserLevel" />
             <End Role="AgentUserRight_AgentUserLevel" EntitySet="AgentUserRight_AgentUserLevel" />
           </AssociationSet>
-          <AssociationSet Name="FK_AgentUserRight_AgentUserLevel_AgentUserRight" Association="BillboxModel.Store.FK_AgentUserRight_AgentUserLevel_AgentUserRight">
+          <AssociationSet Name="FK_AgentUserRight_AgentUserLevel_AgentUserRight" Association="BBModel.Store.FK_AgentUserRight_AgentUserLevel_AgentUserRight">
             <End Role="AgentUserRight" EntitySet="AgentUserRight" />
             <End Role="AgentUserRight_AgentUserLevel" EntitySet="AgentUserRight_AgentUserLevel" />
           </AssociationSet>
-          <AssociationSet Name="FK_CaptureField_Subscriber" Association="BillboxModel.Store.FK_CaptureField_Subscriber">
+          <AssociationSet Name="FK_CaptureField_Subscriber" Association="BBModel.Store.FK_CaptureField_Subscriber">
             <End Role="Subscriber" EntitySet="Subscriber" />
             <End Role="CaptureField" EntitySet="CaptureField" />
           </AssociationSet>
-          <AssociationSet Name="FK_Payment_Agent" Association="BillboxModel.Store.FK_Payment_Agent">
-            <End Role="Agent" EntitySet="Agent" />
+          <AssociationSet Name="FK_Payment_Subscriber" Association="BBModel.Store.FK_Payment_Subscriber">
+            <End Role="Subscriber" EntitySet="Subscriber" />
             <End Role="Payment" EntitySet="Payment" />
           </AssociationSet>
-          <AssociationSet Name="FK_PaymentCaptureField_Payment" Association="BillboxModel.Store.FK_PaymentCaptureField_Payment">
+          <AssociationSet Name="FK_PaymentCaptureField_Payment" Association="BBModel.Store.FK_PaymentCaptureField_Payment">
             <End Role="Payment" EntitySet="Payment" />
             <End Role="PaymentCaptureField" EntitySet="PaymentCaptureField" />
           </AssociationSet>
-          <AssociationSet Name="FK_PaymentInfo_Payment" Association="BillboxModel.Store.FK_PaymentInfo_Payment">
+          <AssociationSet Name="FK_PaymentInfo_Payment" Association="BBModel.Store.FK_PaymentInfo_Payment">
             <End Role="Payment" EntitySet="Payment" />
             <End Role="PaymentInfo" EntitySet="PaymentInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK_PaymentInfo_PaymentType" Association="BillboxModel.Store.FK_PaymentInfo_PaymentType">
+          <AssociationSet Name="FK_PaymentInfo_PaymentType" Association="BBModel.Store.FK_PaymentInfo_PaymentType">
             <End Role="PaymentType" EntitySet="PaymentType" />
             <End Role="PaymentInfo" EntitySet="PaymentInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK_PaymentPaymentTypeCaptureField_Payment" Association="BillboxModel.Store.FK_PaymentPaymentTypeCaptureField_Payment">
+          <AssociationSet Name="FK_PaymentPaymentTypeCaptureField_Payment" Association="BBModel.Store.FK_PaymentPaymentTypeCaptureField_Payment">
             <End Role="Payment" EntitySet="Payment" />
             <End Role="PaymentPaymentTypeCaptureField" EntitySet="PaymentPaymentTypeCaptureField" />
           </AssociationSet>
-          <AssociationSet Name="FK_PaymentPaymentTypeCaptureField_PaymentCaptureField" Association="BillboxModel.Store.FK_PaymentPaymentTypeCaptureField_PaymentCaptureField">
+          <AssociationSet Name="FK_PaymentPaymentTypeCaptureField_PaymentCaptureField" Association="BBModel.Store.FK_PaymentPaymentTypeCaptureField_PaymentCaptureField">
             <End Role="PaymentTypeCaptureField" EntitySet="PaymentTypeCaptureField" />
             <End Role="PaymentPaymentTypeCaptureField" EntitySet="PaymentPaymentTypeCaptureField" />
           </AssociationSet>
-          <AssociationSet Name="FK_PaymentTypeCaptureField_PaymentType" Association="BillboxModel.Store.FK_PaymentTypeCaptureField_PaymentType">
+          <AssociationSet Name="FK_PaymentTypeCaptureField_PaymentType" Association="BBModel.Store.FK_PaymentTypeCaptureField_PaymentType">
             <End Role="PaymentType" EntitySet="PaymentType" />
             <End Role="PaymentTypeCaptureField" EntitySet="PaymentTypeCaptureField" />
           </AssociationSet>
-          <AssociationSet Name="FK_Subscriber_Parish" Association="BillboxModel.Store.FK_Subscriber_Parish">
+          <AssociationSet Name="FK_Subscriber_Parish" Association="BBModel.Store.FK_Subscriber_Parish">
             <End Role="Parish" EntitySet="Parish" />
             <End Role="Subscriber" EntitySet="Subscriber" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_Parish" Association="BillboxModel.Store.FK_User_Parish">
+          <AssociationSet Name="FK_User_Parish" Association="BBModel.Store.FK_User_Parish">
             <End Role="Parish" EntitySet="Parish" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_UserLevel" Association="BillboxModel.Store.FK_User_UserLevel">
+          <AssociationSet Name="FK_User_UserLevel" Association="BBModel.Store.FK_User_UserLevel">
             <End Role="UserLevel" EntitySet="UserLevel" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserRight_UserLevel_UserLevel" Association="BillboxModel.Store.FK_UserRight_UserLevel_UserLevel">
+          <AssociationSet Name="FK_UserRight_UserLevel_UserLevel" Association="BBModel.Store.FK_UserRight_UserLevel_UserLevel">
             <End Role="UserLevel" EntitySet="UserLevel" />
             <End Role="UserRight_UserLevel" EntitySet="UserRight_UserLevel" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserRight_UserLevel_UserRight" Association="BillboxModel.Store.FK_UserRight_UserLevel_UserRight">
+          <AssociationSet Name="FK_UserRight_UserLevel_UserRight" Association="BBModel.Store.FK_UserRight_UserLevel_UserRight">
             <End Role="UserRight" EntitySet="UserRight" />
             <End Role="UserRight_UserLevel" EntitySet="UserRight_UserLevel" />
           </AssociationSet>
@@ -219,6 +212,7 @@
             <PropertyRef Name="PaymentId" />
           </Key>
           <Property Name="PaymentId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SubscriberId" Type="int" Nullable="false" />
           <Property Name="InvoiceNumber" Type="int" Nullable="false" />
           <Property Name="AgentId" Type="int" Nullable="false" />
           <Property Name="AgentBranchId" Type="int" Nullable="false" />
@@ -236,16 +230,11 @@
           <Property Name="CaptureFieldId" Type="int" Nullable="false" />
           <Property Name="Value" Type="text" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'Billbox.dbo.PaymentInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="PaymentInfo">
           <Key>
-            <PropertyRef Name="PaymentId" />
-            <PropertyRef Name="PaymentTypeId" />
-            <PropertyRef Name="InvoiceNumber" />
-            <PropertyRef Name="Amount" />
+            <PropertyRef Name="PaymentInfoId" />
           </Key>
+          <Property Name="PaymentInfoId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="PaymentId" Type="int" Nullable="false" />
           <Property Name="PaymentTypeId" Type="int" Nullable="false" />
           <Property Name="InvoiceNumber" Type="int" Nullable="false" />
@@ -340,10 +329,10 @@
           <Property Name="LevelId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Agent_Parish">
-          <End Role="Parish" Type="BillboxModel.Store.Parish" Multiplicity="1">
+          <End Role="Parish" Type="BBModel.Store.Parish" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Agent" Type="BillboxModel.Store.Agent" Multiplicity="*" />
+          <End Role="Agent" Type="BBModel.Store.Agent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Parish">
               <PropertyRef Name="ParishId" />
@@ -354,10 +343,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AgentBranch_Agent">
-          <End Role="Agent" Type="BillboxModel.Store.Agent" Multiplicity="1">
+          <End Role="Agent" Type="BBModel.Store.Agent" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AgentBranch" Type="BillboxModel.Store.AgentBranch" Multiplicity="*" />
+          <End Role="AgentBranch" Type="BBModel.Store.AgentBranch" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Agent">
               <PropertyRef Name="AgentId" />
@@ -368,10 +357,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AgentUser_Agent">
-          <End Role="Agent" Type="BillboxModel.Store.Agent" Multiplicity="1">
+          <End Role="Agent" Type="BBModel.Store.Agent" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AgentUser" Type="BillboxModel.Store.AgentUser" Multiplicity="*" />
+          <End Role="AgentUser" Type="BBModel.Store.AgentUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Agent">
               <PropertyRef Name="AgentId" />
@@ -382,10 +371,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AgentUser_AgentUserLevel">
-          <End Role="AgentUserLevel" Type="BillboxModel.Store.AgentUserLevel" Multiplicity="1">
+          <End Role="AgentUserLevel" Type="BBModel.Store.AgentUserLevel" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AgentUser" Type="BillboxModel.Store.AgentUser" Multiplicity="*" />
+          <End Role="AgentUser" Type="BBModel.Store.AgentUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AgentUserLevel">
               <PropertyRef Name="LevelId" />
@@ -396,10 +385,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AgentUserRight_AgentUserLevel_AgentUserLevel">
-          <End Role="AgentUserLevel" Type="BillboxModel.Store.AgentUserLevel" Multiplicity="1">
+          <End Role="AgentUserLevel" Type="BBModel.Store.AgentUserLevel" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AgentUserRight_AgentUserLevel" Type="BillboxModel.Store.AgentUserRight_AgentUserLevel" Multiplicity="*" />
+          <End Role="AgentUserRight_AgentUserLevel" Type="BBModel.Store.AgentUserRight_AgentUserLevel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AgentUserLevel">
               <PropertyRef Name="LevelId" />
@@ -410,10 +399,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AgentUserRight_AgentUserLevel_AgentUserRight">
-          <End Role="AgentUserRight" Type="BillboxModel.Store.AgentUserRight" Multiplicity="1">
+          <End Role="AgentUserRight" Type="BBModel.Store.AgentUserRight" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AgentUserRight_AgentUserLevel" Type="BillboxModel.Store.AgentUserRight_AgentUserLevel" Multiplicity="*" />
+          <End Role="AgentUserRight_AgentUserLevel" Type="BBModel.Store.AgentUserRight_AgentUserLevel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AgentUserRight">
               <PropertyRef Name="RightId" />
@@ -424,10 +413,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CaptureField_Subscriber">
-          <End Role="Subscriber" Type="BillboxModel.Store.Subscriber" Multiplicity="1">
+          <End Role="Subscriber" Type="BBModel.Store.Subscriber" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="CaptureField" Type="BillboxModel.Store.CaptureField" Multiplicity="*" />
+          <End Role="CaptureField" Type="BBModel.Store.CaptureField" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Subscriber">
               <PropertyRef Name="SubscriberId" />
@@ -437,25 +426,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Payment_Agent">
-          <End Role="Agent" Type="BillboxModel.Store.Agent" Multiplicity="1">
+        <Association Name="FK_Payment_Subscriber">
+          <End Role="Subscriber" Type="BBModel.Store.Subscriber" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Payment" Type="BillboxModel.Store.Payment" Multiplicity="*" />
+          <End Role="Payment" Type="BBModel.Store.Payment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Agent">
-              <PropertyRef Name="AgentId" />
+            <Principal Role="Subscriber">
+              <PropertyRef Name="SubscriberId" />
             </Principal>
             <Dependent Role="Payment">
-              <PropertyRef Name="AgentId" />
+              <PropertyRef Name="SubscriberId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PaymentCaptureField_Payment">
-          <End Role="Payment" Type="BillboxModel.Store.Payment" Multiplicity="1">
+          <End Role="Payment" Type="BBModel.Store.Payment" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="PaymentCaptureField" Type="BillboxModel.Store.PaymentCaptureField" Multiplicity="*" />
+          <End Role="PaymentCaptureField" Type="BBModel.Store.PaymentCaptureField" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Payment">
               <PropertyRef Name="PaymentId" />
@@ -466,10 +455,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PaymentInfo_Payment">
-          <End Role="Payment" Type="BillboxModel.Store.Payment" Multiplicity="1">
+          <End Role="Payment" Type="BBModel.Store.Payment" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="PaymentInfo" Type="BillboxModel.Store.PaymentInfo" Multiplicity="*" />
+          <End Role="PaymentInfo" Type="BBModel.Store.PaymentInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Payment">
               <PropertyRef Name="PaymentId" />
@@ -480,10 +469,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PaymentInfo_PaymentType">
-          <End Role="PaymentType" Type="BillboxModel.Store.PaymentType" Multiplicity="1">
+          <End Role="PaymentType" Type="BBModel.Store.PaymentType" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="PaymentInfo" Type="BillboxModel.Store.PaymentInfo" Multiplicity="*" />
+          <End Role="PaymentInfo" Type="BBModel.Store.PaymentInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PaymentType">
               <PropertyRef Name="PaymentTypeId" />
@@ -494,10 +483,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PaymentPaymentTypeCaptureField_Payment">
-          <End Role="Payment" Type="BillboxModel.Store.Payment" Multiplicity="1">
+          <End Role="Payment" Type="BBModel.Store.Payment" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="PaymentPaymentTypeCaptureField" Type="BillboxModel.Store.PaymentPaymentTypeCaptureField" Multiplicity="*" />
+          <End Role="PaymentPaymentTypeCaptureField" Type="BBModel.Store.PaymentPaymentTypeCaptureField" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Payment">
               <PropertyRef Name="PaymentId" />
@@ -508,10 +497,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PaymentPaymentTypeCaptureField_PaymentCaptureField">
-          <End Role="PaymentTypeCaptureField" Type="BillboxModel.Store.PaymentTypeCaptureField" Multiplicity="1">
+          <End Role="PaymentTypeCaptureField" Type="BBModel.Store.PaymentTypeCaptureField" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="PaymentPaymentTypeCaptureField" Type="BillboxModel.Store.PaymentPaymentTypeCaptureField" Multiplicity="*" />
+          <End Role="PaymentPaymentTypeCaptureField" Type="BBModel.Store.PaymentPaymentTypeCaptureField" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PaymentTypeCaptureField">
               <PropertyRef Name="PaymentTypeCaptureFieldId" />
@@ -522,10 +511,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PaymentTypeCaptureField_PaymentType">
-          <End Role="PaymentType" Type="BillboxModel.Store.PaymentType" Multiplicity="1">
+          <End Role="PaymentType" Type="BBModel.Store.PaymentType" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="PaymentTypeCaptureField" Type="BillboxModel.Store.PaymentTypeCaptureField" Multiplicity="*" />
+          <End Role="PaymentTypeCaptureField" Type="BBModel.Store.PaymentTypeCaptureField" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PaymentType">
               <PropertyRef Name="PaymentTypeId" />
@@ -536,10 +525,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Subscriber_Parish">
-          <End Role="Parish" Type="BillboxModel.Store.Parish" Multiplicity="1">
+          <End Role="Parish" Type="BBModel.Store.Parish" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Subscriber" Type="BillboxModel.Store.Subscriber" Multiplicity="*" />
+          <End Role="Subscriber" Type="BBModel.Store.Subscriber" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Parish">
               <PropertyRef Name="ParishId" />
@@ -550,10 +539,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Parish">
-          <End Role="Parish" Type="BillboxModel.Store.Parish" Multiplicity="1">
+          <End Role="Parish" Type="BBModel.Store.Parish" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="User" Type="BillboxModel.Store.User" Multiplicity="*" />
+          <End Role="User" Type="BBModel.Store.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Parish">
               <PropertyRef Name="ParishId" />
@@ -564,10 +553,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_UserLevel">
-          <End Role="UserLevel" Type="BillboxModel.Store.UserLevel" Multiplicity="1">
+          <End Role="UserLevel" Type="BBModel.Store.UserLevel" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="User" Type="BillboxModel.Store.User" Multiplicity="*" />
+          <End Role="User" Type="BBModel.Store.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserLevel">
               <PropertyRef Name="LevelId" />
@@ -578,10 +567,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserRight_UserLevel_UserLevel">
-          <End Role="UserLevel" Type="BillboxModel.Store.UserLevel" Multiplicity="1">
+          <End Role="UserLevel" Type="BBModel.Store.UserLevel" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="UserRight_UserLevel" Type="BillboxModel.Store.UserRight_UserLevel" Multiplicity="*" />
+          <End Role="UserRight_UserLevel" Type="BBModel.Store.UserRight_UserLevel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserLevel">
               <PropertyRef Name="LevelId" />
@@ -592,10 +581,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserRight_UserLevel_UserRight">
-          <End Role="UserRight" Type="BillboxModel.Store.UserRight" Multiplicity="1">
+          <End Role="UserRight" Type="BBModel.Store.UserRight" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="UserRight_UserLevel" Type="BillboxModel.Store.UserRight_UserLevel" Multiplicity="*" />
+          <End Role="UserRight_UserLevel" Type="BBModel.Store.UserRight_UserLevel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserRight">
               <PropertyRef Name="RightId" />
@@ -609,93 +598,93 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="BillboxModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="BBEntities" p1:LazyLoadingEnabled="true">
-          <EntitySet Name="Agents" EntityType="BillboxModel.Agent" />
-          <EntitySet Name="AgentBranches" EntityType="BillboxModel.AgentBranch" />
-          <EntitySet Name="AgentSettings" EntityType="BillboxModel.AgentSetting" />
-          <EntitySet Name="AgentUsers" EntityType="BillboxModel.AgentUser" />
-          <EntitySet Name="AgentUserLevels" EntityType="BillboxModel.AgentUserLevel" />
-          <EntitySet Name="AgentUserRights" EntityType="BillboxModel.AgentUserRight" />
-          <EntitySet Name="CaptureFields" EntityType="BillboxModel.CaptureField" />
-          <EntitySet Name="LoginSessions" EntityType="BillboxModel.LoginSession" />
-          <EntitySet Name="Parishes" EntityType="BillboxModel.Parish" />
-          <EntitySet Name="Payments" EntityType="BillboxModel.Payment" />
-          <EntitySet Name="PaymentCaptureFields" EntityType="BillboxModel.PaymentCaptureField" />
-          <EntitySet Name="PaymentInfoes" EntityType="BillboxModel.PaymentInfo" />
-          <EntitySet Name="PaymentPaymentTypeCaptureFields" EntityType="BillboxModel.PaymentPaymentTypeCaptureField" />
-          <EntitySet Name="PaymentTypes" EntityType="BillboxModel.PaymentType" />
-          <EntitySet Name="PaymentTypeCaptureFields" EntityType="BillboxModel.PaymentTypeCaptureField" />
-          <EntitySet Name="Settings" EntityType="BillboxModel.Setting" />
-          <EntitySet Name="Subscribers" EntityType="BillboxModel.Subscriber" />
-          <EntitySet Name="Users" EntityType="BillboxModel.User" />
-          <EntitySet Name="UserLevels" EntityType="BillboxModel.UserLevel" />
-          <EntitySet Name="UserRights" EntityType="BillboxModel.UserRight" />
-          <AssociationSet Name="FK_Agent_Parish" Association="BillboxModel.FK_Agent_Parish">
+      <Schema Namespace="BBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Agents" EntityType="BBModel.Agent" />
+          <EntitySet Name="AgentBranches" EntityType="BBModel.AgentBranch" />
+          <EntitySet Name="AgentSettings" EntityType="BBModel.AgentSetting" />
+          <EntitySet Name="AgentUsers" EntityType="BBModel.AgentUser" />
+          <EntitySet Name="AgentUserLevels" EntityType="BBModel.AgentUserLevel" />
+          <EntitySet Name="AgentUserRights" EntityType="BBModel.AgentUserRight" />
+          <EntitySet Name="CaptureFields" EntityType="BBModel.CaptureField" />
+          <EntitySet Name="LoginSessions" EntityType="BBModel.LoginSession" />
+          <EntitySet Name="Parishes" EntityType="BBModel.Parish" />
+          <EntitySet Name="Payments" EntityType="BBModel.Payment" />
+          <EntitySet Name="PaymentCaptureFields" EntityType="BBModel.PaymentCaptureField" />
+          <EntitySet Name="PaymentInfoes" EntityType="BBModel.PaymentInfo" />
+          <EntitySet Name="PaymentPaymentTypeCaptureFields" EntityType="BBModel.PaymentPaymentTypeCaptureField" />
+          <EntitySet Name="PaymentTypes" EntityType="BBModel.PaymentType" />
+          <EntitySet Name="PaymentTypeCaptureFields" EntityType="BBModel.PaymentTypeCaptureField" />
+          <EntitySet Name="Settings" EntityType="BBModel.Setting" />
+          <EntitySet Name="Subscribers" EntityType="BBModel.Subscriber" />
+          <EntitySet Name="Users" EntityType="BBModel.User" />
+          <EntitySet Name="UserLevels" EntityType="BBModel.UserLevel" />
+          <EntitySet Name="UserRights" EntityType="BBModel.UserRight" />
+          <AssociationSet Name="FK_Agent_Parish" Association="BBModel.FK_Agent_Parish">
             <End Role="Parish" EntitySet="Parishes" />
             <End Role="Agent" EntitySet="Agents" />
           </AssociationSet>
-          <AssociationSet Name="FK_AgentBranch_Agent" Association="BillboxModel.FK_AgentBranch_Agent">
+          <AssociationSet Name="FK_AgentBranch_Agent" Association="BBModel.FK_AgentBranch_Agent">
             <End Role="Agent" EntitySet="Agents" />
             <End Role="AgentBranch" EntitySet="AgentBranches" />
           </AssociationSet>
-          <AssociationSet Name="FK_AgentUser_Agent" Association="BillboxModel.FK_AgentUser_Agent">
+          <AssociationSet Name="FK_AgentUser_Agent" Association="BBModel.FK_AgentUser_Agent">
             <End Role="Agent" EntitySet="Agents" />
             <End Role="AgentUser" EntitySet="AgentUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK_Payment_Agent" Association="BillboxModel.FK_Payment_Agent">
-            <End Role="Agent" EntitySet="Agents" />
-            <End Role="Payment" EntitySet="Payments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AgentUser_AgentUserLevel" Association="BillboxModel.FK_AgentUser_AgentUserLevel">
+          <AssociationSet Name="FK_AgentUser_AgentUserLevel" Association="BBModel.FK_AgentUser_AgentUserLevel">
             <End Role="AgentUserLevel" EntitySet="AgentUserLevels" />
             <End Role="AgentUser" EntitySet="AgentUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK_CaptureField_Subscriber" Association="BillboxModel.FK_CaptureField_Subscriber">
+          <AssociationSet Name="FK_CaptureField_Subscriber" Association="BBModel.FK_CaptureField_Subscriber">
             <End Role="Subscriber" EntitySet="Subscribers" />
             <End Role="CaptureField" EntitySet="CaptureFields" />
           </AssociationSet>
-          <AssociationSet Name="FK_Subscriber_Parish" Association="BillboxModel.FK_Subscriber_Parish">
+          <AssociationSet Name="FK_Subscriber_Parish" Association="BBModel.FK_Subscriber_Parish">
             <End Role="Parish" EntitySet="Parishes" />
             <End Role="Subscriber" EntitySet="Subscribers" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_Parish" Association="BillboxModel.FK_User_Parish">
+          <AssociationSet Name="FK_User_Parish" Association="BBModel.FK_User_Parish">
             <End Role="Parish" EntitySet="Parishes" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK_PaymentCaptureField_Payment" Association="BillboxModel.FK_PaymentCaptureField_Payment">
+          <AssociationSet Name="FK_Payment_Subscriber" Association="BBModel.FK_Payment_Subscriber">
+            <End Role="Subscriber" EntitySet="Subscribers" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentCaptureField_Payment" Association="BBModel.FK_PaymentCaptureField_Payment">
             <End Role="Payment" EntitySet="Payments" />
             <End Role="PaymentCaptureField" EntitySet="PaymentCaptureFields" />
           </AssociationSet>
-          <AssociationSet Name="FK_PaymentInfo_Payment" Association="BillboxModel.FK_PaymentInfo_Payment">
+          <AssociationSet Name="FK_PaymentInfo_Payment" Association="BBModel.FK_PaymentInfo_Payment">
             <End Role="Payment" EntitySet="Payments" />
             <End Role="PaymentInfo" EntitySet="PaymentInfoes" />
           </AssociationSet>
-          <AssociationSet Name="FK_PaymentPaymentTypeCaptureField_Payment" Association="BillboxModel.FK_PaymentPaymentTypeCaptureField_Payment">
+          <AssociationSet Name="FK_PaymentPaymentTypeCaptureField_Payment" Association="BBModel.FK_PaymentPaymentTypeCaptureField_Payment">
             <End Role="Payment" EntitySet="Payments" />
             <End Role="PaymentPaymentTypeCaptureField" EntitySet="PaymentPaymentTypeCaptureFields" />
           </AssociationSet>
-          <AssociationSet Name="FK_PaymentInfo_PaymentType" Association="BillboxModel.FK_PaymentInfo_PaymentType">
+          <AssociationSet Name="FK_PaymentInfo_PaymentType" Association="BBModel.FK_PaymentInfo_PaymentType">
             <End Role="PaymentType" EntitySet="PaymentTypes" />
             <End Role="PaymentInfo" EntitySet="PaymentInfoes" />
           </AssociationSet>
-          <AssociationSet Name="FK_PaymentPaymentTypeCaptureField_PaymentCaptureField" Association="BillboxModel.FK_PaymentPaymentTypeCaptureField_PaymentCaptureField">
+          <AssociationSet Name="FK_PaymentPaymentTypeCaptureField_PaymentCaptureField" Association="BBModel.FK_PaymentPaymentTypeCaptureField_PaymentCaptureField">
             <End Role="PaymentTypeCaptureField" EntitySet="PaymentTypeCaptureFields" />
             <End Role="PaymentPaymentTypeCaptureField" EntitySet="PaymentPaymentTypeCaptureFields" />
           </AssociationSet>
-          <AssociationSet Name="FK_PaymentTypeCaptureField_PaymentType" Association="BillboxModel.FK_PaymentTypeCaptureField_PaymentType">
+          <AssociationSet Name="FK_PaymentTypeCaptureField_PaymentType" Association="BBModel.FK_PaymentTypeCaptureField_PaymentType">
             <End Role="PaymentType" EntitySet="PaymentTypes" />
             <End Role="PaymentTypeCaptureField" EntitySet="PaymentTypeCaptureFields" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_UserLevel" Association="BillboxModel.FK_User_UserLevel">
+          <AssociationSet Name="FK_User_UserLevel" Association="BBModel.FK_User_UserLevel">
             <End Role="UserLevel" EntitySet="UserLevels" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="AgentUserRight_AgentUserLevel" Association="BillboxModel.AgentUserRight_AgentUserLevel">
+          <AssociationSet Name="AgentUserRight_AgentUserLevel" Association="BBModel.AgentUserRight_AgentUserLevel">
             <End Role="AgentUserLevel" EntitySet="AgentUserLevels" />
             <End Role="AgentUserRight" EntitySet="AgentUserRights" />
           </AssociationSet>
-          <AssociationSet Name="UserRight_UserLevel" Association="BillboxModel.UserRight_UserLevel">
+          <AssociationSet Name="UserRight_UserLevel" Association="BBModel.UserRight_UserLevel">
             <End Role="UserLevel" EntitySet="UserLevels" />
             <End Role="UserRight" EntitySet="UserRights" />
           </AssociationSet>
@@ -712,10 +701,9 @@
           <Property Name="ContactNumber" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="FaxNumber" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="Parish" Relationship="BillboxModel.FK_Agent_Parish" FromRole="Agent" ToRole="Parish" />
-          <NavigationProperty Name="AgentBranches" Relationship="BillboxModel.FK_AgentBranch_Agent" FromRole="Agent" ToRole="AgentBranch" />
-          <NavigationProperty Name="AgentUsers" Relationship="BillboxModel.FK_AgentUser_Agent" FromRole="Agent" ToRole="AgentUser" />
-          <NavigationProperty Name="Payments" Relationship="BillboxModel.FK_Payment_Agent" FromRole="Agent" ToRole="Payment" />
+          <NavigationProperty Name="Parish" Relationship="BBModel.FK_Agent_Parish" FromRole="Agent" ToRole="Parish" />
+          <NavigationProperty Name="AgentBranches" Relationship="BBModel.FK_AgentBranch_Agent" FromRole="Agent" ToRole="AgentBranch" />
+          <NavigationProperty Name="AgentUsers" Relationship="BBModel.FK_AgentUser_Agent" FromRole="Agent" ToRole="AgentUser" />
         </EntityType>
         <EntityType Name="AgentBranch">
           <Key>
@@ -730,7 +718,7 @@
           <Property Name="ContactNumber" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="FaxNumber" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="Agent" Relationship="BillboxModel.FK_AgentBranch_Agent" FromRole="AgentBranch" ToRole="Agent" />
+          <NavigationProperty Name="Agent" Relationship="BBModel.FK_AgentBranch_Agent" FromRole="AgentBranch" ToRole="Agent" />
         </EntityType>
         <EntityType Name="AgentSetting">
           <Key>
@@ -757,8 +745,8 @@
           <Property Name="ParishId" Type="Int32" Nullable="false" />
           <Property Name="ContactNumber" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="Agent" Relationship="BillboxModel.FK_AgentUser_Agent" FromRole="AgentUser" ToRole="Agent" />
-          <NavigationProperty Name="AgentUserLevel" Relationship="BillboxModel.FK_AgentUser_AgentUserLevel" FromRole="AgentUser" ToRole="AgentUserLevel" />
+          <NavigationProperty Name="Agent" Relationship="BBModel.FK_AgentUser_Agent" FromRole="AgentUser" ToRole="Agent" />
+          <NavigationProperty Name="AgentUserLevel" Relationship="BBModel.FK_AgentUser_AgentUserLevel" FromRole="AgentUser" ToRole="AgentUserLevel" />
         </EntityType>
         <EntityType Name="AgentUserLevel">
           <Key>
@@ -766,8 +754,8 @@
           </Key>
           <Property Name="LevelId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="AgentUsers" Relationship="BillboxModel.FK_AgentUser_AgentUserLevel" FromRole="AgentUserLevel" ToRole="AgentUser" />
-          <NavigationProperty Name="AgentUserRights" Relationship="BillboxModel.AgentUserRight_AgentUserLevel" FromRole="AgentUserLevel" ToRole="AgentUserRight" />
+          <NavigationProperty Name="AgentUsers" Relationship="BBModel.FK_AgentUser_AgentUserLevel" FromRole="AgentUserLevel" ToRole="AgentUser" />
+          <NavigationProperty Name="AgentUserRights" Relationship="BBModel.AgentUserRight_AgentUserLevel" FromRole="AgentUserLevel" ToRole="AgentUserRight" />
         </EntityType>
         <EntityType Name="AgentUserRight">
           <Key>
@@ -775,7 +763,7 @@
           </Key>
           <Property Name="RightId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="RightName" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="AgentUserLevels" Relationship="BillboxModel.AgentUserRight_AgentUserLevel" FromRole="AgentUserRight" ToRole="AgentUserLevel" />
+          <NavigationProperty Name="AgentUserLevels" Relationship="BBModel.AgentUserRight_AgentUserLevel" FromRole="AgentUserRight" ToRole="AgentUserLevel" />
         </EntityType>
         <EntityType Name="CaptureField">
           <Key>
@@ -786,7 +774,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="OrderNum" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Subscriber" Relationship="BillboxModel.FK_CaptureField_Subscriber" FromRole="CaptureField" ToRole="Subscriber" />
+          <NavigationProperty Name="Subscriber" Relationship="BBModel.FK_CaptureField_Subscriber" FromRole="CaptureField" ToRole="Subscriber" />
         </EntityType>
         <EntityType Name="LoginSession">
           <Key>
@@ -804,15 +792,16 @@
           </Key>
           <Property Name="ParishId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="Agents" Relationship="BillboxModel.FK_Agent_Parish" FromRole="Parish" ToRole="Agent" />
-          <NavigationProperty Name="Subscribers" Relationship="BillboxModel.FK_Subscriber_Parish" FromRole="Parish" ToRole="Subscriber" />
-          <NavigationProperty Name="Users" Relationship="BillboxModel.FK_User_Parish" FromRole="Parish" ToRole="User" />
+          <NavigationProperty Name="Agents" Relationship="BBModel.FK_Agent_Parish" FromRole="Parish" ToRole="Agent" />
+          <NavigationProperty Name="Subscribers" Relationship="BBModel.FK_Subscriber_Parish" FromRole="Parish" ToRole="Subscriber" />
+          <NavigationProperty Name="Users" Relationship="BBModel.FK_User_Parish" FromRole="Parish" ToRole="User" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
             <PropertyRef Name="PaymentId" />
           </Key>
           <Property Name="PaymentId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="SubscriberId" Type="Int32" Nullable="false" />
           <Property Name="InvoiceNumber" Type="Int32" Nullable="false" />
           <Property Name="AgentId" Type="Int32" Nullable="false" />
           <Property Name="AgentBranchId" Type="Int32" Nullable="false" />
@@ -820,10 +809,10 @@
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Time" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
           <Property Name="Status" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Agent" Relationship="BillboxModel.FK_Payment_Agent" FromRole="Payment" ToRole="Agent" />
-          <NavigationProperty Name="PaymentCaptureFields" Relationship="BillboxModel.FK_PaymentCaptureField_Payment" FromRole="Payment" ToRole="PaymentCaptureField" />
-          <NavigationProperty Name="PaymentInfoes" Relationship="BillboxModel.FK_PaymentInfo_Payment" FromRole="Payment" ToRole="PaymentInfo" />
-          <NavigationProperty Name="PaymentPaymentTypeCaptureFields" Relationship="BillboxModel.FK_PaymentPaymentTypeCaptureField_Payment" FromRole="Payment" ToRole="PaymentPaymentTypeCaptureField" />
+          <NavigationProperty Name="Subscriber" Relationship="BBModel.FK_Payment_Subscriber" FromRole="Payment" ToRole="Subscriber" />
+          <NavigationProperty Name="PaymentCaptureFields" Relationship="BBModel.FK_PaymentCaptureField_Payment" FromRole="Payment" ToRole="PaymentCaptureField" />
+          <NavigationProperty Name="PaymentInfoes" Relationship="BBModel.FK_PaymentInfo_Payment" FromRole="Payment" ToRole="PaymentInfo" />
+          <NavigationProperty Name="PaymentPaymentTypeCaptureFields" Relationship="BBModel.FK_PaymentPaymentTypeCaptureField_Payment" FromRole="Payment" ToRole="PaymentPaymentTypeCaptureField" />
         </EntityType>
         <EntityType Name="PaymentCaptureField">
           <Key>
@@ -833,21 +822,19 @@
           <Property Name="PaymentId" Type="Int32" Nullable="false" />
           <Property Name="CaptureFieldId" Type="Int32" Nullable="false" />
           <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="Payment" Relationship="BillboxModel.FK_PaymentCaptureField_Payment" FromRole="PaymentCaptureField" ToRole="Payment" />
+          <NavigationProperty Name="Payment" Relationship="BBModel.FK_PaymentCaptureField_Payment" FromRole="PaymentCaptureField" ToRole="Payment" />
         </EntityType>
         <EntityType Name="PaymentInfo">
           <Key>
-            <PropertyRef Name="PaymentId" />
-            <PropertyRef Name="PaymentTypeId" />
-            <PropertyRef Name="InvoiceNumber" />
-            <PropertyRef Name="Amount" />
+            <PropertyRef Name="PaymentInfoId" />
           </Key>
+          <Property Name="PaymentInfoId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="PaymentId" Type="Int32" Nullable="false" />
           <Property Name="PaymentTypeId" Type="Int32" Nullable="false" />
           <Property Name="InvoiceNumber" Type="Int32" Nullable="false" />
           <Property Name="Amount" Type="Double" Nullable="false" />
-          <NavigationProperty Name="Payment" Relationship="BillboxModel.FK_PaymentInfo_Payment" FromRole="PaymentInfo" ToRole="Payment" />
-          <NavigationProperty Name="PaymentType" Relationship="BillboxModel.FK_PaymentInfo_PaymentType" FromRole="PaymentInfo" ToRole="PaymentType" />
+          <NavigationProperty Name="Payment" Relationship="BBModel.FK_PaymentInfo_Payment" FromRole="PaymentInfo" ToRole="Payment" />
+          <NavigationProperty Name="PaymentType" Relationship="BBModel.FK_PaymentInfo_PaymentType" FromRole="PaymentInfo" ToRole="PaymentType" />
         </EntityType>
         <EntityType Name="PaymentPaymentTypeCaptureField">
           <Key>
@@ -857,8 +844,8 @@
           <Property Name="PaymentId" Type="Int32" Nullable="false" />
           <Property Name="PaymentTypeCaptureFieldId" Type="Int32" Nullable="false" />
           <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="Payment" Relationship="BillboxModel.FK_PaymentPaymentTypeCaptureField_Payment" FromRole="PaymentPaymentTypeCaptureField" ToRole="Payment" />
-          <NavigationProperty Name="PaymentTypeCaptureField" Relationship="BillboxModel.FK_PaymentPaymentTypeCaptureField_PaymentCaptureField" FromRole="PaymentPaymentTypeCaptureField" ToRole="PaymentTypeCaptureField" />
+          <NavigationProperty Name="Payment" Relationship="BBModel.FK_PaymentPaymentTypeCaptureField_Payment" FromRole="PaymentPaymentTypeCaptureField" ToRole="Payment" />
+          <NavigationProperty Name="PaymentTypeCaptureField" Relationship="BBModel.FK_PaymentPaymentTypeCaptureField_PaymentCaptureField" FromRole="PaymentPaymentTypeCaptureField" ToRole="PaymentTypeCaptureField" />
         </EntityType>
         <EntityType Name="PaymentType">
           <Key>
@@ -866,8 +853,8 @@
           </Key>
           <Property Name="PaymentTypeId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="PaymentInfoes" Relationship="BillboxModel.FK_PaymentInfo_PaymentType" FromRole="PaymentType" ToRole="PaymentInfo" />
-          <NavigationProperty Name="PaymentTypeCaptureFields" Relationship="BillboxModel.FK_PaymentTypeCaptureField_PaymentType" FromRole="PaymentType" ToRole="PaymentTypeCaptureField" />
+          <NavigationProperty Name="PaymentInfoes" Relationship="BBModel.FK_PaymentInfo_PaymentType" FromRole="PaymentType" ToRole="PaymentInfo" />
+          <NavigationProperty Name="PaymentTypeCaptureFields" Relationship="BBModel.FK_PaymentTypeCaptureField_PaymentType" FromRole="PaymentType" ToRole="PaymentTypeCaptureField" />
         </EntityType>
         <EntityType Name="PaymentTypeCaptureField">
           <Key>
@@ -878,8 +865,8 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="OrderNum" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="PaymentPaymentTypeCaptureFields" Relationship="BillboxModel.FK_PaymentPaymentTypeCaptureField_PaymentCaptureField" FromRole="PaymentTypeCaptureField" ToRole="PaymentPaymentTypeCaptureField" />
-          <NavigationProperty Name="PaymentType" Relationship="BillboxModel.FK_PaymentTypeCaptureField_PaymentType" FromRole="PaymentTypeCaptureField" ToRole="PaymentType" />
+          <NavigationProperty Name="PaymentPaymentTypeCaptureFields" Relationship="BBModel.FK_PaymentPaymentTypeCaptureField_PaymentCaptureField" FromRole="PaymentTypeCaptureField" ToRole="PaymentPaymentTypeCaptureField" />
+          <NavigationProperty Name="PaymentType" Relationship="BBModel.FK_PaymentTypeCaptureField_PaymentType" FromRole="PaymentTypeCaptureField" ToRole="PaymentType" />
         </EntityType>
         <EntityType Name="Setting">
           <Key>
@@ -902,8 +889,9 @@
           <Property Name="FaxNumber" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Website" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="CaptureFields" Relationship="BillboxModel.FK_CaptureField_Subscriber" FromRole="Subscriber" ToRole="CaptureField" />
-          <NavigationProperty Name="Parish" Relationship="BillboxModel.FK_Subscriber_Parish" FromRole="Subscriber" ToRole="Parish" />
+          <NavigationProperty Name="CaptureFields" Relationship="BBModel.FK_CaptureField_Subscriber" FromRole="Subscriber" ToRole="CaptureField" />
+          <NavigationProperty Name="Parish" Relationship="BBModel.FK_Subscriber_Parish" FromRole="Subscriber" ToRole="Parish" />
+          <NavigationProperty Name="Payments" Relationship="BBModel.FK_Payment_Subscriber" FromRole="Subscriber" ToRole="Payment" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -922,8 +910,8 @@
           <Property Name="ParishId" Type="Int32" Nullable="false" />
           <Property Name="ContactNumber" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="Parish" Relationship="BillboxModel.FK_User_Parish" FromRole="User" ToRole="Parish" />
-          <NavigationProperty Name="UserLevel" Relationship="BillboxModel.FK_User_UserLevel" FromRole="User" ToRole="UserLevel" />
+          <NavigationProperty Name="Parish" Relationship="BBModel.FK_User_Parish" FromRole="User" ToRole="Parish" />
+          <NavigationProperty Name="UserLevel" Relationship="BBModel.FK_User_UserLevel" FromRole="User" ToRole="UserLevel" />
         </EntityType>
         <EntityType Name="UserLevel">
           <Key>
@@ -931,8 +919,8 @@
           </Key>
           <Property Name="LevelId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="LevelName" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="Users" Relationship="BillboxModel.FK_User_UserLevel" FromRole="UserLevel" ToRole="User" />
-          <NavigationProperty Name="UserRights" Relationship="BillboxModel.UserRight_UserLevel" FromRole="UserLevel" ToRole="UserRight" />
+          <NavigationProperty Name="Users" Relationship="BBModel.FK_User_UserLevel" FromRole="UserLevel" ToRole="User" />
+          <NavigationProperty Name="UserRights" Relationship="BBModel.UserRight_UserLevel" FromRole="UserLevel" ToRole="UserRight" />
         </EntityType>
         <EntityType Name="UserRight">
           <Key>
@@ -940,13 +928,13 @@
           </Key>
           <Property Name="RightId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="RightName" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="UserLevels" Relationship="BillboxModel.UserRight_UserLevel" FromRole="UserRight" ToRole="UserLevel" />
+          <NavigationProperty Name="UserLevels" Relationship="BBModel.UserRight_UserLevel" FromRole="UserRight" ToRole="UserLevel" />
         </EntityType>
         <Association Name="FK_Agent_Parish">
-          <End Role="Parish" Type="BillboxModel.Parish" Multiplicity="1">
+          <End Role="Parish" Type="BBModel.Parish" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Agent" Type="BillboxModel.Agent" Multiplicity="*" />
+          <End Role="Agent" Type="BBModel.Agent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Parish">
               <PropertyRef Name="ParishId" />
@@ -957,10 +945,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AgentBranch_Agent">
-          <End Role="Agent" Type="BillboxModel.Agent" Multiplicity="1">
+          <End Role="Agent" Type="BBModel.Agent" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AgentBranch" Type="BillboxModel.AgentBranch" Multiplicity="*" />
+          <End Role="AgentBranch" Type="BBModel.AgentBranch" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Agent">
               <PropertyRef Name="AgentId" />
@@ -971,10 +959,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AgentUser_Agent">
-          <End Role="Agent" Type="BillboxModel.Agent" Multiplicity="1">
+          <End Role="Agent" Type="BBModel.Agent" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AgentUser" Type="BillboxModel.AgentUser" Multiplicity="*" />
+          <End Role="AgentUser" Type="BBModel.AgentUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Agent">
               <PropertyRef Name="AgentId" />
@@ -984,25 +972,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Payment_Agent">
-          <End Role="Agent" Type="BillboxModel.Agent" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Payment" Type="BillboxModel.Payment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Agent">
-              <PropertyRef Name="AgentId" />
-            </Principal>
-            <Dependent Role="Payment">
-              <PropertyRef Name="AgentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_AgentUser_AgentUserLevel">
-          <End Role="AgentUserLevel" Type="BillboxModel.AgentUserLevel" Multiplicity="1">
+          <End Role="AgentUserLevel" Type="BBModel.AgentUserLevel" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AgentUser" Type="BillboxModel.AgentUser" Multiplicity="*" />
+          <End Role="AgentUser" Type="BBModel.AgentUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AgentUserLevel">
               <PropertyRef Name="LevelId" />
@@ -1013,10 +987,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CaptureField_Subscriber">
-          <End Role="Subscriber" Type="BillboxModel.Subscriber" Multiplicity="1">
+          <End Role="Subscriber" Type="BBModel.Subscriber" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="CaptureField" Type="BillboxModel.CaptureField" Multiplicity="*" />
+          <End Role="CaptureField" Type="BBModel.CaptureField" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Subscriber">
               <PropertyRef Name="SubscriberId" />
@@ -1027,10 +1001,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Subscriber_Parish">
-          <End Role="Parish" Type="BillboxModel.Parish" Multiplicity="1">
+          <End Role="Parish" Type="BBModel.Parish" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Subscriber" Type="BillboxModel.Subscriber" Multiplicity="*" />
+          <End Role="Subscriber" Type="BBModel.Subscriber" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Parish">
               <PropertyRef Name="ParishId" />
@@ -1041,10 +1015,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Parish">
-          <End Role="Parish" Type="BillboxModel.Parish" Multiplicity="1">
+          <End Role="Parish" Type="BBModel.Parish" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="User" Type="BillboxModel.User" Multiplicity="*" />
+          <End Role="User" Type="BBModel.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Parish">
               <PropertyRef Name="ParishId" />
@@ -1054,11 +1028,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PaymentCaptureField_Payment">
-          <End Role="Payment" Type="BillboxModel.Payment" Multiplicity="1">
+        <Association Name="FK_Payment_Subscriber">
+          <End Role="Subscriber" Type="BBModel.Subscriber" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="PaymentCaptureField" Type="BillboxModel.PaymentCaptureField" Multiplicity="*" />
+          <End Role="Payment" Type="BBModel.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscriber">
+              <PropertyRef Name="SubscriberId" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="SubscriberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentCaptureField_Payment">
+          <End Role="Payment" Type="BBModel.Payment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PaymentCaptureField" Type="BBModel.PaymentCaptureField" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Payment">
               <PropertyRef Name="PaymentId" />
@@ -1069,10 +1057,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PaymentInfo_Payment">
-          <End Role="Payment" Type="BillboxModel.Payment" Multiplicity="1">
+          <End Role="Payment" Type="BBModel.Payment" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="PaymentInfo" Type="BillboxModel.PaymentInfo" Multiplicity="*" />
+          <End Role="PaymentInfo" Type="BBModel.PaymentInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Payment">
               <PropertyRef Name="PaymentId" />
@@ -1083,10 +1071,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PaymentPaymentTypeCaptureField_Payment">
-          <End Role="Payment" Type="BillboxModel.Payment" Multiplicity="1">
+          <End Role="Payment" Type="BBModel.Payment" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="PaymentPaymentTypeCaptureField" Type="BillboxModel.PaymentPaymentTypeCaptureField" Multiplicity="*" />
+          <End Role="PaymentPaymentTypeCaptureField" Type="BBModel.PaymentPaymentTypeCaptureField" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Payment">
               <PropertyRef Name="PaymentId" />
@@ -1097,10 +1085,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PaymentInfo_PaymentType">
-          <End Role="PaymentType" Type="BillboxModel.PaymentType" Multiplicity="1">
+          <End Role="PaymentType" Type="BBModel.PaymentType" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="PaymentInfo" Type="BillboxModel.PaymentInfo" Multiplicity="*" />
+          <End Role="PaymentInfo" Type="BBModel.PaymentInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PaymentType">
               <PropertyRef Name="PaymentTypeId" />
@@ -1111,10 +1099,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PaymentPaymentTypeCaptureField_PaymentCaptureField">
-          <End Role="PaymentTypeCaptureField" Type="BillboxModel.PaymentTypeCaptureField" Multiplicity="1">
+          <End Role="PaymentTypeCaptureField" Type="BBModel.PaymentTypeCaptureField" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="PaymentPaymentTypeCaptureField" Type="BillboxModel.PaymentPaymentTypeCaptureField" Multiplicity="*" />
+          <End Role="PaymentPaymentTypeCaptureField" Type="BBModel.PaymentPaymentTypeCaptureField" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PaymentTypeCaptureField">
               <PropertyRef Name="PaymentTypeCaptureFieldId" />
@@ -1125,10 +1113,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PaymentTypeCaptureField_PaymentType">
-          <End Role="PaymentType" Type="BillboxModel.PaymentType" Multiplicity="1">
+          <End Role="PaymentType" Type="BBModel.PaymentType" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="PaymentTypeCaptureField" Type="BillboxModel.PaymentTypeCaptureField" Multiplicity="*" />
+          <End Role="PaymentTypeCaptureField" Type="BBModel.PaymentTypeCaptureField" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PaymentType">
               <PropertyRef Name="PaymentTypeId" />
@@ -1139,10 +1127,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_UserLevel">
-          <End Role="UserLevel" Type="BillboxModel.UserLevel" Multiplicity="1">
+          <End Role="UserLevel" Type="BBModel.UserLevel" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="User" Type="BillboxModel.User" Multiplicity="*" />
+          <End Role="User" Type="BBModel.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserLevel">
               <PropertyRef Name="LevelId" />
@@ -1153,21 +1141,21 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="AgentUserRight_AgentUserLevel">
-          <End Role="AgentUserLevel" Type="BillboxModel.AgentUserLevel" Multiplicity="*" />
-          <End Role="AgentUserRight" Type="BillboxModel.AgentUserRight" Multiplicity="*" />
+          <End Role="AgentUserLevel" Type="BBModel.AgentUserLevel" Multiplicity="*" />
+          <End Role="AgentUserRight" Type="BBModel.AgentUserRight" Multiplicity="*" />
         </Association>
         <Association Name="UserRight_UserLevel">
-          <End Role="UserLevel" Type="BillboxModel.UserLevel" Multiplicity="*" />
-          <End Role="UserRight" Type="BillboxModel.UserRight" Multiplicity="*" />
+          <End Role="UserLevel" Type="BBModel.UserLevel" Multiplicity="*" />
+          <End Role="UserRight" Type="BBModel.UserRight" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BillboxModelStoreContainer" CdmEntityContainer="BBEntities">
+        <EntityContainerMapping StorageEntityContainer="BBModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="Agents">
-            <EntityTypeMapping TypeName="BillboxModel.Agent">
+            <EntityTypeMapping TypeName="BBModel.Agent">
               <MappingFragment StoreEntitySet="Agent">
                 <ScalarProperty Name="AgentId" ColumnName="AgentId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1181,7 +1169,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AgentBranches">
-            <EntityTypeMapping TypeName="BillboxModel.AgentBranch">
+            <EntityTypeMapping TypeName="BBModel.AgentBranch">
               <MappingFragment StoreEntitySet="AgentBranch">
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="AgentId" ColumnName="AgentId" />
@@ -1196,7 +1184,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AgentSettings">
-            <EntityTypeMapping TypeName="BillboxModel.AgentSetting">
+            <EntityTypeMapping TypeName="BBModel.AgentSetting">
               <MappingFragment StoreEntitySet="AgentSettings">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
@@ -1204,7 +1192,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AgentUsers">
-            <EntityTypeMapping TypeName="BillboxModel.AgentUser">
+            <EntityTypeMapping TypeName="BBModel.AgentUser">
               <MappingFragment StoreEntitySet="AgentUser">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="AgentId" ColumnName="AgentId" />
@@ -1224,7 +1212,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AgentUserLevels">
-            <EntityTypeMapping TypeName="BillboxModel.AgentUserLevel">
+            <EntityTypeMapping TypeName="BBModel.AgentUserLevel">
               <MappingFragment StoreEntitySet="AgentUserLevel">
                 <ScalarProperty Name="LevelId" ColumnName="LevelId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1232,7 +1220,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AgentUserRights">
-            <EntityTypeMapping TypeName="BillboxModel.AgentUserRight">
+            <EntityTypeMapping TypeName="BBModel.AgentUserRight">
               <MappingFragment StoreEntitySet="AgentUserRight">
                 <ScalarProperty Name="RightId" ColumnName="RightId" />
                 <ScalarProperty Name="RightName" ColumnName="RightName" />
@@ -1240,7 +1228,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CaptureFields">
-            <EntityTypeMapping TypeName="BillboxModel.CaptureField">
+            <EntityTypeMapping TypeName="BBModel.CaptureField">
               <MappingFragment StoreEntitySet="CaptureField">
                 <ScalarProperty Name="CaptureFieldId" ColumnName="CaptureFieldId" />
                 <ScalarProperty Name="SubscriberId" ColumnName="SubscriberId" />
@@ -1251,7 +1239,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoginSessions">
-            <EntityTypeMapping TypeName="BillboxModel.LoginSession">
+            <EntityTypeMapping TypeName="BBModel.LoginSession">
               <MappingFragment StoreEntitySet="LoginSession">
                 <ScalarProperty Name="SessionId" ColumnName="SessionId" />
                 <ScalarProperty Name="UserType" ColumnName="UserType" />
@@ -1262,7 +1250,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Parishes">
-            <EntityTypeMapping TypeName="BillboxModel.Parish">
+            <EntityTypeMapping TypeName="BBModel.Parish">
               <MappingFragment StoreEntitySet="Parish">
                 <ScalarProperty Name="ParishId" ColumnName="ParishId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1270,9 +1258,10 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Payments">
-            <EntityTypeMapping TypeName="BillboxModel.Payment">
+            <EntityTypeMapping TypeName="BBModel.Payment">
               <MappingFragment StoreEntitySet="Payment">
                 <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+                <ScalarProperty Name="SubscriberId" ColumnName="SubscriberId" />
                 <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
                 <ScalarProperty Name="AgentId" ColumnName="AgentId" />
                 <ScalarProperty Name="AgentBranchId" ColumnName="AgentBranchId" />
@@ -1284,7 +1273,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PaymentCaptureFields">
-            <EntityTypeMapping TypeName="BillboxModel.PaymentCaptureField">
+            <EntityTypeMapping TypeName="BBModel.PaymentCaptureField">
               <MappingFragment StoreEntitySet="PaymentCaptureField">
                 <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
                 <ScalarProperty Name="CaptureFieldId" ColumnName="CaptureFieldId" />
@@ -1293,8 +1282,9 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PaymentInfoes">
-            <EntityTypeMapping TypeName="BillboxModel.PaymentInfo">
+            <EntityTypeMapping TypeName="BBModel.PaymentInfo">
               <MappingFragment StoreEntitySet="PaymentInfo">
+                <ScalarProperty Name="PaymentInfoId" ColumnName="PaymentInfoId" />
                 <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
                 <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
                 <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
@@ -1303,7 +1293,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PaymentPaymentTypeCaptureFields">
-            <EntityTypeMapping TypeName="BillboxModel.PaymentPaymentTypeCaptureField">
+            <EntityTypeMapping TypeName="BBModel.PaymentPaymentTypeCaptureField">
               <MappingFragment StoreEntitySet="PaymentPaymentTypeCaptureField">
                 <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
                 <ScalarProperty Name="PaymentTypeCaptureFieldId" ColumnName="PaymentTypeCaptureFieldId" />
@@ -1312,7 +1302,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PaymentTypes">
-            <EntityTypeMapping TypeName="BillboxModel.PaymentType">
+            <EntityTypeMapping TypeName="BBModel.PaymentType">
               <MappingFragment StoreEntitySet="PaymentType">
                 <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1320,7 +1310,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PaymentTypeCaptureFields">
-            <EntityTypeMapping TypeName="BillboxModel.PaymentTypeCaptureField">
+            <EntityTypeMapping TypeName="BBModel.PaymentTypeCaptureField">
               <MappingFragment StoreEntitySet="PaymentTypeCaptureField">
                 <ScalarProperty Name="PaymentTypeCaptureFieldId" ColumnName="PaymentTypeCaptureFieldId" />
                 <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
@@ -1331,7 +1321,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Settings">
-            <EntityTypeMapping TypeName="BillboxModel.Setting">
+            <EntityTypeMapping TypeName="BBModel.Setting">
               <MappingFragment StoreEntitySet="Settings">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
@@ -1339,7 +1329,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Subscribers">
-            <EntityTypeMapping TypeName="BillboxModel.Subscriber">
+            <EntityTypeMapping TypeName="BBModel.Subscriber">
               <MappingFragment StoreEntitySet="Subscriber">
                 <ScalarProperty Name="SubscriberId" ColumnName="SubscriberId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1355,7 +1345,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="BillboxModel.User">
+            <EntityTypeMapping TypeName="BBModel.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserLevelId" ColumnName="UserLevelId" />
@@ -1374,7 +1364,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserLevels">
-            <EntityTypeMapping TypeName="BillboxModel.UserLevel">
+            <EntityTypeMapping TypeName="BBModel.UserLevel">
               <MappingFragment StoreEntitySet="UserLevel">
                 <ScalarProperty Name="LevelId" ColumnName="LevelId" />
                 <ScalarProperty Name="LevelName" ColumnName="LevelName" />
@@ -1382,14 +1372,14 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserRights">
-            <EntityTypeMapping TypeName="BillboxModel.UserRight">
+            <EntityTypeMapping TypeName="BBModel.UserRight">
               <MappingFragment StoreEntitySet="UserRight">
                 <ScalarProperty Name="RightId" ColumnName="RightId" />
                 <ScalarProperty Name="RightName" ColumnName="RightName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AgentUserRight_AgentUserLevel" TypeName="BillboxModel.AgentUserRight_AgentUserLevel" StoreEntitySet="AgentUserRight_AgentUserLevel">
+          <AssociationSetMapping Name="AgentUserRight_AgentUserLevel" TypeName="BBModel.AgentUserRight_AgentUserLevel" StoreEntitySet="AgentUserRight_AgentUserLevel">
             <EndProperty Name="AgentUserLevel">
               <ScalarProperty Name="LevelId" ColumnName="LevelId" />
             </EndProperty>
@@ -1397,7 +1387,7 @@
               <ScalarProperty Name="RightId" ColumnName="RightId" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="UserRight_UserLevel" TypeName="BillboxModel.UserRight_UserLevel" StoreEntitySet="UserRight_UserLevel">
+          <AssociationSetMapping Name="UserRight_UserLevel" TypeName="BBModel.UserRight_UserLevel" StoreEntitySet="UserRight_UserLevel">
             <EndProperty Name="UserLevel">
               <ScalarProperty Name="LevelId" ColumnName="LevelId" />
             </EndProperty>

@@ -22,6 +22,7 @@ namespace Billbox.Models
         }
     
         public int PaymentId { get; set; }
+        public int SubscriberId { get; set; }
         public int InvoiceNumber { get; set; }
         public int AgentId { get; set; }
         public int AgentBranchId { get; set; }
@@ -30,7 +31,7 @@ namespace Billbox.Models
         public byte[] Time { get; set; }
         public int Status { get; set; }
     
-        public virtual Agent Agent { get; set; }
+        public virtual Subscriber Subscriber { get; set; }
         public virtual ICollection<PaymentCaptureField> PaymentCaptureFields { get; set; }
         public virtual ICollection<PaymentInfo> PaymentInfoes { get; set; }
         public virtual ICollection<PaymentPaymentTypeCaptureField> PaymentPaymentTypeCaptureFields { get; set; }

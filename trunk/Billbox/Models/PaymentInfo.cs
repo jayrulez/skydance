@@ -14,6 +14,7 @@ namespace Billbox.Models
     
     public partial class PaymentInfo
     {
+        public int PaymentInfoId { get; set; }
         public int PaymentId { get; set; }
         public int PaymentTypeId { get; set; }
         public int InvoiceNumber { get; set; }
