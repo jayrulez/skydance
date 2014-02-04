@@ -8,7 +8,7 @@ using Billbox.Models;
 
 namespace Billbox.Controllers
 {
-    public class DefaultController : Controller
+    public class HomeController : Controller
     {
         //
         // GET: /Default/
