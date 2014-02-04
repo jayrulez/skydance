@@ -36,12 +36,20 @@
             <End Role="Agent" EntitySet="Agent" />
             <End Role="AgentBranch" EntitySet="AgentBranch" />
           </AssociationSet>
+          <AssociationSet Name="FK_AgentBranch_Parish" Association="BBModel.Store.FK_AgentBranch_Parish">
+            <End Role="Parish" EntitySet="Parish" />
+            <End Role="AgentBranch" EntitySet="AgentBranch" />
+          </AssociationSet>
           <AssociationSet Name="FK_AgentUser_Agent" Association="BBModel.Store.FK_AgentUser_Agent">
             <End Role="Agent" EntitySet="Agent" />
             <End Role="AgentUser" EntitySet="AgentUser" />
           </AssociationSet>
           <AssociationSet Name="FK_AgentUser_AgentUserLevel" Association="BBModel.Store.FK_AgentUser_AgentUserLevel">
             <End Role="AgentUserLevel" EntitySet="AgentUserLevel" />
+            <End Role="AgentUser" EntitySet="AgentUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgentUser_Parish" Association="BBModel.Store.FK_AgentUser_Parish">
+            <End Role="Parish" EntitySet="Parish" />
             <End Role="AgentUser" EntitySet="AgentUser" />
           </AssociationSet>
           <AssociationSet Name="FK_AgentUserRight_AgentUserLevel_AgentUserLevel" Association="BBModel.Store.FK_AgentUserRight_AgentUserLevel_AgentUserLevel">
@@ -56,9 +64,25 @@
             <End Role="Subscriber" EntitySet="Subscriber" />
             <End Role="CaptureField" EntitySet="CaptureField" />
           </AssociationSet>
+          <AssociationSet Name="FK_Payment_Agent" Association="BBModel.Store.FK_Payment_Agent">
+            <End Role="Agent" EntitySet="Agent" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_AgentBranch" Association="BBModel.Store.FK_Payment_AgentBranch">
+            <End Role="AgentBranch" EntitySet="AgentBranch" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_AgentUser" Association="BBModel.Store.FK_Payment_AgentUser">
+            <End Role="AgentUser" EntitySet="AgentUser" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
           <AssociationSet Name="FK_Payment_Subscriber" Association="BBModel.Store.FK_Payment_Subscriber">
             <End Role="Subscriber" EntitySet="Subscriber" />
             <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentCaptureField_CaptureField" Association="BBModel.Store.FK_PaymentCaptureField_CaptureField">
+            <End Role="CaptureField" EntitySet="CaptureField" />
+            <End Role="PaymentCaptureField" EntitySet="PaymentCaptureField" />
           </AssociationSet>
           <AssociationSet Name="FK_PaymentCaptureField_Payment" Association="BBModel.Store.FK_PaymentCaptureField_Payment">
             <End Role="Payment" EntitySet="Payment" />
@@ -356,6 +380,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AgentBranch_Parish">
+          <End Role="Parish" Type="BBModel.Store.Parish" Multiplicity="1" />
+          <End Role="AgentBranch" Type="BBModel.Store.AgentBranch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parish">
+              <PropertyRef Name="ParishId" />
+            </Principal>
+            <Dependent Role="AgentBranch">
+              <PropertyRef Name="ParishId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AgentUser_Agent">
           <End Role="Agent" Type="BBModel.Store.Agent" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -381,6 +417,18 @@
             </Principal>
             <Dependent Role="AgentUser">
               <PropertyRef Name="AgentUserLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgentUser_Parish">
+          <End Role="Parish" Type="BBModel.Store.Parish" Multiplicity="1" />
+          <End Role="AgentUser" Type="BBModel.Store.AgentUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parish">
+              <PropertyRef Name="ParishId" />
+            </Principal>
+            <Dependent Role="AgentUser">
+              <PropertyRef Name="ParishId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -426,6 +474,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Payment_Agent">
+          <End Role="Agent" Type="BBModel.Store.Agent" Multiplicity="1" />
+          <End Role="Payment" Type="BBModel.Store.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="AgentId" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="AgentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_AgentBranch">
+          <End Role="AgentBranch" Type="BBModel.Store.AgentBranch" Multiplicity="1" />
+          <End Role="Payment" Type="BBModel.Store.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgentBranch">
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="AgentBranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_AgentUser">
+          <End Role="AgentUser" Type="BBModel.Store.AgentUser" Multiplicity="1" />
+          <End Role="Payment" Type="BBModel.Store.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgentUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="AgentUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Payment_Subscriber">
           <End Role="Subscriber" Type="BBModel.Store.Subscriber" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -437,6 +521,18 @@
             </Principal>
             <Dependent Role="Payment">
               <PropertyRef Name="SubscriberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentCaptureField_CaptureField">
+          <End Role="CaptureField" Type="BBModel.Store.CaptureField" Multiplicity="1" />
+          <End Role="PaymentCaptureField" Type="BBModel.Store.PaymentCaptureField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CaptureField">
+              <PropertyRef Name="CaptureFieldId" />
+            </Principal>
+            <Dependent Role="PaymentCaptureField">
+              <PropertyRef Name="CaptureFieldId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -632,13 +728,37 @@
             <End Role="Agent" EntitySet="Agents" />
             <End Role="AgentUser" EntitySet="AgentUsers" />
           </AssociationSet>
+          <AssociationSet Name="FK_Payment_Agent" Association="BBModel.FK_Payment_Agent">
+            <End Role="Agent" EntitySet="Agents" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgentBranch_Parish" Association="BBModel.FK_AgentBranch_Parish">
+            <End Role="Parish" EntitySet="Parishes" />
+            <End Role="AgentBranch" EntitySet="AgentBranches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_AgentBranch" Association="BBModel.FK_Payment_AgentBranch">
+            <End Role="AgentBranch" EntitySet="AgentBranches" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
           <AssociationSet Name="FK_AgentUser_AgentUserLevel" Association="BBModel.FK_AgentUser_AgentUserLevel">
             <End Role="AgentUserLevel" EntitySet="AgentUserLevels" />
             <End Role="AgentUser" EntitySet="AgentUsers" />
           </AssociationSet>
+          <AssociationSet Name="FK_AgentUser_Parish" Association="BBModel.FK_AgentUser_Parish">
+            <End Role="Parish" EntitySet="Parishes" />
+            <End Role="AgentUser" EntitySet="AgentUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_AgentUser" Association="BBModel.FK_Payment_AgentUser">
+            <End Role="AgentUser" EntitySet="AgentUsers" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
           <AssociationSet Name="FK_CaptureField_Subscriber" Association="BBModel.FK_CaptureField_Subscriber">
             <End Role="Subscriber" EntitySet="Subscribers" />
             <End Role="CaptureField" EntitySet="CaptureFields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentCaptureField_CaptureField" Association="BBModel.FK_PaymentCaptureField_CaptureField">
+            <End Role="CaptureField" EntitySet="CaptureFields" />
+            <End Role="PaymentCaptureField" EntitySet="PaymentCaptureFields" />
           </AssociationSet>
           <AssociationSet Name="FK_Subscriber_Parish" Association="BBModel.FK_Subscriber_Parish">
             <End Role="Parish" EntitySet="Parishes" />
@@ -704,6 +824,7 @@
           <NavigationProperty Name="Parish" Relationship="BBModel.FK_Agent_Parish" FromRole="Agent" ToRole="Parish" />
           <NavigationProperty Name="AgentBranches" Relationship="BBModel.FK_AgentBranch_Agent" FromRole="Agent" ToRole="AgentBranch" />
           <NavigationProperty Name="AgentUsers" Relationship="BBModel.FK_AgentUser_Agent" FromRole="Agent" ToRole="AgentUser" />
+          <NavigationProperty Name="Payments" Relationship="BBModel.FK_Payment_Agent" FromRole="Agent" ToRole="Payment" />
         </EntityType>
         <EntityType Name="AgentBranch">
           <Key>
@@ -719,6 +840,8 @@
           <Property Name="FaxNumber" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Agent" Relationship="BBModel.FK_AgentBranch_Agent" FromRole="AgentBranch" ToRole="Agent" />
+          <NavigationProperty Name="Parish" Relationship="BBModel.FK_AgentBranch_Parish" FromRole="AgentBranch" ToRole="Parish" />
+          <NavigationProperty Name="Payments" Relationship="BBModel.FK_Payment_AgentBranch" FromRole="AgentBranch" ToRole="Payment" />
         </EntityType>
         <EntityType Name="AgentSetting">
           <Key>
@@ -747,6 +870,8 @@
           <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Agent" Relationship="BBModel.FK_AgentUser_Agent" FromRole="AgentUser" ToRole="Agent" />
           <NavigationProperty Name="AgentUserLevel" Relationship="BBModel.FK_AgentUser_AgentUserLevel" FromRole="AgentUser" ToRole="AgentUserLevel" />
+          <NavigationProperty Name="Parish" Relationship="BBModel.FK_AgentUser_Parish" FromRole="AgentUser" ToRole="Parish" />
+          <NavigationProperty Name="Payments" Relationship="BBModel.FK_Payment_AgentUser" FromRole="AgentUser" ToRole="Payment" />
         </EntityType>
         <EntityType Name="AgentUserLevel">
           <Key>
@@ -775,6 +900,7 @@
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="OrderNum" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Subscriber" Relationship="BBModel.FK_CaptureField_Subscriber" FromRole="CaptureField" ToRole="Subscriber" />
+          <NavigationProperty Name="PaymentCaptureFields" Relationship="BBModel.FK_PaymentCaptureField_CaptureField" FromRole="CaptureField" ToRole="PaymentCaptureField" />
         </EntityType>
         <EntityType Name="LoginSession">
           <Key>
@@ -793,6 +919,8 @@
           <Property Name="ParishId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Agents" Relationship="BBModel.FK_Agent_Parish" FromRole="Parish" ToRole="Agent" />
+          <NavigationProperty Name="AgentBranches" Relationship="BBModel.FK_AgentBranch_Parish" FromRole="Parish" ToRole="AgentBranch" />
+          <NavigationProperty Name="AgentUsers" Relationship="BBModel.FK_AgentUser_Parish" FromRole="Parish" ToRole="AgentUser" />
           <NavigationProperty Name="Subscribers" Relationship="BBModel.FK_Subscriber_Parish" FromRole="Parish" ToRole="Subscriber" />
           <NavigationProperty Name="Users" Relationship="BBModel.FK_User_Parish" FromRole="Parish" ToRole="User" />
         </EntityType>
@@ -809,6 +937,9 @@
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Time" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
           <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Agent" Relationship="BBModel.FK_Payment_Agent" FromRole="Payment" ToRole="Agent" />
+          <NavigationProperty Name="AgentBranch" Relationship="BBModel.FK_Payment_AgentBranch" FromRole="Payment" ToRole="AgentBranch" />
+          <NavigationProperty Name="AgentUser" Relationship="BBModel.FK_Payment_AgentUser" FromRole="Payment" ToRole="AgentUser" />
           <NavigationProperty Name="Subscriber" Relationship="BBModel.FK_Payment_Subscriber" FromRole="Payment" ToRole="Subscriber" />
           <NavigationProperty Name="PaymentCaptureFields" Relationship="BBModel.FK_PaymentCaptureField_Payment" FromRole="Payment" ToRole="PaymentCaptureField" />
           <NavigationProperty Name="PaymentInfoes" Relationship="BBModel.FK_PaymentInfo_Payment" FromRole="Payment" ToRole="PaymentInfo" />
@@ -822,6 +953,7 @@
           <Property Name="PaymentId" Type="Int32" Nullable="false" />
           <Property Name="CaptureFieldId" Type="Int32" Nullable="false" />
           <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="CaptureField" Relationship="BBModel.FK_PaymentCaptureField_CaptureField" FromRole="PaymentCaptureField" ToRole="CaptureField" />
           <NavigationProperty Name="Payment" Relationship="BBModel.FK_PaymentCaptureField_Payment" FromRole="PaymentCaptureField" ToRole="Payment" />
         </EntityType>
         <EntityType Name="PaymentInfo">
@@ -972,6 +1104,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Payment_Agent">
+          <End Role="Agent" Type="BBModel.Agent" Multiplicity="1" />
+          <End Role="Payment" Type="BBModel.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="AgentId" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="AgentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgentBranch_Parish">
+          <End Role="Parish" Type="BBModel.Parish" Multiplicity="1" />
+          <End Role="AgentBranch" Type="BBModel.AgentBranch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parish">
+              <PropertyRef Name="ParishId" />
+            </Principal>
+            <Dependent Role="AgentBranch">
+              <PropertyRef Name="ParishId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_AgentBranch">
+          <End Role="AgentBranch" Type="BBModel.AgentBranch" Multiplicity="1" />
+          <End Role="Payment" Type="BBModel.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgentBranch">
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="AgentBranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AgentUser_AgentUserLevel">
           <End Role="AgentUserLevel" Type="BBModel.AgentUserLevel" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -986,6 +1154,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AgentUser_Parish">
+          <End Role="Parish" Type="BBModel.Parish" Multiplicity="1" />
+          <End Role="AgentUser" Type="BBModel.AgentUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parish">
+              <PropertyRef Name="ParishId" />
+            </Principal>
+            <Dependent Role="AgentUser">
+              <PropertyRef Name="ParishId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_AgentUser">
+          <End Role="AgentUser" Type="BBModel.AgentUser" Multiplicity="1" />
+          <End Role="Payment" Type="BBModel.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgentUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="AgentUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CaptureField_Subscriber">
           <End Role="Subscriber" Type="BBModel.Subscriber" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -997,6 +1189,18 @@
             </Principal>
             <Dependent Role="CaptureField">
               <PropertyRef Name="SubscriberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentCaptureField_CaptureField">
+          <End Role="CaptureField" Type="BBModel.CaptureField" Multiplicity="1" />
+          <End Role="PaymentCaptureField" Type="BBModel.PaymentCaptureField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CaptureField">
+              <PropertyRef Name="CaptureFieldId" />
+            </Principal>
+            <Dependent Role="PaymentCaptureField">
+              <PropertyRef Name="CaptureFieldId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

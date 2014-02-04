@@ -18,6 +18,7 @@ namespace Billbox.Models
         public int CaptureFieldId { get; set; }
         public string Value { get; set; }
     
+        public virtual CaptureField CaptureField { get; set; }
         public virtual Payment Payment { get; set; }
     }
 }

@@ -31,6 +31,9 @@ namespace Billbox.Models
         public byte[] Time { get; set; }
         public int Status { get; set; }
     
+        public virtual Agent Agent { get; set; }
+        public virtual AgentBranch AgentBranch { get; set; }
+        public virtual AgentUser AgentUser { get; set; }
         public virtual Subscriber Subscriber { get; set; }
         public virtual ICollection<PaymentCaptureField> PaymentCaptureFields { get; set; }
         public virtual ICollection<PaymentInfo> PaymentInfoes { get; set; }

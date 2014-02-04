@@ -14,6 +14,11 @@ namespace Billbox.Models
     
     public partial class AgentUser
     {
+        public AgentUser()
+        {
+            this.Payments = new HashSet<Payment>();
+        }
+    
         public int UserId { get; set; }
         public int AgentId { get; set; }
         public int AgentUserLevelId { get; set; }
@@ -31,5 +36,7 @@ namespace Billbox.Models
     
         public virtual Agent Agent { get; set; }
         public virtual AgentUserLevel AgentUserLevel { get; set; }
+        public virtual Parish Parish { get; set; }
+        public virtual ICollection<Payment> Payments { get; set; }
     }
 }

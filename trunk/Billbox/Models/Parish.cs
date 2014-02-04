@@ -17,6 +17,8 @@ namespace Billbox.Models
         public Parish()
         {
             this.Agents = new HashSet<Agent>();
+            this.AgentBranches = new HashSet<AgentBranch>();
+            this.AgentUsers = new HashSet<AgentUser>();
             this.Subscribers = new HashSet<Subscriber>();
             this.Users = new HashSet<User>();
         }
@@ -25,6 +27,8 @@ namespace Billbox.Models
         public string Name { get; set; }
     
         public virtual ICollection<Agent> Agents { get; set; }
+        public virtual ICollection<AgentBranch> AgentBranches { get; set; }
+        public virtual ICollection<AgentUser> AgentUsers { get; set; }
         public virtual ICollection<Subscriber> Subscribers { get; set; }
         public virtual ICollection<User> Users { get; set; }
     }
