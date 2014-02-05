@@ -4,11 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Billbox.Models;
+using Billbox.Filters;
 using WebMatrix.WebData;
 
 namespace Billbox.Controllers
 {
     [Authorize]
+    [InitializeSimpleMembership]
     public class HomeController : Controller
     {
         //
