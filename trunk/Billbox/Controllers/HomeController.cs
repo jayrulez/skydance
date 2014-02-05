@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 using Billbox.Models;
+using WebMatrix.WebData;
 
 namespace Billbox.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         //
@@ -18,15 +19,18 @@ namespace Billbox.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(AgentUserLoginModel model)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.Autologin))
             {
                 return RedirectToAction("Index");
             }
@@ -35,6 +39,15 @@ namespace Billbox.Controllers
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
 
             return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
+        {
+            WebSecurity.Logout();
+
+            return RedirectToAction("Index", "Home");
         }
 
     }
