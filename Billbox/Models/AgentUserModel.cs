@@ -8,8 +8,23 @@ using System.Web.Security;
 
 namespace Billbox.Models
 {
-    public class AgentUserModel
+    public class AgentUsersContext : DbContext
     {
+        public AgentUsersContext()
+            : base("Entities")
+        {
+        }
+
+        public DbSet<AgentUser> AgentUsers { get; set; }
+    }
+
+    [Table("AgentUser")]
+    public class AgentUserAccount
+    {
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int UserId { get; set; }
+        public string Username { get; set; }
     }
 
     public class AgentUserLoginModel
