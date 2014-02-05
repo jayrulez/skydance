@@ -10,6 +10,7 @@ namespace Billbox.Common
         public ErrorCode Error { get; set; }
         public String ErrorMessage { get; set; }
         public T Result { get; set; }
+        public IList<T> Results { get; set; }
 
         public Boolean IsSuccessful 
         { 
