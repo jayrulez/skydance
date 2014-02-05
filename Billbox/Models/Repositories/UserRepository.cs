@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Configuration;
 using Billbox.Common;
+using System.Web.Configuration;
 
 namespace Billbox.Models
 {
@@ -39,7 +39,7 @@ namespace Billbox.Models
 
             return response;
         }
-        
+
         /// <summary>
         /// Add a user to the user repository
         /// </summary>
@@ -57,22 +57,22 @@ namespace Billbox.Models
                     var result = db.SaveChanges();
 
                     if (result == 0)
-                        response.Error = ErrorCode.Generic1; //to be changed
+                        response.Error = ErrorCode.DbError; //to be changed
                     else
                         response.Result = true;
                 }
-            }            
+            }
             catch (Exception ex)
             {
                 ex = ex.GetBaseException();
 
                 if (ex.Message.Contains("Violation of UNIQUE KEY constraint"))
                 {
-                    if (ex.Message.Contains(ConfigurationManager.AppSettings["UKViolation_EmailAddress"].ToString()))
+                    if (ex.Message.Contains(GetAppSetting("UKViolation_EmailAddress")))
                     {
                         response.Error = ErrorCode.DuplicateEmailAddress;
                     }
-                    else if (ex.Message.Contains(ConfigurationManager.AppSettings["UKViolation_Username"].ToString()))
+                    else if (ex.Message.Contains(GetAppSetting("UKViolation_Username")))
                     {
                         response.Error = ErrorCode.DuplicateUsername;
                     }
@@ -97,7 +97,7 @@ namespace Billbox.Models
 
             return response;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -115,10 +115,10 @@ namespace Billbox.Models
                     var entry = db.Entry(user);
                     entry.State = System.Data.EntityState.Modified;
 
-                    /*prevent accidental userid modification*/
-                    //entry.Property(e => e.UserId).IsModified = true;
-
-                    entry.Property(e => e.Name).IsModified = false;
+                    /*prevent modification on the following fields*/ 
+                    entry.Property(e => e.LoginStatus).IsModified = false;
+                    entry.Property(e => e.PasswordExpireAt).IsModified = false;
+                    entry.Property(e => e.Password).IsModified = false;
 
                     var result = db.SaveChanges();
 
@@ -134,11 +134,11 @@ namespace Billbox.Models
 
                 if (ex.Message.Contains("Violation of UNIQUE KEY constraint"))
                 {
-                    if (ex.Message.Contains(ConfigurationManager.AppSettings["UKViolation_EmailAddress"].ToString()))
+                    if (ex.Message.Contains(GetAppSetting("UKViolation_EmailAddress")))
                     {
                         response.Error = ErrorCode.DuplicateEmailAddress;
                     }
-                    else if (ex.Message.Contains(ConfigurationManager.AppSettings["UKViolation_Username"].ToString()))
+                    else if (ex.Message.Contains(GetAppSetting("UKViolation_Username")))
                     {
                         response.Error = ErrorCode.DuplicateUsername;
                     }
@@ -163,7 +163,7 @@ namespace Billbox.Models
 
             return response;
         }
-        
+
         /// <summary>
         /// Returns the user level
         /// </summary>
@@ -206,7 +206,7 @@ namespace Billbox.Models
             {
                 using (Entities db = new Entities())
                 {
-                    
+
                 }
             }
             catch
@@ -215,6 +215,111 @@ namespace Billbox.Models
             }
 
             return response;
+        }
+
+        /// <summary>
+        /// Updates a user's password with a new value
+        /// </summary>
+        /// <param name="userId">the user's unique identifier</param>
+        /// <param name="password">the new password value</param>
+        /// <returns></returns>
+        public Response<Boolean> UpdateUserPassword(int userId, string password)
+        {
+            Response<Boolean> response = new Response<bool>();
+
+            try
+            {
+                using (Entities db = new Entities())
+                {
+                    var user = db.Users.Find(userId);
+                    if (user != null)
+                    {
+                        user.Password = password;
+
+                        int passwordExpirationPeriod;  //number of days
+                        bool isSuccessful = Int32.TryParse(GetAppSetting("PasswordExpirationPeriod"), out passwordExpirationPeriod);
+
+                        user.PasswordExpireAt = (isSuccessful) ? DateTime.Now.AddDays(passwordExpirationPeriod) : DateTime.Now.AddDays(30);
+
+                        int result = db.SaveChanges();
+
+                        if (result > 0)
+                            response.Result = true;
+                        else
+                            response.Error = ErrorCode.DbError;
+                    }
+                    else
+                    {
+                        response.Error = ErrorCode.UserNotFound;
+                    }
+                }
+            }
+            catch 
+            {
+                response.Error = ErrorCode.DbError;
+            }
+
+            return response;
+        }
+
+        /// <summary>
+        /// Update the user login status
+        /// </summary>
+        /// <param name="userId">the user unique identifier</param>
+        /// <param name="loginStatus">the user login status</param>
+        /// <returns></returns>
+        public Response<Boolean> UpdateUserLoginStatus(int userId, int loginStatus)
+        {
+            Response<Boolean> response = new Response<bool>();
+
+            try
+            {
+                using (Entities db = new Entities())
+                {
+                    var user = db.Users.Find(userId);
+
+                    if (user != null)
+                    {
+                        user.LoginStatus = loginStatus;
+
+                        int result = db.SaveChanges();
+
+                        if (result > 0)
+                            response.Result = true;
+                        else
+                            response.Error = ErrorCode.DbError;
+                    }
+                    else
+                    {
+                        response.Error = ErrorCode.UserNotFound;
+                    }
+                }
+            }
+            catch
+            {
+                response.Error = ErrorCode.DbError;
+            }
+
+            return response;
+        }
+        
+        private string GetAppSetting(string key)
+        {
+            string value = null;
+
+            if (string.IsNullOrEmpty(key))
+                return null;
+
+            try
+            {
+                value = WebConfigurationManager.AppSettings[key];
+            }
+            catch
+            {
+                return null;
+            }
+
+            return value;
         }
     }
 }
