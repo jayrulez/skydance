@@ -5,6 +5,10 @@ using System.Web;
 
 namespace Billbox.Common
 {
+    /// <summary>
+    /// Responsible for transporting
+    /// </summary>
+    /// <typeparam name="T">the generic typename</typeparam>
     public class Response<T>
     {
         public ErrorCode Error { get; set; }

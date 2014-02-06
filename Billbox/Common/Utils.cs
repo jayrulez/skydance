@@ -7,7 +7,7 @@ namespace Billbox.Common
 {
     public enum ErrorCode
     {
-        NoError, UserNotFound, DuplicateEmailAddress, DuplicateUsername, 
+        NoError, UserNotFound, DuplicateEmailAddress, DuplicateUsername, NoResultsFound,
         FKError,
         DbError, DBEntityValidationError, SysError, Generic1, Generic2
 
