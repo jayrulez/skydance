@@ -194,20 +194,28 @@ namespace Billbox.Models
         }
 
         /// <summary>
-        /// 
+        /// Return all the rights belonging to the specified user
         /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        public Response<UserLevel> GetUserRights(int userId)
+        /// <param name="userId">the user unique identifier</param>
+        /// <returns>Response</returns>
+        public Response<UserRight> GetUserRights(int userId)
         {
-            Response<UserLevel> response = new Response<UserLevel>();
+            Response<UserRight> response = new Response<UserRight>();
 
             try
             {
                 using (Entities db = new Entities())
                 {
-
+                    var userRights = db.Users.Find(userId).UserLevel.UserRights.ToList();
+                    if (userRights.Count > 0)
+                        response.Results = userRights;
+                    else
+                        response.Error = ErrorCode.NoResultsFound;
                 }
+            }
+            catch(NullReferenceException)
+            {
+                response.Error = ErrorCode.UserNotFound;
             }
             catch
             {
