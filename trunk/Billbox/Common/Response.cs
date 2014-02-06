@@ -9,10 +9,9 @@ namespace Billbox.Common
     /// Responsible for transporting
     /// </summary>
     /// <typeparam name="T">the generic typename</typeparam>
-    public class Response<T>
+    public class Response<T> : IResponse<T>
     {
-        public ErrorCode Error { get; set; }
-        public String ErrorMessage { get; set; }
+        public ErrorCode Error { get; set; }        
         public T Result { get; set; }
         public IList<T> Results { get; set; }
 
@@ -28,6 +27,8 @@ namespace Billbox.Common
         {
             this.Error = ErrorCode.NoError;
         }
+
+        public String Comments { get; set; }
 
         
     }

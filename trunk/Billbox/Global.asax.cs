@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Microsoft.Practices.Unity;
 
 namespace Billbox
 {
@@ -22,6 +23,7 @@ namespace Billbox
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+            ContainerBootstrapper.RegisterTypes(new UnityContainer());
         }
     }
 }
