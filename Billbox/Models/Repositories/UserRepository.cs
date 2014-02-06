@@ -1,31 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Billbox.Common;
+using Billbox.Models.Interfaces;
 using System.Web.Configuration;
 
-namespace Billbox.Models
+namespace Billbox.Models.Respositories
 {
     /// <summary>
     /// The user repository class
     /// </summary>
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         /// <summary>
         /// Returns a specified user from the UserRepository in a generic Response object
         /// </summary>
-        /// <param name="username">the user's unique name</param>
+        /// <param name="Username">the user's unique name</param>
         /// <returns></returns>
-        public Response<User> GetUser(string username)
+        public IResponse<User> GetUser(string Username)
         {
-            Response<User> response = new Response<User>();
+            IResponse<User> response = new Response<User>();
 
             try
             {
                 using (Entities db = new Entities())
                 {
-                    var user = db.Users.FirstOrDefault(u => u.Username == username);
+                    var user = db.Users.FirstOrDefault(u => u.Username == Username);
                     if (user == null)
                         response.Error = ErrorCode.UserNotFound;
                     else
@@ -43,17 +42,17 @@ namespace Billbox.Models
         /// <summary>
         /// Add a user to the user repository
         /// </summary>
-        /// <param name="user">The user object to be added to the repository</param>
+        /// <param name="User">The user object to be added to the repository</param>
         /// <returns></returns>
-        public Response<Boolean> AddUser(User user)
+        public IResponse<bool> AddUser(User User)
         {
-            Response<Boolean> response = new Response<bool>();
+            IResponse<bool> response = new Response<bool>();
 
             try
             {
                 using (Entities db = new Entities())
                 {
-                    db.Users.Add(user);
+                    db.Users.Add(User);
                     var result = db.SaveChanges();
 
                     if (result == 0)
@@ -101,18 +100,18 @@ namespace Billbox.Models
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="user"></param>
+        /// <param name="User"></param>
         /// <returns></returns>
-        public Response<Boolean> UpdateUser(User user)
+        public IResponse<bool> UpdateUser(User User)
         {
-            Response<Boolean> response = new Response<bool>();
+            IResponse<bool> response = new Response<bool>();
 
             try
             {
                 using (Entities db = new Entities())
                 {
-                    db.Users.Attach(user);
-                    var entry = db.Entry(user);
+                    db.Users.Attach(User);
+                    var entry = db.Entry(User);
                     entry.State = System.Data.EntityState.Modified;
 
                     /*prevent modification on the following fields*/ 
@@ -167,17 +166,17 @@ namespace Billbox.Models
         /// <summary>
         /// Returns the user level
         /// </summary>
-        /// <param name="userId">the user's unique identifier</param>
+        /// <param name="UserId">the user's unique identifier</param>
         /// <returns></returns>
-        public Response<UserLevel> GetUserLevel(int userId)
+        public IResponse<UserLevel> GetUserLevel(int UserId)
         {
-            Response<UserLevel> response = new Response<UserLevel>();
+            IResponse<UserLevel> response = new Response<UserLevel>();
 
             try
             {
                 using (Entities db = new Entities())
                 {
-                    var userLevel = db.Users.FirstOrDefault(u => u.UserId == userId).UserLevel;
+                    var userLevel = db.Users.FirstOrDefault(u => u.UserId == UserId).UserLevel;
 
                     if (userLevel == null)
                         response.Error = ErrorCode.UserNotFound;
@@ -196,17 +195,17 @@ namespace Billbox.Models
         /// <summary>
         /// Return all the rights belonging to the specified user
         /// </summary>
-        /// <param name="userId">the user unique identifier</param>
+        /// <param name="UserId">the user unique identifier</param>
         /// <returns>Response</returns>
-        public Response<UserRight> GetUserRights(int userId)
+        public IResponse<UserRight> GetUserRights(int UserId)
         {
-            Response<UserRight> response = new Response<UserRight>();
+            IResponse<UserRight> response = new Response<UserRight>();
 
             try
             {
                 using (Entities db = new Entities())
                 {
-                    var userRights = db.Users.Find(userId).UserLevel.UserRights.ToList();
+                    var userRights = db.Users.Find(UserId).UserLevel.UserRights.ToList();
                     if (userRights.Count > 0)
                         response.Results = userRights;
                     else
@@ -228,21 +227,21 @@ namespace Billbox.Models
         /// <summary>
         /// Updates a user's password with a new value
         /// </summary>
-        /// <param name="userId">the user's unique identifier</param>
-        /// <param name="password">the new password value</param>
+        /// <param name="UserId">the user's unique identifier</param>
+        /// <param name="Password">the new password value</param>
         /// <returns></returns>
-        public Response<Boolean> UpdateUserPassword(int userId, string password)
+        public IResponse<bool> UpdateUserPassword(int UserId, string Password)
         {
-            Response<Boolean> response = new Response<bool>();
+            IResponse<bool> response = new Response<bool>();
 
             try
             {
                 using (Entities db = new Entities())
                 {
-                    var user = db.Users.Find(userId);
+                    var user = db.Users.Find(UserId);
                     if (user != null)
                     {
-                        user.Password = password;
+                        user.Password = Password;
 
                         int passwordExpirationPeriod;  //number of days
                         bool isSuccessful = Int32.TryParse(GetAppSetting("PasswordExpirationPeriod"), out passwordExpirationPeriod);
@@ -273,22 +272,22 @@ namespace Billbox.Models
         /// <summary>
         /// Update the user login status
         /// </summary>
-        /// <param name="userId">the user unique identifier</param>
-        /// <param name="loginStatus">the user login status</param>
+        /// <param name="UserId">the user unique identifier</param>
+        /// <param name="LoginStatus">the user login status</param>
         /// <returns></returns>
-        public Response<Boolean> UpdateUserLoginStatus(int userId, int loginStatus)
+        public IResponse<bool> UpdateUserLoginStatus(int UserId, int LoginStatus)
         {
-            Response<Boolean> response = new Response<bool>();
+            IResponse<bool> response = new Response<bool>();
 
             try
             {
                 using (Entities db = new Entities())
                 {
-                    var user = db.Users.Find(userId);
+                    var user = db.Users.Find(UserId);
 
                     if (user != null)
                     {
-                        user.LoginStatus = loginStatus;
+                        user.LoginStatus = LoginStatus;
 
                         int result = db.SaveChanges();
 
@@ -311,16 +310,22 @@ namespace Billbox.Models
             return response;
         }
         
-        private string GetAppSetting(string key)
+        /// <summary>
+        /// Returns a string value from the webconfig appsetting based on the specified key.
+        /// If the key is not found then an null string is returned
+        /// </summary>
+        /// <param name="Key">the string index for the value required</param>
+        /// <returns></returns>
+        private string GetAppSetting(string Key)
         {
             string value = null;
 
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(Key))
                 return null;
 
             try
             {
-                value = WebConfigurationManager.AppSettings[key];
+                value = WebConfigurationManager.AppSettings[Key];
             }
             catch
             {
