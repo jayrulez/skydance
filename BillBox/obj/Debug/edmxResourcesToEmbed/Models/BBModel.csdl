@@ -144,6 +144,7 @@
     <Property Name="CaptureFieldId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
     <Property Name="SubscriberId" Type="Int32" Nullable="false" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
+    <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
     <Property Name="Type" Type="Int32" Nullable="false" />
     <Property Name="OrderNum" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Subscriber" Relationship="BBModel.FK_CaptureField_Subscriber" FromRole="CaptureField" ToRole="Subscriber" />
@@ -209,7 +210,6 @@
     <Property Name="PaymentInfoId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
     <Property Name="PaymentId" Type="Int32" Nullable="false" />
     <Property Name="PaymentTypeId" Type="Int32" Nullable="false" />
-    <Property Name="InvoiceNumber" Type="Int32" Nullable="false" />
     <Property Name="Amount" Type="Double" Nullable="false" />
     <NavigationProperty Name="Payment" Relationship="BBModel.FK_PaymentInfo_Payment" FromRole="PaymentInfo" ToRole="Payment" />
     <NavigationProperty Name="PaymentType" Relationship="BBModel.FK_PaymentInfo_PaymentType" FromRole="PaymentInfo" ToRole="PaymentType" />
@@ -241,6 +241,7 @@
     <Property Name="PaymentTypeCaptureFieldId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
     <Property Name="PaymentTypeId" Type="Int32" Nullable="false" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
+    <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
     <Property Name="Type" Type="Int32" Nullable="false" />
     <Property Name="OrderNum" Type="Int32" Nullable="false" />
     <NavigationProperty Name="PaymentPaymentTypeCaptureFields" Relationship="BBModel.FK_PaymentPaymentTypeCaptureField_PaymentCaptureField" FromRole="PaymentTypeCaptureField" ToRole="PaymentPaymentTypeCaptureField" />

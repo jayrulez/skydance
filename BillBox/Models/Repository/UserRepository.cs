@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using BillBox.Common;
-using System.Web.Configuration;
 
-namespace BillBox.Models.Respository
+using BillBox.Common;
+
+namespace BillBox.Models.Repository
 {
     /// <summary>
     /// The user repository class
@@ -66,11 +66,11 @@ namespace BillBox.Models.Respository
 
                 if (ex.Message.Contains("Violation of UNIQUE KEY constraint"))
                 {
-                    if (ex.Message.Contains(GetAppSetting("UKViolation_EmailAddress")))
+                    if (ex.Message.Contains(Util.GetAppSetting("UKViolation_EmailAddress")))
                     {
                         response.Error = ErrorCode.DuplicateEmailAddress;
                     }
-                    else if (ex.Message.Contains(GetAppSetting("UKViolation_Username")))
+                    else if (ex.Message.Contains(Util.GetAppSetting("UKViolation_Username")))
                     {
                         response.Error = ErrorCode.DuplicateUsername;
                     }
@@ -132,11 +132,11 @@ namespace BillBox.Models.Respository
 
                 if (ex.Message.Contains("Violation of UNIQUE KEY constraint"))
                 {
-                    if (ex.Message.Contains(GetAppSetting("UKViolation_EmailAddress")))
+                    if (ex.Message.Contains(Util.GetAppSetting("UKViolation_EmailAddress")))
                     {
                         response.Error = ErrorCode.DuplicateEmailAddress;
                     }
-                    else if (ex.Message.Contains(GetAppSetting("UKViolation_Username")))
+                    else if (ex.Message.Contains(Util.GetAppSetting("UKViolation_Username")))
                     {
                         response.Error = ErrorCode.DuplicateUsername;
                     }
@@ -243,7 +243,7 @@ namespace BillBox.Models.Respository
                         user.Password = Password;
 
                         int passwordExpirationPeriod;  //number of days
-                        bool isSuccessful = Int32.TryParse(GetAppSetting("PasswordExpirationPeriod"), out passwordExpirationPeriod);
+                        bool isSuccessful = Int32.TryParse(Util.GetAppSetting("PasswordExpirationPeriod"), out passwordExpirationPeriod);
 
                         user.PasswordExpireAt = (isSuccessful) ? DateTime.Now.AddDays(passwordExpirationPeriod) : DateTime.Now.AddDays(30);
 
@@ -307,31 +307,6 @@ namespace BillBox.Models.Respository
             }
 
             return response;
-        }
-        
-        /// <summary>
-        /// Returns a string value from the webconfig appsetting based on the specified key.
-        /// If the key is not found then an null string is returned
-        /// </summary>
-        /// <param name="Key">the string index for the value required</param>
-        /// <returns></returns>
-        private string GetAppSetting(string Key)
-        {
-            string value = null;
-
-            if (string.IsNullOrEmpty(Key))
-                return null;
-
-            try
-            {
-                value = WebConfigurationManager.AppSettings[Key];
-            }
-            catch
-            {
-                return null;
-            }
-
-            return value;
         }
     }
 }
