@@ -36,6 +36,7 @@
           <ScalarProperty Name="CaptureFieldId" ColumnName="CaptureFieldId" />
           <ScalarProperty Name="SubscriberId" ColumnName="SubscriberId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
         </MappingFragment>
@@ -90,7 +91,6 @@
           <ScalarProperty Name="PaymentInfoId" ColumnName="PaymentInfoId" />
           <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
           <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
-          <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
           <ScalarProperty Name="Amount" ColumnName="Amount" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -118,6 +118,7 @@
           <ScalarProperty Name="PaymentTypeCaptureFieldId" ColumnName="PaymentTypeCaptureFieldId" />
           <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
         </MappingFragment>

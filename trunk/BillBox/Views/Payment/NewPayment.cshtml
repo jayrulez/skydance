@@ -6,8 +6,6 @@
     var paymentTypes = ViewBag.paymentTypes as IEnumerable<BillBox.Models.PaymentType>;
 }
 
-<h2>Create</h2>
-
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)

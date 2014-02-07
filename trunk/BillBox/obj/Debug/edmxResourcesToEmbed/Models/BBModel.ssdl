@@ -141,6 +141,7 @@
     <Property Name="CaptureFieldId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="SubscriberId" Type="int" Nullable="false" />
     <Property Name="Name" Type="varchar" Nullable="false" MaxLength="40" />
+    <Property Name="DisplayName" Type="varchar" Nullable="false" MaxLength="60" />
     <Property Name="Type" Type="int" Nullable="false" />
     <Property Name="OrderNum" Type="int" Nullable="false" />
   </EntityType>
@@ -191,7 +192,6 @@
     <Property Name="PaymentInfoId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="PaymentId" Type="int" Nullable="false" />
     <Property Name="PaymentTypeId" Type="int" Nullable="false" />
-    <Property Name="InvoiceNumber" Type="int" Nullable="false" />
     <Property Name="Amount" Type="float" Nullable="false" />
   </EntityType>
   <EntityType Name="PaymentPaymentTypeCaptureField">
@@ -217,6 +217,7 @@
     <Property Name="PaymentTypeCaptureFieldId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="PaymentTypeId" Type="int" Nullable="false" />
     <Property Name="Name" Type="varchar" Nullable="false" MaxLength="40" />
+    <Property Name="DisplayName" Type="varchar" Nullable="false" MaxLength="60" />
     <Property Name="Type" Type="int" Nullable="false" />
     <Property Name="OrderNum" Type="int" Nullable="false" />
   </EntityType>
