@@ -29,7 +29,6 @@ namespace BillBox.Common
         }
 
         public String Comments { get; set; }
-
         
     }
 }

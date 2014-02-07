@@ -20,7 +20,7 @@ namespace BillBox.Controllers
 
             IResponse<User> response = userRepository.GetUser("admin");
 
-            if(response.Error == ErrorCode.NoError)
+            if(response.IsSuccessful)
             {
                 return Content(response.Result.Username);
             }
