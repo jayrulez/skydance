@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Billbox.Models
+namespace BillBox.Models
 {
     using System;
     using System.Collections.Generic;
@@ -26,15 +26,15 @@ namespace Billbox.Models
         public int InvoiceNumber { get; set; }
         public int AgentId { get; set; }
         public int AgentBranchId { get; set; }
-        public int AgentUserId { get; set; }
+        public int UserId { get; set; }
         public System.DateTime Date { get; set; }
         public byte[] Time { get; set; }
         public int Status { get; set; }
     
         public virtual Agent Agent { get; set; }
         public virtual AgentBranch AgentBranch { get; set; }
-        public virtual AgentUser AgentUser { get; set; }
         public virtual Subscriber Subscriber { get; set; }
+        public virtual User User { get; set; }
         public virtual ICollection<PaymentCaptureField> PaymentCaptureFields { get; set; }
         public virtual ICollection<PaymentInfo> PaymentInfoes { get; set; }
         public virtual ICollection<PaymentPaymentTypeCaptureField> PaymentPaymentTypeCaptureFields { get; set; }

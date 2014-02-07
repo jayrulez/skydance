@@ -5,13 +5,6 @@ create table Settings (
 
 GO
 
-create table AgentSettings (
-	Name VARCHAR(64) PRIMARY KEY NOT NULL, 
-	Value TEXT DEFAULT NULL
-);
-
-GO
-
 create table LoginSession (
 	SessionId UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
 	UserType VARCHAR(15) NOT NULL,
@@ -28,64 +21,6 @@ create table Parish (
 	Name VARCHAR(30) NOT NULL,
 	CONSTRAINT UK_Parish UNIQUE (Name)
 );
-
-GO
-
-create table UserRight (
-	RightId INT IDENTITY(1,1) PRIMARY KEY NOT NULL, 
-	RightName VARCHAR(40) NOT NULL
-	CONSTRAINT UK_UserRight_RightName UNIQUE (RightName)
-);
-
-GO
-
-create table UserLevel (
-	LevelId INT IDENTITY(1,1) PRIMARY KEY NOT NULL, 
-	LevelName VARCHAR(40) NOT NULL,
-	CONSTRAINT UK_UserLevel_LevelName UNIQUE (LevelName)
-);
-
-
-
-create table UserRight_UserLevel (
-	RightId INT NOT NULL,
-	LevelId INT NOT NULL,
-	CONSTRAINT PK_UserRight_UserLevel PRIMARY KEY (RightId, LevelId)
-);
-
-GO
-
-ALTER TABLE UserRight_UserLevel
-ADD CONSTRAINT FK_UserRight_UserLevel_UserRight FOREIGN KEY (RightId) REFERENCES UserRight (RightId) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE UserRight_UserLevel
-ADD CONSTRAINT FK_UserRight_UserLevel_UserLevel FOREIGN KEY (LevelId) REFERENCES UserLevel (LevelId) ON DELETE CASCADE ON UPDATE CASCADE;
-
-GO
-
-create table [User] (
-	UserId INT IDENTITY(1,1) PRIMARY KEY NOT NULL, 
-	UserLevelId INT NOT NULL, 
-	Name VARCHAR(60) NOT NULL, 
-	Username VARCHAR(32) NOT NULL, 
-	Password VARCHAR(128) NOT NULL, 
-	PasswordExpireAt DATE NOT NULL, 
-	LoginStatus INT NOT NULL, 
-	Designation VARCHAR(40) NOT NULL, 
-	AddressStreet VARCHAR(50) NOT NULL, 
-	AddressCity VARCHAR(30) NOT NULL, 
-	ParishId INT NOT NULL, 
-	ContactNumber VARCHAR(15) NOT NULL,
-	EmailAddress VARCHAR(50) NOT NULL,
-	CONSTRAINT UK_User_Username UNIQUE (Username),
-	CONSTRAINT UK_User_EmailAddress UNIQUE (EmailAddress)
-);
-
-GO
-
-ALTER TABLE [User]
-ADD CONSTRAINT FK_User_UserLevel FOREIGN KEY (UserLevelId) REFERENCES UserLevel (LevelId) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE [User]
-ADD CONSTRAINT FK_User_Parish FOREIGN KEY (ParishId) REFERENCES Parish (ParishId) ON DELETE CASCADE ON UPDATE CASCADE;
 
 GO
 
@@ -132,42 +67,42 @@ ADD CONSTRAINT FK_AgentBranch_Parish FOREIGN KEY (ParishId) REFERENCES Parish (P
 
 GO
 
-create table AgentUserRight (
+create table UserRight (
 	RightId INT IDENTITY(1,1) PRIMARY KEY NOT NULL, 
-	RightName VARCHAR(40) NOT NULL,
-	CONSTRAINT UK_AgentUserRight_RightName UNIQUE (RightName)
+	RightName VARCHAR(40) NOT NULL
+	CONSTRAINT UK_UserRight_RightName UNIQUE (RightName)
 );
 
 GO
 
-create table AgentUserLevel (
+create table UserLevel (
 	LevelId INT IDENTITY(1,1) PRIMARY KEY NOT NULL, 
-	Name VARCHAR(40) NOT NULL,
-	CONSTRAINT UK_AgentUserLevel_Name UNIQUE (Name)
+	LevelName VARCHAR(40) NOT NULL,
+	CONSTRAINT UK_UserLevel_LevelName UNIQUE (LevelName)
 );
 
-GO
 
-create table AgentUserRight_AgentUserLevel
-(
+
+create table UserRight_UserLevel (
 	RightId INT NOT NULL,
 	LevelId INT NOT NULL,
-	CONSTRAINT PK_AgentUserRight_AgentUserLevel PRIMARY KEY (RightId, LevelId)
+	CONSTRAINT PK_UserRight_UserLevel PRIMARY KEY (RightId, LevelId)
 );
 
 GO
 
-ALTER TABLE AgentUserRight_AgentUserLevel
-ADD CONSTRAINT FK_AgentUserRight_AgentUserLevel_AgentUserRight FOREIGN KEY (RightId) REFERENCES AgentUserRight (RightId) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE AgentUserRight_AgentUserLevel
-ADD CONSTRAINT FK_AgentUserRight_AgentUserLevel_AgentUserLevel FOREIGN KEY (LevelId) REFERENCES AgentUserLevel (LevelId) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE UserRight_UserLevel
+ADD CONSTRAINT FK_UserRight_UserLevel_UserRight FOREIGN KEY (RightId) REFERENCES UserRight (RightId) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE UserRight_UserLevel
+ADD CONSTRAINT FK_UserRight_UserLevel_UserLevel FOREIGN KEY (LevelId) REFERENCES UserLevel (LevelId) ON DELETE CASCADE ON UPDATE CASCADE;
 
 GO
 
-create table AgentUser (
+create table [User] (
 	UserId INT IDENTITY(1,1) PRIMARY KEY NOT NULL, 
-	AgentId INT NOT NULL,
-	AgentUserLevelId INT NOT NULL, 
+	UserLevelId INT NOT NULL,
+	AgentId INT DEFAULT NULL,
+	AgentBranchId INT DEFAULT NULL,
 	Name VARCHAR(60) NOT NULL, 
 	Username VARCHAR(32) NOT NULL, 
 	Password VARCHAR(128) NOT NULL, 
@@ -179,19 +114,20 @@ create table AgentUser (
 	ParishId INT NOT NULL, 
 	ContactNumber VARCHAR(15) NOT NULL,
 	EmailAddress VARCHAR(50) NOT NULL,
-	CONSTRAINT UK_AgentUser_Username UNIQUE (Username),
-	CONSTRAINT UK_AgentUser_EmailAddress UNIQUE (EmailAddress)
+	CONSTRAINT UK_User_Username UNIQUE (Username),
+	CONSTRAINT UK_User_EmailAddress UNIQUE (EmailAddress)
 );
 
 GO
 
-
-ALTER TABLE AgentUser
-ADD CONSTRAINT FK_AgentUser_Agent FOREIGN KEY (AgentId) REFERENCES Agent (AgentId) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE AgentUser
-ADD CONSTRAINT FK_AgentUser_AgentUserLevel FOREIGN KEY (AgentUserLevelId) REFERENCES AgentUserLevel (LevelId) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE AgentUser
-ADD CONSTRAINT FK_AgentUser_Parish FOREIGN KEY (ParishId) REFERENCES Parish (ParishId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE [User]
+ADD CONSTRAINT FK_User_Agent FOREIGN KEY (AgentId) REFERENCES Agent (AgentId) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE [User]
+ADD CONSTRAINT FK_User_AgentBranch FOREIGN KEY (AgentBranchId) REFERENCES AgentBranch (BranchId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE [User]
+ADD CONSTRAINT FK_User_Parish FOREIGN KEY (ParishId) REFERENCES Parish (ParishId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE [User]
+ADD CONSTRAINT FK_User_UserLevel FOREIGN KEY (UserLevelId) REFERENCES UserLevel (LevelId) ON DELETE CASCADE ON UPDATE CASCADE;
 
 GO
 
@@ -222,6 +158,7 @@ create table CaptureField (
 	CaptureFieldId INT IDENTITY(1,1) PRIMARY KEY NOT NULL, 
 	SubscriberId INT NOT NULL, 
 	Name VARCHAR(40) NOT NULL, 
+	DisplayName VARCHAR(60) NOT NULL,
 	Type INT NOT NULL,  
 	OrderNum INT NOT NULL
 	CONSTRAINT UK_CaptureField UNIQUE (SubscriberId, Name)
@@ -248,7 +185,7 @@ create table Payment (
 	InvoiceNumber INT NOT NULL, 
 	AgentId INT NOT NULL, 
 	AgentBranchId INT NOT NULL, 
-	AgentUserId INT NOT NULL, 
+	UserId INT NOT NULL, 
 	Date DATETIME NOT NULL, 
 	Time TIMESTAMP NOT NULL, 
 	Status INT NOT NULL,
@@ -264,7 +201,7 @@ ADD CONSTRAINT FK_Payment_Agent FOREIGN KEY (AgentId) REFERENCES Agent (AgentId)
 ALTER TABLE Payment
 ADD CONSTRAINT FK_Payment_AgentBranch FOREIGN KEY (AgentBranchId) REFERENCES AgentBranch (BranchId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE Payment
-ADD CONSTRAINT FK_Payment_AgentUser FOREIGN KEY (AgentUserId) REFERENCES AgentUser (UserId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT FK_Payment_User FOREIGN KEY (UserId) REFERENCES [User] (UserId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 GO
 
@@ -287,8 +224,7 @@ GO
 create table PaymentInfo (
 	PaymentInfoId INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	PaymentId INT NOT NULL, 
-	PaymentTypeId INT NOT NULL, 
-	InvoiceNumber INT NOT NULL, 
+	PaymentTypeId INT NOT NULL,
 	Amount FLOAT NOT NULL
 );
 
@@ -306,6 +242,7 @@ create table PaymentTypeCaptureField
 	PaymentTypeCaptureFieldId INT IDENTITY(1,1) PRIMARY KEY NOT NULL, 
 	PaymentTypeId INT NOT NULL, 
 	Name VARCHAR(40) NOT NULL, 
+	DisplayName VARCHAR(60) NOT NULL,
 	Type INT NOT NULL,  
 	OrderNum INT NOT NULL
 	CONSTRAINT UK_PaymentTypeCaptureField UNIQUE (PaymentTypeId, Name)

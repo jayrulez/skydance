@@ -1,0 +1,13 @@
+﻿@{
+    var captureFields = ViewBag.captureFields as IEnumerable<BillBox.Models.CaptureField>;
+}
+
+@foreach (BillBox.Models.CaptureField captureField in captureFields)
+{
+        <div class="editor-label">
+            <label for="capture-field-@captureField.Name.ToLower()">@captureField.Name</label>
+        </div>
+        <div class="editor-field">
+            <input type="text" name="captureField[@captureField.Name.ToLower()]" id="capture-field-@captureField.Name.ToLower()" />
+        </div>
+}

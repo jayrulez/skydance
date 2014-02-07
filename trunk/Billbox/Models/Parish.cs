@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Billbox.Models
+namespace BillBox.Models
 {
     using System;
     using System.Collections.Generic;
@@ -18,7 +18,6 @@ namespace Billbox.Models
         {
             this.Agents = new HashSet<Agent>();
             this.AgentBranches = new HashSet<AgentBranch>();
-            this.AgentUsers = new HashSet<AgentUser>();
             this.Subscribers = new HashSet<Subscriber>();
             this.Users = new HashSet<User>();
         }
@@ -28,7 +27,6 @@ namespace Billbox.Models
     
         public virtual ICollection<Agent> Agents { get; set; }
         public virtual ICollection<AgentBranch> AgentBranches { get; set; }
-        public virtual ICollection<AgentUser> AgentUsers { get; set; }
         public virtual ICollection<Subscriber> Subscribers { get; set; }
         public virtual ICollection<User> Users { get; set; }
     }

@@ -7,15 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Billbox.Models
+namespace BillBox.Models
 {
     using System;
     using System.Collections.Generic;
     
     public partial class User
     {
+        public User()
+        {
+            this.Payments = new HashSet<Payment>();
+        }
+    
         public int UserId { get; set; }
         public int UserLevelId { get; set; }
+        public Nullable<int> AgentId { get; set; }
+        public Nullable<int> AgentBranchId { get; set; }
         public string Name { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
@@ -28,7 +35,10 @@ namespace Billbox.Models
         public string ContactNumber { get; set; }
         public string EmailAddress { get; set; }
     
+        public virtual Agent Agent { get; set; }
+        public virtual AgentBranch AgentBranch { get; set; }
         public virtual Parish Parish { get; set; }
+        public virtual ICollection<Payment> Payments { get; set; }
         public virtual UserLevel UserLevel { get; set; }
     }
 }
