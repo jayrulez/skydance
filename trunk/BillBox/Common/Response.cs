@@ -11,7 +11,7 @@ namespace BillBox.Common
     /// <typeparam name="T">the generic typename</typeparam>
     public class Response<T> : IResponse<T>
     {
-        public ErrorCode Error { get; set; }        
+        public ErrorCode Error { get; set; }   
         public T Result { get; set; }
         public IList<T> Results { get; set; }
 
