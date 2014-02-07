@@ -1,3 +1,15 @@
+--use master
+--go
+
+--drop database Billbox
+--go
+
+--create database Billbox
+--go
+
+--use Billbox
+--go
+
 create table Settings (
 	Name VARCHAR(64) PRIMARY KEY NOT NULL, 
 	Value TEXT DEFAULT NULL
