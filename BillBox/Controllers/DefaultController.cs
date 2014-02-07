@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
-using BillBox.Models;
 using System.Web.Security;
+
+using BillBox.Common;
+using BillBox.Models;
+using BillBox.Models.Repository;
 
 namespace BillBox.Controllers
 {
@@ -14,6 +16,15 @@ namespace BillBox.Controllers
     {
         public ActionResult Index()
         {
+            UserRepository userRepository = new UserRepository();
+
+            IResponse<User> response = userRepository.GetUser("admin");
+
+            if(response.Error == ErrorCode.NoError)
+            {
+                return Content(response.Result.Username);
+            }
+
             return View();
         }
 
