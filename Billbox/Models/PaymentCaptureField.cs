@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Billbox.Models
+namespace BillBox.Models
 {
     using System;
     using System.Collections.Generic;

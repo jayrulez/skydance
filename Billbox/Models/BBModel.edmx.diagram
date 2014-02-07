@@ -4,41 +4,36 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f0d04fc4e0b349e3a2240a2ecfb7a698" Name="Diagram1">
-        <EntityTypeShape EntityType="BBModel.Agent" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.AgentBranch" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.AgentSetting" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.AgentUser" Width="1.5" PointX="8.25" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.AgentUserLevel" Width="1.5" PointX="6" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.AgentUserRight" Width="1.5" PointX="8.25" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.CaptureField" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.LoginSession" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.Parish" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.Payment" Width="1.5" PointX="10.5" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.PaymentCaptureField" Width="1.5" PointX="12.75" PointY="11.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.PaymentInfo" Width="1.5" PointX="12.75" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.PaymentPaymentTypeCaptureField" Width="1.5" PointX="15.75" PointY="10.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.PaymentType" Width="1.5" PointX="10.5" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.PaymentTypeCaptureField" Width="1.5" PointX="13.5" PointY="14.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.Setting" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.Subscriber" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.User" Width="1.5" PointX="8" PointY="14" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.UserLevel" Width="1.5" PointX="5.75" PointY="15.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.UserRight" Width="1.5" PointX="8" PointY="19" IsExpanded="true" />
+      <Diagram DiagramId="0abd4cd187604e5793ead02f6f8d95c1" Name="Diagram1">
+        <EntityTypeShape EntityType="BBModel.Agent" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BBModel.AgentBranch" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BBModel.CaptureField" Width="1.5" PointX="5.25" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BBModel.LoginSession" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BBModel.Parish" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BBModel.Payment" Width="1.5" PointX="7.5" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BBModel.PaymentCaptureField" Width="1.5" PointX="9.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BBModel.PaymentInfo" Width="1.5" PointX="12.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BBModel.PaymentPaymentTypeCaptureField" Width="1.5" PointX="12.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BBModel.PaymentType" Width="1.5" PointX="8.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BBModel.PaymentTypeCaptureField" Width="1.5" PointX="10.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BBModel.Setting" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BBModel.Subscriber" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BBModel.User" Width="1.5" PointX="10.5" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="BBModel.UserLevel" Width="1.5" PointX="8.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BBModel.UserRight" Width="1.5" PointX="10.5" PointY="14.375" IsExpanded="true" />
         <AssociationConnector Association="BBModel.FK_Agent_Parish" ManuallyRouted="false" />
         <AssociationConnector Association="BBModel.FK_AgentBranch_Agent" ManuallyRouted="false" />
-        <AssociationConnector Association="BBModel.FK_AgentUser_Agent" ManuallyRouted="false" />
         <AssociationConnector Association="BBModel.FK_Payment_Agent" ManuallyRouted="false" />
+        <AssociationConnector Association="BBModel.FK_User_Agent" ManuallyRouted="false" />
         <AssociationConnector Association="BBModel.FK_AgentBranch_Parish" ManuallyRouted="false" />
         <AssociationConnector Association="BBModel.FK_Payment_AgentBranch" ManuallyRouted="false" />
-        <AssociationConnector Association="BBModel.FK_AgentUser_AgentUserLevel" ManuallyRouted="false" />
-        <AssociationConnector Association="BBModel.FK_AgentUser_Parish" ManuallyRouted="false" />
-        <AssociationConnector Association="BBModel.FK_Payment_AgentUser" ManuallyRouted="false" />
+        <AssociationConnector Association="BBModel.FK_User_AgentBranch" ManuallyRouted="false" />
         <AssociationConnector Association="BBModel.FK_CaptureField_Subscriber" ManuallyRouted="false" />
         <AssociationConnector Association="BBModel.FK_PaymentCaptureField_CaptureField" ManuallyRouted="false" />
         <AssociationConnector Association="BBModel.FK_Subscriber_Parish" ManuallyRouted="false" />
         <AssociationConnector Association="BBModel.FK_User_Parish" ManuallyRouted="false" />
         <AssociationConnector Association="BBModel.FK_Payment_Subscriber" ManuallyRouted="false" />
+        <AssociationConnector Association="BBModel.FK_Payment_User" ManuallyRouted="false" />
         <AssociationConnector Association="BBModel.FK_PaymentCaptureField_Payment" ManuallyRouted="false" />
         <AssociationConnector Association="BBModel.FK_PaymentInfo_Payment" ManuallyRouted="false" />
         <AssociationConnector Association="BBModel.FK_PaymentPaymentTypeCaptureField_Payment" ManuallyRouted="false" />
@@ -46,7 +41,6 @@
         <AssociationConnector Association="BBModel.FK_PaymentPaymentTypeCaptureField_PaymentCaptureField" ManuallyRouted="false" />
         <AssociationConnector Association="BBModel.FK_PaymentTypeCaptureField_PaymentType" ManuallyRouted="false" />
         <AssociationConnector Association="BBModel.FK_User_UserLevel" ManuallyRouted="false" />
-        <AssociationConnector Association="BBModel.AgentUserRight_AgentUserLevel" ManuallyRouted="false" />
         <AssociationConnector Association="BBModel.UserRight_UserLevel" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

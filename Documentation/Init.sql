@@ -27,3 +27,25 @@ GO
 INSERT INTO Parish(Name) VALUES ('Saint Andrew')
 GO
 INSERT INTO Parish(Name) VALUES ('Saint Thomas')
+
+GO
+INSERT INTO UserLevel (LevelName) VALUES ('administrator')
+GO
+
+GO
+INSERT INTO [User](UserLevelId, Name, Username, Password, PasswordExpireAt, LoginStatus, Designation, AddressStreet, AddressCity, ParishId, ContactNumber, EmailAddress) 
+VALUES (1, 'Admin', 'admin', 'admin', '', 1, 'Admin', 'Kingston', 'Kingston', 1, '12345', 'admin@fuf.ja')
+GO
+
+INSERT INTO Subscriber (Name, OperatingName, AddressStreet, AddressCity, ParishId, ContactNumber, FaxNumber, EmailAddress, Website)
+VALUES ('JPS', 'Jamaica Public Service', 'Kingston', 'Kingston', 1, '1234567', '1234567', '1234567@fu.ja', 'http://link.com')
+GO
+
+INSERT INTO CaptureField (SubscriberId, Name, DisplayName, Type, OrderNum) VALUES (1, 'accountnumber', 'Account Number', 1, 1)
+GO
+
+INSERT INTO PaymentType (Name) VALUES ('Cash')
+GO
+
+INSERT INTO PaymentTypeCaptureField (PaymentTypeId, Name, DisplayName, Type, OrderNum) VALUES (1, 'test', 'Test Field', 1, 1)
+GO

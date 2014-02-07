@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Billbox.Models
+namespace BillBox.Models
 {
     using System;
     using System.Data.Entity;
@@ -27,10 +27,6 @@ namespace Billbox.Models
     
         public DbSet<Agent> Agents { get; set; }
         public DbSet<AgentBranch> AgentBranches { get; set; }
-        public DbSet<AgentSetting> AgentSettings { get; set; }
-        public DbSet<AgentUser> AgentUsers { get; set; }
-        public DbSet<AgentUserLevel> AgentUserLevels { get; set; }
-        public DbSet<AgentUserRight> AgentUserRights { get; set; }
         public DbSet<CaptureField> CaptureFields { get; set; }
         public DbSet<LoginSession> LoginSessions { get; set; }
         public DbSet<Parish> Parishes { get; set; }

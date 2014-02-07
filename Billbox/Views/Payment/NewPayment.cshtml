@@ -1,0 +1,153 @@
+﻿@model BillBox.Models.NewPaymentModel
+
+@{
+    ViewBag.Title    = "Create";
+    Layout           = "~/Views/Shared/_Default.cshtml";
+    var paymentTypes = ViewBag.paymentTypes as IEnumerable<BillBox.Models.PaymentType>;
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Payment</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SubscriberId, "Subscriber")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("SubscriberId", String.Empty)
+            @Html.ValidationMessageFor(model => model.SubscriberId)
+        </div>
+        <div id="capture-fields-area"></div>
+        <div id="payment-area">
+            <div id="payment-type-hidden-fields"></div>
+            <div id="payment-area-payment-list"></div>
+            <a href="#" id="add-payment-link">Add Payment</a>
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<!-- Payment method modal -->
+<div id="dialog-form" title="Add Payment">
+    <form id="add-payment-form" method="post">
+        <fieldset>
+            <legend>Add Payment</legend>
+                <div class="editor-label">
+                    <label for="payment-type">Payment Method</label>
+                </div>
+                <div class="editor-field">
+                    <select name="paymentType" id="payment-type">
+                        <option value="">Select Payment Method</option>
+                        @foreach(BillBox.Models.PaymentType paymentType in paymentTypes) {
+                            <option value="@paymentType.PaymentTypeId">@paymentType.Name</option>
+                        }
+                    </select>
+                </div>
+                <div id="payment-type-capture-fields-area"></div>
+        </fieldset>
+    </form>
+</div> 
+<!-- /Payment method modal-->
+
+@section Scripts 
+{
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            
+            $("#dialog-form").dialog({
+                autoOpen: false,
+                height: 300,
+                width: 350,
+                modal: true,
+                buttons: {
+                    "Add": function () {
+                        var fieldsHtml = "";
+                        
+                        $("input[name^='PaymentTypeCaptureField']").each(function () {
+                            //fieldsHtml += '<input type="hidden" name="' + $(this).attr("name") + '" value="' + $(this).val() + '"/ >';
+
+                            $("#payment-area-payment-list").append("++");
+                        });
+
+                        $("#payment-type-hidden-fields").append(fieldsHtml);
+
+                        $(this).dialog("close");
+                    }
+                },
+                Cancel: function() {
+                    $(this).dialog("close");
+                },
+                close: function () {
+                }
+            });
+
+            $("#add-payment-link").click(function (e) {
+                e.preventDefault();
+                $("#dialog-form").dialog("open");
+            });
+
+            $('#@Html.IdFor(model => model.SubscriberId)').change(function (e) {
+
+                var subscriberId = $(this).val();
+
+                if (subscriberId) {
+
+                    var captureFields = "";
+
+                    $.ajax({
+                        cache: false,
+                        type: 'GET',
+                        url: '@Url.Action("GetCaptureFields", "Payment")',
+                        data: { 'subscriberId': subscriberId },
+                        success: function (html) {
+                            $("#capture-fields-area").html(html);
+                        },
+                        error: function () {
+                            alert("Error");
+                        }
+                    });
+                } else {
+                    $("#capture-fields-area").html("");
+                    $("#payment-area-payment-list").html("");
+                }
+
+            });
+
+            $('#payment-type').change(function (e) {
+
+                var paymentTypeId = $(this).val();
+
+                if (paymentTypeId) {
+
+                    var captureFields = "";
+
+                    $.ajax({
+                        cache: false,
+                        type: 'GET',
+                        url: '@Url.Action("GetPaymentTypeCaptureFields", "Payment")',
+                        data: { 'paymentTypeId': paymentTypeId },
+                        success: function (html) {
+                            $("#payment-type-capture-fields-area").html(html);
+                        },
+                        error: function () {
+                            alert("Error");
+                        }
+                    });
+                } else {
+                    $("#payment-type-capture-fields-area").html("");
+                }
+
+            });
+        });
+    </script>
+}

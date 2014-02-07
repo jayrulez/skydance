@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Billbox.Models
+namespace BillBox.Models
 {
     using System;
     using System.Collections.Generic;
@@ -17,7 +17,6 @@ namespace Billbox.Models
         public int PaymentInfoId { get; set; }
         public int PaymentId { get; set; }
         public int PaymentTypeId { get; set; }
-        public int InvoiceNumber { get; set; }
         public double Amount { get; set; }
     
         public virtual Payment Payment { get; set; }

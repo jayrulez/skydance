@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Billbox.Common
+namespace BillBox.Common
 {
     /// <summary>
     /// Responsible for transporting

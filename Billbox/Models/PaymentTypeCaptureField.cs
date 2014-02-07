@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Billbox.Models
+namespace BillBox.Models
 {
     using System;
     using System.Collections.Generic;
@@ -22,6 +22,7 @@ namespace Billbox.Models
         public int PaymentTypeCaptureFieldId { get; set; }
         public int PaymentTypeId { get; set; }
         public string Name { get; set; }
+        public string DisplayName { get; set; }
         public int Type { get; set; }
         public int OrderNum { get; set; }
     
