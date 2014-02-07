@@ -23,7 +23,9 @@ namespace BillBox
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/css/site.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+						"~/Content/css/reset.css",
+						"~/Content/css/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
