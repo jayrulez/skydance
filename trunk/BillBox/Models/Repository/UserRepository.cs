@@ -8,8 +8,32 @@ namespace BillBox.Models.Repository
     /// <summary>
     /// The user repository class
     /// </summary>
-    public class UserRepository : IUserRepository
+    public class UserRepository : BaseRepository, IUserRepository
     {
+
+        public IResponse<User> GetUser(int UserId)
+        {
+            IResponse<User> response = new Response<User>();
+
+            try
+            {
+                using (this.dbContext)
+                {
+                    var user = dbContext.Users.Find(UserId);
+                    if (user == null)
+                        response.Error = ErrorCode.UserNotFound;
+                    else
+                        response.Result = user;
+                }
+            }
+            catch
+            {
+                response.Error = ErrorCode.DbError;
+            }
+
+            return response;
+        }
+
         /// <summary>
         /// Returns a specified user from the UserRepository in a generic Response object
         /// </summary>
@@ -21,9 +45,9 @@ namespace BillBox.Models.Repository
 
             try
             {
-                using (Entities db = new Entities())
+                using (this.dbContext)
                 {
-                    var user = db.Users.FirstOrDefault(u => u.Username == Username);
+                    var user = dbContext.Users.FirstOrDefault(u => u.Username == Username);
                     if (user == null)
                         response.Error = ErrorCode.UserNotFound;
                     else
@@ -49,10 +73,10 @@ namespace BillBox.Models.Repository
 
             try
             {
-                using (Entities db = new Entities())
+                using (this.dbContext)
                 {
-                    db.Users.Add(User);
-                    var result = db.SaveChanges();
+                    this.dbContext.Users.Add(User);
+                    var result = this.dbContext.SaveChanges();
 
                     if (result == 0)
                         response.Error = ErrorCode.DbError; //to be changed
@@ -107,10 +131,10 @@ namespace BillBox.Models.Repository
 
             try
             {
-                using (Entities db = new Entities())
+                using (this.dbContext)
                 {
-                    db.Users.Attach(User);
-                    var entry = db.Entry(User);
+                    this.dbContext.Users.Attach(User);
+                    var entry = this.dbContext.Entry(User);
                     entry.State = System.Data.EntityState.Modified;
 
                     /*prevent modification on the following fields*/ 
@@ -118,7 +142,7 @@ namespace BillBox.Models.Repository
                     entry.Property(e => e.PasswordExpireAt).IsModified = false;
                     entry.Property(e => e.Password).IsModified = false;
 
-                    var result = db.SaveChanges();
+                    var result = this.dbContext.SaveChanges();
 
                     if (result > 0)
                         response.Result = true;
@@ -173,9 +197,9 @@ namespace BillBox.Models.Repository
 
             try
             {
-                using (Entities db = new Entities())
+                using (this.dbContext)
                 {
-                    var userLevel = db.Users.FirstOrDefault(u => u.UserId == UserId).UserLevel;
+                    var userLevel = this.dbContext.Users.FirstOrDefault(u => u.UserId == UserId).UserLevel;
 
                     if (userLevel == null)
                         response.Error = ErrorCode.UserNotFound;
@@ -202,9 +226,9 @@ namespace BillBox.Models.Repository
 
             try
             {
-                using (Entities db = new Entities())
+                using (this.dbContext)
                 {
-                    var userRights = db.Users.Find(UserId).UserLevel.UserRights.ToList();
+                    var userRights = this.dbContext.Users.Find(UserId).UserLevel.UserRights.ToList();
                     if (userRights.Count > 0)
                         response.Results = userRights;
                     else
@@ -235,9 +259,9 @@ namespace BillBox.Models.Repository
 
             try
             {
-                using (Entities db = new Entities())
+                using (this.dbContext)
                 {
-                    var user = db.Users.Find(UserId);
+                    var user = this.dbContext.Users.Find(UserId);
                     if (user != null)
                     {
                         user.Password = Password;
@@ -247,7 +271,7 @@ namespace BillBox.Models.Repository
 
                         user.PasswordExpireAt = (isSuccessful) ? DateTime.Now.AddDays(passwordExpirationPeriod) : DateTime.Now.AddDays(30);
 
-                        int result = db.SaveChanges();
+                        int result = this.dbContext.SaveChanges();
 
                         if (result > 0)
                             response.Result = true;
@@ -280,15 +304,15 @@ namespace BillBox.Models.Repository
 
             try
             {
-                using (Entities db = new Entities())
+                using (this.dbContext)
                 {
-                    var user = db.Users.Find(UserId);
+                    var user = this.dbContext.Users.Find(UserId);
 
                     if (user != null)
                     {
                         user.LoginStatus = LoginStatus;
 
-                        int result = db.SaveChanges();
+                        int result = this.dbContext.SaveChanges();
 
                         if (result > 0)
                             response.Result = true;
