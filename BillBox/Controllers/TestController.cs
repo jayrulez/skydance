@@ -12,18 +12,20 @@ namespace BillBox.Controllers
     public class TestController : Controller
     {
 
-        private readonly IAgentRepository repository;
+        private readonly IAgentRepository agentRepo;
+        private readonly ISubscriberRepository subcriberRepo;
 
         public TestController()
         {
-            repository = new AgentRepository();
+            agentRepo = new AgentRepository();
+            subcriberRepo = new SubscriberRepository();
         }
 
         //
         // GET: /Test/        
         public ActionResult GetAgent()
         {
-            IResponse<Agent> response = repository.GetAgent(1);
+            IResponse<Agent> response = agentRepo.GetAgent(1);
 
             if (response.IsSuccessful)
             {
@@ -39,7 +41,7 @@ namespace BillBox.Controllers
 
         public ActionResult GetAgentBranches()
         {
-            IResponse<AgentBranch> response = repository.GetAgentBranches(1);
+            IResponse<AgentBranch> response = agentRepo.GetAgentBranches(1);
 
             if (response.IsSuccessful)
             {
@@ -55,7 +57,7 @@ namespace BillBox.Controllers
 
         public ActionResult GetAgentAndBranches()
         {
-            IResponse<Agent> response = repository.GetAgentWithBranches(1);
+            IResponse<Agent> response = agentRepo.GetAgentWithBranches(1);
 
             if (response.IsSuccessful)
             {
@@ -68,6 +70,46 @@ namespace BillBox.Controllers
             }
             return View();
         }
+
+
+        public ActionResult GetSubscriber()
+        {
+
+            IResponse<Subscriber> response =  subcriberRepo.GetSubscriber(1);
+
+            if (response.IsSuccessful)
+            {
+                ViewBag.Subscriber = response.Result;
+            }
+            else
+            {
+                ViewBag.Error = response.Error;
+            }
+
+            return View();
+        }
+
+        
+        public ActionResult GetSubscriberNames()
+        {
+
+            IResponse<Subscriber> response = subcriberRepo.GetSubscribersName(3, 2);
+
+
+            if (response.IsSuccessful)
+            {
+                ViewBag.Subscribers = response.Results;
+            }
+            else
+            {
+                ViewBag.Error = response.Error;
+            }
+
+            return View();
+
+        }
+
+
 
     }
 }

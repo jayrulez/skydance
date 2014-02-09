@@ -197,8 +197,7 @@ namespace BillBox.Models.Repository
 
             return response;
         }
-
-        
+                
         /// <summary>
         /// Add an Agent to the Agent repository
         /// </summary>
