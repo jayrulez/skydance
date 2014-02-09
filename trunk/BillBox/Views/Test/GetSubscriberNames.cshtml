@@ -1,0 +1,21 @@
+﻿@model BillBox.Models.Subscriber
+
+@{
+    ViewBag.Title = "GetSubscriberNames";
+    var subscribers = (ViewBag.Subscribers != null) ? ViewBag.Subscribers: null;
+    var error = ViewBag.Error;
+}
+
+<h2>GetSubscriberNames</h2>
+
+@if (error != null)
+{
+    <p>@error</p>
+}
+else
+{
+    foreach (BillBox.Models.Subscriber sub in subscribers)
+    {
+        <p>@sub.OperatingName</p>
+    }   
+}
