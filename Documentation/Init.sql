@@ -49,3 +49,13 @@ GO
 
 INSERT INTO PaymentTypeCaptureField (PaymentTypeId, Name, DisplayName, Type, OrderNum) VALUES (1, 'test', 'Test Field', 1, 1)
 GO
+
+INSERT INTO Agent (Name, AddressStreet, AddressCity, ParishId, ContactNumber, FaxNumber, EmailAddress)
+VALUES ('Union One', '2 Cymanthia Ave', 'Kingston', 11, '8761234567', '8761234567', 'union@one.com')
+
+INSERT INTO AgentBranch (AgentId, Name, AddressStreet, AddressCity, ParishId, ContactNumber, FaxNumber, EmailAddress)
+VALUES (1, 'Cassia Park', '10 Verene Ave', 'Kingston', 11, '8761234657', '8761234657', 'union@one.com')
+
+
+INSERT INTO AgentBranch (AgentId, Name, AddressStreet, AddressCity, ParishId, ContactNumber, FaxNumber, EmailAddress)
+VALUES (1, 'New Kingston', '12 Trafalger Rd', 'Kingston', 11, '8761234657', '8761234657', 'union2@one.com')

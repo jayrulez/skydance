@@ -8,7 +8,7 @@ namespace BillBox.Models.Repository
     public class AgentRepository : BaseRepository, IAgentRepository
     {
         /// <summary>
-        /// Returns a specified Agent from the AgentRepository in a generic Response object
+        /// Returns a specified Agent from the AgentRepository in a generic Response object.
         /// </summary>
         /// <param name="AgentId">the Agent unique identifer</param>
         /// <returns></returns>
@@ -65,7 +65,7 @@ namespace BillBox.Models.Repository
         }
 
         /// <summary>
-        /// Returns a specified a list of Agents from the AgentRepository in a generic Response object based on the matching the specified agent name
+        /// Returns a list of Agents from the AgentRepository in a generic Response object that name starts with the specified name
         /// </summary>
         /// <param name="Name">the name of the agent</param>
         /// <returns></returns>
@@ -77,12 +77,12 @@ namespace BillBox.Models.Repository
             {
                 using (this.dbContext)
                 {
-                    var agents = dbContext.Agents.ToList().Where(a => a.Name.Contains(Name));
+                    var agents = dbContext.Agents.ToList().Where(a => a.Name.StartsWith(Name));
                     if (agents == null)
                         response.Error = ErrorCode.AgentNotFound;
                     else
                     {
-                        response.Results = (IList<Agent>)agents;
+                        response.Results = agents.ToList();
                     }
                 }
             }
@@ -94,6 +94,111 @@ namespace BillBox.Models.Repository
             return response;
         }
 
+        /// <summary>
+        /// Return an Agent Branche that matches the specified branch id.
+        /// </summary>
+        /// <param name="BranchId"></param>
+        /// <returns></returns>
+        public IResponse<AgentBranch> GetAgentBranch(int BranchId)
+        {
+            IResponse<AgentBranch> response = new Response<AgentBranch>();
+
+            try
+            {
+                using (this.dbContext)
+                {
+                    var agentBranch = dbContext.AgentBranches.Find(BranchId);
+
+                    if (agentBranch != null)
+                    {
+                        response.Result = agentBranch;
+                    }
+                    else
+                    {
+                        response.Error = ErrorCode.AgentNotFound;
+                    }
+                }
+            }
+            catch
+            {
+
+                response.Error = ErrorCode.DbError;
+            }
+
+            return response;
+        }
+
+        /// <summary>
+        /// Returns a list of AgentBranches that matches the specified Agent Id
+        /// </summary>
+        /// <param name="AgentId">The Agent for the branches to return</param>
+        /// <returns></returns>
+        public IResponse<AgentBranch> GetAgentBranches(int AgentId)
+        {
+            IResponse<AgentBranch> response = new Response<AgentBranch>();
+
+            try
+            {
+                using (this.dbContext)
+                {
+
+                    var agentBranches = dbContext.AgentBranches.ToList().Where(ab => ab.AgentId == AgentId);
+
+                    if (agentBranches.Count() > 0)
+                    {
+                        response.Results = agentBranches.ToList();
+                    }
+                    else
+                    {
+                        response.Error = ErrorCode.AgentNotFound; 
+                    }
+                }
+            }
+            catch
+            {
+                response.Error = ErrorCode.DbError;
+            }
+
+            return response;
+        }
+
+        /// <summary>
+        /// Returns an agent along with its branches based on the specifed Agent Id
+        /// </summary>
+        /// <param name="AgentId">The Agent Id to fetch</param>
+        /// <returns></returns>
+        public IResponse<Agent> GetAgentWithBranches(int AgentId)
+        {
+            IResponse<Agent> response = new Response<Agent>();
+
+            try
+            {
+                using (this.dbContext)
+                {
+
+                    var agent = dbContext.Agents.Find(AgentId);
+
+                    if (agent == null)
+                    {
+                        response.Error = ErrorCode.AgentNotFound;
+                    }
+                    else
+                    {                        
+                        agent.AgentBranches.ToList();
+                        response.Result = agent;
+                    }
+                }
+            }
+            catch
+            {
+
+                response.Error = ErrorCode.DbError;
+            }
+
+            return response;
+        }
+
+        
         /// <summary>
         /// Add an Agent to the Agent repository
         /// </summary>
@@ -152,7 +257,7 @@ namespace BillBox.Models.Repository
         /// <summary>
         /// Update an agent in the agent repository. Returns true on success and false on failure
         /// </summary>
-        /// <param name="Agent"></param>
+        /// <param name="Agent">the Agent object to be updated in the repository</param>
         /// <returns></returns>
         public IResponse<bool> UpdateAgent(Agent Agent)
         {
@@ -208,84 +313,10 @@ namespace BillBox.Models.Repository
         }
 
         /// <summary>
-        /// 
+        /// Add an AgentBranch to the Agent repository
         /// </summary>
-        /// <param name="BranchId"></param>
+        /// <param name="AgentBranch">The AgentBranch object to be added to the repository</param>
         /// <returns></returns>
-        public IResponse<AgentBranch> GetAgentBranches(int BranchId)
-        {
-            IResponse<AgentBranch> response = new Response<AgentBranch>();
-
-            try
-            {
-                using (this.dbContext)
-                {
-                    var agentBranches = dbContext.AgentBranches.ToList().Where(ab => ab.BranchId == BranchId);
-
-                    if (agentBranches.Count() > 0)
-                    {
-                        response.Results = agentBranches.ToList<AgentBranch>();
-                    }
-                    else
-                    {
-                        response.Error = ErrorCode.AgentNotFound;
-                    }
-                }
-            }
-            catch
-            {
-                
-                response.Error = ErrorCode.DbError;
-            }
-
-            return response;
-        }
-
-
-        public IResponse<Agent> GetAgentWithBranches(int AgentId)
-        {
-            IResponse<Agent> response = new Response<Agent>();
-
-            try
-            {
-                using (this.dbContext)
-                {
-                   
-                    var agent = dbContext.Agents.Find(AgentId);
-
-                    if (agent == null)
-                    {
-                        response.Error = ErrorCode.AgentNotFound;
-                    }
-                    else
-                    {
-                        var agentBranches = dbContext.Agents.Find(AgentId).AgentBranches.ToList();
-                        //var agentBranches = dbContext.AgentBranches.ToList().Where(ab => ab.AgentId == AgentId);
-
-                        if (agentBranches.Count() > 0)
-                        {
-                            agent.AgentBranches = agentBranches;
-                            //response.Results = agentBranches.ToList<AgentBranch>();
-                        }
-
-                        response.Result = agent;
-                        
-                    }
-                    
-
-                   
-                }
-            }
-            catch
-            {
-
-                response.Error = ErrorCode.DbError;
-            }
-
-            return response;
-        }
-
-
         public IResponse<bool> AddAgentBranch(AgentBranch AgentBranch)
         {
             IResponse<bool> response = new Response<bool>();
@@ -336,7 +367,11 @@ namespace BillBox.Models.Repository
             return response;
         }
 
-
+        /// <summary>
+        /// Update an Agent Branch in the agent repository. Returns true on success and false on failure
+        /// </summary>
+        /// <param name="AgentBranch">the AgentBranch object to be updated in the repository</param>
+        /// <returns></returns>
         public IResponse<bool> UpdateAgentBranch(AgentBranch AgentBranch)
         {
             IResponse<bool> response = new Response<bool>();
