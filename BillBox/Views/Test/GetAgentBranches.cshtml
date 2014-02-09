@@ -1,0 +1,22 @@
+﻿@model BillBox.Models.AgentBranch
+
+@{
+    ViewBag.Title = "GetAgentBranches";
+    var AgentBranches = (ViewBag.AgentBranches != null) ? ViewBag.AgentBranches : null;
+}
+
+<h2>GetAgentBranches</h2>
+
+@if (ViewBag.Error != null)
+{
+     <p>Error: @ViewBag.Error</p> 
+}
+else
+{
+    foreach (BillBox.Models.AgentBranch branch in ViewBag.AgentBranches)
+    {
+        <p>Branch Name: @branch.Name</p>
+        <br />
+    }  
+    
+}

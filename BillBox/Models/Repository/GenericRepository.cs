@@ -27,7 +27,8 @@ namespace BillBox.Models.Repository
                 {
                     entity = this.dbSet.Find(Pk);
                 }
-            }catch(Exception ex)
+            }
+            catch(Exception)
             {
                 entity = null;
             }

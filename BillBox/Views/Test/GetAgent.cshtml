@@ -1,0 +1,18 @@
+﻿
+
+@{
+    ViewBag.Title = "GetAgent";
+    var Agent = (ViewBag.Agent != null) ? ViewBag.Agent : null;
+}
+
+<h2>GetAgent</h2>
+
+@if (ViewBag.Error != null)
+{
+     <p>Error: @ViewBag.Error</p> 
+}
+else
+{
+    <p>Agent Name : @Agent.Name</p>    
+    
+}

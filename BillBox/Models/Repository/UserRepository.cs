@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-
 using BillBox.Common;
 
 namespace BillBox.Models.Repository
@@ -10,7 +9,11 @@ namespace BillBox.Models.Repository
     /// </summary>
     public class UserRepository : BaseRepository, IUserRepository
     {
-
+        /// <summary>
+        /// Returns a specified user from the UserRepository in a generic Response object
+        /// </summary>
+        /// <param name="UserId">the user unique identifer</param>
+        /// <returns></returns>
         public IResponse<User> GetUser(int UserId)
         {
             IResponse<User> response = new Response<User>();
@@ -78,7 +81,8 @@ namespace BillBox.Models.Repository
                     this.dbContext.Users.Add(User);
                     var result = this.dbContext.SaveChanges();
 
-                    if (result == 0)
+                    /*Check the number of rows affected by the operation. 0 means the operation failed*/
+                    if (result == 0) 
                         response.Error = ErrorCode.DbError; //to be changed
                     else
                         response.Result = true;
