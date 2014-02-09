@@ -1,7 +1,7 @@
 ﻿@model BillBox.Models.Agent
 
 @{
-    ViewBag.Title = "GetAgentAndBranches";
+    ViewBag.Title = "GetAgentWithBranches";
     var agent = (ViewBag.Agent != null) ? ViewBag.Agent : null;
 }
 
@@ -14,11 +14,17 @@ else
 {
     <p>Agent: @agent.Name</p>
     
-    foreach (BillBox.Models.AgentBranch branch in agent.AgentBranches)
+    if(agent.AgentBranches != null)
     {
-        <br />
-        <p>Branch Name: @branch.Name</p>
+    foreach (BillBox.Models.AgentBranch branch in agent.AgentBranches)
+        {        
+            <p>Branch Name: @branch.Name</p>
         
-    }  
+        }  
+    } 
+    else
+    {
+        <p>This agent does not have any branch</p>
+    }
 }
 
