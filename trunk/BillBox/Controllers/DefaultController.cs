@@ -16,7 +16,7 @@ namespace BillBox.Controllers
     {
         public ActionResult Index()
         {
-            UserRepository userRepository = new UserRepository();
+            IUserRepository userRepository = new UserRepository();
 
             IResponse<User> response = userRepository.GetUser("admin");
 
@@ -38,21 +38,30 @@ namespace BillBox.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model)
-        {
-            Entities db = new Entities();
+        {            
+            IUserRepository repository = new UserRepository();
 
             if(ModelState.IsValid)
             {
-                if (db.Users.Any(u => u.Username == model.Username && u.Password == model.Password))
+                IResponse<User> response = repository.GetUser(model.Username);
+                if(response.IsSuccessful)
                 {
-                    FormsAuthentication.SetAuthCookie(model.Username, model.Autologin);
+                    if (response.Result.LoginStatus == 1 && response.Result.Password == model.Password)
+                    {
+                        FormsAuthentication.SetAuthCookie(model.Username, model.Autologin);
 
-                    return RedirectToAction("Index", "Default");
+                        return RedirectToAction("Index", "Default");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    ModelState.AddModelError("", response.Error.ToString());
                 }
+                
             }
 
             return View(model);
