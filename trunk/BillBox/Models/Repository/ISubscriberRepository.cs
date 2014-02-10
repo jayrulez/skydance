@@ -25,43 +25,29 @@ namespace BillBox.Models.Repository
         IResponse<Subscriber> GetSubscribers();
 
         /// <summary>
-        /// Returns a Response object with a list of Subscribers from the Subscriber Repository in a Response object based on the specified PageNumber and PageSize
+        /// Returns a Response object with a paged list of Subscribers from the Subscriber Repository in a Response object.
         /// </summary>
         /// <param name="PageNumber">The page number to retrieve</param>
-        /// <param name="PageSize">The size of the page to retrieve (number of rows)</param>
+        /// <param name="PageSize">The size of the page to retrieve</param>
         /// <returns></returns>
         IResponse<Subscriber> GetSubscribers(int PageNumber, int PageSize);
 
         /// <summary>
-        /// Retruns a Response object with a list of subsciber ojects with only the SubscriberId and OperatingNames populated
+        /// Retruns a Response object with the list of subsciber ojects with only the SubscriberId and OperatingNames populated
         /// </summary>
         /// <returns></returns>
         IResponse<Subscriber> GetSubscribersName();
 
         /// <summary>
-        /// Retruns a Response object with a list of subsciber ojects with only the SubscriberId and OperatingNames populated
+        /// Retruns a Response object with a paged list of subsciber ojects with only the SubscriberId and OperatingNames populated
         /// </summary>
         /// <param name="PageNumber"></param>
         /// <param name="PageSize"></param>
         /// <returns></returns>
         IResponse<Subscriber> GetSubscribersName(int PageNumber, int PageSize);
-
+        
         /// <summary>
-        /// Returns a Response object with a list of payments for all subscribers
-        /// </summary>
-        /// <returns></returns>
-        IResponse<Subscriber> GetSubscribersPayments();
-
-        /// <summary>
-        /// Returns a Response object with a list of payments for all subscribers
-        /// </summary>
-        /// <param name="PageNumber"></param>
-        /// <param name="PageSize"></param>
-        /// <returns></returns>
-        IResponse<Subscriber> GetSubscribersPayments(int PageNumber, int PageSize);
-
-        /// <summary>
-        /// Returns a Response object with a list of payments for the specified subscriber
+        /// Returns a Response object with the list of payments for the specified subscriber
         /// </summary>
         /// <param name="SubscriberId"></param>
         /// <returns></returns>
@@ -81,7 +67,7 @@ namespace BillBox.Models.Repository
         /// </summary>
         /// <param name="SubscriberId"></param>
         /// <returns></returns>
-        IResponse<Subscriber> GetSubscriberCapturedFields(int SubscriberId);
+        IResponse<CaptureField> GetSubscriberCapturedFields(int SubscriberId);
 
         /// <summary>
         /// Add a Subscriber to the Subscriber Repository

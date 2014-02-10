@@ -8,10 +8,17 @@ namespace BillBox.Common
 {
     public enum ErrorCode
     {
-        NoError, UserNotFound, AgentNotFound, SubscriberNotFound, DuplicateEmailAddress, DuplicateUsername, NoResultsFound,
+        NoError, UserNotFound, AgentNotFound, SubscriberNotFound, 
+        DuplicateEmailAddress, 
+        DuplicateName, DuplicateOperatingName,  DuplicateUsername, NoResultsFound,
         FKError,
-        DbError, DBEntityValidationError, SysError, Generic1, Generic2
+        DbError, DBEntityValidationError, SysError, InvalidPageSize, InvalidPageNumber, Generic1, Generic2
 
+    }
+
+    public enum PagedList
+    {
+        Default = 0, SubscriberPayments
     }
 
     public class Util
@@ -40,5 +47,24 @@ namespace BillBox.Common
 
             return value;
         }
+
+        public static int GetPageSize(PagedList PageList)
+        {
+            int pageSize = 0;
+            string key;
+            switch (PageList)
+            {
+                case PagedList.SubscriberPayments: key = "PageSize_SubscriberPayments";
+                    break;
+                default: key = "PageSize_Default";
+                    break;
+            }
+
+            bool isSuccessful = int.TryParse(GetAppSetting(key), out pageSize);
+
+            return (isSuccessful) ? pageSize : 30;
+        }
+    
+
     }
 }

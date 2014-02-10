@@ -21,8 +21,6 @@ namespace BillBox.Controllers
             subcriberRepo = new SubscriberRepository();
         }
 
-        //
-        // GET: /Test/        
         public ActionResult GetAgent()
         {
             IResponse<Agent> response = agentRepo.GetAgent(1);
@@ -53,8 +51,7 @@ namespace BillBox.Controllers
             }
             return View();
         }
-
-
+        
         public ActionResult GetAgentAndBranches()
         {
             IResponse<Agent> response = agentRepo.GetAgentWithBranches(1);
@@ -70,8 +67,7 @@ namespace BillBox.Controllers
             }
             return View();
         }
-
-
+        
         public ActionResult GetSubscriber()
         {
 
@@ -88,13 +84,11 @@ namespace BillBox.Controllers
 
             return View();
         }
-
-        
+                
         public ActionResult GetSubscriberNames()
         {
 
             IResponse<Subscriber> response = subcriberRepo.GetSubscribersName(3, 2);
-
 
             if (response.IsSuccessful)
             {
@@ -109,7 +103,6 @@ namespace BillBox.Controllers
 
         }
 
-
-
+        
     }
 }
