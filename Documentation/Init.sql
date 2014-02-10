@@ -41,6 +41,26 @@ INSERT INTO Subscriber (Name, OperatingName, AddressStreet, AddressCity, ParishI
 VALUES ('JPS', 'Jamaica Public Service', 'Kingston', 'Kingston', 1, '1234567', '1234567', '1234567@fu.ja', 'http://link.com')
 GO
 
+INSERT INTO Subscriber (Name, OperatingName, AddressStreet, AddressCity, ParishId, ContactNumber, FaxNumber, EmailAddress, Website)
+VALUES ('NWC', 'National Water Commision', 'Kingston', 'Kingston', 1, '1234567', '1234567', '1234567@nwc.ja', 'http://link.com')
+GO
+
+INSERT INTO Subscriber (Name, OperatingName, AddressStreet, AddressCity, ParishId, ContactNumber, FaxNumber, EmailAddress, Website)
+VALUES ('FLOW', 'Flow Jamaica', 'Kingston', 'Kingston', 1, '1234567', '1234567', '1234567@flow.ja', 'http://link.com')
+GO
+
+INSERT INTO Subscriber (Name, OperatingName, AddressStreet, AddressCity, ParishId, ContactNumber, FaxNumber, EmailAddress, Website)
+VALUES ('LIME', 'Lime Jamaica', 'Kingston', 'Kingston', 1, '1234567', '1234567', '1234567@lime.ja', 'http://link.com')
+GO
+
+INSERT INTO Subscriber (Name, OperatingName, AddressStreet, AddressCity, ParishId, ContactNumber, FaxNumber, EmailAddress, Website)
+VALUES ('SLB', 'Student Loan Bureau', 'Kingston', 'Kingston', 1, '1234567', '1234567', '1234567@slb.ja', 'http://link.com')
+GO
+
+INSERT INTO Subscriber (Name, OperatingName, AddressStreet, AddressCity, ParishId, ContactNumber, FaxNumber, EmailAddress, Website)
+VALUES ('WNET', 'World Net', 'Kingston', 'Kingston', 1, '1234567', '1234567', '1234567@wnet.ja', 'http://link.com')
+GO
+
 INSERT INTO CaptureField (SubscriberId, Name, DisplayName, Type, OrderNum) VALUES (1, 'accountnumber', 'Account Number', 1, 1)
 GO
 

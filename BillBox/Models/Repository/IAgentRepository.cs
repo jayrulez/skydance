@@ -5,72 +5,80 @@ namespace BillBox.Models.Repository
     interface IAgentRepository
     {
         /// <summary>
-        /// Returns a specified Agent from the AgentRepository in a generic Response object.
+        /// Returns a Response object with an Agent specified by AgentId from the Agent Repository.
         /// </summary>
-        /// <param name="AgentId">the Agent unique identifer</param>
+        /// <param name="AgentId">the intended Agent Id</param>
         /// <returns></returns>
         IResponse<Agent> GetAgent(int AgentId);
 
         /// <summary>
-        /// Returns a specified Agent from the AgentRepository in a generic Response object based on the specified Agent Name.
+        ///  Returns a Response object with an Agent specified by AgentId from the Agent Repository.
         /// The first agent matching the name is returned.
         /// </summary>
-        /// <param name="AgentName">the Agent unique Name</param>
-        IResponse<Agent> GetAgent(string Name);
+        /// <param name="AgentName">the intended Agent unique Name</param>
+        IResponse<Agent> GetAgent(string AgentName);
 
         /// <summary>
-        /// Returns a list of Agents from the AgentRepository in a generic Response object that name starts with the specified name
+        /// Returns a Response object with all the Agents in the Agent Repository.
         /// </summary>
-        /// <param name="Name">the name of the agent</param>
         /// <returns></returns>
-        IResponse<Agent> GetAgents(string Name);
+        IResponse<Agent> GetAgents();
 
         /// <summary>
-        /// Return an Agent Branche that matches the specified branch id.
+        /// Returns a Response object with a page of Agents from the Agent Repository.
         /// </summary>
-        /// <param name="BranchId"></param>
+        /// <param name="PageNumber">the page number to fetch</param>
+        /// <param name="PageSize">the size of the page to fetch</param>
         /// <returns></returns>
-        IResponse<AgentBranch> GetAgentBranch(int BranchId);
-
+        IResponse<Agent> GetAgents(int PageNumber, int PageSize);
+              
         /// <summary>
-        /// Returns a list of AgentBranches that matches the specified Agent Id
+        /// Returns a Response object with a  list of Agent Branches that matches the specified Agent Id.
         /// </summary>
-        /// <param name="AgentId">The Agent for the branches to return</param>
+        /// <param name="AgentId">The Agent Id associated with the branches to fetch</param>
         /// <returns></returns>
         IResponse<AgentBranch> GetAgentBranches(int AgentId);
 
         /// <summary>
-        /// Returns an agent along with its branches based on the specifed Agent Id
+        /// Returns a Response object with a page of Agent Branches that matches the specified Agent Id.
         /// </summary>
-        /// <param name="AgentId">The Agent Id to fetch</param>
+        /// <param name="AgentId">The Agent Id associated with the branches to fetch</param>
+        /// <param name="PageNumber">the page number to fetch</param>
+        /// <param name="PageSize">the size of the page to fetch</param>
+        /// <returns></returns>
+        IResponse<AgentBranch> GetAgentBranches(int AgentId, int PageNumber, int PageSize);
+
+        /// <summary>
+        ///  Returns a Response object with an Agent and its branches specified by the AgentId from the Agent Repository.
+        /// </summary>
+        /// <param name="AgentId">the intended Agent Id</param>
         /// <returns></returns>
         IResponse<Agent> GetAgentWithBranches(int AgentId);
         
         /// <summary>
-        /// Add an Agent to the Agent repository
+        /// Add an Agent to the Agent repository and returns a Response object with the Result property set to true if the operation was successful otherwise it is set to false.
         /// </summary>
-        /// <param name="Agent">The Agent object to be added to the repository</param>
+        /// <param name="Agent">The Agent object to be added to the Agent Repository</param>
         /// <returns></returns>
         IResponse<bool> AddAgent(Agent Agent);
 
         /// <summary>
-        /// Update an agent in the agent repository. Returns true on success and false on failure
+        /// Update an Agent in the Agent Repository and returns a Response object with the Result property set to true if the update was successful otherwise it is set to false.
         /// </summary>
         /// <param name="Agent">the Agent Id</param>
         /// <returns></returns>
         IResponse<bool> UpdateAgent(Agent Agent);
 
         /// <summary>
-        /// Add an AgentBranch to the Agent repository
+        /// Add an Agent Branch to the Agent repository and returns a Response object with the Result property set to true if the operation was successful otherwise it is set to false.
         /// </summary>
-        /// <param name="AgentBranch">The AgentBranch object to be added to the repository</param>
+        /// <param name="AgentBranch">The AgentBranch object to be added to the Agent Repository</param>
         /// <returns></returns>
         IResponse<bool> AddAgentBranch(AgentBranch AgentBranch);
 
         /// <summary>
-        /// Update an Agent Branch in the agent repository. Returns true on success and false on failure
-        /// </summary>
-        /// <param name="AgentBranch">the AgentBranch object to be updated in the repository</param>
+        /// Add an Agent Branch to the Agent repository and returns a Response object with the Result property set to true if the operation was successful otherwise it is set to false.
+        /// <param name="AgentBranch">the AgentBranch object to be updated in the Agent Repository</param>
         /// <returns></returns>
         IResponse<bool> UpdateAgentBranch(AgentBranch AgentBranch);
     
