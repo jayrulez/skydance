@@ -20,4 +20,12 @@ namespace BillBox.Models
         [Display(Name = "Remember me?")]
         public bool Autologin { get; set; }
     }
+
+    public class CreateUserModel
+    {
+    }
+
+    public class UpdateUserModel
+    {
+    }
 }

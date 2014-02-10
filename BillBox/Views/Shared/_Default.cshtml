@@ -9,17 +9,95 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    @if (Request.IsAuthenticated)
-    {
-        <p>Hello @User.Identity.Name</p>
-    }
-    else
-    {
-        <p>Hello Guest</p>
-    }
-    <div>
-        @RenderBody()
-    </div>
+
+		<div id="page">
+			<div id="header-container">
+				<div id="header">
+					<div id="header-content" class="clearfix">
+						<div class="logo">
+							@Html.ActionLink("Bill Box", "")
+						</div>
+						<div class="global-utils clearfix">
+							@if (Request.IsAuthenticated)
+                            {
+							    <div class="global-search">
+								    <form action="h" method="post">
+									    <input type="text" name="q">
+								    </form>
+							    </div>
+							    <div class="global-nav">
+								    <ul>
+									    <li>@Html.ActionLink("Home","")</li>
+									    <li>
+										    <a>Account</a>
+										    <ul>
+                                                <li><a>@User.Identity.Name</a></li>
+											    <li>@Html.ActionLink("Logout","Logout", "Default")</li>
+										    </ul>
+									    </li>
+								    </ul>
+							    </div>
+							}else{
+							    <div class="global-nav">
+								    <ul>
+									    <li>@Html.ActionLink("Login", "Login", "Default")</li>
+								    </ul>
+							    </div>
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="canvas-container">
+                @{
+                    string tagClass = "";
+                    
+                    if(IsSectionDefined("SidebarLeft") && IsSectionDefined("SidebarRight"))
+                    {
+                        tagClass = "sidebars clearfix";
+                    }else if(IsSectionDefined("SidebarLeft"))
+                    {
+                        tagClass = "sidebar-left clearfix";
+                    }else if(IsSectionDefined("SidebarRight"))
+                    {
+                        tagClass = "sidebar-right clearfix";
+                    }else{
+                        tagClass = "";
+                    }
+                }
+				<div id="canvas"@tagClass>
+
+                    @if (IsSectionDefined("SidebarLeft"))
+                    {
+					    <div id="sidebar-left">
+						    <div class="sidebar-content">
+							    @RenderSection("SidebarLeft")
+						    </div>
+					    </div>
+                    }
+
+					<div id="content">
+                        @RenderBody()
+					</div>
+
+                    @if (IsSectionDefined("SidebarRight"))
+                    {
+					    <div id="sidebar-right">
+						    <div class="sidebar-content">					
+							    @RenderSection("SidebarRight")
+						    </div>
+					    </div>
+                    }
+                    
+				</div>
+			</div>
+			<div id="footer-container">
+				<div id="footer">
+					<div id="footer-content">
+					</div>
+				</div>
+			</div>
+		</div>
 
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)

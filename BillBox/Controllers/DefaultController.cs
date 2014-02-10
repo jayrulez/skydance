@@ -16,9 +16,9 @@ namespace BillBox.Controllers
     {
         public ActionResult Index()
         {
-            IUserRepository userRepository = new UserRepository();
+            IUserRepository repository = new UserRepository();
 
-            IResponse<User> response = userRepository.GetUser("admin");
+            IResponse<User> response = repository.GetUser("admin");
 
             if(response.IsSuccessful)
             {
@@ -44,6 +44,7 @@ namespace BillBox.Controllers
             if(ModelState.IsValid)
             {
                 IResponse<User> response = repository.GetUser(model.Username);
+
                 if(response.IsSuccessful)
                 {
                     if (response.Result.LoginStatus == 1 && response.Result.Password == model.Password)
