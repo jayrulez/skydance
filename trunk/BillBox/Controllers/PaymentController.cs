@@ -56,19 +56,19 @@ namespace BillBox.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult NewPayment(NewPaymentModel model)
-        {
-            var paymentTypes = db.PaymentTypes;
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult NewPayment(NewPaymentModel model)
+        //{
+        //    var paymentTypes = db.PaymentTypes;
 
-            ViewBag.SubscriberId = new SelectList(db.Subscribers, "SubscriberId", "Name");
+        //    ViewBag.SubscriberId = new SelectList(db.Subscribers, "SubscriberId", "Name");
 
-            ViewBag.paymentTypes = paymentTypes;
-            return Content(HttpContext.Request.Params.ToString());
-            //ViewBag.SubscriberId = new SelectList(db.Subscribers, "SubscriberId", "Name");
-            //return View(model);
-        }
+        //    ViewBag.paymentTypes = paymentTypes;
+        //    return Content(HttpContext.Request.Params.ToString());
+        //    //ViewBag.SubscriberId = new SelectList(db.Subscribers, "SubscriberId", "Name");
+        //    //return View(model);
+        //}
 
         protected override void Dispose(bool disposing)
         {

@@ -1,0 +1,17 @@
+﻿@model BillBox.Models.User
+
+@{
+    ViewBag.Title = "AddUsers";
+}
+
+<h2>AddUsers</h2>
+
+@if(ViewBag.Error != null)
+{
+    <p>@ViewBag.Error</p>
+}
+else
+
+{
+    <p>User added : @ViewBag.Result</p>   
+}

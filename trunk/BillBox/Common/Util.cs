@@ -34,7 +34,7 @@ namespace BillBox.Common
             string value = null;
 
             if (string.IsNullOrEmpty(Key))
-                return null;
+                return String.Empty;
 
             try
             {
@@ -42,7 +42,7 @@ namespace BillBox.Common
             }
             catch
             {
-                return null;
+                return String.Empty;
             }
 
             return value;
@@ -63,6 +63,14 @@ namespace BillBox.Common
             bool isSuccessful = int.TryParse(GetAppSetting(key), out pageSize);
 
             return (isSuccessful) ? pageSize : 30;
+        }
+
+        public static T SafeOutput<T>(T value)
+        {            
+            if (value == null)
+                return default(T);
+            else
+                return value;
         }
     
 
