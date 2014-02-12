@@ -15,26 +15,24 @@
 				<div id="header">
 					<div id="header-content" class="clearfix">
 						<div class="logo">
-							@Html.ActionLink("Bill Box", "")
+							@Html.ActionLink("Bill Box", "Index", "Default")
 						</div>
 						<div class="global-utils clearfix">
 							@if (Request.IsAuthenticated)
                             {
-							    <div class="global-search">
-								    <form action="h" method="post">
-									    <input type="text" name="q">
-								    </form>
-							    </div>
 							    <div class="global-nav">
 								    <ul>
-									    <li>@Html.ActionLink("Home","")</li>
 									    <li>
-										    <a>Account</a>
+										    <a>Payments</a>
 										    <ul>
-                                                <li><a>@User.Identity.Name</a></li>
-											    <li>@Html.ActionLink("Logout","Logout", "Default")</li>
+											    <li>@Html.ActionLink("New Payment","NewPayment", "Payment")</li>
+											    <li>@Html.ActionLink("Payment History","PaymentHistory", "Payment")</li>
 										    </ul>
 									    </li>
+									    <li>@Html.ActionLink("Users","Index", "User")</li>
+									    <li>@Html.ActionLink("Agents","Index", "Agent")</li>
+									    <li>@Html.ActionLink("Subscribers","Index", "Subscriber")</li>
+                                        <li>@Html.ActionLink("Logout (" + User.Identity.Name + ")","Logout", "Default")</li>
 								    </ul>
 							    </div>
 							}else{
