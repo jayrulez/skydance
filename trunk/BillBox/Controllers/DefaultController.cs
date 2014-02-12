@@ -16,15 +16,6 @@ namespace BillBox.Controllers
     {
         public ActionResult Index()
         {
-            IUserRepository repository = new UserRepository();
-
-            IResponse<User> response = repository.GetUser("admin");
-
-            if(response.IsSuccessful)
-            {
-                return Content(response.Result.Username);
-            }
-
             return View();
         }
 

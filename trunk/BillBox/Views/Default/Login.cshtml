@@ -11,35 +11,34 @@
         <div class="section-header">
         </div>
         <div class="section-content">
-            @using (Html.BeginForm()) {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true)
+            <div class="form-container">
+                @using (Html.BeginForm("Login","Default", FormMethod.Post, new { @class = "wf" })) {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
 
-                <fieldset>
-                    <legend>Login Form</legend>
-
-                    <p>
-
-                            @Html.LabelFor(m => m.Username)
-                            @Html.TextBoxFor(m => m.Username)
-                            @Html.ValidationMessageFor(m => m.Username)
-                    </p>
-                    <p>
-
-                            @Html.LabelFor(m => m.Password)
-                            @Html.PasswordFor(m => m.Password)
-                            @Html.ValidationMessageFor(m => m.Password)
-                    </p>
-                    <p>
-                            @Html.CheckBoxFor(m => m.Autologin)
-                            @Html.LabelFor(m => m.Autologin, new { @class = "checkbox" })
-                    </p>
-                    <p>
-                        <input type="submit" value="Login" />
-                    </p>
+                    <fieldset class="top">
+                        <legend>Login</legend>
+                        <div class="row top clearfix">
+                                @Html.LabelFor(m => m.Username)
+                                @Html.TextBoxFor(m => m.Username)
+                                @Html.ValidationMessageFor(m => m.Username)
+                        </div>
+                        <div class="row clearfix">
+                                @Html.LabelFor(m => m.Password)
+                                @Html.PasswordFor(m => m.Password)
+                                @Html.ValidationMessageFor(m => m.Password)
+                        </div>
+                        <div class="row inline bottom clearfix">
+                                @Html.CheckBoxFor(m => m.Autologin)
+                                @Html.LabelFor(m => m.Autologin, new { @class = "checkbox" })
+                        </div>
         
-                </fieldset>
-            }
+                    </fieldset>
+                    <fieldset class="buttons bottom">
+                            <input type="submit" value="Login" />
+                    </fieldset>
+                }
+            </div>
         </div>
         <div class="section-footer">
         </div>
