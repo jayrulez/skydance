@@ -37,6 +37,10 @@ INSERT INTO [User](UserLevelId, Name, Username, Password, PasswordExpireAt, Logi
 VALUES (1, 'Admin', 'admin', 'admin', '', 1, 'Admin', 'Kingston', 'Kingston', 1, '12345', 'admin@fuf.ja')
 GO
 
+INSERT INTO [User](UserLevelId, Name, Username, Password, PasswordExpireAt, LoginStatus, Designation, AddressStreet, AddressCity, ParishId, ContactNumber, EmailAddress) 
+VALUES (1, 'Test User', 'tuser', 'testuser', '', 1, 'Test', 'Kingston', 'Kingston', 4, '12345', 'test@fuf.ja')
+GO
+
 INSERT INTO Subscriber (Name, OperatingName, AddressStreet, AddressCity, ParishId, ContactNumber, FaxNumber, EmailAddress, Website)
 VALUES ('JPS', 'Jamaica Public Service', 'Kingston', 'Kingston', 1, '1234567', '1234567', '1234567@fu.ja', 'http://link.com')
 GO
