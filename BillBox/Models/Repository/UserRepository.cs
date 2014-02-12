@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Data.Entity;
+
 using BillBox.Common;
+using System.Collections.Generic;
 
 namespace BillBox.Models.Repository
 {
@@ -10,11 +13,11 @@ namespace BillBox.Models.Repository
     public class UserRepository : BaseRepository, IUserRepository
     {
         /// <summary>
-        /// Returns a specified user from the UserRepository in a generic Response object
+        /// Returns a Response object with a User specified by UserId from the User Repository
         /// </summary>
-        /// <param name="UserId">the user unique identifer</param>
+        /// <param name="UserId">the intended User Id</param>
         /// <returns></returns>
-        public IResponse<User> GetUser(int UserId)
+        public IResponse<User> GetUser(int UserId, bool PopulateRelatedFields = false)
         {
             IResponse<User> response = new Response<User>();
 
@@ -24,9 +27,21 @@ namespace BillBox.Models.Repository
                 {
                     var user = dbContext.Users.Find(UserId);
                     if (user == null)
+                    {
                         response.Error = ErrorCode.UserNotFound;
+                    }
                     else
+                    {
+                        if (PopulateRelatedFields)
+                        {
+                            dbContext.Entry(user).Reference(u => u.UserLevel).Load();
+                            dbContext.Entry(user).Reference(u => u.AgentBranch).Load();
+                            dbContext.Entry(user).Reference(u => u.Parish).Load();
+                            dbContext.Entry(user).Reference(u => u.Agent).Load();
+                        }
+                        
                         response.Result = user;
+                    }
                 }
             }
             catch
@@ -38,11 +53,11 @@ namespace BillBox.Models.Repository
         }
 
         /// <summary>
-        /// Returns a specified user from the UserRepository in a generic Response object
+        /// Returns a Response object with a User specified by Username from the User Repository
         /// </summary>
-        /// <param name="Username">the user's unique name</param>
+        /// <param name="Username">the intended User Username</param>
         /// <returns></returns>
-        public IResponse<User> GetUser(string Username)
+        public IResponse<User> GetUser(string Username, bool PopulateRelatedFields = false)
         {
             IResponse<User> response = new Response<User>();
 
@@ -52,12 +67,125 @@ namespace BillBox.Models.Repository
                 {
                     var user = dbContext.Users.FirstOrDefault(u => u.Username == Username);
                     if (user == null)
+                    {
                         response.Error = ErrorCode.UserNotFound;
+                    }
                     else
+                    {
+                        if (PopulateRelatedFields)
+                        {
+                            dbContext.Entry(user).Reference(u => u.UserLevel).Load();
+                            dbContext.Entry(user).Reference(u => u.AgentBranch).Load();
+                            dbContext.Entry(user).Reference(u => u.Parish).Load();
+                            dbContext.Entry(user).Reference(u => u.Agent).Load();
+                        }
+
                         response.Result = user;
+                    }
                 }
             }
             catch
+            {
+                response.Error = ErrorCode.DbError;
+            }
+
+            return response;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IResponse<User> GetUsers(bool PopulateRelatedFields = false)
+        {
+            IResponse<User> response = new Response<User>();
+
+            try
+            {
+                using (dbContext)
+                {
+                    var users = new List<User>();
+
+                    if (PopulateRelatedFields)
+                    {
+                        users = dbContext.Users
+                            .Include(u => u.UserLevel)
+                            .Include(u => u.AgentBranch)
+                            .Include(u => u.Parish)
+                            .Include(u => u.Agent)
+                            .ToList();
+                    }
+                    else
+                    {
+                        users = dbContext.Users.ToList();
+                    }
+
+                    if (users.Count > 0)
+                    {
+                        response.Results = users;
+                    }
+                    else
+                    {
+                        response.Error = ErrorCode.UserNotFound;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                response.Error = ErrorCode.DbError;
+            }
+
+            return response;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="PageNumber"></param>
+        /// <param name="PageSize"></param>
+        /// <returns></returns>
+        public IResponse<User> GetUsers(int PageNumber, int PageSize, bool PopulateRelatedFields = false)
+        {
+            IResponse<User> response = new Response<User>();
+
+            try
+            {
+                using (dbContext)
+                {
+                    var users = new List<User>();
+
+                    if (PopulateRelatedFields)
+                    {
+                        users = dbContext.Users
+                            .Include(u => u.UserLevel)
+                            .Include(u => u.AgentBranch)
+                            .Include(u => u.Parish)
+                            .Include(u => u.Agent)
+                            .ToList()
+                            .Skip((PageNumber - 1) * PageSize)
+                            .Take(PageSize)
+                            .ToList();
+                    }
+                    else
+                    {
+                        users = dbContext.Users
+                            .ToList()
+                            .Skip((PageNumber - 1) * PageSize)
+                            .Take(PageSize)
+                            .ToList();
+                    }
+
+                    if (users.Count > 0)
+                    {
+                        response.Results = users;
+                    }
+                    else
+                    {
+                        response.Error = ErrorCode.UserNotFound;
+                    }
+                }
+            }
+            catch (Exception)
             {
                 response.Error = ErrorCode.DbError;
             }
@@ -94,7 +222,7 @@ namespace BillBox.Models.Repository
 
                 if (ex.Message.Contains("Violation of UNIQUE KEY constraint"))
                 {
-                    if (ex.Message.Contains(Util.GetAppSetting("UKViolation_EmailAddress")))
+                    if (ex.Message.Contains(Util.GetAppSetting("UKViolation_UserEmail")))
                     {
                         response.Error = ErrorCode.DuplicateEmailAddress;
                     }
@@ -160,7 +288,7 @@ namespace BillBox.Models.Repository
 
                 if (ex.Message.Contains("Violation of UNIQUE KEY constraint"))
                 {
-                    if (ex.Message.Contains(Util.GetAppSetting("UKViolation_EmailAddress")))
+                    if (ex.Message.Contains(Util.GetAppSetting("UKViolation_UserEmail")))
                     {
                         response.Error = ErrorCode.DuplicateEmailAddress;
                     }

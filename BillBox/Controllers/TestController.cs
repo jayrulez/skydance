@@ -14,11 +14,13 @@ namespace BillBox.Controllers
 
         private readonly IAgentRepository agentRepo;
         private readonly ISubscriberRepository subcriberRepo;
+        private readonly IUserRepository userRepo;
 
         public TestController()
         {
             agentRepo = new AgentRepository();
             subcriberRepo = new SubscriberRepository();
+            userRepo = new UserRepository();
         }
 
         public ActionResult GetAgent()
@@ -103,6 +105,108 @@ namespace BillBox.Controllers
 
         }
 
-        
+
+        public ActionResult GetUser()
+        {
+            IResponse<User> response = userRepo.GetUser(1 ,true);
+
+            if (response.IsSuccessful)
+            {
+                ViewBag.User = response.Result;
+            }
+            else
+            {
+                ViewBag.Error = response.Error;
+            }
+
+            return View();
+        }
+
+
+        public ActionResult GetUsers()
+        {
+            IResponse<User> response = new Response<User>();
+
+            response = userRepo.GetUsers(2, 1, true);
+
+            if (response.IsSuccessful)
+            {
+                ViewBag.Users = response.Results;
+            }
+            else
+            {
+                ViewBag.Error = response.Error;
+            }
+
+            return View();
+        }
+
+        public ActionResult AddUsers()
+        {
+            IResponse<bool> response = new Response<bool>();
+            var user = new BillBox.Models.User();
+            user.UserLevelId = 1;
+            user.AgentId = 1;
+            user.AgentBranchId = 1;
+            user.Name = "Test User 2";
+            user.Username = "t2user";
+            user.Password = "password";
+            user.PasswordExpireAt = DateTime.Now;
+            user.LoginStatus = 1;
+            user.Designation = "Designation";
+            user.AddressStreet = "Some street";
+            user.AddressCity = "Kinsgton";
+            user.ParishId = 7;
+            user.ContactNumber = "123456798";
+            user.EmailAddress = "test3@fu.jm";
+
+            response = userRepo.AddUser(user);
+
+            if (response.IsSuccessful)
+            {
+                ViewBag.Result = response.Results;
+            }
+            else
+            {
+                ViewBag.Error = response.Error;
+            }
+
+            return View();
+        }
+
+        public ActionResult UpdateUser()
+        {
+            IResponse<bool> response = new Response<bool>();
+
+            var user = new BillBox.Models.User();
+            user.UserId = 3;
+            user.UserLevelId = 1;
+            user.AgentId = 1;
+            user.AgentBranchId = 1;
+            user.Name = "Test User 2";
+            user.Username = "t2user";
+            user.Password = "password";
+            user.PasswordExpireAt = DateTime.Now;
+            user.LoginStatus = 1;
+            user.Designation = "Designation";
+            user.AddressStreet = "Some street";
+            user.AddressCity = "Kinsgton";
+            user.ParishId = 7;
+            user.ContactNumber = "123456798";
+            user.EmailAddress = "test2@fu.jm";
+
+            response = userRepo.UpdateUser(user);
+
+            if (response.IsSuccessful)
+            {
+                ViewBag.Result = response.Results;
+            }
+            else
+            {
+                ViewBag.Error = response.Error;
+            }
+
+            return View();
+        }
     }
 }
