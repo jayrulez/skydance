@@ -108,5 +108,11 @@ namespace BillBox.Controllers
             return View(agent);
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            dbContext.Dispose();
+            base.Dispose(disposing);
+        }
+
     }
 }

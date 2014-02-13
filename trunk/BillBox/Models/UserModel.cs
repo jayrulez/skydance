@@ -23,6 +23,9 @@ namespace BillBox.Models
 
     public class CreateUserModel
     {
+        public string Name;
+        public string Username;
+        public string Password;
     }
 
     public class UpdateUserModel
