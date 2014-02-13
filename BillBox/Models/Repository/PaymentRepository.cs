@@ -22,7 +22,15 @@ namespace BillBox.Models.Repository
             {
                 using (this.dbContext)
                 {
-
+                    var payment = dbContext.Payments.Find(Id);
+                    if (payment == null)
+                    {
+                        response.Error = ErrorCode.PaymentNotFound;
+                    }
+                    else
+                    {
+                        response.Result = payment;
+                    }
                 }
             }
             catch
@@ -46,7 +54,15 @@ namespace BillBox.Models.Repository
             {
                 using (this.dbContext)
                 {
-
+                    var payment = dbContext.Payments.FirstOrDefault(p => p.InvoiceNumber == InvoiceNumber);
+                    if (payment == null)
+                    {
+                        response.Error = ErrorCode.PaymentNotFound;
+                    }
+                    else
+                    {
+                        response.Result = payment;
+                    }
                 }
             }
             catch
@@ -69,7 +85,15 @@ namespace BillBox.Models.Repository
             {
                 using (this.dbContext)
                 {
-
+                    var payments = dbContext.Payments.ToList();
+                    if (payments.Count < 1)
+                    {
+                        response.Error = ErrorCode.PaymentNotFound;
+                    }
+                    else
+                    {
+                        response.Results = payments;
+                    }
                 }
             }
             catch
@@ -94,7 +118,20 @@ namespace BillBox.Models.Repository
             {
                 using (this.dbContext)
                 {
+                    var payments = dbContext.Payments
+                        .ToList()
+                        .Skip((PageNumber - 1) * PageSize)
+                        .Take(PageSize)
+                        .ToList();
 
+                    if (payments.Count < 1)
+                    {
+                        response.Error = ErrorCode.PaymentNotFound;
+                    }
+                    else
+                    {
+                        response.Results = payments;
+                    }
                 }
             }
             catch
@@ -118,7 +155,19 @@ namespace BillBox.Models.Repository
             {
                 using (this.dbContext)
                 {
+                    var payments = dbContext.Payments
+                        .ToList()
+                        .Where(p => p.SubscriberId == SubscriberId)
+                        .ToList();
 
+                    if (payments.Count < 1)
+                    {
+                        response.Error = ErrorCode.PaymentNotFound;
+                    }
+                    else
+                    {
+                        response.Results = payments;
+                    }
                 }
             }
             catch
@@ -144,7 +193,21 @@ namespace BillBox.Models.Repository
             {
                 using (this.dbContext)
                 {
+                    var payments = dbContext.Payments
+                        .ToList()
+                        .Where(p => p.SubscriberId == SubscriberId)
+                        .Skip((PageNumber - 1) * PageSize)
+                        .Take(PageSize)
+                        .ToList();
 
+                    if (payments.Count < 1)
+                    {
+                        response.Error = ErrorCode.PaymentNotFound;
+                    }
+                    else
+                    {
+                        response.Results = payments;
+                    }
                 }
             }
             catch
@@ -168,7 +231,19 @@ namespace BillBox.Models.Repository
             {
                 using (this.dbContext)
                 {
+                    var payments = dbContext.Payments
+                        .ToList()
+                        .Where(p => p.AgentId == AgentId)
+                        .ToList();
 
+                    if (payments.Count < 1)
+                    {
+                        response.Error = ErrorCode.PaymentNotFound;
+                    }
+                    else
+                    {
+                        response.Results = payments;
+                    }
                 }
             }
             catch
@@ -194,7 +269,21 @@ namespace BillBox.Models.Repository
             {
                 using (this.dbContext)
                 {
+                    var payments = dbContext.Payments
+                        .ToList()
+                        .Where(p => p.AgentId == AgentId)
+                        .Skip((PageNumber - 1) * PageSize)
+                        .Take(PageSize)
+                        .ToList();
 
+                    if (payments.Count < 1)
+                    {
+                        response.Error = ErrorCode.PaymentNotFound;
+                    }
+                    else
+                    {
+                        response.Results = payments;
+                    }
                 }
             }
             catch
@@ -208,9 +297,9 @@ namespace BillBox.Models.Repository
         /// <summary>
         ///  Returns a Response object with a list containg all the payments in the Payment Repository belonging to the specified Agent branch
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="AgentBranchId"></param>
         /// <returns></returns>
-        public IResponse<Payment> GetAgentBranchPayments(int Id)
+        public IResponse<Payment> GetAgentBranchPayments(int AgentBranchId)
         {
             IResponse<Payment> response = new Response<Payment>();
 
@@ -218,7 +307,19 @@ namespace BillBox.Models.Repository
             {
                 using (this.dbContext)
                 {
+                    var payments = dbContext.Payments
+                        .ToList()
+                        .Where(p => p.AgentBranchId == AgentBranchId)                        
+                        .ToList();
 
+                    if (payments.Count < 1)
+                    {
+                        response.Error = ErrorCode.PaymentNotFound;
+                    }
+                    else
+                    {
+                        response.Results = payments;
+                    }                
                 }
             }
             catch
@@ -232,11 +333,11 @@ namespace BillBox.Models.Repository
         /// <summary>
         /// Returns a Response object with a paged list of payments in the Payment Repository belonging to the specified Agent branch
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="AgentBranchId"></param>
         /// <param name="PageNumber"></param>
         /// <param name="PageSize"></param>
         /// <returns></returns>
-        public IResponse<Payment> GetAgentBranchPayments(int Id, int PageNumber, int PageSize)
+        public IResponse<Payment> GetAgentBranchPayments(int AgentBranchId, int PageNumber, int PageSize)
         {
             IResponse<Payment> response = new Response<Payment>();
 
@@ -244,7 +345,21 @@ namespace BillBox.Models.Repository
             {
                 using (this.dbContext)
                 {
+                    var payments = dbContext.Payments
+                        .ToList()
+                        .Where(p => p.AgentBranchId == AgentBranchId)
+                        .Skip((PageNumber - 1) * PageSize)
+                        .Take(PageSize)
+                        .ToList();
 
+                    if (payments.Count < 1)
+                    {
+                        response.Error = ErrorCode.PaymentNotFound;
+                    }
+                    else
+                    {
+                        response.Results = payments;
+                    }
                 }
             }
             catch
@@ -268,7 +383,19 @@ namespace BillBox.Models.Repository
             {
                 using (this.dbContext)
                 {
+                    var payments = dbContext.Payments
+                        .ToList()
+                        .Where(p => p.UserId == UserId)
+                        .ToList();
 
+                    if (payments.Count < 1)
+                    {
+                        response.Error = ErrorCode.PaymentNotFound;
+                    }
+                    else
+                    {
+                        response.Results = payments;
+                    }
                 }
             }
             catch
@@ -294,7 +421,21 @@ namespace BillBox.Models.Repository
             {
                 using (this.dbContext)
                 {
+                    var payments = dbContext.Payments
+                        .ToList()
+                        .Where(p => p.UserId == UserId)
+                        .Skip((PageNumber - 1) * PageSize)
+                        .Take(PageSize)
+                        .ToList();
 
+                    if (payments.Count < 1)
+                    {
+                        response.Error = ErrorCode.PaymentNotFound;
+                    }
+                    else
+                    {
+                        response.Results = payments;
+                    }
                 }
             }
             catch
