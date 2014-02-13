@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 using BillBox.Models;
 using BillBox.Models.Repository;
@@ -19,8 +20,12 @@ namespace BillBox.Controllers
         [HttpGet]
         public ActionResult Index(int? page)
         {
-            var users = dbContext.Users.OrderBy(a => a.Name);
-
+            var users = dbContext.Users
+                .Include(u => u.UserLevel)
+                .Include(u => u.Agent)
+                .Include(u => u.AgentBranch)
+                .OrderBy(a => a.Name);
+            
             var pageNumber = page ?? 1;
             
             ViewBag.users = users.ToPagedList(pageNumber, 25);
@@ -31,6 +36,9 @@ namespace BillBox.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            ViewBag.Parishes = new SelectList(dbContext.Parishes, "ParishId", "Name");
+            ViewBag.UserLevels = new SelectList(dbContext.UserLevels, "LevelId", "LevelName");
+
             return View();
         }
 
@@ -105,9 +113,6 @@ namespace BillBox.Controllers
             return View(user);
             
         }
-
-        
-        
 
     }
 }
