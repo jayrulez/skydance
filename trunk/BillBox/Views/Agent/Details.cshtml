@@ -15,10 +15,31 @@
                 <dd>@Html.DisplayFor(m => m.Name)</dd>
                 
                 <dt>@Html.DisplayNameFor(m => m.AddressStreet)</dt>
-                <dd>@Html.DisplayFor(m => m.AddressStreet)</dd>
+                <dd>
+                    @Html.DisplayFor(m => m.AddressStreet)
+                    <br />
+                    @Html.DisplayFor(m => m.AddressCity)
+                    @if(Model.Parish != null) {
+                        <br />
+                        @Html.DisplayFor(m => m.Parish.Name)
+                    }
+                </dd>
+
+                <dt>@Html.DisplayNameFor(model => model.ContactNumber)</dt>
+                <dd>@Html.DisplayFor(model => model.ContactNumber)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.FaxNumber)</dt>
+                <dd>@Html.DisplayFor(model => model.FaxNumber)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.EmailAddress)</dt>
+                <dd>@Html.DisplayFor(model => model.EmailAddress)</dd>
             </dl>
         </div>
         <div class="section-footer">
+            <ul class="details-menu">
+                <li>@Html.ActionLink("Edit", "Edit", new { id=Model.AgentId })</li>
+                <li>@Html.ActionLink("Back to List", "Index")</li>
+            </ul>
         </div>
     </div>
 </div>

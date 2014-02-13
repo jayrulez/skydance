@@ -41,7 +41,9 @@
                         <td>@agent.FaxNumber</td>
                         <td>@agent.EmailAddress</td>
 
-                        <td>@Html.ActionLink("Edit", "Edit", "Agent", new { agentId = @agent.AgentId }, null)</td>
+                        <td>@Html.ActionLink("View", "Details", "Agent", new { agentId = @agent.AgentId }, null) |
+                            @Html.ActionLink("Edit", "Edit", "Agent", new { agentId = @agent.AgentId }, null)
+                        </td>
                     </tr>
                 }
                 </tbody>

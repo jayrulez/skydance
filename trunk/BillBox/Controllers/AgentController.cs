@@ -44,6 +44,9 @@ namespace BillBox.Controllers
                 {
                     dbContext.Agents.Add(agent);
                     dbContext.SaveChanges();
+
+                    return RedirectToAction("Details", new { agentId = agent.AgentId });
+
                 }catch(Exception ex)
                 {
                     ModelState.AddModelError("", ex.Message);
