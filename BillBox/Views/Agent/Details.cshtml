@@ -1,0 +1,24 @@
+﻿@model BillBox.Models.Agent
+
+@{
+    ViewBag.Title = "View Agent";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+
+<div class="action">
+    <div class="section">
+        <div class="section-header">
+        </div>
+        <div class="section-content">
+            <dl>
+                <dt>@Html.DisplayNameFor(m => m.Name)</dt>
+                <dd>@Html.DisplayFor(m => m.Name)</dd>
+                
+                <dt>@Html.DisplayNameFor(m => m.AddressStreet)</dt>
+                <dd>@Html.DisplayFor(m => m.AddressStreet)</dd>
+            </dl>
+        </div>
+        <div class="section-footer">
+        </div>
+    </div>
+</div>

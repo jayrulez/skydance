@@ -1,0 +1,71 @@
+﻿@model BillBox.Models.Agent
+
+@{
+    ViewBag.Title = "Create Agent";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+
+<div class="action">
+    <div class="section">
+        <div class="section-header">
+        </div>
+        <div class="section-content">
+            <div class="form-container">
+                @using (Html.BeginForm("Create","Agent", FormMethod.Post, new { @class = "wf" })) {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <fieldset class="top">
+                        <legend>Create Agent</legend>
+                        <div class="row top clearfix">
+                                @Html.LabelFor(m => m.Name)
+                                @Html.TextBoxFor(m => m.Name)
+                                @Html.ValidationMessageFor(m => m.Name)
+                        </div>
+                        <div class="row clearfix">
+                                @Html.LabelFor(m => m.AddressStreet)
+                                @Html.TextBoxFor(m => m.AddressStreet)
+                                @Html.ValidationMessageFor(m => m.AddressStreet)
+                        </div>
+                        <div class="row clearfix">
+                                @Html.LabelFor(m => m.AddressCity)
+                                @Html.TextBoxFor(m => m.AddressCity)
+                                @Html.ValidationMessageFor(m => m.AddressCity)
+                        </div>
+                        <div class="row clearfix">
+                                @Html.LabelFor(m => m.ParishId)
+                                @Html.DropDownList("ParishId", String.Empty)
+                                @Html.ValidationMessageFor(model => model.ParishId)
+                        </div>
+                        <div class="row clearfix">
+                                @Html.LabelFor(m => m.ContactNumber)
+                                @Html.TextBoxFor(m => m.ContactNumber)
+                                @Html.ValidationMessageFor(m => m.ContactNumber)
+                        </div>
+                        <div class="row clearfix">
+                                @Html.LabelFor(m => m.FaxNumber)
+                                @Html.TextBoxFor(m => m.FaxNumber)
+                                @Html.ValidationMessageFor(m => m.FaxNumber)
+                        </div>
+                        <div class="row bottom clearfix">
+                                @Html.LabelFor(m => m.EmailAddress)
+                                @Html.TextBoxFor(m => m.EmailAddress)
+                                @Html.ValidationMessageFor(m => m.EmailAddress)
+                        </div>
+        
+                    </fieldset>
+                    <fieldset class="buttons bottom">
+                            <input type="submit" value="Create" />
+                    </fieldset>
+                }
+            </div>
+        </div>
+        <div class="section-footer">
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

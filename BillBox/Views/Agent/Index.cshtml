@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Default.cshtml";
+
+    var agents = ViewBag.agents as IEnumerable<BillBox.Models.Agent>;
+}
+
+<div class="action">
+    <div class="section">
+        <div class="section-header">
+        </div>
+        <div class="section-content">
+            <table>
+                <caption>Agents</caption>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Contact Number</th>
+                        <th>Fax Number</th>
+                        <th>Email Address</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach(BillBox.Models.Agent agent in agents)
+                {
+                    <tr>
+                        <td>@agent.Name</td>
+                        <td>
+                            @agent.AddressStreet
+                            <br />
+                            @agent.AddressCity
+                            @if(agent.Parish != null) {
+                                <br />
+                                @agent.Parish.Name
+                            }
+                        </td>
+
+                        <td>@agent.ContactNumber</td>
+                        <td>@agent.FaxNumber</td>
+                        <td>@agent.EmailAddress</td>
+
+                        <td>@Html.ActionLink("Edit", "Edit", "Agent", new { agentId = @agent.AgentId }, null)</td>
+                    </tr>
+                }
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
+        <div class="section-footer">
+        </div>
+    </div>
+</div>
+
