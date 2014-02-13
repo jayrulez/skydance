@@ -8,60 +8,106 @@ using BillBox.Models;
 using BillBox.Models.Repository;
 using BillBox.Common;
 
-//using PagedList;
+using PagedList;
 
 namespace BillBox.Controllers
 {
     public class UserController : Controller
     {
-        //
-        // GET: /User/
+        private Entities dbContext = new Entities();
 
-        //public ActionResult Index(int? page)
-        //{
-        //    /*
-        //    IResponse<User> response = repository.GetAll();
+        [HttpGet]
+        public ActionResult Index(int? page)
+        {
+            var users = dbContext.Users.OrderBy(a => a.Name);
+
+            var pageNumber = page ?? 1;
             
-        //    if(!response.IsSuccessful)
-        //    {
-        //        throw new HttpException(404, "Could not get users.");
-        //    }else{
-        //        ViewBag.users = response.Result.ToPagedList(); 
-        //    }
-        //    */
+            ViewBag.users = users.ToPagedList(pageNumber, 25);
 
-        //    Entities dbContext = new Entities();
+            return View();
+        }
+        
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
 
-        //    var users = dbContext.Users.OrderBy(u => u.Name);
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    dbContext.Users.Add(user);
+                    dbContext.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
 
-        //    var pageNumber = page ?? 1;
+            return View();
+        }
 
-        //    ViewBag.users = users.ToPagedList(pageNumber, 25);
+        [HttpGet]
+        public ActionResult Details(int userId = 0)
+        {
+            User user = dbContext.Users.Find(userId);
 
-        //    return View();
-        //}
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
 
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
+            return View(user);
+        }
 
-        //[HttpPost]
-        //public ActionResult Create(CreateUserModel model)
-        //{
-        //    return View(model);
-        //}
+        [HttpGet]
+        public ActionResult Edit(int userId = 0)
+        {
+            User user = dbContext.Users.Find(userId);
 
-        //public ActionResult Update()
-        //{
-        //    return View();
-        //}
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
 
-        //[HttpPost]
-        //public ActionResult Update(UpdateUserModel model)
-        //{
-        //    return View(model);
-        //}
+            return View(user);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(User user)
+        {
+
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    dbContext.Entry(user).State = System.Data.EntityState.Modified;
+
+                    dbContext.SaveChanges();
+
+                    return RedirectToAction("Details", new { userId = user.UserId });
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+
+            return View(user);
+            
+        }
+
+        
+        
 
     }
 }

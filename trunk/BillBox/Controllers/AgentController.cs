@@ -21,7 +21,7 @@ namespace BillBox.Controllers
             var agents = dbContext.Agents.OrderBy(a => a.Name);
 
             var pageNumber = page ?? 1;
-
+            
             ViewBag.agents = agents.ToPagedList(pageNumber, 25);
 
             return View();
