@@ -33,7 +33,7 @@
                                 @Html.ValidationMessageFor(m => m.AddressCity)
                         </div>
                         <div class="row clearfix">
-                                @Html.LabelFor(m => m.ParishId)
+                                @Html.LabelFor(m => m.ParishId, "Parish")
                                 @Html.DropDownList("ParishId", String.Empty)
                                 @Html.ValidationMessageFor(model => model.ParishId)
                         </div>
@@ -64,6 +64,10 @@
         </div>
     </div>
 </div>
+
+@section SidebarLeft {
+    @Html.Partial("_SidebarMenu");
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
