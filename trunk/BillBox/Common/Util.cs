@@ -9,7 +9,7 @@ namespace BillBox.Common
     public enum ErrorCode
     {
         NoError, UserNotFound, AgentNotFound, SubscriberNotFound, 
-        DuplicateEmailAddress, 
+        DuplicateEmailAddress, PaymentNotFound,
         DuplicateName, DuplicateOperatingName,  DuplicateUsername, NoResultsFound,
         FKError,
         DbError, DBEntityValidationError, SysError, InvalidPageSize, InvalidPageNumber, Generic1, Generic2
