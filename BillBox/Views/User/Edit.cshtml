@@ -3,9 +3,10 @@
 @{
     ViewBag.Title = "Edit User";
     Layout = "~/Views/Shared/_Default.cshtml";
-    var Parishes = (ViewBag.Parishes != null) ? ViewBag.Parishes : null; 
-    var UserLevels = (ViewBag.UserLevels != null) ? ViewBag.UserLevels : null;
-    var Agents = (ViewBag.Agents != null) ? ViewBag.Agents : null;
+    var Parishes = (ViewBag.Parishes != null) ? ViewBag.Parishes as IEnumerable<BillBox.Models.Parish> : null;
+    var UserLevels = (ViewBag.UserLevels != null) ? ViewBag.UserLevels as IEnumerable<BillBox.Models.UserLevel> : null;
+    var Agents = (ViewBag.Agents != null) ? ViewBag.Agents as IEnumerable<BillBox.Models.Agent> : null;
+    var Branches = (ViewBag.AgentBranches != null) ? ViewBag.AgentBranches as IEnumerable<BillBox.Models.AgentBranch> : null;
 }
 <div class="action">
     <div class="section">
@@ -37,8 +38,7 @@
 
                         <div class="row clearfix">
                             @Html.LabelFor(model => model.Password)
-                            @Html.PasswordFor(model => model.Password)
-                            @Html.ValidationMessageFor(model => model.Password)
+                            @Html.PasswordFor(model => model.Password, new { data_val = false })
                         </div>
 
                         <div class="row clearfix">
@@ -77,7 +77,22 @@
                             @Html.ValidationMessageFor(model => model.AgentId)
                         </div>
 
-                        <div class="row clearfix" id="agent-branches-area"></div>
+                        <div class="row clearfix">
+                            <div id="agent-branches-area">
+                                @Html.LabelFor(model => model.AgentBranchId)  
+
+                                @if (Branches != null)
+                                {
+                                     @Html.DropDownListFor(model => model.AgentBranchId, new SelectList(Branches, "BranchId", "Name"), "Select Branch")
+                                } 
+                                else 
+                                {
+                                     @Html.DropDownListFor(model => model.AgentBranchId, new SelectList("", "", ""), "Select Branch")
+                                }                              
+                               
+                                @Html.ValidationMessageFor(model => model.AgentBranchId)
+                            </div>
+                        </div>
 
                         <div class="row clearfix">
                             @Html.LabelFor(model => model.UserLevelId)
@@ -99,9 +114,9 @@
 
 
 @section SidebarLeft {
-    @Html.Partial("_SidebarMenu");
+    @Html.Partial("_SidebarMenu")
 }
-    
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">

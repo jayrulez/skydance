@@ -4,9 +4,9 @@
     ViewBag.Title = "Create User";
     Layout = "~/Views/Shared/_Default.cshtml";
 
-    var Parishes = (ViewBag.Parishes != null) ? ViewBag.Parishes : null;
-    var Agents = (ViewBag.Agents != null) ? ViewBag.Agents : null;
-    var UserLevels = (ViewBag.UserLevels != null) ? ViewBag.UserLevels : null;
+    var Parishes = (ViewBag.Parishes != null) ? ViewBag.Parishes as IEnumerable<BillBox.Models.Parish> : null;
+    var Agents = (ViewBag.Agents != null) ? ViewBag.Agents as IEnumerable<BillBox.Models.Agent> : null;
+    var UserLevels = (ViewBag.UserLevels != null) ? ViewBag.UserLevels as IEnumerable<BillBox.Models.UserLevel> : null;
 }
 
 <div class="action">
@@ -54,7 +54,7 @@
                         </div>
 
                         <div class="row clearfix">
-                            @Html.LabelFor(u => u.ParishId, "Parish")
+                            @Html.LabelFor(model => model.ParishId, "Parish")
                             @Html.DropDownListFor(model => model.ParishId, new SelectList(Parishes, "ParishId", "Name"), "Select Parish")
                             @Html.ValidationMessageFor(model => model.ParishId)
                         </div>
@@ -78,7 +78,11 @@
                         </div>
 
                         <div class="row clearfix">
-                            <div id="agent-branches-area"></div>
+                            <div id="agent-branches-area">
+                                @Html.LabelFor(model => model.AgentBranchId)
+                                @Html.DropDownListFor(model => model.AgentBranchId, new SelectList("", "", ""), "Select Branch")
+                                @Html.ValidationMessageFor(model => model.AgentBranchId)
+                            </div>
                         </div>
 
                         <div class="row top clearfix">
@@ -117,7 +121,7 @@
                         cache: false,
                         type: 'GET',
                         url: '@Url.Action("AgentBranches", "User")',
-                        data: { 'agentId': agentId },
+                        data: { 'id': agentId },
                         success: function (html) {
                             $("#agent-branches-area").html(html);
                         },
@@ -132,3 +136,6 @@
         });
     </script>
 }
+
+
+
