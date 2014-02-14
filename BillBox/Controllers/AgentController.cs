@@ -53,7 +53,7 @@ namespace BillBox.Controllers
                 }
             }
 
-            ViewBag.ParishId = new SelectList(dbContext.Parishes, "ParishId", "Name");
+            ViewBag.Parishes = dbContext.Parishes.OrderBy(p => p.Name);
 
             return View();
         }
@@ -79,7 +79,7 @@ namespace BillBox.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.ParishId = new SelectList(dbContext.Parishes, "ParishId", "Name");
+            ViewBag.Parishes = dbContext.Parishes.OrderBy(p => p.Name);
 
             return View(agent);
         }
