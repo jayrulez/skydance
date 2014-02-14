@@ -1,0 +1,87 @@
+﻿@model BillBox.Models.User
+
+@{
+    ViewBag.Title = "View User";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+
+<div class="action">
+    <div class="section">
+        <div class="section-header">
+        </div>
+        <div class="section-content">
+            <dl>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Username)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Username)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.AddressStreet)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.AddressStreet)
+                    <br />
+                    @Html.DisplayFor(model => model.AddressCity)
+                    @if (Model.Parish != null)
+                    {
+                        <br />                 
+                        @Html.DisplayFor(model => model.Parish.Name)
+                    }
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ContactNumber)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ContactNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.EmailAddress)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EmailAddress)
+                </dd>
+
+                @if (Model.Agent != null)
+                {
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Agent.Name)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Agent.Name)
+                    </dd>
+                    if (Model.AgentBranch != null)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.AgentBranch.Name)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.AgentBranch.Name)
+                        </dd>
+                    }
+                }
+            </dl>
+        </div>
+    </div>
+</div>
+<div class="section-footer">
+    <ul class="details-menu">
+        <li>@Html.ActionLink("Edit", "Edit", new { id = Model.UserId })</li>
+        <li>@Html.ActionLink("Back to List", "Index")</li>
+    </ul>
+</div>
+
+@section SidebarLeft {
+    @Html.Partial("_SidebarMenu");
+}

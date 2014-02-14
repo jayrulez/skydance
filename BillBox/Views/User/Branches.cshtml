@@ -1,0 +1,11 @@
+﻿@model BillBox.Models.AgentBranch
+
+@{
+    var Branches = (ViewBag.AgentBranches != null) ? ViewBag.AgentBranches : null;
+ }
+
+<div class="row clearfix">
+    @Html.LabelFor(model => model.BranchId)
+    @Html.DropDownListFor(model => model.BranchId, new SelectList(Branches, "BranchId", "Name"), "Select Branch")
+    @Html.ValidationMessageFor(model => model.BranchId)
+</div>

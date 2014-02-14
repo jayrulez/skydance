@@ -32,7 +32,7 @@
                         <td>@if(@user.Agent != null) { @user.Agent.Name }</td>
                         <td>@if(@user.AgentBranch != null) { @user.AgentBranch.Name }</td>
                         <td>
-                            @Html.ActionLink("Details", "Details", "User", new { id = @user.UserId }, null) | 
+                            @Html.ActionLink("View", "Details", "User", new { id = @user.UserId }, null) | 
                             @Html.ActionLink("Edit", "Edit", "User", new { id = @user.UserId }, null)
                         </td>
                     </tr>
@@ -45,3 +45,7 @@
         </div>
     </div>
 </div>
+
+@section SidebarLeft {
+    @Html.Partial("_SidebarMenu");
+}
