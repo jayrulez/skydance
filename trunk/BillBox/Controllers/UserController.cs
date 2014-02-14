@@ -36,9 +36,10 @@ namespace BillBox.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.Parishes = new SelectList(dbContext.Parishes, "ParishId", "Name");
-            ViewBag.UserLevels = new SelectList(dbContext.UserLevels, "LevelId", "LevelName");
-
+            ViewBag.Parishes = dbContext.Parishes.AsEnumerable<BillBox.Models.Parish>().OrderBy(p => p.Name);
+            ViewBag.UserLevels = dbContext.UserLevels.AsEnumerable<BillBox.Models.UserLevel>();
+            ViewBag.Agents = dbContext.Agents.AsEnumerable<BillBox.Models.Agent>().OrderBy(a => a.Name);
+           
             return View();
         }
 
@@ -52,6 +53,9 @@ namespace BillBox.Controllers
                 {
                     dbContext.Users.Add(user);
                     dbContext.SaveChanges();
+
+                    RedirectToAction("Details", new { id = user.UserId });
+                   
                 }
                 catch (Exception ex)
                 {
@@ -59,13 +63,17 @@ namespace BillBox.Controllers
                 }
             }
 
-            return View();
+            ViewBag.Parishes = dbContext.Parishes.AsEnumerable<BillBox.Models.Parish>().OrderBy(p => p.Name);
+            ViewBag.UserLevels = dbContext.UserLevels.AsEnumerable<BillBox.Models.UserLevel>();
+            ViewBag.Agents = dbContext.Agents.AsEnumerable<BillBox.Models.Agent>().OrderBy(a => a.Name);
+
+            return View(user);
         }
 
         [HttpGet]
-        public ActionResult Details(int userId = 0)
+        public ActionResult Details(int id = 0)
         {
-            User user = dbContext.Users.Find(userId);
+            User user = dbContext.Users.Find(id);
 
             if (user == null)
             {
@@ -76,14 +84,18 @@ namespace BillBox.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int userId = 0)
+        public ActionResult Edit(int id = 0)
         {
-            User user = dbContext.Users.Find(userId);
+            User user = dbContext.Users.Find(id);
 
             if (user == null)
             {
                 return HttpNotFound();
             }
+
+            ViewBag.Parishes = dbContext.Parishes.AsEnumerable<BillBox.Models.Parish>();
+            ViewBag.UserLevels = dbContext.UserLevels.AsEnumerable<BillBox.Models.UserLevel>();
+            ViewBag.Agents = dbContext.Agents.AsEnumerable<BillBox.Models.Agent>();
 
             return View(user);
         }
@@ -112,6 +124,16 @@ namespace BillBox.Controllers
 
             return View(user);
             
+        }
+
+        [HttpGet]
+        public ActionResult AgentBranches(int? agentId)
+        {
+            ViewBag.AgentBranches = dbContext.AgentBranches
+                .Where(ab => ab.AgentId == agentId)
+                .AsEnumerable<BillBox.Models.AgentBranch>();
+
+            return PartialView("Branches");
         }
 
     }

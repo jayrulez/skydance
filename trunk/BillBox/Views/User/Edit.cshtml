@@ -1,29 +1,29 @@
 ﻿@model BillBox.Models.User
 
 @{
-    ViewBag.Title = "Create User";
+    ViewBag.Title = "Edit User";
     Layout = "~/Views/Shared/_Default.cshtml";
-
-    var Parishes = (ViewBag.Parishes != null) ? ViewBag.Parishes : null;
-    var Agents = (ViewBag.Agents != null) ? ViewBag.Agents : null;
+    var Parishes = (ViewBag.Parishes != null) ? ViewBag.Parishes : null; 
     var UserLevels = (ViewBag.UserLevels != null) ? ViewBag.UserLevels : null;
+    var Agents = (ViewBag.Agents != null) ? ViewBag.Agents : null;
 }
-
 <div class="action">
     <div class="section">
         <div class="section-header">
         </div>
         <div class="section-content">
             <div class="form-container">
-                @using (Html.BeginForm("Create", "User", FormMethod.Post, new { @class = "wf" }))
+                @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "wf" }))
                 {
+                    @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
-                    @Html.AntiForgeryToken();
-    
-                    <fieldset class="top">
-                        <legend>Create User</legend>
 
-                        <div class="row clearfix">
+                    <fieldset class="top">
+                        <legend>Edit User</legend>
+
+                        @Html.HiddenFor(model => model.UserId)
+
+                        <div class="row top clearfix">
                             @Html.LabelFor(model => model.Name)
                             @Html.TextBoxFor(model => model.Name)
                             @Html.ValidationMessageFor(model => model.Name)
@@ -54,7 +54,7 @@
                         </div>
 
                         <div class="row clearfix">
-                            @Html.LabelFor(u => u.ParishId, "Parish")
+                            @Html.LabelFor(model => model.ParishId)
                             @Html.DropDownListFor(model => model.ParishId, new SelectList(Parishes, "ParishId", "Name"), "Select Parish")
                             @Html.ValidationMessageFor(model => model.ParishId)
                         </div>
@@ -77,20 +77,17 @@
                             @Html.ValidationMessageFor(model => model.AgentId)
                         </div>
 
-                        <div class="row clearfix">
-                            <div id="agent-branches-area"></div>
-                        </div>
+                        <div class="row clearfix" id="agent-branches-area"></div>
 
-                        <div class="row top clearfix">
+                        <div class="row clearfix">
                             @Html.LabelFor(model => model.UserLevelId)
                             @Html.DropDownListFor(model => model.UserLevelId, new SelectList(UserLevels, "LevelId", "LevelName"), "Select User Level")
                             @Html.ValidationMessageFor(model => model.UserLevelId)
                         </div>
-
                     </fieldset>
                     
                     <fieldset class="buttons bottom">
-                        <input type="submit" value="Create" />
+                        <input type="submit" value="Save" />
                     </fieldset>
                 }
             </div>
@@ -100,10 +97,11 @@
     </div>
 </div>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
+@section SidebarLeft {
+    @Html.Partial("_SidebarMenu");
+}
+    
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
@@ -132,3 +130,4 @@
         });
     </script>
 }
+

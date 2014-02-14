@@ -20,7 +20,7 @@ namespace BillBox
                 //defaults: new { controller = "Test", action = "GetUser", id = UrlParameter.Optional }
                 //defaults: new { controller = "Test", action = "GetUsers", id = UrlParameter.Optional }
                 //defaults: new { controller = "Test", action = "AddUsers", id = UrlParameter.Optional }
-                defaults: new { controller = "Test", action = "UpdateUser", id = UrlParameter.Optional }
+                defaults: new { controller = "User", action = "Details", id = UrlParameter.Optional }
             );
         }
     }
