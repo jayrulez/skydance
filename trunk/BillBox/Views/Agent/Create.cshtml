@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Create Agent";
     Layout = "~/Views/Shared/_Default.cshtml";
+    var parishes = ViewBag.parishes as IEnumerable<BillBox.Models.Parish>;
 }
 
 <div class="action">
@@ -35,7 +36,7 @@
                         <div class="row clearfix">
                                 @Html.LabelFor(m => m.ParishId, "Parish")
                                 @Html.DropDownList("ParishId", String.Empty)
-                                @Html.ValidationMessageFor(model => model.ParishId)
+                                @Html.DropDownListFor(m => m.ParishId, new SelectList(parishes, "ParishId", "Name"), "Select Parish")
                         </div>
                         <div class="row clearfix">
                                 @Html.LabelFor(m => m.ContactNumber)
