@@ -38,6 +38,7 @@
         <div class="section-footer">
             <ul class="details-menu">
                 <li>@Html.ActionLink("Edit", "Edit", new { agentId=Model.AgentId })</li>
+                <li>@Html.ActionLink("Add Branch", "AddBranch", new { agentId=Model.AgentId })</li>
                 <li>@Html.ActionLink("Back to List", "Index")</li>
             </ul>
         </div>
@@ -45,5 +46,5 @@
 </div>
 
 @section SidebarLeft {
-    @Html.Partial("_SidebarMenu");
+    @Html.Partial("_SidebarMenu")
 }
