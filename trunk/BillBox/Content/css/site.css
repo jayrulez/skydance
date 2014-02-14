@@ -551,7 +551,7 @@ form.wf .footer
   dt {
     float: left;
     clear: left;
-    width: 100px;
+    width: 150px;
     text-align: right;
     font-weight: bold;
     color: green;
@@ -560,7 +560,7 @@ form.wf .footer
     content: ":";
   }
   dd {
-    margin: 0 0 0 110px;
+    margin: 0 0 0 160px;
     padding: 0 0 0.5em 0;
   }
 
@@ -574,4 +574,17 @@ ul.sidebar-menu {
 
 ul.sidebar-menu li a {
     display: block;
+}
+
+/*details menu*/
+ul.details-menu {
+    display: block;
+}
+
+ul.details-menu li {
+    display: inline;
+}
+
+ul.details-menu li a {
+
 }
