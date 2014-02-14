@@ -108,6 +108,109 @@ namespace BillBox.Controllers
             return View(agent);
         }
 
+        public ActionResult AddBranch(int agentId = 0)
+        {
+            var parishes = dbContext.Parishes.OrderBy(p => p.Name);
+
+            ViewBag.parishes = parishes;
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddBranch(AgentBranch model)
+        {
+            var parishes = dbContext.Parishes.OrderBy(p => p.Name);
+
+            if(ModelState.IsValid)
+            {
+                try
+                {
+                    dbContext.AgentBranches.Add(model);
+
+                    dbContext.SaveChanges();
+
+                    return RedirectToAction("ViewBranch", new { branchId = model.BranchId });
+                }catch(Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+
+            ViewBag.parishes = parishes;
+
+            return View(model);
+        }
+
+        public ActionResult EditBranch(int branchId = 0)
+        {
+            AgentBranch branch = dbContext.AgentBranches.Find(branchId);
+
+            if(branch == null)
+            {
+                return HttpNotFound();
+            }
+
+            var parishes     = dbContext.Parishes.OrderBy(p => p.Name);
+            ViewBag.parishes = parishes;
+
+            return View(branch);
+        }
+
+        [HttpPost]
+        public ActionResult EditBranch(AgentBranch model)
+        {
+            if(ModelState.IsValid)
+            {
+                try
+                {
+                    dbContext.Entry(model).State = EntityState.Modified;
+
+                    dbContext.SaveChanges();
+
+                    return RedirectToAction("ViewBranch", new { branchId = model.BranchId });
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+
+            return View(model);
+        }
+
+        public ActionResult ViewBranch(int branchId = 0)
+        {
+            var branch = dbContext.AgentBranches.Find(branchId);
+
+            if(branch == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.branch = branch;
+
+            return View();
+        }
+
+        public ActionResult ListBranches( int? page, int agentId = 0)
+        {
+            var agent = dbContext.Agents.Find(agentId);
+
+            if(agent == null)
+            {
+                return HttpNotFound();
+            }
+
+            var branches = dbContext.AgentBranches.Where(b => b.AgentId == agentId).OrderBy(b => b.Name);
+
+            var pageNumber   = page ?? 1;
+            ViewBag.branches = branches.ToPagedList(pageNumber, 25);
+
+            return View();
+        }
+
         protected override void Dispose(bool disposing)
         {
             dbContext.Dispose();
