@@ -35,8 +35,8 @@
                         </div>
                         <div class="row clearfix">
                                 @Html.LabelFor(m => m.ParishId, "Parish")
-                                @Html.DropDownList("ParishId", String.Empty)
                                 @Html.DropDownListFor(m => m.ParishId, new SelectList(parishes, "ParishId", "Name"), "Select Parish")
+                                @Html.ValidationMessageFor(m => m.ParishId)
                         </div>
                         <div class="row clearfix">
                                 @Html.LabelFor(m => m.ContactNumber)
