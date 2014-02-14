@@ -21,11 +21,11 @@ namespace BillBox.Models
         public bool Autologin { get; set; }
     }
 
-    public class CreateUserModel
+    public class UserModel
     {
-        public string Name;
-        public string Username;
-        public string Password;
+        public string Name { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
     }
 
     public class UpdateUserModel

@@ -19,7 +19,7 @@ namespace BillBox.Models
 
         [Required]
         //[Index("UK_Username", unique: true)]
-        [Display(Name = "Name")]
+        [Display(Name = "Agent Name")]
         public string Name { get; set; }
 
         [Required]
