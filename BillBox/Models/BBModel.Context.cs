@@ -18,7 +18,6 @@ namespace BillBox.Models
         public Entities()
             : base("name=Entities")
         {
-            //this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -29,7 +28,6 @@ namespace BillBox.Models
         public DbSet<Agent> Agents { get; set; }
         public DbSet<AgentBranch> AgentBranches { get; set; }
         public DbSet<CaptureField> CaptureFields { get; set; }
-        public DbSet<LoginSession> LoginSessions { get; set; }
         public DbSet<Parish> Parishes { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<PaymentCaptureField> PaymentCaptureFields { get; set; }

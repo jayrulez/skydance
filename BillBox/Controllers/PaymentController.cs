@@ -12,7 +12,7 @@ namespace BillBox.Controllers
     [Authorize]
     public class PaymentController : Controller
     {
-        private Entities db = new Entities();
+        private Entities dbContext = new Entities();
 
         public ActionResult GetCaptureFields()
         {
@@ -22,7 +22,7 @@ namespace BillBox.Controllers
                 return Content("Error");
             }
 
-            var captureFields = db.CaptureFields.Where(cf => cf.SubscriberId == subscriberId).OrderBy(cf => cf.OrderNum);
+            var captureFields = dbContext.CaptureFields.Where(cf => cf.SubscriberId == subscriberId).OrderBy(cf => cf.OrderNum);
 
             ViewBag.captureFields = captureFields;
 
@@ -38,7 +38,7 @@ namespace BillBox.Controllers
                 return Content("Error");
             }
 
-            var captureFields = db.PaymentTypeCaptureFields.Where(cf => cf.PaymentTypeId == paymentTypeId).OrderBy(cf => cf.OrderNum);
+            var captureFields = dbContext.PaymentTypeCaptureFields.Where(cf => cf.PaymentTypeId == paymentTypeId).OrderBy(cf => cf.OrderNum);
 
             ViewBag.captureFields = captureFields;
 
@@ -47,32 +47,38 @@ namespace BillBox.Controllers
 
         public ActionResult NewPayment()
         {
-            var paymentTypes = db.PaymentTypes;
+            var paymentTypes = dbContext.PaymentTypes;
 
-            ViewBag.SubscriberId = new SelectList(db.Subscribers, "SubscriberId", "Name");
+            ViewBag.SubscriberId = new SelectList(dbContext.Subscribers, "SubscriberId", "Name");
 
             ViewBag.paymentTypes = paymentTypes;
 
             return View();
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult NewPayment(NewPaymentModel model)
-        //{
-        //    var paymentTypes = db.PaymentTypes;
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NewPayment(NewPaymentModel model)
+        {
+            var paymentTypes = dbContext.PaymentTypes;
 
-        //    ViewBag.SubscriberId = new SelectList(db.Subscribers, "SubscriberId", "Name");
+            ViewBag.SubscriberId = new SelectList(dbContext.Subscribers, "SubscriberId", "Name");
 
-        //    ViewBag.paymentTypes = paymentTypes;
-        //    return Content(HttpContext.Request.Params.ToString());
-        //    //ViewBag.SubscriberId = new SelectList(db.Subscribers, "SubscriberId", "Name");
-        //    //return View(model);
-        //}
+            ViewBag.paymentTypes = paymentTypes;
+            return Content(HttpContext.Request.Params.ToString());
+            //ViewBag.SubscriberId = new SelectList(db.Subscribers, "SubscriberId", "Name");
+            //return View(model);
+        }
+
+        public ActionResult PaymentHistory(string period = "today")
+        {
+            var payments = dbContext.Payments.AsQueryable();
+            return View();
+        }
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            dbContext.Dispose();
             base.Dispose(disposing);
         }
     }

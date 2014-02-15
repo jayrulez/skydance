@@ -4,6 +4,7 @@ using System.Data.Entity;
 
 using BillBox.Common;
 using System.Collections.Generic;
+using System.Data;
 
 namespace BillBox.Models.Repository
 {
@@ -267,10 +268,9 @@ namespace BillBox.Models.Repository
                 {
                     this.dbContext.Users.Attach(User);
                     var entry = this.dbContext.Entry(User);
-                    entry.State = System.Data.EntityState.Modified;
+                    entry.State = EntityState.Modified;
 
                     /*prevent modification on the following fields*/ 
-                    entry.Property(e => e.LoginStatus).IsModified = false;
                     entry.Property(e => e.PasswordExpireAt).IsModified = false;
                     entry.Property(e => e.Password).IsModified = false;
 
@@ -442,8 +442,6 @@ namespace BillBox.Models.Repository
 
                     if (user != null)
                     {
-                        user.LoginStatus = LoginStatus;
-
                         int result = this.dbContext.SaveChanges();
 
                         if (result > 0)

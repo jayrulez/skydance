@@ -20,7 +20,8 @@ namespace BillBox.Models
         }
     
         public int RightId { get; set; }
-        public string RightName { get; set; }
+        public string Name { get; set; }
+        public string DisplayName { get; set; }
     
         public virtual ICollection<UserLevel> UserLevels { get; set; }
     }

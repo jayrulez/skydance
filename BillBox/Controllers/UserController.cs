@@ -36,9 +36,6 @@ namespace BillBox.Controllers
             {
                 try
                 {
-                    /*to be removed after db review*/
-                    user.Designation = " ";
-                    user.LoginStatus = 1;
                     user.PasswordExpireAt = DateTime.Now;
 
                     dbContext.Users.Add(user);
@@ -117,9 +114,6 @@ namespace BillBox.Controllers
             {
                 try
                 {
-                    /*to be removed after db review*/
-                    user.Designation = " ";
-                    user.LoginStatus = 1;
                     user.PasswordExpireAt = DateTime.Now;
 
                     var entry = dbContext.Entry(user);

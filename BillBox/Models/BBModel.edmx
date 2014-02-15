@@ -9,7 +9,6 @@
           <EntitySet Name="Agent" EntityType="BBModel.Store.Agent" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AgentBranch" EntityType="BBModel.Store.AgentBranch" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CaptureField" EntityType="BBModel.Store.CaptureField" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="LoginSession" EntityType="BBModel.Store.LoginSession" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Parish" EntityType="BBModel.Store.Parish" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Payment" EntityType="BBModel.Store.Payment" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PaymentCaptureField" EntityType="BBModel.Store.PaymentCaptureField" store:Type="Tables" Schema="dbo" />
@@ -150,16 +149,6 @@
           <Property Name="Type" Type="int" Nullable="false" />
           <Property Name="OrderNum" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="LoginSession">
-          <Key>
-            <PropertyRef Name="SessionId" />
-          </Key>
-          <Property Name="SessionId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="UserType" Type="varchar" Nullable="false" MaxLength="15" />
-          <Property Name="UserUniqueIdentifier" Type="int" Nullable="false" />
-          <Property Name="LastActiveAt" Type="datetime" Nullable="false" />
-          <Property Name="ExpireAt" Type="datetime" Nullable="false" />
-        </EntityType>
         <EntityType Name="Parish">
           <Key>
             <PropertyRef Name="ParishId" />
@@ -259,9 +248,7 @@
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="60" />
           <Property Name="Username" Type="varchar" Nullable="false" MaxLength="32" />
           <Property Name="Password" Type="varchar" Nullable="false" MaxLength="128" />
-          <Property Name="PasswordExpireAt" Type="date" Nullable="false" />
-          <Property Name="LoginStatus" Type="int" Nullable="false" />
-          <Property Name="Designation" Type="varchar" Nullable="false" MaxLength="40" />
+          <Property Name="PasswordExpireAt" Type="date" />
           <Property Name="AddressStreet" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="AddressCity" Type="varchar" Nullable="false" MaxLength="30" />
           <Property Name="ParishId" Type="int" Nullable="false" />
@@ -280,7 +267,8 @@
             <PropertyRef Name="RightId" />
           </Key>
           <Property Name="RightId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="RightName" Type="varchar" Nullable="false" MaxLength="40" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="40" />
+          <Property Name="DisplayName" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="UserRight_UserLevel">
           <Key>
@@ -593,7 +581,6 @@
           <EntitySet Name="Agents" EntityType="BBModel.Agent" />
           <EntitySet Name="AgentBranches" EntityType="BBModel.AgentBranch" />
           <EntitySet Name="CaptureFields" EntityType="BBModel.CaptureField" />
-          <EntitySet Name="LoginSessions" EntityType="BBModel.LoginSession" />
           <EntitySet Name="Parishes" EntityType="BBModel.Parish" />
           <EntitySet Name="Payments" EntityType="BBModel.Payment" />
           <EntitySet Name="PaymentCaptureFields" EntityType="BBModel.PaymentCaptureField" />
@@ -739,16 +726,6 @@
           <NavigationProperty Name="Subscriber" Relationship="BBModel.FK_CaptureField_Subscriber" FromRole="CaptureField" ToRole="Subscriber" />
           <NavigationProperty Name="PaymentCaptureFields" Relationship="BBModel.FK_PaymentCaptureField_CaptureField" FromRole="CaptureField" ToRole="PaymentCaptureField" />
         </EntityType>
-        <EntityType Name="LoginSession">
-          <Key>
-            <PropertyRef Name="SessionId" />
-          </Key>
-          <Property Name="SessionId" Type="Guid" Nullable="false" />
-          <Property Name="UserType" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
-          <Property Name="UserUniqueIdentifier" Type="Int32" Nullable="false" />
-          <Property Name="LastActiveAt" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ExpireAt" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityType Name="Parish">
           <Key>
             <PropertyRef Name="ParishId" />
@@ -872,9 +849,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="128" Unicode="false" FixedLength="false" />
-          <Property Name="PasswordExpireAt" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="LoginStatus" Type="Int32" Nullable="false" />
-          <Property Name="Designation" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
+          <Property Name="PasswordExpireAt" Type="DateTime" Precision="0" />
           <Property Name="AddressStreet" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="AddressCity" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
           <Property Name="ParishId" Type="Int32" Nullable="false" />
@@ -900,7 +875,8 @@
             <PropertyRef Name="RightId" />
           </Key>
           <Property Name="RightId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="RightName" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="UserLevels" Relationship="BBModel.UserRight_UserLevel" FromRole="UserRight" ToRole="UserLevel" />
         </EntityType>
         <Association Name="FK_Agent_Parish">
@@ -1220,17 +1196,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="LoginSessions">
-            <EntityTypeMapping TypeName="BBModel.LoginSession">
-              <MappingFragment StoreEntitySet="LoginSession">
-                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
-                <ScalarProperty Name="UserType" ColumnName="UserType" />
-                <ScalarProperty Name="UserUniqueIdentifier" ColumnName="UserUniqueIdentifier" />
-                <ScalarProperty Name="LastActiveAt" ColumnName="LastActiveAt" />
-                <ScalarProperty Name="ExpireAt" ColumnName="ExpireAt" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Parishes">
             <EntityTypeMapping TypeName="BBModel.Parish">
               <MappingFragment StoreEntitySet="Parish">
@@ -1337,8 +1302,6 @@
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="PasswordExpireAt" ColumnName="PasswordExpireAt" />
-                <ScalarProperty Name="LoginStatus" ColumnName="LoginStatus" />
-                <ScalarProperty Name="Designation" ColumnName="Designation" />
                 <ScalarProperty Name="AddressStreet" ColumnName="AddressStreet" />
                 <ScalarProperty Name="AddressCity" ColumnName="AddressCity" />
                 <ScalarProperty Name="ParishId" ColumnName="ParishId" />
@@ -1359,7 +1322,8 @@
             <EntityTypeMapping TypeName="BBModel.UserRight">
               <MappingFragment StoreEntitySet="UserRight">
                 <ScalarProperty Name="RightId" ColumnName="RightId" />
-                <ScalarProperty Name="RightName" ColumnName="RightName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

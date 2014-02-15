@@ -165,8 +165,14 @@ form.wf .header
 
 form.wf fieldset
 {
-
+    border: 2px solid #eee;
+    padding-bottom: 10px;
 }
+
+    form.wf fieldset legend {
+        margin-left: 10px;
+        font-weight: bold;
+    }
 
 form.wf fieldset .row
 {
@@ -207,7 +213,9 @@ form.wf fieldset .row.inline input[type=checkbox], form.wf fieldset .row.inline 
 
 form.wf div.buttons
 {
-	padding-left: 155px;
+    margin-top: 10px;
+	padding: 10px 0px 10px 155px;
+    background: #eee;
 }
 
 form.wf div.buttons input, form.wf div.buttons button
@@ -575,7 +583,7 @@ form.wf .footer
 /*sidebar menus*/
 ul.sidebar-menu {
     list-style-type: none;
-    background: #dedede;
+    background: #eee;
 }
 
 ul.sidebar-menu li {
