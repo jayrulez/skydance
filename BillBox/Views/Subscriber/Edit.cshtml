@@ -1,0 +1,101 @@
+﻿@model BillBox.Models.Subscriber
+
+@{
+    ViewBag.Title = "Edit Subscriber";
+    Layout = "~/Views/Shared/_Default.cshtml";
+
+    var parishes = (ViewBag.Parishes != null) ? ViewBag.Parishes as IEnumerable<BillBox.Models.Parish>: null;
+}
+
+
+<div class="action">
+    <div class="section">
+        <div class="section-header">
+        </div>
+        <div class="section-content">
+            <div class="form-container">
+                @using (Html.BeginForm("Edit", "Subscriber", FormMethod.Post, new { @class = "wf" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <fieldset class="top">
+                        <legend>Edit Subscriber</legend>
+
+                        @Html.HiddenFor(model => model.SubscriberId)
+
+                        <div class="row top clearfix">
+                            @Html.LabelFor(model => model.Name)
+                            @Html.TextBoxFor(model => model.Name)
+                            @Html.ValidationMessageFor(model => model.Name)
+                        </div>
+
+                        <div class="row clearfix">
+                            @Html.LabelFor(model => model.OperatingName)
+                            @Html.TextBoxFor(model => model.OperatingName)
+                            @Html.ValidationMessageFor(model => model.OperatingName)
+                        </div>
+
+                       
+                        <div class="row clearfix">
+                            @Html.LabelFor(model => model.AddressStreet)
+                            @Html.TextBoxFor(model => model.AddressStreet)
+                            @Html.ValidationMessageFor(model => model.AddressStreet)
+                        </div>
+
+                        <div class="row clearfix">
+                            @Html.LabelFor(model => model.AddressCity)
+                            @Html.TextBoxFor(model => model.AddressCity)
+                            @Html.ValidationMessageFor(model => model.AddressCity)
+                        </div>
+
+                        <div class="row clearfix">
+                            @Html.LabelFor(model => model.ParishId)
+                            @Html.DropDownListFor(model => model.ParishId, new SelectList(parishes, "ParishId", "Name"), "Select Parish")
+                            @Html.ValidationMessageFor(model => model.ParishId)
+                        </div>
+
+                        <div class="row clearfix">
+                            @Html.LabelFor(model => model.ContactNumber)
+                            @Html.TextBoxFor(model => model.ContactNumber)
+                            @Html.ValidationMessageFor(model => model.ContactNumber)
+                        </div>
+
+                        <div class="row clearfix">
+                            @Html.LabelFor(model => model.FaxNumber)
+                            @Html.TextBoxFor(model => model.FaxNumber)
+                            @Html.ValidationMessageFor(model => model.FaxNumber)
+                        </div>
+
+                        <div class="row clearfix">
+                            @Html.LabelFor(model => model.EmailAddress)
+                            @Html.TextBoxFor(model => model.EmailAddress)
+                            @Html.ValidationMessageFor(model => model.EmailAddress)
+                        </div>
+
+                        <div class="row clearfix">
+                            @Html.LabelFor(model => model.Website)
+                            @Html.TextBoxFor(model => model.Website)
+                            @Html.ValidationMessageFor(model => model.Website)
+                        </div>                       
+                    </fieldset>
+                    
+                    <div class="buttons bottom">
+                        <input type="submit" value="Save" />
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="section-footer">
+        </div>
+    </div>
+</div>
+
+
+@section SidebarLeft {
+    @Html.Partial("_SidebarMenu")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

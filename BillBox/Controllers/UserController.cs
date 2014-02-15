@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using System.Data.Entity;
 
 using BillBox.Models;
-using BillBox.Models.Repository;
 using BillBox.Common;
 
 using PagedList;
@@ -148,7 +147,7 @@ namespace BillBox.Controllers
                 .Where(ab => ab.AgentId == id)
                 .AsEnumerable<BillBox.Models.AgentBranch>();
 
-            return PartialView("Branches");
+            return PartialView("_AgentBranches");
         }
 
     }
