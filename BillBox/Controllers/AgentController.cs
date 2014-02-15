@@ -110,18 +110,34 @@ namespace BillBox.Controllers
 
         public ActionResult AddBranch(int agentId = 0)
         {
+            var agent = dbContext.Agents.Find(agentId);
+
+            if(agent == null)
+            {
+                return HttpNotFound();
+            }
+
             var parishes = dbContext.Parishes.OrderBy(p => p.Name);
 
             ViewBag.parishes = parishes;
 
-            return View();
+            AgentBranch branch = new AgentBranch();
+
+            branch.AgentId = agentId;
+
+            return View(branch);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddBranch(AgentBranch model)
         {
-            var parishes = dbContext.Parishes.OrderBy(p => p.Name);
+            var agent = dbContext.Agents.Find(model.AgentId);
+
+            if (agent == null)
+            {
+                return HttpNotFound();
+            }
 
             if(ModelState.IsValid)
             {
@@ -137,6 +153,8 @@ namespace BillBox.Controllers
                     ModelState.AddModelError("", ex.Message);
                 }
             }
+
+            var parishes = dbContext.Parishes.OrderBy(p => p.Name);
 
             ViewBag.parishes = parishes;
 
@@ -159,6 +177,7 @@ namespace BillBox.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult EditBranch(AgentBranch model)
         {
             if(ModelState.IsValid)
@@ -177,6 +196,9 @@ namespace BillBox.Controllers
                 }
             }
 
+            var parishes = dbContext.Parishes.OrderBy(p => p.Name);
+            ViewBag.parishes = parishes;
+
             return View(model);
         }
 
@@ -191,7 +213,7 @@ namespace BillBox.Controllers
 
             ViewBag.branch = branch;
 
-            return View();
+            return View(branch);
         }
 
         public ActionResult ListBranches( int? page, int agentId = 0)
