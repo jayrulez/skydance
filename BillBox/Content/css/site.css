@@ -46,7 +46,13 @@ table {
 	border-width: 1px;
 	border-color: #666666;
 	border-collapse: collapse;
+    width: 100%;
 }
+
+    table caption {
+        font-weight: bold;
+    }
+
 table th {
 	border-width: 1px;
 	padding: 8px;
@@ -54,6 +60,7 @@ table th {
 	border-color: #666666;
 	background-color: #dedede;
     font-weight: bold;
+    text-align: left;
 }
 table td {
 	border-width: 1px;
@@ -133,7 +140,7 @@ form fieldset.buttons
 	margin-top: 5px;
 }
 
-form fieldset.buttons input, form fieldset.buttons button
+form div.buttons input, form div.buttons button
 {
 
 }
@@ -198,12 +205,12 @@ form.wf fieldset .row.inline input[type=checkbox], form.wf fieldset .row.inline 
 	display: inline-block;
 }
 
-form.wf fieldset.buttons
+form.wf div.buttons
 {
 	padding-left: 155px;
 }
 
-form.wf fieldset.buttons input, form.wf fieldset.buttons button
+form.wf div.buttons input, form.wf div.buttons button
 {
 
 }
@@ -412,7 +419,7 @@ form.wf .footer
 
 #canvas-container #canvas #content .action
 {
-
+    padding: 0px 10px;
 }
 
 #canvas-container #canvas #content .action .section
@@ -566,16 +573,24 @@ form.wf .footer
   }
 
 /*sidebar menus*/
+ul.sidebar-menu {
+    list-style-type: none;
+    background: #dedede;
+}
+
 ul.sidebar-menu li {
 }
 
-ul.sidebar-menu {
-    list-style-type: none;
-}
 
 ul.sidebar-menu li a {
     display: block;
+    padding: 5px 10px;
+    text-decoration: none;
 }
+
+    ul.sidebar-menu li a:hover {
+        background: #ffffff;
+    }
 
 /*details menu*/
 ul.details-menu {
@@ -587,5 +602,4 @@ ul.details-menu li {
 }
 
 ul.details-menu li a {
-
 }
