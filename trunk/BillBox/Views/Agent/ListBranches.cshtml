@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "List Branches";
+    Layout = "~/Views/Shared/_Default.cshtml";
+
+    var branches = ViewBag.branches as IEnumerable<BillBox.Models.AgentBranch>;
+}
+
+<div class="action">
+    <div class="section">
+        <div class="section-header">
+        </div>
+        <div class="section-content">
+            <table>
+                <caption>Branches</caption>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Contact Number</th>
+                        <th>Fax Number</th>
+                        <th>Email Address</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach(BillBox.Models.AgentBranch branch in branches)
+                {
+                    <tr>
+                        <td>@branch.Name</td>
+                        <td>
+                            @branch.AddressStreet
+                            <br />
+                            @branch.AddressCity
+                            @if(branch.Parish != null) {
+                                <br />
+                                @branch.Parish.Name
+                            }
+                        </td>
+
+                        <td>@branch.ContactNumber</td>
+                        <td>@branch.FaxNumber</td>
+                        <td>@branch.EmailAddress</td>
+
+                        <td>@Html.ActionLink("View", "ViewBranch", "Agent", new { branchId = @branch.BranchId }, null) |
+                            @Html.ActionLink("Edit", "EditBranch", "Agent", new { branchId = @branch.BranchId }, null)
+                        </td>
+                    </tr>
+                }
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
+        <div class="section-footer">
+        </div>
+    </div>
+</div>
+
+@section SidebarLeft {
+    @Html.Partial("_SidebarMenu")
+}
