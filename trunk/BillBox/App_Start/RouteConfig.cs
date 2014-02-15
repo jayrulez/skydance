@@ -15,12 +15,13 @@ namespace BillBox
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}", //Tests
+                url: "{controller}/{action}/{id}", 
+                //Tests
                 //defaults: new { controller = "Default", action = "Index", id = UrlParameter.Optional }
                 //defaults: new { controller = "Test", action = "GetUser", id = UrlParameter.Optional }
                 //defaults: new { controller = "Test", action = "GetUsers", id = UrlParameter.Optional }
                 //defaults: new { controller = "Test", action = "AddUsers", id = UrlParameter.Optional }
-                defaults: new { controller = "User", action = "Details", id = UrlParameter.Optional }
+                defaults: new { controller = "Default", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
