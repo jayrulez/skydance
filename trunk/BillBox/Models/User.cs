@@ -26,9 +26,7 @@ namespace BillBox.Models
         public string Name { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public System.DateTime PasswordExpireAt { get; set; }
-        public int LoginStatus { get; set; }
-        public string Designation { get; set; }
+        public Nullable<System.DateTime> PasswordExpireAt { get; set; }
         public string AddressStreet { get; set; }
         public string AddressCity { get; set; }
         public int ParishId { get; set; }

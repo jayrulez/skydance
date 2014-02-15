@@ -44,16 +44,16 @@ INSERT INTO UserLevel (LevelName) VALUES ('agentuser')
 GO
 
 /***********************************************************User*********************************************************************/
-INSERT INTO [User](UserLevelId, Name, Username, Password, PasswordExpireAt, LoginStatus, Designation, AddressStreet, AddressCity, ParishId, ContactNumber, EmailAddress) 
-VALUES (1, 'Admin', 'admin', 'admin', '', 1, 'Admin', 'Kingston', 'Kingston', 1, '12345', 'admin@fuf.ja')
+INSERT INTO [User](UserLevelId, Name, Username, Password, PasswordExpireAt, AddressStreet, AddressCity, ParishId, ContactNumber, EmailAddress) 
+VALUES (1, 'Admin', 'admin', 'admin', '', 'Kingston', 'Kingston', 1, '12345', 'admin@fuf.ja')
 GO
 
-INSERT INTO [User](UserLevelId, Name, Username, Password, PasswordExpireAt, LoginStatus, Designation, AddressStreet, AddressCity, ParishId, ContactNumber, EmailAddress) 
-VALUES (2, 'Agent Admin', 'agentadmin', 'agentadmin', '', 1, 'Agent Admin', 'Kingston', 'Kingston', 5, '12345', 'agentadmin@fuf.ja')
+INSERT INTO [User](UserLevelId, Name, Username, Password, PasswordExpireAt, AddressStreet, AddressCity, ParishId, ContactNumber, EmailAddress) 
+VALUES (2, 'Agent Admin', 'agentadmin', 'agentadmin', '', 'Kingston', 'Kingston', 5, '12345', 'agentadmin@fuf.ja')
 GO
 
-INSERT INTO [User](UserLevelId, Name, Username, Password, PasswordExpireAt, LoginStatus, Designation, AddressStreet, AddressCity, ParishId, ContactNumber, EmailAddress) 
-VALUES (2, 'Agent User', 'agentuser', 'agentuser', '', 1, 'Agent User', 'Kingston', 'Kingston', 6, '12345', 'agentuser@fuf.ja')
+INSERT INTO [User](UserLevelId, Name, Username, Password, PasswordExpireAt, AddressStreet, AddressCity, ParishId, ContactNumber, EmailAddress) 
+VALUES (2, 'Agent User', 'agentuser', 'agentuser', '', 'Kingston', 'Kingston', 6, '12345', 'agentuser@fuf.ja')
 GO
 
 /***********************************************************Subscriber*********************************************************************/
@@ -142,12 +142,12 @@ VALUES (2, 'Cassia Ave', '10 Verene Ave', 'Kingston', 11, '8761234657', '8761234
 
 
 /***********************************************************User Right*********************************************************************/
-INSERT INTO UserRight (RightName) VALUES('Create User')
-INSERT INTO UserRight (RightName) VALUES('Edit User')
-INSERT INTO UserRight (RightName) VALUES('Delete User')
-INSERT INTO UserRight (RightName) VALUES('Reset Password')
-INSERT INTO UserRight (RightName) VALUES('Process Payment')
-INSERT INTO UserRight (RightName) VALUES('Print Report')
+INSERT INTO UserRight (Name) VALUES('Create User')
+INSERT INTO UserRight (Name) VALUES('Edit User')
+INSERT INTO UserRight (Name) VALUES('Delete User')
+INSERT INTO UserRight (Name) VALUES('Reset Password')
+INSERT INTO UserRight (Name) VALUES('Process Payment')
+INSERT INTO UserRight (Name) VALUES('Print Report')
 GO
 
 
@@ -164,7 +164,7 @@ INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (6, 3)
 INSERT INTO Payment (SubscriberId, InvoiceNumber, AgentId, AgentBranchId, UserId, Date, Status)
 VALUES(1, 100, 1, 1, 3, GETDATE(), 1)
 
-INSERT INTO Payment (SubscriberId, InvoiceNumber, AgentId, AgentBranchId, UserId, Date, Time, Status)
+INSERT INTO Payment (SubscriberId, InvoiceNumber, AgentId, AgentBranchId, UserId, Date, Status)
 VALUES(2, 101, 2, 1, 3, GETDATE(), 1)
 
 INSERT INTO Payment (SubscriberId, InvoiceNumber, AgentId, AgentBranchId, UserId, Date, Status)
@@ -182,14 +182,14 @@ INSERT INTO PaymentInfo (PaymentId, PaymentTypeId, Amount)
 VALUES (2, 2, 2700.00)
 
 /***********************************************************Payment Captured Field*********************************************************************/
-INSERT INTO PaymentCaptureField (PaymentId, CaptureFieldId, Value)
+INSERT INTO PaymentCaptureField (PaymentId, CaptureFieldId, [Value])
 VALUES (1, 1, '2500.00')
 
-INSERT INTO PaymentCaptureField (PaymentId, CaptureFieldId, Value)
+INSERT INTO PaymentCaptureField (PaymentId, CaptureFieldId, [Value])
 VALUES (2, 2, '1000.00')
 
 /***********************************************************Payment PaymentType Captured Field*********************************************************************/
-INSERT INTO PaymentPaymentTypeCaptureField (PaymentId, PaymentTypeCaptureFieldId, Value)
+INSERT INTO PaymentPaymentTypeCaptureField (PaymentId, PaymentTypeCaptureFieldId, [Value])
 VALUES (1, 1, '2500.00')
 
 

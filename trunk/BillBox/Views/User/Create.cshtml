@@ -108,6 +108,10 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
+@section SidebarLeft {
+    @Html.Partial("_SidebarMenu")
+}
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">

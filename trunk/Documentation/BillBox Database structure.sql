@@ -17,17 +17,6 @@ create table Settings (
 
 GO
 
-create table LoginSession (
-	SessionId UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
-	UserType VARCHAR(15) NOT NULL,
-	UserUniqueIdentifier INT NOT NULL,
-	LastActiveAt DATETIME NOT NULL,
-	ExpireAt DATETIME NOT NULL,
-	CONSTRAINT UK_LoginSession UNIQUE (UserType, UserUniqueIdentifier)
-);
-
-GO
-
 create table Parish (
 	ParishId INT IDENTITY(1,1) PRIMARY KEY NOT NULL, 
 	Name VARCHAR(30) NOT NULL,
@@ -81,8 +70,9 @@ GO
 
 create table UserRight (
 	RightId INT IDENTITY(1,1) PRIMARY KEY NOT NULL, 
-	RightName VARCHAR(40) NOT NULL
-	CONSTRAINT UK_UserRight_RightName UNIQUE (RightName)
+	Name VARCHAR(40) NOT NULL,
+	DisplayName VARCHAR(100) DEFAULT NULL,
+	CONSTRAINT UK_UserRight_RightName UNIQUE (Name)
 );
 
 GO
@@ -118,9 +108,7 @@ create table [User] (
 	Name VARCHAR(60) NOT NULL, 
 	Username VARCHAR(32) NOT NULL, 
 	Password VARCHAR(128) NOT NULL, 
-	PasswordExpireAt DATE NOT NULL, 
-	LoginStatus INT NOT NULL, 
-	Designation VARCHAR(40) NOT NULL, 
+	PasswordExpireAt DATE DEFAULT NULL,
 	AddressStreet VARCHAR(50) NOT NULL, 
 	AddressCity VARCHAR(30) NOT NULL, 
 	ParishId INT NOT NULL, 
