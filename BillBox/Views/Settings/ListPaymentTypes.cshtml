@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Payment Types";
+    Layout = "~/Views/Shared/_Default.cshtml";
+
+    var paymentTypes = ViewBag.paymentTypes as IEnumerable<BillBox.Models.PaymentType>;
+}
+
+<div class="action">
+    <div class="section">
+        <div class="section-header">
+        </div>
+        <div class="section-content">
+            <table>
+                <caption>Payment Types</caption>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach(BillBox.Models.PaymentType paymentType in paymentTypes)
+                {
+                    <tr>
+                        <td>@paymentType.Name</td>
+
+                        <td>@Html.ActionLink("View", "ViewPaymentType", "Settings", new { paymentTypeId = @paymentType.PaymentTypeId }, null) |
+                            @Html.ActionLink("Edit", "EditPaymentType", "Settings", new { paymentTypeId = @paymentType.PaymentTypeId }, null)
+                        </td>
+                    </tr>
+                }
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
+        <div class="section-footer">
+        </div>
+    </div>
+</div>
+
+@section SidebarLeft {
+    @Html.Partial("_SidebarMenu")
+}

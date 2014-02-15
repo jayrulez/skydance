@@ -10,6 +10,7 @@ using System.Data;
 
 namespace BillBox.Controllers
 {
+    [Authorize]
     public class AgentController : Controller
     {
         private Entities dbContext = new Entities();
@@ -55,7 +56,7 @@ namespace BillBox.Controllers
 
             ViewBag.parishes = dbContext.Parishes.OrderBy(p => p.Name);
 
-            return View();
+            return View(agent);
         }
 
         public ActionResult Details(int agentId = 0)

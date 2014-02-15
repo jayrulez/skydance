@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace BillBox.Controllers
 {
+    [Authorize]
     public class SubscriberController : Controller
     {
         //

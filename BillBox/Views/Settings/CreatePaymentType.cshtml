@@ -1,0 +1,45 @@
+﻿@model BillBox.Models.PaymentType
+
+@{
+    ViewBag.Title = "Create Payment Type";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+
+<div class="action">
+    <div class="section">
+        <div class="section-header">
+        </div>
+        <div class="section-content">
+            <div class="form-container">
+                @using (Html.BeginForm("CreatePaymentType","Settings", FormMethod.Post, new { @class = "wf" })) {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <fieldset class="top">
+                        <legend>Create Payment Type</legend>
+                        <div class="row top bottom clearfix">
+                                @Html.LabelFor(m => m.Name)
+                                @Html.TextBoxFor(m => m.Name)
+                                @Html.ValidationMessageFor(m => m.Name)
+                        </div>
+        
+                    </fieldset>
+                    <fieldset class="buttons bottom">
+                            <input type="submit" value="Create" />
+                    </fieldset>
+                }
+            </div>
+        </div>
+        <div class="section-footer">
+        </div>
+    </div>
+</div>
+
+@section SidebarLeft {
+    @Html.Partial("_SidebarMenu")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
