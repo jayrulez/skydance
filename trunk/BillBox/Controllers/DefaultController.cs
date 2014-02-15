@@ -14,6 +14,8 @@ namespace BillBox.Controllers
     [Authorize]
     public class DefaultController : Controller
     {
+        private Entities dbContext = new Entities();
+
         public ActionResult Index()
         {
             return View();
@@ -25,45 +27,36 @@ namespace BillBox.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Login(LoginModel model)
-        //{            
-        //    IUserRepository repository = new UserRepository();
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(LoginModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = dbContext.Users.FirstOrDefault(u => u.Username == model.Username && u.Password == model.Password);
 
-        //    if(ModelState.IsValid)
-        //    {
-        //        IResponse<User> response = repository.GetUser(model.Username);
+                if (user != null)
+                {
+                    FormsAuthentication.SetAuthCookie(model.Username, model.Autologin);
 
-        //        if(response.IsSuccessful)
-        //        {
-        //            if (response.Result.LoginStatus == 1 && response.Result.Password == model.Password)
-        //            {
-        //                FormsAuthentication.SetAuthCookie(model.Username, model.Autologin);
+                    return RedirectToAction("Index", "Default");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                }
 
-        //                return RedirectToAction("Index", "Default");
-        //            }
-        //            else
-        //            {
-        //                ModelState.AddModelError("", "The user name or password provided is incorrect.");
-        //            }
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError("", response.Error.ToString());
-        //        }
-                
-        //    }
+            }
 
-        //    return View(model);
-        //}
+            return View(model);
+        }
 
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Default");
         }
 
     }

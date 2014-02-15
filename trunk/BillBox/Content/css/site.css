@@ -53,6 +53,7 @@ table th {
 	border-style: solid;
 	border-color: #666666;
 	background-color: #dedede;
+    font-weight: bold;
 }
 table td {
 	border-width: 1px;

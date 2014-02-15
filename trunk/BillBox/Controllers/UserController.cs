@@ -13,6 +13,7 @@ using PagedList;
 
 namespace BillBox.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private Entities dbContext = new Entities();

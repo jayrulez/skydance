@@ -1,0 +1,62 @@
+﻿@model BillBox.Models.PaymentTypeCaptureField
+
+@{
+    ViewBag.Title = "Add Payment Type Capture Field";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+
+<div class="action">
+    <div class="section">
+        <div class="section-header">
+        </div>
+        <div class="section-content">
+            <div class="form-container">
+                @using (Html.BeginForm("AddPaymentTypeCaptureField","Settings", FormMethod.Post, new { @class = "wf" })) {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    @Html.HiddenFor(m => m.PaymentTypeId)
+
+                    <fieldset class="top">
+                        <legend>Payment Type Capture Field</legend>
+                        <div class="row top clearfix">
+                                @Html.LabelFor(m => m.Name)
+                                @Html.TextBoxFor(m => m.Name)
+                                @Html.ValidationMessageFor(m => m.Name)
+                        </div>
+                        <div class="row clearfix">
+                                @Html.LabelFor(m => m.DisplayName)
+                                @Html.TextBoxFor(m => m.DisplayName)
+                                @Html.ValidationMessageFor(m => m.DisplayName)
+                        </div>
+                        <div class="row clearfix">
+                                @Html.LabelFor(m => m.Type)
+                                @Html.TextBoxFor(m => m.Type)
+                                @Html.ValidationMessageFor(m => m.Type)
+                        </div>
+                        <div class="row bottom clearfix">
+                                @Html.LabelFor(m => m.OrderNum)
+                                @Html.TextBoxFor(m => m.OrderNum)
+                                @Html.ValidationMessageFor(m => m.OrderNum)
+                        </div>
+        
+                    </fieldset>
+                    <fieldset class="buttons bottom">
+                            <input type="submit" value="Create" />
+                    </fieldset>
+                }
+            </div>
+        </div>
+        <div class="section-footer">
+        </div>
+    </div>
+</div>
+
+@section SidebarLeft {
+    @Html.Partial("_SidebarMenu")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

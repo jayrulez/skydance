@@ -1,0 +1,58 @@
+﻿@model BillBox.Models.PaymentType
+
+@{
+    ViewBag.Title = "View Payment Type";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+
+<div class="action">
+    <div class="section">
+        <div class="section-header">
+        </div>
+        <div class="section-content">
+            <dl>
+                <dt>@Html.DisplayNameFor(m => m.Name)</dt>
+                <dd>@Html.DisplayFor(m => m.Name)</dd>
+            </dl>
+            <div>
+                <table>
+                    <caption>Capture Fields</caption>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Display Name</th>
+                            <th>Type</th>
+                            <th>Order</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach(BillBox.Models.PaymentTypeCaptureField captureField in Model.PaymentTypeCaptureFields)
+                    {
+                        <tr>
+                            <td>@captureField.Name</td>
+                            <td>@captureField.DisplayName</td>
+                            <td>@captureField.Type</td>
+                            <td>@captureField.OrderNum</td>
+                            <td>@Html.ActionLink("Edit", "EditPaymentTypeCaptureField", new { captureFieldId = @captureField.PaymentTypeCaptureFieldId })</td>
+                        </tr>
+                        
+                    }
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
+            </div>
+        </div>
+        <div class="section-footer">
+            <ul class="details-menu">
+                <li>@Html.ActionLink("Edit", "EditPaymentType", new { paymentTypeId = Model.PaymentTypeId })</li>
+                <li>@Html.ActionLink("Add Capture Field", "AddPaymentTypeCaptureField", new { paymentTypeId = Model.PaymentTypeId })</li>
+                <li>@Html.ActionLink("Back to List", "ListPaymentTypes")</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section SidebarLeft {
+    @Html.Partial("_SidebarMenu")
+}
