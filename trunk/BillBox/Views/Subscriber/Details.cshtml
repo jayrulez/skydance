@@ -1,0 +1,111 @@
+﻿@model BillBox.Models.Subscriber
+
+@{
+    ViewBag.Title = "View Subscriber";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+
+<div class="action">
+    <div class="section">
+        <div class="section-header">
+        </div>
+        <div class="section-content">
+            <dl>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.OperatingName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.OperatingName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.AddressStreet)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.AddressStreet)
+                    <br />
+                    @Html.DisplayFor(model => model.AddressCity)
+                    @if (Model.Parish != null)
+                    {
+                        <br />                 
+                        @Html.DisplayFor(model => model.Parish.Name)
+                    }
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ContactNumber)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ContactNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.FaxNumber)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.FaxNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.EmailAddress)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EmailAddress)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Website)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Website)
+                </dd>              
+            </dl>
+            <div>
+                <table>
+                    <caption>Capture Fields</caption>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Display Name</th>
+                            <th>Type</th>
+                            <th>Order</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach(BillBox.Models.CaptureField captureField in Model.CaptureFields)
+                    {
+                        <tr>
+                            <td>@captureField.Name</td>
+                            <td>@captureField.DisplayName</td>
+                            <td>@captureField.Type</td>
+                            <td>@captureField.OrderNum</td>
+                            <td>@Html.ActionLink("Edit", "EditCaptureField", new { id = @captureField.CaptureFieldId })</td>
+                        </tr>
+                        
+                    }
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section-footer">
+    <ul class="details-menu">
+        <li>@Html.ActionLink("Edit", "Edit", new { id = Model.SubscriberId })</li>        
+        <li>@Html.ActionLink("Add Capture Field", "CreateCaptureField", new { id = Model.SubscriberId})</li>
+        <li>@Html.ActionLink("Back to List", "Index")</li>
+    </ul>
+</div>
+
+@section SidebarLeft {
+    @Html.Partial("_SidebarMenu")
+}

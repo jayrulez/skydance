@@ -77,21 +77,7 @@
                             @Html.ValidationMessageFor(model => model.AgentId)
                         </div>
 
-                        <div class="row clearfix">
-                            <div id="agent-branches-area">
-                                @Html.LabelFor(model => model.AgentBranchId)  
-
-                                @if (Branches != null)
-                                {
-                                     @Html.DropDownListFor(model => model.AgentBranchId, new SelectList(Branches, "BranchId", "Name"), "Select Branch")
-                                } 
-                                else 
-                                {
-                                     @Html.DropDownListFor(model => model.AgentBranchId, new SelectList("", "", ""), "Select Branch")
-                                }                              
-                               
-                                @Html.ValidationMessageFor(model => model.AgentBranchId)
-                            </div>
+                        <div id="agent-branches-area" class="row clearfix">                                
                         </div>
 
                         <div class="row clearfix">
@@ -120,7 +106,8 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function () {       
+
             $('#@Html.IdFor(m => m.AgentId)').change(function (e) {
 
                 var agentId = $(this).val();
@@ -130,12 +117,13 @@
                         cache: false,
                         type: 'GET',
                         url: '@Url.Action("AgentBranches", "User")',
-                        data: { 'agentId': agentId },
+                        data: { 'id': agentId },
                         success: function (html) {
                             $("#agent-branches-area").html(html);
                         },
                         error: function () {
                             alert("Error loading agent branches");
+                            $("#agent-branches-area").html("");
                         }
                     });
                 } else {
@@ -145,4 +133,3 @@
         });
     </script>
 }
-

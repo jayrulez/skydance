@@ -1,6 +1,8 @@
 ﻿@{
     ViewBag.Title = "Subscribers";
     Layout = "~/Views/Shared/_Default.cshtml";
+    
+    var subscribers = ViewBag.Subscribers as IEnumerable<BillBox.Models.Subscriber>;
 }
 
 <div class="action">
@@ -8,7 +10,40 @@
         <div class="section-header">
         </div>
         <div class="section-content">
-
+            <table>
+                <caption>Subscribers</caption>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Operating Name</th>
+                        <th>Address</th>
+                        <th>Contact Number</th>
+                        <th>Fax Number</th>
+                        <th>Email</th>
+                        <th>Website</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (BillBox.Models.Subscriber subscriber in subscribers)
+                {
+                    <tr>
+                        <td>@subscriber.Name</td>
+                        <td>@subscriber.OperatingName</td>
+                        <td>@subscriber.AddressStreet @subscriber.AddressCity @subscriber.Parish.Name</td>
+                        <td>@subscriber.ContactNumber</td>
+                        <td>@subscriber.FaxNumber</td>
+                        <td>@subscriber.EmailAddress</td>
+                        <td>@subscriber.Website</td>
+                        <td>
+                            @Html.ActionLink("View", "Details", "Subscriber", new { id = @subscriber.SubscriberId }, null) | 
+                            @Html.ActionLink("Edit", "Edit", "Subscriber", new { id =  @subscriber.SubscriberId }, null)
+                        </td>
+                    </tr>
+                }
+                </tbody>
+                <tfoot></tfoot>
+            </table>
         </div>
         <div class="section-footer">
         </div>
