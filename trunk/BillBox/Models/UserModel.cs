@@ -41,11 +41,11 @@ namespace BillBox.Models
         public string Password { get; set; }
 
         [Required]
-        [Display(Name = "Street")]
+        [Display(Name = "Address")]
         public string AddressStreet { get; set; }
 
         [Required]
-        [Display(Name = "City")]
+        [Display(Name = "Town/City")]
         public string AddressCity { get; set; }
 
         [Required]
