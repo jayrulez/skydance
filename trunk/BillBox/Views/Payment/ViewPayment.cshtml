@@ -1,0 +1,77 @@
+﻿@model BillBox.Models.Payment
+
+@{
+    ViewBag.Title = "View Payment";
+    Layout = "~/Views/Shared/_Default.cshtml";
+    float total = 0.0;
+}
+
+<div class="action">
+    <div class="section">
+        <div class="section-header">
+        </div>
+        <div class="section-content">
+            <dl>
+                <dt>@Html.DisplayNameFor(m => m.PaymentId)</dt>
+                <dd>@Html.DisplayFor(m => m.PaymentId)</dd>
+                
+                <dt>@Html.DisplayNameFor(m => m.SubscriberId)</dt>
+                <dd>@Html.DisplayFor(m => m.Subscriber.Name)</dd>
+                
+                <dt>@Html.DisplayNameFor(m => m.InvoiceNumber)</dt>
+                <dd>@Html.DisplayFor(m => m.InvoiceNumber)</dd>
+                
+                <dt>@Html.DisplayNameFor(m => m.AgentId)</dt>
+                <dd>@Html.DisplayFor(m => m.Agent.Name)</dd>
+                
+                <dt>@Html.DisplayNameFor(m => m.AgentBranchId)</dt>
+                <dd>@Html.DisplayFor(m => m.AgentBranch.Name)</dd>
+                
+                <dt>@Html.DisplayNameFor(m => m.UserId)</dt>
+                <dd>@Html.DisplayFor(m => m.User.Name)</dd>
+                
+                <dt>@Html.DisplayNameFor(m => m.Date)</dt>
+                <dd>@Html.DisplayFor(m => m.Date)</dd>
+                
+                <dt>@Html.DisplayNameFor(m => m.Time)</dt>
+                <dd>@Html.DisplayFor(m => m.Time)</dd>
+            </dl>
+            <dl>
+            @foreach(BillBox.Models.PaymentCaptureField captureField in Model.PaymentCaptureFields)
+            {
+                <dt>@captureField.CaptureField.DisplayName</dt>
+                <dd>@captureField.Value</dd>
+            }
+            </dl>
+            <dl>
+            @foreach(BillBox.Models.PaymentInfo paymentInfo in Model.PaymentInfoes)
+            {
+                <dt>Payment Type</dt>
+                <dd>@paymentInfo.PaymentType.Name</dd>
+                
+                <dt>Amount</dt>
+                <dd>@paymentInfo.Amount</dd>
+                
+                foreach(BillBox.Models.PaymentPaymentTypeCaptureField field in paymentInfo.Payment.PaymentPaymentTypeCaptureFields)
+                {
+                    if(field.PaymentTypeCaptureField.PaymentTypeId == paymentInfo.PaymentType.PaymentTypeId)
+                    {
+                        <dt>@field.PaymentTypeCaptureField.DisplayName</dt>
+                        <dd>@field.Value</dd>
+                    }
+                }
+                <hr />
+            }
+            </dl>
+        </div>
+        <div class="section-footer">
+            <ul class="details-menu">
+                <li>@Html.ActionLink("Back to List", "PaymentHistory")</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section SidebarLeft {
+    @Html.Partial("_SidebarMenu")
+}
