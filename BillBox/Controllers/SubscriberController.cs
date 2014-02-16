@@ -97,9 +97,9 @@ namespace BillBox.Controllers
                 {
                     var entry = dbContext.Entry(subscriber);
                     entry.State = EntityState.Modified;
-                    //entry.Property(s => s.SubscriberId).IsModified = false;
-                    //entry.Property(s =>
+
                     dbContext.SaveChanges();
+
                     return RedirectToAction("Details", new { id = subscriber.SubscriberId});
                 }
                 catch (Exception ex)
