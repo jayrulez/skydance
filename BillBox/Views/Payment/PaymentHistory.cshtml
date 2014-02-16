@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Payment History";
     Layout = "~/Views/Shared/_Default.cshtml";
+    var payments = ViewBag.payments as IEnumerable<BillBox.Models.Payment>;
 }
 
 <div class="action">
@@ -8,7 +9,41 @@
         <div class="section-header">
         </div>
         <div class="section-content">
-
+            <table>
+                <caption>Payment History</caption>
+                <thead>
+                    <tr>
+                        <th>Payment Id</th>
+                        <th>Subscriber</th>
+                        <th>Invoice Number</th>
+                        <th>Agent</th>
+                        <th>Agent Branch</th>
+                        <th>User</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach(BillBox.Models.Payment payment in payments)
+                {
+                    <tr>
+                        <td>@payment.PaymentId</td>
+                        <td>@payment.Subscriber.Name</td>
+                        <td>@payment.InvoiceNumber</td>
+                        <td>@payment.Agent.Name</td>
+                        <td>@payment.AgentBranch.Name</td>
+                        <td>@payment.User.Name</td>
+                        <td>@payment.Date</td>
+                        <td>@payment.Time</td>
+                        <td>
+                            @Html.ActionLink("View", "ViewPayment", "Payment", new { paymentId = @payment.PaymentId }, null)
+                        </td>
+                    </tr>
+                }
+                </tbody>
+                <tfoot></tfoot>
+            </table>
         </div>
         <div class="section-footer">
         </div>
@@ -18,4 +53,3 @@
 @section SidebarLeft {
     @Html.Partial("_SidebarMenu")
 }
-

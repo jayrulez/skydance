@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BillBox.Models;
+using PagedList;
 
 namespace BillBox.Controllers
 {
@@ -49,31 +50,51 @@ namespace BillBox.Controllers
         {
             var paymentTypes = dbContext.PaymentTypes;
 
-            ViewBag.SubscriberId = new SelectList(dbContext.Subscribers, "SubscriberId", "Name");
+            var subscribers = dbContext.Subscribers;
 
             ViewBag.paymentTypes = paymentTypes;
+            ViewBag.subscribers = subscribers;
 
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult NewPayment(NewPaymentModel model)
+        public ActionResult NewPayment(Payment model)
         {
             var paymentTypes = dbContext.PaymentTypes;
 
-            ViewBag.SubscriberId = new SelectList(dbContext.Subscribers, "SubscriberId", "Name");
+            var subscribers = dbContext.Subscribers;
 
             ViewBag.paymentTypes = paymentTypes;
+            ViewBag.subscribers  = subscribers;
+
             return Content(HttpContext.Request.Params.ToString());
-            //ViewBag.SubscriberId = new SelectList(db.Subscribers, "SubscriberId", "Name");
+
             //return View(model);
         }
 
-        public ActionResult PaymentHistory(string period = "today")
+        public ActionResult PaymentHistory(int? page, string period = "today")
         {
-            var payments = dbContext.Payments.AsQueryable();
+            var payments = dbContext.Payments.OrderBy(p => p.PaymentId);
+
+            var pageNumber = page ?? 1;
+
+            ViewBag.payments = payments.ToPagedList(pageNumber, 25);
+
             return View();
+        }
+
+        public ActionResult ViewPayment(int paymentId = 0)
+        {
+            Payment payment = dbContext.Payments.Find(paymentId);
+
+            if(payment == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(payment);
         }
 
         protected override void Dispose(bool disposing)

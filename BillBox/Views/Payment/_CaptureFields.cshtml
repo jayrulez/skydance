@@ -4,10 +4,8 @@
 
 @foreach (BillBox.Models.CaptureField captureField in captureFields)
 {
-        <div class="editor-label">
-            <label for="capture-field-@captureField.Name.ToLower()">@captureField.DisplayName</label>
-        </div>
-        <div class="editor-field">
-            <input type="text" name="captureField[@captureField.Name.ToLower()]" id="capture-field-@captureField.Name.ToLower()" />
-        </div>
+    <div class="row clearfix">
+        <label for="capture-field-@captureField.Name.ToLower()">@captureField.DisplayName</label>
+        <input type="text" name="captureField[@captureField.Name.ToLower()]" id="capture-field-@captureField.Name.ToLower()" />
+    </div>
 }
