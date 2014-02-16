@@ -20,7 +20,6 @@
                         <th>Contact Number</th>
                         <th>Fax Number</th>
                         <th>Email</th>
-                        <th>Website</th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
@@ -30,11 +29,19 @@
                     <tr>
                         <td>@subscriber.Name</td>
                         <td>@subscriber.OperatingName</td>
-                        <td>@subscriber.AddressStreet @subscriber.AddressCity @subscriber.Parish.Name</td>
+                        <td>
+                            @subscriber.AddressStreet
+                            <br /> 
+                            @subscriber.AddressCity
+
+                            @if(subscriber.Parish != null){
+                                <br />
+                                @subscriber.Parish.Name
+                            }
+                        </td>
                         <td>@subscriber.ContactNumber</td>
                         <td>@subscriber.FaxNumber</td>
                         <td>@subscriber.EmailAddress</td>
-                        <td>@subscriber.Website</td>
                         <td>
                             @Html.ActionLink("View", "Details", "Subscriber", new { id = @subscriber.SubscriberId }, null) | 
                             @Html.ActionLink("Edit", "Edit", "Subscriber", new { id =  @subscriber.SubscriberId }, null)
