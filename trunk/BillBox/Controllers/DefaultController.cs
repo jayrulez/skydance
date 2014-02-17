@@ -59,5 +59,12 @@ namespace BillBox.Controllers
             return RedirectToAction("Index", "Default");
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+                dbContext.Dispose();
+
+            base.Dispose(disposing);
+        }
     }
 }

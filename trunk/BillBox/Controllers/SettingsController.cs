@@ -223,8 +223,9 @@ namespace BillBox.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
-                base.Dispose(disposing);
+            if (disposing)
+                dbContext.Dispose();
+            base.Dispose(disposing);
         }
 
     }
