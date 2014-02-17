@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using System.Data;
+using BillBox.Common;
 
 namespace BillBox.Controllers
 {
@@ -24,13 +25,15 @@ namespace BillBox.Controllers
 
         public ActionResult ListPaymentTypes(int? page)
         {
-            var paymentTypes = dbContext.PaymentTypes.OrderBy(p => p.Name);
-
             var pageNumber = page ?? 1;
+            var pageSize = Util.GetPageSize(Common.PagedList.PaymentTypes);
 
-            ViewBag.paymentTypes = paymentTypes.ToPagedList(pageNumber, 25);
+            var paymentTypes = dbContext.PaymentTypes
+                .OrderBy(p => p.Name)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize);
 
-            return View();
+            return View(paymentTypes);
         }
 
         public ActionResult CreatePaymentType()
@@ -216,6 +219,12 @@ namespace BillBox.Controllers
             {
                 return Content(ex.Message);
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if(disposing)
+                base.Dispose(disposing);
         }
 
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BillBox.Models;
+using BillBox.Common;
 using System.Data.Entity;
 using PagedList;
 using System.Data;
@@ -50,24 +51,29 @@ namespace BillBox.Controllers
         [HttpGet]
         public ActionResult Index(int? page)
         {
-            var subscribers = dbContext.Subscribers.Include(s => s.Parish).OrderBy(s => s.Name);
-
             var pageNumber = page ?? 1;
+            var pageSize = Util.GetPageSize(Common.PagedList.Subscribers);
 
-            ViewBag.Subscribers = subscribers.ToPagedList(pageNumber, 25);
+            var subscribers = dbContext.Subscribers
+                .Include(s => s.Parish).OrderBy(s => s.Name)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize);
+            
 
-            return View();
+            return View(subscribers);
         }
 
         [HttpGet]
         public ActionResult Details(int id = 0)
         {
+            if (id == 0)
+                return HttpNotFound();
+
             var subscriber = dbContext.Subscribers.Find(id);
 
-            if (subscriber == null)
-            {
+            if (subscriber == null)            
                 return HttpNotFound();
-            }
+            
 
             return View(subscriber);
         }
@@ -75,14 +81,15 @@ namespace BillBox.Controllers
         [HttpGet]
         public ActionResult Edit(int id = 0)
         {
+            if (id == 0)
+                return HttpNotFound();
+
             var subscriber = dbContext.Subscribers.Find(id);
 
-            if (subscriber == null)
-            {
-                return HttpNotFound();
-            }
+            if (subscriber == null)            
+                return HttpNotFound();            
 
-            ViewBag.Parishes = dbContext.Parishes.AsEnumerable<BillBox.Models.Parish>();
+            ViewBag.Parishes = dbContext.Parishes;
 
             return View(subscriber);
         }
@@ -95,8 +102,7 @@ namespace BillBox.Controllers
             {
                 try
                 {
-                    var entry = dbContext.Entry(subscriber);
-                    entry.State = EntityState.Modified;
+                    dbContext.Entry(subscriber).State = EntityState.Modified;
 
                     dbContext.SaveChanges();
 
@@ -105,23 +111,23 @@ namespace BillBox.Controllers
                 catch (Exception ex)
                 {
                     ModelState.AddModelError("", ex.Message);
-                }
-                
+                }                
             }
 
-            ViewBag.Parishes = dbContext.Parishes.AsEnumerable<BillBox.Models.Parish>();
+            ViewBag.Parishes = dbContext.Parishes;
             return View(subscriber);
         }
 
         [HttpGet]
         public ActionResult EditCaptureField(int id = 0)
         {
+            if (id == 0)
+                return HttpNotFound();
+
             var captureField = dbContext.CaptureFields.Find(id);
 
             if (captureField == null)
-            {
                 return HttpNotFound();
-            }
 
             return View(captureField);
         }
@@ -134,8 +140,8 @@ namespace BillBox.Controllers
             {
                 try
                 {
-                    var entry = dbContext.Entry(captureField);
-                    entry.State = EntityState.Modified;
+                    dbContext.Entry(captureField).State = EntityState.Modified;
+                    
                     dbContext.SaveChanges();
 
                     return RedirectToAction("Details", "Subscriber", new { id = captureField.SubscriberId });
@@ -152,14 +158,15 @@ namespace BillBox.Controllers
         [HttpGet]
         public ActionResult CreateCaptureField(int id = 0)
         {
-            var subscriber = dbContext.Subscribers.Find(id);
+            if (id == 0)
+                return HttpNotFound();
+
+            var subscriber  = dbContext.Subscribers.Find(id); 
 
             if (subscriber == null)
-            {
                 return HttpNotFound();
-            }
 
-            CaptureField captureField = new CaptureField();            
+            var captureField = new CaptureField();
 
             captureField.SubscriberId = subscriber.SubscriberId;
 
@@ -189,5 +196,14 @@ namespace BillBox.Controllers
 
             return View(captureField);
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+                dbContext.Dispose();
+
+            base.Dispose(disposing);
+        }
+
     }
 }

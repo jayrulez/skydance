@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BillBox.Common;
 using BillBox.Models;
 using PagedList;
 
@@ -76,13 +77,15 @@ namespace BillBox.Controllers
 
         public ActionResult PaymentHistory(int? page, string period = "today")
         {
-            var payments = dbContext.Payments.OrderBy(p => p.PaymentId);
-
             var pageNumber = page ?? 1;
+            var pageSize = Util.GetPageSize(Common.PagedList.PaymentHistory);
 
-            ViewBag.payments = payments.ToPagedList(pageNumber, 25);
+            var payments = dbContext.Payments
+                .OrderBy(p => p.PaymentId)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize);  
 
-            return View();
+            return View(payments);
         }
 
         public ActionResult ViewPayment(int paymentId = 0)
@@ -99,7 +102,9 @@ namespace BillBox.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            dbContext.Dispose();
+            if(disposing)
+                dbContext.Dispose();
+
             base.Dispose(disposing);
         }
     }

@@ -1,8 +1,8 @@
-﻿@{
+﻿@model IEnumerable<BillBox.Models.Agent>
+
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Default.cshtml";
-
-    var agents = ViewBag.agents as IEnumerable<BillBox.Models.Agent>;
 }
 
 <div class="action">
@@ -23,7 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach(BillBox.Models.Agent agent in agents)
+                @foreach(BillBox.Models.Agent agent in Model)
                 {
                     <tr>
                         <td>@agent.Name</td>

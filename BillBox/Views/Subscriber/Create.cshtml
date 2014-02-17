@@ -4,7 +4,7 @@
     ViewBag.Title = "New Subscriber";
     Layout = "~/Views/Shared/_Default.cshtml";
 
-    var parishes = (ViewBag.Parishes != null) ? ViewBag.Parishes as IEnumerable<BillBox.Models.Parish>: null;
+    var Parishes = ViewBag.Parishes as IEnumerable<BillBox.Models.Parish>;
 }
 
 
@@ -49,7 +49,7 @@
 
                         <div class="row clearfix">
                             @Html.LabelFor(model => model.ParishId)
-                            @Html.DropDownListFor(model => model.ParishId, new SelectList(parishes, "ParishId", "Name"), "Select Parish")
+                            @Html.DropDownListFor(model => model.ParishId, new SelectList(Parishes, "ParishId", "Name"), "Select Parish")
                             @Html.ValidationMessageFor(model => model.ParishId)
                         </div>
 
