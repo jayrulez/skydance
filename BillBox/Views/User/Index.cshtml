@@ -1,8 +1,7 @@
-﻿@{
+﻿@model IEnumerable<BillBox.Models.User>
+@{
     ViewBag.Title = "Users";
-    Layout = "~/Views/Shared/_Default.cshtml";
-    
-    var users = ViewBag.users as IEnumerable<BillBox.Models.User>;
+    Layout = "~/Views/Shared/_Default.cshtml";    
 }
 
 <div class="action">
@@ -23,7 +22,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach(BillBox.Models.User user in users)
+                @foreach(BillBox.Models.User user in Model)
                 {
                     <tr>
                         <td>@user.Name</td>

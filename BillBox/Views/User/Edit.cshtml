@@ -3,10 +3,11 @@
 @{
     ViewBag.Title = "Edit User";
     Layout = "~/Views/Shared/_Default.cshtml";
-    var Parishes = (ViewBag.Parishes != null) ? ViewBag.Parishes as IEnumerable<BillBox.Models.Parish> : null;
-    var UserLevels = (ViewBag.UserLevels != null) ? ViewBag.UserLevels as IEnumerable<BillBox.Models.UserLevel> : null;
-    var Agents = (ViewBag.Agents != null) ? ViewBag.Agents as IEnumerable<BillBox.Models.Agent> : null;
-    var Branches = (ViewBag.AgentBranches != null) ? ViewBag.AgentBranches as IEnumerable<BillBox.Models.AgentBranch> : null;
+    
+    var Parishes = ViewBag.Parishes as IEnumerable<BillBox.Models.Parish>;
+    var UserLevels = ViewBag.UserLevels as IEnumerable<BillBox.Models.UserLevel>;
+    var Agents = ViewBag.Agents as IEnumerable<BillBox.Models.Agent>;
+    var Branches = ViewBag.AgentBranches as IEnumerable<BillBox.Models.AgentBranch>;
 }
 <div class="action">
     <div class="section">
@@ -17,12 +18,13 @@
                 @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "wf" }))
                 {
                     @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(true)
+                    @Html.ValidationSummary(true)                    
 
                     <fieldset class="top">
                         <legend>Edit User</legend>
 
                         @Html.HiddenFor(model => model.UserId)
+                        @Html.HiddenFor(model => model.PasswordExpireAt)
 
                         <div class="row top clearfix">
                             @Html.LabelFor(model => model.Name)
@@ -38,7 +40,8 @@
 
                         <div class="row clearfix">
                             @Html.LabelFor(model => model.Password)
-                            @Html.PasswordFor(model => model.Password, new { data_val = false })
+                            @Html.PasswordFor(model => model.Password)
+                            @Html.ValidationMessageFor(model => model.Password)
                         </div>
 
                         <div class="row clearfix">
@@ -77,7 +80,15 @@
                             @Html.ValidationMessageFor(model => model.AgentId)
                         </div>
 
-                        <div id="agent-branches-area" class="row clearfix">                                
+                        <div id="agent-branches-area" class="row clearfix">
+                            @if (Model.AgentBranchId != null)
+                            {
+                                <div>
+                                    @Html.LabelFor(model => model.AgentBranchId)
+                                    @Html.DropDownListFor(model => model.AgentBranchId, new SelectList(Branches, "BranchId", "Name"), "Select Branch")
+                                    @Html.ValidationMessageFor(model => model.AgentBranchId)
+                                </div>
+                            }
                         </div>
 
                         <div class="row clearfix">
@@ -106,30 +117,31 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
-        $(document).ready(function () {       
+        $(document).ready(function () {
 
-            $('#@Html.IdFor(m => m.AgentId)').change(function (e) {
-
-                var agentId = $(this).val();
-
-                if (agentId) {
-                    $.ajax({
-                        cache: false,
-                        type: 'GET',
-                        url: '@Url.Action("AgentBranches", "User")',
-                        data: { 'id': agentId },
-                        success: function (html) {
-                            $("#agent-branches-area").html(html);
-                        },
-                        error: function () {
-                            alert("Error loading agent branches");
-                            $("#agent-branches-area").html("");
-                        }
-                    });
-                } else {
-                    $("#agent-branches-area").html("");
-                }
+            $('#@Html.IdFor(m => m.AgentId)').change(function () {
+                loadAgentBranches($(this).val());
             });
         });
+
+        function loadAgentBranches(agentId) {
+            if (agentId) {
+                $.ajax({
+                    cache: false,
+                    type: 'GET',
+                    url: '@Url.Action("AgentBranches", "User")',
+            data: { 'id': agentId },
+            success: function (html) {
+                $("#agent-branches-area").html(html);
+            },
+            error: function () {
+                alert("Error loading agent branches");
+                $("#agent-branches-area").html("");
+            }
+        });
+    } else {
+        $("#agent-branches-area").html("");
+    }
+}
     </script>
 }
