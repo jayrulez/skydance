@@ -1,31 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Configuration;
 
 namespace BillBox.Common
 {
-    public enum ErrorCode
-    {
-        NoError, UserNotFound, AgentNotFound, SubscriberNotFound, 
-        DuplicateEmailAddress, PaymentNotFound,
-        DuplicateName, DuplicateOperatingName,  DuplicateUsername, NoResultsFound,
-        FKError,
-        DbError, DBEntityValidationError, SysError, InvalidPageSize, InvalidPageNumber, Generic1, Generic2
-
-    }
 
     public enum PagedList
     {
-        Default = 0, SubscriberPayments
+        General = 0, Users, Agents, Branches, Subscribers, CaptureFields,
+        PaymentHistory, PaymentTypes, PaymentTypeCaptureFields
     }
 
     public class Util
     {
+
         /// <summary>
         /// Returns a string value from the webconfig appsetting based on the specified key.
-        /// If the key is not found then an null string is returned
+        /// If the key is not found then null is returned
         /// </summary>
         /// <param name="Key">the string index for the value required</param>
         /// <returns></returns>
@@ -33,46 +23,67 @@ namespace BillBox.Common
         {
             string value = null;
 
-            if (string.IsNullOrEmpty(Key))
-                return String.Empty;
-
             try
             {
+                if (string.IsNullOrEmpty(Key))
+                    throw new Exception();
+
                 value = WebConfigurationManager.AppSettings[Key];
             }
             catch
             {
-                return String.Empty;
+                return null;
             }
 
             return value;
         }
 
+        /// <summary>
+        /// Get the size of the specified page list
+        /// </summary>
+        /// <param name="PageList">The page for which the size is required</param>
+        /// <returns></returns>
         public static int GetPageSize(PagedList PageList)
         {
             int pageSize = 0;
             string key;
             switch (PageList)
             {
-                case PagedList.SubscriberPayments: key = "PageSize_SubscriberPayments";
+                case PagedList.General: key = "PageSize_General";
                     break;
-                default: key = "PageSize_Default";
+                case PagedList.Users: key = "PageSize_Users";
+                    break;
+                case PagedList.Agents: key = "PageSize_Agents";
+                    break;
+                case PagedList.Branches: key = "PageSize_Branches";
+                    break;
+                case PagedList.Subscribers: key = "PageSize_Subscribers";
+                    break;
+                case PagedList.CaptureFields: key = "PageSize_CaptureFields";
+                    break;
+                case PagedList.PaymentHistory: key = "PageSize_PaymentHistory";
+                    break;
+                case PagedList.PaymentTypes: key = "PageSize_PaymentTypes";
+                    break;
+                case PagedList.PaymentTypeCaptureFields: key = "PageSize_PaymentTypeCaptureFields";
+                    break;
+                default: key = "PageSize_General";
                     break;
             }
 
             bool isSuccessful = int.TryParse(GetAppSetting(key), out pageSize);
 
-            return (isSuccessful) ? pageSize : 30;
+            return (isSuccessful) ? pageSize : 25;
         }
 
-        public static T SafeOutput<T>(T value)
-        {            
-            if (value == null)
-                return default(T);
-            else
-                return value;
-        }
-    
 
+        public static int GetPasswordExpirationDays()
+        {
+            int numberOfDays = 0;
+
+            bool isSuccessful = int.TryParse(GetAppSetting("PasswordExpiryDays"), out numberOfDays);
+
+            return (isSuccessful) ? numberOfDays : 30;
+        }
     }
 }

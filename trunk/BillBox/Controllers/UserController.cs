@@ -9,6 +9,7 @@ using BillBox.Models;
 using BillBox.Common;
 
 using PagedList;
+using System.Data.Entity.Infrastructure;
 
 namespace BillBox.Controllers
 {
@@ -19,11 +20,8 @@ namespace BillBox.Controllers
 
         [HttpGet]
         public ActionResult Create()
-        {
-            ViewBag.Parishes = dbContext.Parishes.AsEnumerable<BillBox.Models.Parish>().OrderBy(p => p.Name);
-            ViewBag.UserLevels = dbContext.UserLevels.AsEnumerable<BillBox.Models.UserLevel>();
-            ViewBag.Agents = dbContext.Agents.AsEnumerable<BillBox.Models.Agent>().OrderBy(a => a.Name);
-
+        {            
+            LoadLookupValues(ViewBag);
             return View();
         }
 
@@ -35,7 +33,7 @@ namespace BillBox.Controllers
             {
                 try
                 {
-                    user.PasswordExpireAt = DateTime.Now;
+                    user.PasswordExpireAt = DateTime.Now.AddDays(Util.GetPasswordExpirationDays());
 
                     dbContext.Users.Add(user);
                     dbContext.SaveChanges();
@@ -47,13 +45,9 @@ namespace BillBox.Controllers
                 {
                     ModelState.AddModelError("", ex.Message);
                 }
-            }
-            else
-            {
-                ViewBag.Parishes = dbContext.Parishes.AsEnumerable<BillBox.Models.Parish>().OrderBy(p => p.Name);
-                ViewBag.UserLevels = dbContext.UserLevels.AsEnumerable<BillBox.Models.UserLevel>();
-                ViewBag.Agents = dbContext.Agents.AsEnumerable<BillBox.Models.Agent>().OrderBy(a => a.Name);
-            }
+            }            
+                
+            LoadLookupValues(ViewBag);
 
             return View(user);
         }
@@ -68,39 +62,37 @@ namespace BillBox.Controllers
                 .OrderBy(a => a.Name);
 
             var pageNumber = page ?? 1;
+            var pageSize = Util.GetPageSize(Common.PagedList.Users);
 
-            ViewBag.users = users.ToPagedList(pageNumber, 25);
-
-            return View();
+            return View(users.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpGet]
         public ActionResult Details(int id = 0)
         {
-            User user = dbContext.Users.Find(id);
-
-            if (user == null)
-            {
+            if (id == 0)
                 return HttpNotFound();
-            }
 
+            var user = dbContext.Users.Find(id);
+
+            if (user == null)            
+                return HttpNotFound();
+            
             return View(user);
         }
-         
+
         [HttpGet]
         public ActionResult Edit(int id = 0)
         {
-            User user = dbContext.Users.Find(id);
-
-            if (user == null)
-            {
+            if (id == 0)
                 return HttpNotFound();
-            }
 
-            ViewBag.Parishes = dbContext.Parishes.AsEnumerable<BillBox.Models.Parish>();
-            ViewBag.UserLevels = dbContext.UserLevels.AsEnumerable<BillBox.Models.UserLevel>();
-            ViewBag.Agents = dbContext.Agents.AsEnumerable<BillBox.Models.Agent>();
-            ViewBag.AgentBranches = dbContext.AgentBranches.AsEnumerable<BillBox.Models.AgentBranch>().Where(ab => ab.AgentId == user.AgentId);
+            var user = dbContext.Users.Find(id);
+
+            if (user == null)            
+                return HttpNotFound();
+            
+            LoadLookupValues(ViewBag, user.AgentId ?? 0);
 
             return View(user);
         }
@@ -109,18 +101,31 @@ namespace BillBox.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(User user)
         {
+           
             if (ModelState.IsValid)
             {
                 try
                 {
-                    user.PasswordExpireAt = DateTime.Now;
+                    if (user.Password == null)
+                    {
+                        user.Password = String.Empty;
+                    }              
+
+                    dbContext.Users.Attach(user);
 
                     var entry = dbContext.Entry(user);
                     entry.State = System.Data.EntityState.Modified;
 
-                    if (user.Password == null)
-                        entry.Property(u => u.Password).IsModified = false;
 
+                    if (user.Password == String.Empty)
+                    {
+                        entry.Property(u => u.Password).IsModified = false;
+                    }
+                    else /*triggered if the password was updated/changed*/
+                    {
+                        user.PasswordExpireAt = DateTime.Now.AddDays(Util.GetPasswordExpirationDays());
+                    }
+                    
                     dbContext.SaveChanges();
 
                     return RedirectToAction("Details", new { id = user.UserId });
@@ -131,10 +136,7 @@ namespace BillBox.Controllers
                 }
             }
 
-            ViewBag.Parishes = dbContext.Parishes.AsEnumerable<BillBox.Models.Parish>();
-            ViewBag.UserLevels = dbContext.UserLevels.AsEnumerable<BillBox.Models.UserLevel>();
-            ViewBag.Agents = dbContext.Agents.AsEnumerable<BillBox.Models.Agent>();
-            ViewBag.AgentBranches = dbContext.AgentBranches.AsEnumerable<BillBox.Models.AgentBranch>().Where(ab => ab.AgentId == user.AgentId);
+            LoadLookupValues(ViewBag, user.AgentId ?? 0);
 
             return View(user);
 
@@ -143,12 +145,27 @@ namespace BillBox.Controllers
         [HttpGet]
         public ActionResult AgentBranches(int? id)
         {
-            ViewBag.AgentBranches = dbContext.AgentBranches
-                .Where(ab => ab.AgentId == id)
-                .AsEnumerable<BillBox.Models.AgentBranch>();
+            ViewBag.AgentBranches = dbContext.AgentBranches.Where(ab => ab.AgentId == id);
 
             return PartialView("_AgentBranches");
         }
 
+        private void LoadLookupValues(dynamic dictionary, int agentId = 0)
+        {
+            dictionary.Parishes = dbContext.Parishes.OrderBy(p => p.Name);
+            dictionary.UserLevels = dbContext.UserLevels.OrderBy(ul => ul.LevelName);
+            dictionary.Agents = dbContext.Agents.OrderBy(a => a.Name);
+
+            if (agentId != 0)
+                ViewBag.AgentBranches = dbContext.AgentBranches.Where(ab => ab.AgentId == agentId);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if(disposing)
+                dbContext.Dispose();
+
+            base.Dispose(disposing);
+        }
     }
 }
