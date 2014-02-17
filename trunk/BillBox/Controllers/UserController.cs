@@ -55,16 +55,18 @@ namespace BillBox.Controllers
         [HttpGet]
         public ActionResult Index(int? page)
         {
+            var pageNumber = page ?? 1;
+            var pageSize = Util.GetPageSize(Common.PagedList.Users);
+
             var users = dbContext.Users
                 .Include(u => u.UserLevel)
                 .Include(u => u.Agent)
                 .Include(u => u.AgentBranch)
-                .OrderBy(a => a.Name);
+                .OrderBy(a => a.Name)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize);            
 
-            var pageNumber = page ?? 1;
-            var pageSize = Util.GetPageSize(Common.PagedList.Users);
-
-            return View(users.ToPagedList(pageNumber, pageSize));
+            return View(users);
         }
 
         [HttpGet]

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 using PagedList;
 using System.Data;
+using BillBox.Common;
 
 namespace BillBox.Controllers
 {
@@ -19,13 +20,14 @@ namespace BillBox.Controllers
 
         public ActionResult Index(int? page)
         {
-            var agents = dbContext.Agents.OrderBy(a => a.Name);
-
             var pageNumber = page ?? 1;
-            
-            ViewBag.agents = agents.ToPagedList(pageNumber, 25);
+            var pageSize = Util.GetPageSize(Common.PagedList.Agents);
 
-            return View();
+            var agents = dbContext.Agents.OrderBy(a => a.Name)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize);
+
+            return View(agents);
         }
 
         public ActionResult Create()
@@ -220,23 +222,28 @@ namespace BillBox.Controllers
         public ActionResult ListBranches( int? page, int agentId = 0)
         {
             var agent = dbContext.Agents.Find(agentId);
+            var pageNumber = page ?? 1;
+            var pageSize = Util.GetPageSize(Common.PagedList.Branches);
 
             if(agent == null)
             {
                 return HttpNotFound();
             }
 
-            var branches = dbContext.AgentBranches.Where(b => b.AgentId == agentId).OrderBy(b => b.Name);
+            var branches = dbContext.AgentBranches
+                .Where(b => b.AgentId == agentId)
+                .OrderBy(b => b.Name)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize);            
 
-            var pageNumber   = page ?? 1;
-            ViewBag.branches = branches.ToPagedList(pageNumber, 25);
-
-            return View();
+            return View(branches);
         }
 
         protected override void Dispose(bool disposing)
         {
-            dbContext.Dispose();
+            if(disposing)
+                dbContext.Dispose();
+
             base.Dispose(disposing);
         }
 

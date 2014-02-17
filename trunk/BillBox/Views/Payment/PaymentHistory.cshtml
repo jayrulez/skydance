@@ -1,7 +1,7 @@
-﻿@{
+﻿@model IEnumerable<BillBox.Models.Payment>
+@{
     ViewBag.Title = "Payment History";
     Layout = "~/Views/Shared/_Default.cshtml";
-    var payments = ViewBag.payments as IEnumerable<BillBox.Models.Payment>;
 }
 
 <div class="action">
@@ -25,22 +25,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach(BillBox.Models.Payment payment in payments)
-                {
-                    <tr>
-                        <td>@payment.PaymentId</td>
-                        <td>@payment.Subscriber.Name</td>
-                        <td>@payment.InvoiceNumber</td>
-                        <td>@payment.Agent.Name</td>
-                        <td>@payment.AgentBranch.Name</td>
-                        <td>@payment.User.Name</td>
-                        <td>@payment.Date</td>
-                        <td>@payment.Time</td>
-                        <td>
-                            @Html.ActionLink("View", "ViewPayment", "Payment", new { paymentId = @payment.PaymentId }, null)
-                        </td>
-                    </tr>
-                }
+                    @foreach (BillBox.Models.Payment payment in Model)
+                    {
+                        <tr>
+                            <td>@payment.PaymentId</td>
+                            <td>@payment.Subscriber.Name</td>
+                            <td>@payment.InvoiceNumber</td>
+                            <td>@payment.Agent.Name</td>
+                            <td>@payment.AgentBranch.Name</td>
+                            <td>@payment.User.Name</td>
+                            <td>@payment.Date</td>
+                            <td>@payment.Time</td>
+                            <td>
+                                @Html.ActionLink("View", "ViewPayment", "Payment", new { paymentId = @payment.PaymentId }, null)
+                            </td>
+                        </tr>
+                    }
                 </tbody>
                 <tfoot></tfoot>
             </table>
