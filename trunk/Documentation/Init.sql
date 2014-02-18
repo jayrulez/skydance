@@ -90,29 +90,29 @@ INSERT INTO CaptureField (SubscriberId, Name, DisplayName, Type, OrderNum) VALUE
 GO
 
 /***********************************************************Payment Type*********************************************************************/
-INSERT INTO PaymentType (Name) VALUES ('Cash')
+INSERT INTO PaymentMethod (Name) VALUES ('Cash')
 GO
 
-INSERT INTO PaymentType (Name) VALUES ('Cheque')
+INSERT INTO PaymentMethod (Name) VALUES ('Cheque')
 GO
 
-INSERT INTO PaymentType (Name) VALUES ('Visa')
+INSERT INTO PaymentMethod (Name) VALUES ('Visa')
 GO
 
-INSERT INTO PaymentType (Name) VALUES ('DebitCard')
+INSERT INTO PaymentMethod (Name) VALUES ('DebitCard')
 GO
 
 /***********************************************************Payment Type Captured Field*********************************************************************/
-INSERT INTO PaymentTypeCaptureField (PaymentTypeId, Name, DisplayName, Type, OrderNum) VALUES (1, 'test', 'Test Field', 1, 1)
+INSERT INTO PaymentMethodCaptureField (PaymentMethodId, Name, DisplayName, Type, OrderNum) VALUES (1, 'test', 'Test Field', 1, 1)
 GO
 
-INSERT INTO PaymentTypeCaptureField (PaymentTypeId, Name, DisplayName, Type, OrderNum) VALUES (2, 'accountnumber', 'Account Number', 1, 2)
+INSERT INTO PaymentMethodCaptureField (PaymentMethodId, Name, DisplayName, Type, OrderNum) VALUES (2, 'accountnumber', 'Account Number', 1, 2)
 GO
 
-INSERT INTO PaymentTypeCaptureField (PaymentTypeId, Name, DisplayName, Type, OrderNum) VALUES (2, 'bank', 'Bank', 1, 1)
+INSERT INTO PaymentMethodCaptureField (PaymentMethodId, Name, DisplayName, Type, OrderNum) VALUES (2, 'bank', 'Bank', 1, 1)
 GO
 
-INSERT INTO PaymentTypeCaptureField (PaymentTypeId, Name, DisplayName, Type, OrderNum) VALUES (3, 'cardnumber', 'Card Nnumber', 1, 1)
+INSERT INTO PaymentMethodCaptureField (PaymentMethodId, Name, DisplayName, Type, OrderNum) VALUES (3, 'cardnumber', 'Card Nnumber', 1, 1)
 GO
 
 /***********************************************************Agent*********************************************************************/
@@ -160,36 +160,36 @@ INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (5, 3)
 INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (6, 3)
 
 
-/***********************************************************Payment*********************************************************************/
-INSERT INTO Payment (SubscriberId, InvoiceNumber, AgentId, AgentBranchId, UserId, Date, Status)
+/***********************************************************Bill*********************************************************************/
+INSERT INTO Bill (SubscriberId, InvoiceNumber, AgentId, AgentBranchId, UserId, Date, Status)
 VALUES(1, 100, 1, 1, 3, GETDATE(), 1)
 
-INSERT INTO Payment (SubscriberId, InvoiceNumber, AgentId, AgentBranchId, UserId, Date, Status)
+INSERT INTO Bill (SubscriberId, InvoiceNumber, AgentId, AgentBranchId, UserId, Date, Status)
 VALUES(2, 101, 2, 1, 3, GETDATE(), 1)
 
-INSERT INTO Payment (SubscriberId, InvoiceNumber, AgentId, AgentBranchId, UserId, Date, Status)
+INSERT INTO Bill (SubscriberId, InvoiceNumber, AgentId, AgentBranchId, UserId, Date, Status)
 VALUES(2, 102, 2, 1, 3, GETDATE(), 1)
 GO
 
-/***********************************************************Payment Info*********************************************************************/
-INSERT INTO PaymentInfo (PaymentId, PaymentTypeId, Amount)
+/***********************************************************Payment*********************************************************************/
+INSERT INTO Payment (PaymentMethodId, BillId, Amount)
 VALUES (1, 1, 2500.00)
 
-INSERT INTO PaymentInfo (PaymentId, PaymentTypeId, Amount)
-VALUES (2, 3, 2500.98)
+INSERT INTO Payment (PaymentMethodId, BillId, Amount)
+VALUES (3, 2, 2500.98)
 
-INSERT INTO PaymentInfo (PaymentId, PaymentTypeId, Amount)
+INSERT INTO Payment (PaymentMethodId, BillId, Amount)
 VALUES (2, 2, 2700.00)
 
-/***********************************************************Payment Captured Field*********************************************************************/
-INSERT INTO PaymentCaptureField (PaymentId, CaptureFieldId, [Value])
+/***********************************************************Bill Captured Field*********************************************************************/
+INSERT INTO BillCaptureField (BillId, CaptureFieldId, [Value])
 VALUES (1, 1, '2500.00')
 
-INSERT INTO PaymentCaptureField (PaymentId, CaptureFieldId, [Value])
+INSERT INTO BillCaptureField (BillId, CaptureFieldId, [Value])
 VALUES (2, 2, '1000.00')
 
-/***********************************************************Payment PaymentType Captured Field*********************************************************************/
-INSERT INTO PaymentPaymentTypeCaptureField (PaymentId, PaymentTypeCaptureFieldId, [Value])
+/***********************************************************Payment PaymentMethod Captured Field*********************************************************************/
+INSERT INTO PaymentPaymentMethodCaptureField (PaymentId, PaymentMethodCaptureFieldId, [Value])
 VALUES (1, 1, '2500.00')
 
 

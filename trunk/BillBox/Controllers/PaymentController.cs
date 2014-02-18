@@ -31,29 +31,29 @@ namespace BillBox.Controllers
             return PartialView("_CaptureFields");
         }
 
-        public ActionResult GetPaymentTypeCaptureFields()
+        public ActionResult GetPaymentMethodCaptureFields()
         {
-            int paymentTypeId;
+            int paymentMethodId;
 
-            if (!int.TryParse(HttpContext.Request.Params["paymentTypeId"], out paymentTypeId))
+            if (!int.TryParse(HttpContext.Request.Params["paymentMethodId"], out paymentMethodId))
             {
                 return Content("Error");
             }
 
-            var captureFields = dbContext.PaymentTypeCaptureFields.Where(cf => cf.PaymentTypeId == paymentTypeId).OrderBy(cf => cf.OrderNum);
+            var captureFields = dbContext.PaymentMethodCaptureFields.Where(cf => cf.PaymentMethodId == paymentMethodId).OrderBy(cf => cf.OrderNum);
 
             ViewBag.captureFields = captureFields;
 
-            return PartialView("_PaymentTypeCaptureFields");
+            return PartialView("_PaymentMethodCaptureFields");
         }
 
         public ActionResult NewPayment()
         {
-            var paymentTypes = dbContext.PaymentTypes;
+            var paymentMethods = dbContext.PaymentMethods;
 
             var subscribers = dbContext.Subscribers;
 
-            ViewBag.paymentTypes = paymentTypes;
+            ViewBag.paymentMethods = paymentMethods;
             ViewBag.subscribers = subscribers;
 
             return View();
@@ -61,16 +61,23 @@ namespace BillBox.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult NewPayment(Payment model)
+        public ActionResult NewPayment(Bill model)
         {
-            var paymentTypes = dbContext.PaymentTypes;
+            var paymentMethods = dbContext.PaymentMethods;
 
             var subscribers = dbContext.Subscribers;
 
-            ViewBag.paymentTypes = paymentTypes;
+            ViewBag.paymentMethods = paymentMethods;
             ViewBag.subscribers  = subscribers;
 
-            return Content(HttpContext.Request.Params.ToString());
+            string ret = "";
+
+            foreach (var key in HttpContext.Request.Params.AllKeys)
+            {
+                ret += "Key: " + key + " Val: " + HttpContext.Request.Params[key] + "\n\n";
+            }
+
+            return Content(ret);
 
             //return View(model);
         }
@@ -80,24 +87,24 @@ namespace BillBox.Controllers
             var pageNumber = page ?? 1;
             var pageSize = Util.GetPageSize(Common.PagedList.PaymentHistory);
 
-            var payments = dbContext.Payments
-                .OrderBy(p => p.PaymentId)
+            var bills = dbContext.Bills
+                .OrderBy(b => b.BillId)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize);  
 
-            return View(payments);
+            return View(bills);
         }
 
-        public ActionResult ViewPayment(int paymentId = 0)
+        public ActionResult ViewBill(int billId = 0)
         {
-            Payment payment = dbContext.Payments.Find(paymentId);
+            Bill bill = dbContext.Bills.Find(billId);
 
-            if(payment == null)
+            if(bill == null)
             {
                 return HttpNotFound();
             }
 
-            return View(payment);
+            return View(bill);
         }
 
         protected override void Dispose(bool disposing)

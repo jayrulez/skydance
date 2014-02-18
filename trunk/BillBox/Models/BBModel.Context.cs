@@ -27,14 +27,14 @@ namespace BillBox.Models
     
         public DbSet<Agent> Agents { get; set; }
         public DbSet<AgentBranch> AgentBranches { get; set; }
+        public DbSet<Bill> Bills { get; set; }
+        public DbSet<BillCaptureField> BillCaptureFields { get; set; }
         public DbSet<CaptureField> CaptureFields { get; set; }
         public DbSet<Parish> Parishes { get; set; }
         public DbSet<Payment> Payments { get; set; }
-        public DbSet<PaymentCaptureField> PaymentCaptureFields { get; set; }
-        public DbSet<PaymentInfo> PaymentInfoes { get; set; }
-        public DbSet<PaymentPaymentTypeCaptureField> PaymentPaymentTypeCaptureFields { get; set; }
-        public DbSet<PaymentType> PaymentTypes { get; set; }
-        public DbSet<PaymentTypeCaptureField> PaymentTypeCaptureFields { get; set; }
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
+        public DbSet<PaymentMethodCaptureField> PaymentMethodCaptureFields { get; set; }
+        public DbSet<PaymentPaymentMethodCaptureField> PaymentPaymentMethodCaptureFields { get; set; }
         public DbSet<Setting> Settings { get; set; }
         public DbSet<Subscriber> Subscribers { get; set; }
         public DbSet<User> Users { get; set; }

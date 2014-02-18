@@ -12,14 +12,18 @@ namespace BillBox.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class PaymentInfo
+    public partial class PaymentMethod
     {
-        public int PaymentInfoId { get; set; }
-        public int PaymentId { get; set; }
-        public int PaymentTypeId { get; set; }
-        public double Amount { get; set; }
+        public PaymentMethod()
+        {
+            this.Payments = new HashSet<Payment>();
+            this.PaymentMethodCaptureFields = new HashSet<PaymentMethodCaptureField>();
+        }
     
-        public virtual Payment Payment { get; set; }
-        public virtual PaymentType PaymentType { get; set; }
+        public int PaymentMethodId { get; set; }
+        public string Name { get; set; }
+    
+        public virtual ICollection<Payment> Payments { get; set; }
+        public virtual ICollection<PaymentMethodCaptureField> PaymentMethodCaptureFields { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace BillBox.Common
     public enum PagedList
     {
         General = 0, Users, Agents, Branches, Subscribers, CaptureFields,
-        PaymentHistory, PaymentTypes, PaymentTypeCaptureFields
+        PaymentHistory, PaymentMethods, PaymentTypeCaptureFields
     }
 
     public class Util
@@ -63,7 +63,7 @@ namespace BillBox.Common
                     break;
                 case PagedList.PaymentHistory: key = "PageSize_PaymentHistory";
                     break;
-                case PagedList.PaymentTypes: key = "PageSize_PaymentTypes";
+                case PagedList.PaymentMethods: key = "PageSize_PaymentTypes";
                     break;
                 case PagedList.PaymentTypeCaptureFields: key = "PageSize_PaymentTypeCaptureFields";
                     break;

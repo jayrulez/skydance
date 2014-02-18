@@ -16,27 +16,16 @@ namespace BillBox.Models
     {
         public Payment()
         {
-            this.PaymentCaptureFields = new HashSet<PaymentCaptureField>();
-            this.PaymentInfoes = new HashSet<PaymentInfo>();
-            this.PaymentPaymentTypeCaptureFields = new HashSet<PaymentPaymentTypeCaptureField>();
+            this.PaymentPaymentMethodCaptureFields = new HashSet<PaymentPaymentMethodCaptureField>();
         }
     
         public int PaymentId { get; set; }
-        public int SubscriberId { get; set; }
-        public int InvoiceNumber { get; set; }
-        public int AgentId { get; set; }
-        public int AgentBranchId { get; set; }
-        public int UserId { get; set; }
-        public System.DateTime Date { get; set; }
-        public byte[] Time { get; set; }
-        public int Status { get; set; }
+        public int PaymentMethodId { get; set; }
+        public int BillId { get; set; }
+        public double Amount { get; set; }
     
-        public virtual Agent Agent { get; set; }
-        public virtual AgentBranch AgentBranch { get; set; }
-        public virtual Subscriber Subscriber { get; set; }
-        public virtual User User { get; set; }
-        public virtual ICollection<PaymentCaptureField> PaymentCaptureFields { get; set; }
-        public virtual ICollection<PaymentInfo> PaymentInfoes { get; set; }
-        public virtual ICollection<PaymentPaymentTypeCaptureField> PaymentPaymentTypeCaptureFields { get; set; }
+        public virtual Bill Bill { get; set; }
+        public virtual PaymentMethod PaymentMethod { get; set; }
+        public virtual ICollection<PaymentPaymentMethodCaptureField> PaymentPaymentMethodCaptureFields { get; set; }
     }
 }

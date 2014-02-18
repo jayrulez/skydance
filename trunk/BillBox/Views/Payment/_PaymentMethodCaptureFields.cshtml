@@ -1,0 +1,11 @@
+﻿@{
+    var captureFields = ViewBag.captureFields as IEnumerable<BillBox.Models.PaymentMethodCaptureField>;
+}
+
+@foreach (BillBox.Models.PaymentMethodCaptureField captureField in captureFields)
+{
+    <div class="row clearfix">
+        <label for="capture-field-@captureField.Name.ToLower()">@captureField.DisplayName</label>
+        <input type="text" name="paymentMethodCaptureField[@captureField.Name.ToLower()]" id="capture-field-@captureField.Name.ToLower()" />
+    </div>
+}

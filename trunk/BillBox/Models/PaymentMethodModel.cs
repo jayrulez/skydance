@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BillBox.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,26 +7,27 @@ using System.Web;
 
 namespace BillBox.Models
 {
-    [MetadataType(typeof(PaymentTypeModel))]
-    public partial class PaymentType
+    [MetadataType(typeof(PaymentMethodModel))]
+    public partial class PaymentMethod
     {
 
     }
 
-    public class PaymentTypeModel
+    public class PaymentMethodModel
     {
         [Required]
         [Display(Name = "Name")]
+        //[Unique(typeof(Repository<PaymentType>), typeof(PaymentType), "Name", ErrorMessage = "Payment type already exists.")]
         public string Name { get; set; }
     }
 
-    [MetadataType(typeof(PaymentTypeCaptureFieldModel))]
-    public partial class PaymentTypeCaptureField
+    [MetadataType(typeof(PaymentMethodCaptureFieldModel))]
+    public partial class PaymentMethodCaptureField
     {
 
     }
 
-    public class PaymentTypeCaptureFieldModel
+    public class PaymentMethodCaptureFieldModel
     {
         [Required]
         [Display(Name = "Name")]

@@ -8,14 +8,14 @@
         <EntityContainer Name="BBModelStoreContainer">
           <EntitySet Name="Agent" EntityType="BBModel.Store.Agent" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AgentBranch" EntityType="BBModel.Store.AgentBranch" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Bill" EntityType="BBModel.Store.Bill" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BillCaptureField" EntityType="BBModel.Store.BillCaptureField" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CaptureField" EntityType="BBModel.Store.CaptureField" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Parish" EntityType="BBModel.Store.Parish" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Payment" EntityType="BBModel.Store.Payment" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PaymentCaptureField" EntityType="BBModel.Store.PaymentCaptureField" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PaymentInfo" EntityType="BBModel.Store.PaymentInfo" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PaymentPaymentTypeCaptureField" EntityType="BBModel.Store.PaymentPaymentTypeCaptureField" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PaymentType" EntityType="BBModel.Store.PaymentType" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PaymentTypeCaptureField" EntityType="BBModel.Store.PaymentTypeCaptureField" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PaymentMethod" EntityType="BBModel.Store.PaymentMethod" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PaymentMethodCaptureField" EntityType="BBModel.Store.PaymentMethodCaptureField" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PaymentPaymentMethodCaptureField" EntityType="BBModel.Store.PaymentPaymentMethodCaptureField" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Settings" EntityType="BBModel.Store.Settings" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Subscriber" EntityType="BBModel.Store.Subscriber" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="User" EntityType="BBModel.Store.User" store:Type="Tables" Schema="dbo" />
@@ -34,53 +34,53 @@
             <End Role="Parish" EntitySet="Parish" />
             <End Role="AgentBranch" EntitySet="AgentBranch" />
           </AssociationSet>
+          <AssociationSet Name="FK_Bill_Agent" Association="BBModel.Store.FK_Bill_Agent">
+            <End Role="Agent" EntitySet="Agent" />
+            <End Role="Bill" EntitySet="Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_AgentBranch" Association="BBModel.Store.FK_Bill_AgentBranch">
+            <End Role="AgentBranch" EntitySet="AgentBranch" />
+            <End Role="Bill" EntitySet="Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_Subscriber" Association="BBModel.Store.FK_Bill_Subscriber">
+            <End Role="Subscriber" EntitySet="Subscriber" />
+            <End Role="Bill" EntitySet="Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_User" Association="BBModel.Store.FK_Bill_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Bill" EntitySet="Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillCaptureField_Bill" Association="BBModel.Store.FK_BillCaptureField_Bill">
+            <End Role="Bill" EntitySet="Bill" />
+            <End Role="BillCaptureField" EntitySet="BillCaptureField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillCaptureField_CaptureField" Association="BBModel.Store.FK_BillCaptureField_CaptureField">
+            <End Role="CaptureField" EntitySet="CaptureField" />
+            <End Role="BillCaptureField" EntitySet="BillCaptureField" />
+          </AssociationSet>
           <AssociationSet Name="FK_CaptureField_Subscriber" Association="BBModel.Store.FK_CaptureField_Subscriber">
             <End Role="Subscriber" EntitySet="Subscriber" />
             <End Role="CaptureField" EntitySet="CaptureField" />
           </AssociationSet>
-          <AssociationSet Name="FK_Payment_Agent" Association="BBModel.Store.FK_Payment_Agent">
-            <End Role="Agent" EntitySet="Agent" />
+          <AssociationSet Name="FK_Payment_Bill" Association="BBModel.Store.FK_Payment_Bill">
+            <End Role="Bill" EntitySet="Bill" />
             <End Role="Payment" EntitySet="Payment" />
           </AssociationSet>
-          <AssociationSet Name="FK_Payment_AgentBranch" Association="BBModel.Store.FK_Payment_AgentBranch">
-            <End Role="AgentBranch" EntitySet="AgentBranch" />
+          <AssociationSet Name="FK_Payment_PaymentMethod" Association="BBModel.Store.FK_Payment_PaymentMethod">
+            <End Role="PaymentMethod" EntitySet="PaymentMethod" />
             <End Role="Payment" EntitySet="Payment" />
           </AssociationSet>
-          <AssociationSet Name="FK_Payment_Subscriber" Association="BBModel.Store.FK_Payment_Subscriber">
-            <End Role="Subscriber" EntitySet="Subscriber" />
+          <AssociationSet Name="FK_PaymentMethodCaptureField_PaymentMethod" Association="BBModel.Store.FK_PaymentMethodCaptureField_PaymentMethod">
+            <End Role="PaymentMethod" EntitySet="PaymentMethod" />
+            <End Role="PaymentMethodCaptureField" EntitySet="PaymentMethodCaptureField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentPaymentMethodCaptureField_Payment" Association="BBModel.Store.FK_PaymentPaymentMethodCaptureField_Payment">
             <End Role="Payment" EntitySet="Payment" />
+            <End Role="PaymentPaymentMethodCaptureField" EntitySet="PaymentPaymentMethodCaptureField" />
           </AssociationSet>
-          <AssociationSet Name="FK_Payment_User" Association="BBModel.Store.FK_Payment_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Payment" EntitySet="Payment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentCaptureField_CaptureField" Association="BBModel.Store.FK_PaymentCaptureField_CaptureField">
-            <End Role="CaptureField" EntitySet="CaptureField" />
-            <End Role="PaymentCaptureField" EntitySet="PaymentCaptureField" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentCaptureField_Payment" Association="BBModel.Store.FK_PaymentCaptureField_Payment">
-            <End Role="Payment" EntitySet="Payment" />
-            <End Role="PaymentCaptureField" EntitySet="PaymentCaptureField" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentInfo_Payment" Association="BBModel.Store.FK_PaymentInfo_Payment">
-            <End Role="Payment" EntitySet="Payment" />
-            <End Role="PaymentInfo" EntitySet="PaymentInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentInfo_PaymentType" Association="BBModel.Store.FK_PaymentInfo_PaymentType">
-            <End Role="PaymentType" EntitySet="PaymentType" />
-            <End Role="PaymentInfo" EntitySet="PaymentInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentPaymentTypeCaptureField_Payment" Association="BBModel.Store.FK_PaymentPaymentTypeCaptureField_Payment">
-            <End Role="Payment" EntitySet="Payment" />
-            <End Role="PaymentPaymentTypeCaptureField" EntitySet="PaymentPaymentTypeCaptureField" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentPaymentTypeCaptureField_PaymentCaptureField" Association="BBModel.Store.FK_PaymentPaymentTypeCaptureField_PaymentCaptureField">
-            <End Role="PaymentTypeCaptureField" EntitySet="PaymentTypeCaptureField" />
-            <End Role="PaymentPaymentTypeCaptureField" EntitySet="PaymentPaymentTypeCaptureField" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentTypeCaptureField_PaymentType" Association="BBModel.Store.FK_PaymentTypeCaptureField_PaymentType">
-            <End Role="PaymentType" EntitySet="PaymentType" />
-            <End Role="PaymentTypeCaptureField" EntitySet="PaymentTypeCaptureField" />
+          <AssociationSet Name="FK_PaymentPaymentMethodCaptureField_PaymentCaptureField" Association="BBModel.Store.FK_PaymentPaymentMethodCaptureField_PaymentCaptureField">
+            <End Role="PaymentMethodCaptureField" EntitySet="PaymentMethodCaptureField" />
+            <End Role="PaymentPaymentMethodCaptureField" EntitySet="PaymentPaymentMethodCaptureField" />
           </AssociationSet>
           <AssociationSet Name="FK_Subscriber_Parish" Association="BBModel.Store.FK_Subscriber_Parish">
             <End Role="Parish" EntitySet="Parish" />
@@ -138,6 +138,29 @@
           <Property Name="FaxNumber" Type="varchar" Nullable="false" MaxLength="15" />
           <Property Name="EmailAddress" Type="varchar" Nullable="false" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="BillId" />
+          </Key>
+          <Property Name="BillId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SubscriberId" Type="int" Nullable="false" />
+          <Property Name="InvoiceNumber" Type="int" Nullable="false" />
+          <Property Name="AgentId" Type="int" Nullable="false" />
+          <Property Name="AgentBranchId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Time" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BillCaptureField">
+          <Key>
+            <PropertyRef Name="BillId" />
+            <PropertyRef Name="CaptureFieldId" />
+          </Key>
+          <Property Name="BillId" Type="int" Nullable="false" />
+          <Property Name="CaptureFieldId" Type="int" Nullable="false" />
+          <Property Name="Value" Type="text" Nullable="false" />
+        </EntityType>
         <EntityType Name="CaptureField">
           <Key>
             <PropertyRef Name="CaptureFieldId" />
@@ -161,59 +184,36 @@
             <PropertyRef Name="PaymentId" />
           </Key>
           <Property Name="PaymentId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="SubscriberId" Type="int" Nullable="false" />
-          <Property Name="InvoiceNumber" Type="int" Nullable="false" />
-          <Property Name="AgentId" Type="int" Nullable="false" />
-          <Property Name="AgentBranchId" Type="int" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="Date" Type="datetime" Nullable="false" />
-          <Property Name="Time" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
-          <Property Name="Status" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PaymentCaptureField">
-          <Key>
-            <PropertyRef Name="PaymentId" />
-            <PropertyRef Name="CaptureFieldId" />
-          </Key>
-          <Property Name="PaymentId" Type="int" Nullable="false" />
-          <Property Name="CaptureFieldId" Type="int" Nullable="false" />
-          <Property Name="Value" Type="text" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PaymentInfo">
-          <Key>
-            <PropertyRef Name="PaymentInfoId" />
-          </Key>
-          <Property Name="PaymentInfoId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="PaymentId" Type="int" Nullable="false" />
-          <Property Name="PaymentTypeId" Type="int" Nullable="false" />
+          <Property Name="PaymentMethodId" Type="int" Nullable="false" />
+          <Property Name="BillId" Type="int" Nullable="false" />
           <Property Name="Amount" Type="float" Nullable="false" />
         </EntityType>
-        <EntityType Name="PaymentPaymentTypeCaptureField">
+        <EntityType Name="PaymentMethod">
           <Key>
-            <PropertyRef Name="PaymentId" />
-            <PropertyRef Name="PaymentTypeCaptureFieldId" />
+            <PropertyRef Name="PaymentMethodId" />
           </Key>
-          <Property Name="PaymentId" Type="int" Nullable="false" />
-          <Property Name="PaymentTypeCaptureFieldId" Type="int" Nullable="false" />
-          <Property Name="Value" Type="text" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PaymentType">
-          <Key>
-            <PropertyRef Name="PaymentTypeId" />
-          </Key>
-          <Property Name="PaymentTypeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentMethodId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="40" />
         </EntityType>
-        <EntityType Name="PaymentTypeCaptureField">
+        <EntityType Name="PaymentMethodCaptureField">
           <Key>
-            <PropertyRef Name="PaymentTypeCaptureFieldId" />
+            <PropertyRef Name="PaymentMethodCaptureFieldId" />
           </Key>
-          <Property Name="PaymentTypeCaptureFieldId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="PaymentTypeId" Type="int" Nullable="false" />
+          <Property Name="PaymentMethodCaptureFieldId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentMethodId" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="40" />
           <Property Name="DisplayName" Type="varchar" Nullable="false" MaxLength="60" />
           <Property Name="Type" Type="int" Nullable="false" />
           <Property Name="OrderNum" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaymentPaymentMethodCaptureField">
+          <Key>
+            <PropertyRef Name="PaymentId" />
+            <PropertyRef Name="PaymentMethodCaptureFieldId" />
+          </Key>
+          <Property Name="PaymentId" Type="int" Nullable="false" />
+          <Property Name="PaymentMethodCaptureFieldId" Type="int" Nullable="false" />
+          <Property Name="Value" Type="text" Nullable="false" />
         </EntityType>
         <EntityType Name="Settings">
           <Key>
@@ -318,6 +318,82 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Bill_Agent">
+          <End Role="Agent" Type="BBModel.Store.Agent" Multiplicity="1" />
+          <End Role="Bill" Type="BBModel.Store.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="AgentId" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="AgentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bill_AgentBranch">
+          <End Role="AgentBranch" Type="BBModel.Store.AgentBranch" Multiplicity="1" />
+          <End Role="Bill" Type="BBModel.Store.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgentBranch">
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="AgentBranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bill_Subscriber">
+          <End Role="Subscriber" Type="BBModel.Store.Subscriber" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Bill" Type="BBModel.Store.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscriber">
+              <PropertyRef Name="SubscriberId" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="SubscriberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bill_User">
+          <End Role="User" Type="BBModel.Store.User" Multiplicity="1" />
+          <End Role="Bill" Type="BBModel.Store.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillCaptureField_Bill">
+          <End Role="Bill" Type="BBModel.Store.Bill" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BillCaptureField" Type="BBModel.Store.BillCaptureField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="BillId" />
+            </Principal>
+            <Dependent Role="BillCaptureField">
+              <PropertyRef Name="BillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillCaptureField_CaptureField">
+          <End Role="CaptureField" Type="BBModel.Store.CaptureField" Multiplicity="1" />
+          <End Role="BillCaptureField" Type="BBModel.Store.BillCaptureField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CaptureField">
+              <PropertyRef Name="CaptureFieldId" />
+            </Principal>
+            <Dependent Role="BillCaptureField">
+              <PropertyRef Name="CaptureFieldId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CaptureField_Subscriber">
           <End Role="Subscriber" Type="BBModel.Store.Subscriber" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -332,149 +408,71 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Payment_Agent">
-          <End Role="Agent" Type="BBModel.Store.Agent" Multiplicity="1" />
-          <End Role="Payment" Type="BBModel.Store.Payment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Agent">
-              <PropertyRef Name="AgentId" />
-            </Principal>
-            <Dependent Role="Payment">
-              <PropertyRef Name="AgentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Payment_AgentBranch">
-          <End Role="AgentBranch" Type="BBModel.Store.AgentBranch" Multiplicity="1" />
-          <End Role="Payment" Type="BBModel.Store.Payment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AgentBranch">
-              <PropertyRef Name="BranchId" />
-            </Principal>
-            <Dependent Role="Payment">
-              <PropertyRef Name="AgentBranchId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Payment_Subscriber">
-          <End Role="Subscriber" Type="BBModel.Store.Subscriber" Multiplicity="1">
+        <Association Name="FK_Payment_Bill">
+          <End Role="Bill" Type="BBModel.Store.Bill" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Payment" Type="BBModel.Store.Payment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Subscriber">
-              <PropertyRef Name="SubscriberId" />
+            <Principal Role="Bill">
+              <PropertyRef Name="BillId" />
             </Principal>
             <Dependent Role="Payment">
-              <PropertyRef Name="SubscriberId" />
+              <PropertyRef Name="BillId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Payment_User">
-          <End Role="User" Type="BBModel.Store.User" Multiplicity="1" />
+        <Association Name="FK_Payment_PaymentMethod">
+          <End Role="PaymentMethod" Type="BBModel.Store.PaymentMethod" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Payment" Type="BBModel.Store.Payment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
+            <Principal Role="PaymentMethod">
+              <PropertyRef Name="PaymentMethodId" />
             </Principal>
             <Dependent Role="Payment">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="PaymentMethodId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PaymentCaptureField_CaptureField">
-          <End Role="CaptureField" Type="BBModel.Store.CaptureField" Multiplicity="1" />
-          <End Role="PaymentCaptureField" Type="BBModel.Store.PaymentCaptureField" Multiplicity="*" />
+        <Association Name="FK_PaymentMethodCaptureField_PaymentMethod">
+          <End Role="PaymentMethod" Type="BBModel.Store.PaymentMethod" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PaymentMethodCaptureField" Type="BBModel.Store.PaymentMethodCaptureField" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CaptureField">
-              <PropertyRef Name="CaptureFieldId" />
+            <Principal Role="PaymentMethod">
+              <PropertyRef Name="PaymentMethodId" />
             </Principal>
-            <Dependent Role="PaymentCaptureField">
-              <PropertyRef Name="CaptureFieldId" />
+            <Dependent Role="PaymentMethodCaptureField">
+              <PropertyRef Name="PaymentMethodId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PaymentCaptureField_Payment">
+        <Association Name="FK_PaymentPaymentMethodCaptureField_Payment">
           <End Role="Payment" Type="BBModel.Store.Payment" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="PaymentCaptureField" Type="BBModel.Store.PaymentCaptureField" Multiplicity="*" />
+          <End Role="PaymentPaymentMethodCaptureField" Type="BBModel.Store.PaymentPaymentMethodCaptureField" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Payment">
               <PropertyRef Name="PaymentId" />
             </Principal>
-            <Dependent Role="PaymentCaptureField">
+            <Dependent Role="PaymentPaymentMethodCaptureField">
               <PropertyRef Name="PaymentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PaymentInfo_Payment">
-          <End Role="Payment" Type="BBModel.Store.Payment" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="PaymentInfo" Type="BBModel.Store.PaymentInfo" Multiplicity="*" />
+        <Association Name="FK_PaymentPaymentMethodCaptureField_PaymentCaptureField">
+          <End Role="PaymentMethodCaptureField" Type="BBModel.Store.PaymentMethodCaptureField" Multiplicity="1" />
+          <End Role="PaymentPaymentMethodCaptureField" Type="BBModel.Store.PaymentPaymentMethodCaptureField" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Payment">
-              <PropertyRef Name="PaymentId" />
+            <Principal Role="PaymentMethodCaptureField">
+              <PropertyRef Name="PaymentMethodCaptureFieldId" />
             </Principal>
-            <Dependent Role="PaymentInfo">
-              <PropertyRef Name="PaymentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PaymentInfo_PaymentType">
-          <End Role="PaymentType" Type="BBModel.Store.PaymentType" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="PaymentInfo" Type="BBModel.Store.PaymentInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PaymentType">
-              <PropertyRef Name="PaymentTypeId" />
-            </Principal>
-            <Dependent Role="PaymentInfo">
-              <PropertyRef Name="PaymentTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PaymentPaymentTypeCaptureField_Payment">
-          <End Role="Payment" Type="BBModel.Store.Payment" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="PaymentPaymentTypeCaptureField" Type="BBModel.Store.PaymentPaymentTypeCaptureField" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Payment">
-              <PropertyRef Name="PaymentId" />
-            </Principal>
-            <Dependent Role="PaymentPaymentTypeCaptureField">
-              <PropertyRef Name="PaymentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PaymentPaymentTypeCaptureField_PaymentCaptureField">
-          <End Role="PaymentTypeCaptureField" Type="BBModel.Store.PaymentTypeCaptureField" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="PaymentPaymentTypeCaptureField" Type="BBModel.Store.PaymentPaymentTypeCaptureField" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PaymentTypeCaptureField">
-              <PropertyRef Name="PaymentTypeCaptureFieldId" />
-            </Principal>
-            <Dependent Role="PaymentPaymentTypeCaptureField">
-              <PropertyRef Name="PaymentTypeCaptureFieldId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PaymentTypeCaptureField_PaymentType">
-          <End Role="PaymentType" Type="BBModel.Store.PaymentType" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="PaymentTypeCaptureField" Type="BBModel.Store.PaymentTypeCaptureField" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PaymentType">
-              <PropertyRef Name="PaymentTypeId" />
-            </Principal>
-            <Dependent Role="PaymentTypeCaptureField">
-              <PropertyRef Name="PaymentTypeId" />
+            <Dependent Role="PaymentPaymentMethodCaptureField">
+              <PropertyRef Name="PaymentMethodCaptureFieldId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -580,14 +578,14 @@
         <EntityContainer Name="Entities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="Agents" EntityType="BBModel.Agent" />
           <EntitySet Name="AgentBranches" EntityType="BBModel.AgentBranch" />
+          <EntitySet Name="Bills" EntityType="BBModel.Bill" />
+          <EntitySet Name="BillCaptureFields" EntityType="BBModel.BillCaptureField" />
           <EntitySet Name="CaptureFields" EntityType="BBModel.CaptureField" />
           <EntitySet Name="Parishes" EntityType="BBModel.Parish" />
           <EntitySet Name="Payments" EntityType="BBModel.Payment" />
-          <EntitySet Name="PaymentCaptureFields" EntityType="BBModel.PaymentCaptureField" />
-          <EntitySet Name="PaymentInfoes" EntityType="BBModel.PaymentInfo" />
-          <EntitySet Name="PaymentPaymentTypeCaptureFields" EntityType="BBModel.PaymentPaymentTypeCaptureField" />
-          <EntitySet Name="PaymentTypes" EntityType="BBModel.PaymentType" />
-          <EntitySet Name="PaymentTypeCaptureFields" EntityType="BBModel.PaymentTypeCaptureField" />
+          <EntitySet Name="PaymentMethods" EntityType="BBModel.PaymentMethod" />
+          <EntitySet Name="PaymentMethodCaptureFields" EntityType="BBModel.PaymentMethodCaptureField" />
+          <EntitySet Name="PaymentPaymentMethodCaptureFields" EntityType="BBModel.PaymentPaymentMethodCaptureField" />
           <EntitySet Name="Settings" EntityType="BBModel.Setting" />
           <EntitySet Name="Subscribers" EntityType="BBModel.Subscriber" />
           <EntitySet Name="Users" EntityType="BBModel.User" />
@@ -601,9 +599,9 @@
             <End Role="Agent" EntitySet="Agents" />
             <End Role="AgentBranch" EntitySet="AgentBranches" />
           </AssociationSet>
-          <AssociationSet Name="FK_Payment_Agent" Association="BBModel.FK_Payment_Agent">
+          <AssociationSet Name="FK_Bill_Agent" Association="BBModel.FK_Bill_Agent">
             <End Role="Agent" EntitySet="Agents" />
-            <End Role="Payment" EntitySet="Payments" />
+            <End Role="Bill" EntitySet="Bills" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Agent" Association="BBModel.FK_User_Agent">
             <End Role="Agent" EntitySet="Agents" />
@@ -613,21 +611,37 @@
             <End Role="Parish" EntitySet="Parishes" />
             <End Role="AgentBranch" EntitySet="AgentBranches" />
           </AssociationSet>
-          <AssociationSet Name="FK_Payment_AgentBranch" Association="BBModel.FK_Payment_AgentBranch">
+          <AssociationSet Name="FK_Bill_AgentBranch" Association="BBModel.FK_Bill_AgentBranch">
             <End Role="AgentBranch" EntitySet="AgentBranches" />
-            <End Role="Payment" EntitySet="Payments" />
+            <End Role="Bill" EntitySet="Bills" />
           </AssociationSet>
           <AssociationSet Name="FK_User_AgentBranch" Association="BBModel.FK_User_AgentBranch">
             <End Role="AgentBranch" EntitySet="AgentBranches" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <AssociationSet Name="FK_Bill_Subscriber" Association="BBModel.FK_Bill_Subscriber">
+            <End Role="Subscriber" EntitySet="Subscribers" />
+            <End Role="Bill" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_User" Association="BBModel.FK_Bill_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Bill" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillCaptureField_Bill" Association="BBModel.FK_BillCaptureField_Bill">
+            <End Role="Bill" EntitySet="Bills" />
+            <End Role="BillCaptureField" EntitySet="BillCaptureFields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Bill" Association="BBModel.FK_Payment_Bill">
+            <End Role="Bill" EntitySet="Bills" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillCaptureField_CaptureField" Association="BBModel.FK_BillCaptureField_CaptureField">
+            <End Role="CaptureField" EntitySet="CaptureFields" />
+            <End Role="BillCaptureField" EntitySet="BillCaptureFields" />
+          </AssociationSet>
           <AssociationSet Name="FK_CaptureField_Subscriber" Association="BBModel.FK_CaptureField_Subscriber">
             <End Role="Subscriber" EntitySet="Subscribers" />
             <End Role="CaptureField" EntitySet="CaptureFields" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentCaptureField_CaptureField" Association="BBModel.FK_PaymentCaptureField_CaptureField">
-            <End Role="CaptureField" EntitySet="CaptureFields" />
-            <End Role="PaymentCaptureField" EntitySet="PaymentCaptureFields" />
           </AssociationSet>
           <AssociationSet Name="FK_Subscriber_Parish" Association="BBModel.FK_Subscriber_Parish">
             <End Role="Parish" EntitySet="Parishes" />
@@ -637,37 +651,21 @@
             <End Role="Parish" EntitySet="Parishes" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK_Payment_Subscriber" Association="BBModel.FK_Payment_Subscriber">
-            <End Role="Subscriber" EntitySet="Subscribers" />
+          <AssociationSet Name="FK_Payment_PaymentMethod" Association="BBModel.FK_Payment_PaymentMethod">
+            <End Role="PaymentMethod" EntitySet="PaymentMethods" />
             <End Role="Payment" EntitySet="Payments" />
           </AssociationSet>
-          <AssociationSet Name="FK_Payment_User" Association="BBModel.FK_Payment_User">
-            <End Role="User" EntitySet="Users" />
+          <AssociationSet Name="FK_PaymentPaymentMethodCaptureField_Payment" Association="BBModel.FK_PaymentPaymentMethodCaptureField_Payment">
             <End Role="Payment" EntitySet="Payments" />
+            <End Role="PaymentPaymentMethodCaptureField" EntitySet="PaymentPaymentMethodCaptureFields" />
           </AssociationSet>
-          <AssociationSet Name="FK_PaymentCaptureField_Payment" Association="BBModel.FK_PaymentCaptureField_Payment">
-            <End Role="Payment" EntitySet="Payments" />
-            <End Role="PaymentCaptureField" EntitySet="PaymentCaptureFields" />
+          <AssociationSet Name="FK_PaymentMethodCaptureField_PaymentMethod" Association="BBModel.FK_PaymentMethodCaptureField_PaymentMethod">
+            <End Role="PaymentMethod" EntitySet="PaymentMethods" />
+            <End Role="PaymentMethodCaptureField" EntitySet="PaymentMethodCaptureFields" />
           </AssociationSet>
-          <AssociationSet Name="FK_PaymentInfo_Payment" Association="BBModel.FK_PaymentInfo_Payment">
-            <End Role="Payment" EntitySet="Payments" />
-            <End Role="PaymentInfo" EntitySet="PaymentInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentPaymentTypeCaptureField_Payment" Association="BBModel.FK_PaymentPaymentTypeCaptureField_Payment">
-            <End Role="Payment" EntitySet="Payments" />
-            <End Role="PaymentPaymentTypeCaptureField" EntitySet="PaymentPaymentTypeCaptureFields" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentInfo_PaymentType" Association="BBModel.FK_PaymentInfo_PaymentType">
-            <End Role="PaymentType" EntitySet="PaymentTypes" />
-            <End Role="PaymentInfo" EntitySet="PaymentInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentPaymentTypeCaptureField_PaymentCaptureField" Association="BBModel.FK_PaymentPaymentTypeCaptureField_PaymentCaptureField">
-            <End Role="PaymentTypeCaptureField" EntitySet="PaymentTypeCaptureFields" />
-            <End Role="PaymentPaymentTypeCaptureField" EntitySet="PaymentPaymentTypeCaptureFields" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentTypeCaptureField_PaymentType" Association="BBModel.FK_PaymentTypeCaptureField_PaymentType">
-            <End Role="PaymentType" EntitySet="PaymentTypes" />
-            <End Role="PaymentTypeCaptureField" EntitySet="PaymentTypeCaptureFields" />
+          <AssociationSet Name="FK_PaymentPaymentMethodCaptureField_PaymentCaptureField" Association="BBModel.FK_PaymentPaymentMethodCaptureField_PaymentCaptureField">
+            <End Role="PaymentMethodCaptureField" EntitySet="PaymentMethodCaptureFields" />
+            <End Role="PaymentPaymentMethodCaptureField" EntitySet="PaymentPaymentMethodCaptureFields" />
           </AssociationSet>
           <AssociationSet Name="FK_User_UserLevel" Association="BBModel.FK_User_UserLevel">
             <End Role="UserLevel" EntitySet="UserLevels" />
@@ -692,7 +690,7 @@
           <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Parish" Relationship="BBModel.FK_Agent_Parish" FromRole="Agent" ToRole="Parish" />
           <NavigationProperty Name="AgentBranches" Relationship="BBModel.FK_AgentBranch_Agent" FromRole="Agent" ToRole="AgentBranch" />
-          <NavigationProperty Name="Payments" Relationship="BBModel.FK_Payment_Agent" FromRole="Agent" ToRole="Payment" />
+          <NavigationProperty Name="Bills" Relationship="BBModel.FK_Bill_Agent" FromRole="Agent" ToRole="Bill" />
           <NavigationProperty Name="Users" Relationship="BBModel.FK_User_Agent" FromRole="Agent" ToRole="User" />
         </EntityType>
         <EntityType Name="AgentBranch">
@@ -710,8 +708,39 @@
           <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Agent" Relationship="BBModel.FK_AgentBranch_Agent" FromRole="AgentBranch" ToRole="Agent" />
           <NavigationProperty Name="Parish" Relationship="BBModel.FK_AgentBranch_Parish" FromRole="AgentBranch" ToRole="Parish" />
-          <NavigationProperty Name="Payments" Relationship="BBModel.FK_Payment_AgentBranch" FromRole="AgentBranch" ToRole="Payment" />
+          <NavigationProperty Name="Bills" Relationship="BBModel.FK_Bill_AgentBranch" FromRole="AgentBranch" ToRole="Bill" />
           <NavigationProperty Name="Users" Relationship="BBModel.FK_User_AgentBranch" FromRole="AgentBranch" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="BillId" />
+          </Key>
+          <Property Name="BillId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="SubscriberId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceNumber" Type="Int32" Nullable="false" />
+          <Property Name="AgentId" Type="Int32" Nullable="false" />
+          <Property Name="AgentBranchId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Time" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Agent" Relationship="BBModel.FK_Bill_Agent" FromRole="Bill" ToRole="Agent" />
+          <NavigationProperty Name="AgentBranch" Relationship="BBModel.FK_Bill_AgentBranch" FromRole="Bill" ToRole="AgentBranch" />
+          <NavigationProperty Name="Subscriber" Relationship="BBModel.FK_Bill_Subscriber" FromRole="Bill" ToRole="Subscriber" />
+          <NavigationProperty Name="User" Relationship="BBModel.FK_Bill_User" FromRole="Bill" ToRole="User" />
+          <NavigationProperty Name="BillCaptureFields" Relationship="BBModel.FK_BillCaptureField_Bill" FromRole="Bill" ToRole="BillCaptureField" />
+          <NavigationProperty Name="Payments" Relationship="BBModel.FK_Payment_Bill" FromRole="Bill" ToRole="Payment" />
+        </EntityType>
+        <EntityType Name="BillCaptureField">
+          <Key>
+            <PropertyRef Name="BillId" />
+            <PropertyRef Name="CaptureFieldId" />
+          </Key>
+          <Property Name="BillId" Type="Int32" Nullable="false" />
+          <Property Name="CaptureFieldId" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Bill" Relationship="BBModel.FK_BillCaptureField_Bill" FromRole="BillCaptureField" ToRole="Bill" />
+          <NavigationProperty Name="CaptureField" Relationship="BBModel.FK_BillCaptureField_CaptureField" FromRole="BillCaptureField" ToRole="CaptureField" />
         </EntityType>
         <EntityType Name="CaptureField">
           <Key>
@@ -723,8 +752,8 @@
           <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="OrderNum" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BillCaptureFields" Relationship="BBModel.FK_BillCaptureField_CaptureField" FromRole="CaptureField" ToRole="BillCaptureField" />
           <NavigationProperty Name="Subscriber" Relationship="BBModel.FK_CaptureField_Subscriber" FromRole="CaptureField" ToRole="Subscriber" />
-          <NavigationProperty Name="PaymentCaptureFields" Relationship="BBModel.FK_PaymentCaptureField_CaptureField" FromRole="CaptureField" ToRole="PaymentCaptureField" />
         </EntityType>
         <EntityType Name="Parish">
           <Key>
@@ -742,76 +771,45 @@
             <PropertyRef Name="PaymentId" />
           </Key>
           <Property Name="PaymentId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="SubscriberId" Type="Int32" Nullable="false" />
-          <Property Name="InvoiceNumber" Type="Int32" Nullable="false" />
-          <Property Name="AgentId" Type="Int32" Nullable="false" />
-          <Property Name="AgentBranchId" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Time" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Agent" Relationship="BBModel.FK_Payment_Agent" FromRole="Payment" ToRole="Agent" />
-          <NavigationProperty Name="AgentBranch" Relationship="BBModel.FK_Payment_AgentBranch" FromRole="Payment" ToRole="AgentBranch" />
-          <NavigationProperty Name="Subscriber" Relationship="BBModel.FK_Payment_Subscriber" FromRole="Payment" ToRole="Subscriber" />
-          <NavigationProperty Name="User" Relationship="BBModel.FK_Payment_User" FromRole="Payment" ToRole="User" />
-          <NavigationProperty Name="PaymentCaptureFields" Relationship="BBModel.FK_PaymentCaptureField_Payment" FromRole="Payment" ToRole="PaymentCaptureField" />
-          <NavigationProperty Name="PaymentInfoes" Relationship="BBModel.FK_PaymentInfo_Payment" FromRole="Payment" ToRole="PaymentInfo" />
-          <NavigationProperty Name="PaymentPaymentTypeCaptureFields" Relationship="BBModel.FK_PaymentPaymentTypeCaptureField_Payment" FromRole="Payment" ToRole="PaymentPaymentTypeCaptureField" />
-        </EntityType>
-        <EntityType Name="PaymentCaptureField">
-          <Key>
-            <PropertyRef Name="PaymentId" />
-            <PropertyRef Name="CaptureFieldId" />
-          </Key>
-          <Property Name="PaymentId" Type="Int32" Nullable="false" />
-          <Property Name="CaptureFieldId" Type="Int32" Nullable="false" />
-          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="CaptureField" Relationship="BBModel.FK_PaymentCaptureField_CaptureField" FromRole="PaymentCaptureField" ToRole="CaptureField" />
-          <NavigationProperty Name="Payment" Relationship="BBModel.FK_PaymentCaptureField_Payment" FromRole="PaymentCaptureField" ToRole="Payment" />
-        </EntityType>
-        <EntityType Name="PaymentInfo">
-          <Key>
-            <PropertyRef Name="PaymentInfoId" />
-          </Key>
-          <Property Name="PaymentInfoId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="PaymentId" Type="Int32" Nullable="false" />
-          <Property Name="PaymentTypeId" Type="Int32" Nullable="false" />
+          <Property Name="PaymentMethodId" Type="Int32" Nullable="false" />
+          <Property Name="BillId" Type="Int32" Nullable="false" />
           <Property Name="Amount" Type="Double" Nullable="false" />
-          <NavigationProperty Name="Payment" Relationship="BBModel.FK_PaymentInfo_Payment" FromRole="PaymentInfo" ToRole="Payment" />
-          <NavigationProperty Name="PaymentType" Relationship="BBModel.FK_PaymentInfo_PaymentType" FromRole="PaymentInfo" ToRole="PaymentType" />
+          <NavigationProperty Name="Bill" Relationship="BBModel.FK_Payment_Bill" FromRole="Payment" ToRole="Bill" />
+          <NavigationProperty Name="PaymentMethod" Relationship="BBModel.FK_Payment_PaymentMethod" FromRole="Payment" ToRole="PaymentMethod" />
+          <NavigationProperty Name="PaymentPaymentMethodCaptureFields" Relationship="BBModel.FK_PaymentPaymentMethodCaptureField_Payment" FromRole="Payment" ToRole="PaymentPaymentMethodCaptureField" />
         </EntityType>
-        <EntityType Name="PaymentPaymentTypeCaptureField">
+        <EntityType Name="PaymentMethod">
           <Key>
-            <PropertyRef Name="PaymentId" />
-            <PropertyRef Name="PaymentTypeCaptureFieldId" />
+            <PropertyRef Name="PaymentMethodId" />
           </Key>
-          <Property Name="PaymentId" Type="Int32" Nullable="false" />
-          <Property Name="PaymentTypeCaptureFieldId" Type="Int32" Nullable="false" />
-          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="Payment" Relationship="BBModel.FK_PaymentPaymentTypeCaptureField_Payment" FromRole="PaymentPaymentTypeCaptureField" ToRole="Payment" />
-          <NavigationProperty Name="PaymentTypeCaptureField" Relationship="BBModel.FK_PaymentPaymentTypeCaptureField_PaymentCaptureField" FromRole="PaymentPaymentTypeCaptureField" ToRole="PaymentTypeCaptureField" />
-        </EntityType>
-        <EntityType Name="PaymentType">
-          <Key>
-            <PropertyRef Name="PaymentTypeId" />
-          </Key>
-          <Property Name="PaymentTypeId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentMethodId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="PaymentInfoes" Relationship="BBModel.FK_PaymentInfo_PaymentType" FromRole="PaymentType" ToRole="PaymentInfo" />
-          <NavigationProperty Name="PaymentTypeCaptureFields" Relationship="BBModel.FK_PaymentTypeCaptureField_PaymentType" FromRole="PaymentType" ToRole="PaymentTypeCaptureField" />
+          <NavigationProperty Name="Payments" Relationship="BBModel.FK_Payment_PaymentMethod" FromRole="PaymentMethod" ToRole="Payment" />
+          <NavigationProperty Name="PaymentMethodCaptureFields" Relationship="BBModel.FK_PaymentMethodCaptureField_PaymentMethod" FromRole="PaymentMethod" ToRole="PaymentMethodCaptureField" />
         </EntityType>
-        <EntityType Name="PaymentTypeCaptureField">
+        <EntityType Name="PaymentMethodCaptureField">
           <Key>
-            <PropertyRef Name="PaymentTypeCaptureFieldId" />
+            <PropertyRef Name="PaymentMethodCaptureFieldId" />
           </Key>
-          <Property Name="PaymentTypeCaptureFieldId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="PaymentTypeId" Type="Int32" Nullable="false" />
+          <Property Name="PaymentMethodCaptureFieldId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentMethodId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
           <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="OrderNum" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="PaymentPaymentTypeCaptureFields" Relationship="BBModel.FK_PaymentPaymentTypeCaptureField_PaymentCaptureField" FromRole="PaymentTypeCaptureField" ToRole="PaymentPaymentTypeCaptureField" />
-          <NavigationProperty Name="PaymentType" Relationship="BBModel.FK_PaymentTypeCaptureField_PaymentType" FromRole="PaymentTypeCaptureField" ToRole="PaymentType" />
+          <NavigationProperty Name="PaymentMethod" Relationship="BBModel.FK_PaymentMethodCaptureField_PaymentMethod" FromRole="PaymentMethodCaptureField" ToRole="PaymentMethod" />
+          <NavigationProperty Name="PaymentPaymentMethodCaptureFields" Relationship="BBModel.FK_PaymentPaymentMethodCaptureField_PaymentCaptureField" FromRole="PaymentMethodCaptureField" ToRole="PaymentPaymentMethodCaptureField" />
+        </EntityType>
+        <EntityType Name="PaymentPaymentMethodCaptureField">
+          <Key>
+            <PropertyRef Name="PaymentId" />
+            <PropertyRef Name="PaymentMethodCaptureFieldId" />
+          </Key>
+          <Property Name="PaymentId" Type="Int32" Nullable="false" />
+          <Property Name="PaymentMethodCaptureFieldId" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Payment" Relationship="BBModel.FK_PaymentPaymentMethodCaptureField_Payment" FromRole="PaymentPaymentMethodCaptureField" ToRole="Payment" />
+          <NavigationProperty Name="PaymentMethodCaptureField" Relationship="BBModel.FK_PaymentPaymentMethodCaptureField_PaymentCaptureField" FromRole="PaymentPaymentMethodCaptureField" ToRole="PaymentMethodCaptureField" />
         </EntityType>
         <EntityType Name="Setting">
           <Key>
@@ -834,9 +832,9 @@
           <Property Name="FaxNumber" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Website" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Bills" Relationship="BBModel.FK_Bill_Subscriber" FromRole="Subscriber" ToRole="Bill" />
           <NavigationProperty Name="CaptureFields" Relationship="BBModel.FK_CaptureField_Subscriber" FromRole="Subscriber" ToRole="CaptureField" />
           <NavigationProperty Name="Parish" Relationship="BBModel.FK_Subscriber_Parish" FromRole="Subscriber" ToRole="Parish" />
-          <NavigationProperty Name="Payments" Relationship="BBModel.FK_Payment_Subscriber" FromRole="Subscriber" ToRole="Payment" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -857,8 +855,8 @@
           <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Agent" Relationship="BBModel.FK_User_Agent" FromRole="User" ToRole="Agent" />
           <NavigationProperty Name="AgentBranch" Relationship="BBModel.FK_User_AgentBranch" FromRole="User" ToRole="AgentBranch" />
+          <NavigationProperty Name="Bills" Relationship="BBModel.FK_Bill_User" FromRole="User" ToRole="Bill" />
           <NavigationProperty Name="Parish" Relationship="BBModel.FK_User_Parish" FromRole="User" ToRole="Parish" />
-          <NavigationProperty Name="Payments" Relationship="BBModel.FK_Payment_User" FromRole="User" ToRole="Payment" />
           <NavigationProperty Name="UserLevel" Relationship="BBModel.FK_User_UserLevel" FromRole="User" ToRole="UserLevel" />
         </EntityType>
         <EntityType Name="UserLevel">
@@ -907,14 +905,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Payment_Agent">
+        <Association Name="FK_Bill_Agent">
           <End Role="Agent" Type="BBModel.Agent" Multiplicity="1" />
-          <End Role="Payment" Type="BBModel.Payment" Multiplicity="*" />
+          <End Role="Bill" Type="BBModel.Bill" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Agent">
               <PropertyRef Name="AgentId" />
             </Principal>
-            <Dependent Role="Payment">
+            <Dependent Role="Bill">
               <PropertyRef Name="AgentId" />
             </Dependent>
           </ReferentialConstraint>
@@ -945,14 +943,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Payment_AgentBranch">
+        <Association Name="FK_Bill_AgentBranch">
           <End Role="AgentBranch" Type="BBModel.AgentBranch" Multiplicity="1" />
-          <End Role="Payment" Type="BBModel.Payment" Multiplicity="*" />
+          <End Role="Bill" Type="BBModel.Bill" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AgentBranch">
               <PropertyRef Name="BranchId" />
             </Principal>
-            <Dependent Role="Payment">
+            <Dependent Role="Bill">
               <PropertyRef Name="AgentBranchId" />
             </Dependent>
           </ReferentialConstraint>
@@ -969,6 +967,72 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Bill_Subscriber">
+          <End Role="Subscriber" Type="BBModel.Subscriber" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Bill" Type="BBModel.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscriber">
+              <PropertyRef Name="SubscriberId" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="SubscriberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bill_User">
+          <End Role="User" Type="BBModel.User" Multiplicity="1" />
+          <End Role="Bill" Type="BBModel.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillCaptureField_Bill">
+          <End Role="Bill" Type="BBModel.Bill" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BillCaptureField" Type="BBModel.BillCaptureField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="BillId" />
+            </Principal>
+            <Dependent Role="BillCaptureField">
+              <PropertyRef Name="BillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_Bill">
+          <End Role="Bill" Type="BBModel.Bill" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Payment" Type="BBModel.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="BillId" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="BillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillCaptureField_CaptureField">
+          <End Role="CaptureField" Type="BBModel.CaptureField" Multiplicity="1" />
+          <End Role="BillCaptureField" Type="BBModel.BillCaptureField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CaptureField">
+              <PropertyRef Name="CaptureFieldId" />
+            </Principal>
+            <Dependent Role="BillCaptureField">
+              <PropertyRef Name="CaptureFieldId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CaptureField_Subscriber">
           <End Role="Subscriber" Type="BBModel.Subscriber" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -980,18 +1044,6 @@
             </Principal>
             <Dependent Role="CaptureField">
               <PropertyRef Name="SubscriberId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PaymentCaptureField_CaptureField">
-          <End Role="CaptureField" Type="BBModel.CaptureField" Multiplicity="1" />
-          <End Role="PaymentCaptureField" Type="BBModel.PaymentCaptureField" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CaptureField">
-              <PropertyRef Name="CaptureFieldId" />
-            </Principal>
-            <Dependent Role="PaymentCaptureField">
-              <PropertyRef Name="CaptureFieldId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1021,113 +1073,57 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Payment_Subscriber">
-          <End Role="Subscriber" Type="BBModel.Subscriber" Multiplicity="1">
+        <Association Name="FK_Payment_PaymentMethod">
+          <End Role="PaymentMethod" Type="BBModel.PaymentMethod" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Payment" Type="BBModel.Payment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Subscriber">
-              <PropertyRef Name="SubscriberId" />
+            <Principal Role="PaymentMethod">
+              <PropertyRef Name="PaymentMethodId" />
             </Principal>
             <Dependent Role="Payment">
-              <PropertyRef Name="SubscriberId" />
+              <PropertyRef Name="PaymentMethodId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Payment_User">
-          <End Role="User" Type="BBModel.User" Multiplicity="1" />
-          <End Role="Payment" Type="BBModel.Payment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Payment">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PaymentCaptureField_Payment">
+        <Association Name="FK_PaymentPaymentMethodCaptureField_Payment">
           <End Role="Payment" Type="BBModel.Payment" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="PaymentCaptureField" Type="BBModel.PaymentCaptureField" Multiplicity="*" />
+          <End Role="PaymentPaymentMethodCaptureField" Type="BBModel.PaymentPaymentMethodCaptureField" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Payment">
               <PropertyRef Name="PaymentId" />
             </Principal>
-            <Dependent Role="PaymentCaptureField">
+            <Dependent Role="PaymentPaymentMethodCaptureField">
               <PropertyRef Name="PaymentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PaymentInfo_Payment">
-          <End Role="Payment" Type="BBModel.Payment" Multiplicity="1">
+        <Association Name="FK_PaymentMethodCaptureField_PaymentMethod">
+          <End Role="PaymentMethod" Type="BBModel.PaymentMethod" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="PaymentInfo" Type="BBModel.PaymentInfo" Multiplicity="*" />
+          <End Role="PaymentMethodCaptureField" Type="BBModel.PaymentMethodCaptureField" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Payment">
-              <PropertyRef Name="PaymentId" />
+            <Principal Role="PaymentMethod">
+              <PropertyRef Name="PaymentMethodId" />
             </Principal>
-            <Dependent Role="PaymentInfo">
-              <PropertyRef Name="PaymentId" />
+            <Dependent Role="PaymentMethodCaptureField">
+              <PropertyRef Name="PaymentMethodId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PaymentPaymentTypeCaptureField_Payment">
-          <End Role="Payment" Type="BBModel.Payment" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="PaymentPaymentTypeCaptureField" Type="BBModel.PaymentPaymentTypeCaptureField" Multiplicity="*" />
+        <Association Name="FK_PaymentPaymentMethodCaptureField_PaymentCaptureField">
+          <End Role="PaymentMethodCaptureField" Type="BBModel.PaymentMethodCaptureField" Multiplicity="1" />
+          <End Role="PaymentPaymentMethodCaptureField" Type="BBModel.PaymentPaymentMethodCaptureField" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Payment">
-              <PropertyRef Name="PaymentId" />
+            <Principal Role="PaymentMethodCaptureField">
+              <PropertyRef Name="PaymentMethodCaptureFieldId" />
             </Principal>
-            <Dependent Role="PaymentPaymentTypeCaptureField">
-              <PropertyRef Name="PaymentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PaymentInfo_PaymentType">
-          <End Role="PaymentType" Type="BBModel.PaymentType" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="PaymentInfo" Type="BBModel.PaymentInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PaymentType">
-              <PropertyRef Name="PaymentTypeId" />
-            </Principal>
-            <Dependent Role="PaymentInfo">
-              <PropertyRef Name="PaymentTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PaymentPaymentTypeCaptureField_PaymentCaptureField">
-          <End Role="PaymentTypeCaptureField" Type="BBModel.PaymentTypeCaptureField" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="PaymentPaymentTypeCaptureField" Type="BBModel.PaymentPaymentTypeCaptureField" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PaymentTypeCaptureField">
-              <PropertyRef Name="PaymentTypeCaptureFieldId" />
-            </Principal>
-            <Dependent Role="PaymentPaymentTypeCaptureField">
-              <PropertyRef Name="PaymentTypeCaptureFieldId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PaymentTypeCaptureField_PaymentType">
-          <End Role="PaymentType" Type="BBModel.PaymentType" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="PaymentTypeCaptureField" Type="BBModel.PaymentTypeCaptureField" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PaymentType">
-              <PropertyRef Name="PaymentTypeId" />
-            </Principal>
-            <Dependent Role="PaymentTypeCaptureField">
-              <PropertyRef Name="PaymentTypeId" />
+            <Dependent Role="PaymentPaymentMethodCaptureField">
+              <PropertyRef Name="PaymentMethodCaptureFieldId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1184,6 +1180,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Bills">
+            <EntityTypeMapping TypeName="BBModel.Bill">
+              <MappingFragment StoreEntitySet="Bill">
+                <ScalarProperty Name="BillId" ColumnName="BillId" />
+                <ScalarProperty Name="SubscriberId" ColumnName="SubscriberId" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="AgentId" ColumnName="AgentId" />
+                <ScalarProperty Name="AgentBranchId" ColumnName="AgentBranchId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BillCaptureFields">
+            <EntityTypeMapping TypeName="BBModel.BillCaptureField">
+              <MappingFragment StoreEntitySet="BillCaptureField">
+                <ScalarProperty Name="BillId" ColumnName="BillId" />
+                <ScalarProperty Name="CaptureFieldId" ColumnName="CaptureFieldId" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="CaptureFields">
             <EntityTypeMapping TypeName="BBModel.CaptureField">
               <MappingFragment StoreEntitySet="CaptureField">
@@ -1208,62 +1228,38 @@
             <EntityTypeMapping TypeName="BBModel.Payment">
               <MappingFragment StoreEntitySet="Payment">
                 <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
-                <ScalarProperty Name="SubscriberId" ColumnName="SubscriberId" />
-                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
-                <ScalarProperty Name="AgentId" ColumnName="AgentId" />
-                <ScalarProperty Name="AgentBranchId" ColumnName="AgentBranchId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PaymentCaptureFields">
-            <EntityTypeMapping TypeName="BBModel.PaymentCaptureField">
-              <MappingFragment StoreEntitySet="PaymentCaptureField">
-                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
-                <ScalarProperty Name="CaptureFieldId" ColumnName="CaptureFieldId" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PaymentInfoes">
-            <EntityTypeMapping TypeName="BBModel.PaymentInfo">
-              <MappingFragment StoreEntitySet="PaymentInfo">
-                <ScalarProperty Name="PaymentInfoId" ColumnName="PaymentInfoId" />
-                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
-                <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
+                <ScalarProperty Name="PaymentMethodId" ColumnName="PaymentMethodId" />
+                <ScalarProperty Name="BillId" ColumnName="BillId" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PaymentPaymentTypeCaptureFields">
-            <EntityTypeMapping TypeName="BBModel.PaymentPaymentTypeCaptureField">
-              <MappingFragment StoreEntitySet="PaymentPaymentTypeCaptureField">
-                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
-                <ScalarProperty Name="PaymentTypeCaptureFieldId" ColumnName="PaymentTypeCaptureFieldId" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PaymentTypes">
-            <EntityTypeMapping TypeName="BBModel.PaymentType">
-              <MappingFragment StoreEntitySet="PaymentType">
-                <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
+          <EntitySetMapping Name="PaymentMethods">
+            <EntityTypeMapping TypeName="BBModel.PaymentMethod">
+              <MappingFragment StoreEntitySet="PaymentMethod">
+                <ScalarProperty Name="PaymentMethodId" ColumnName="PaymentMethodId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PaymentTypeCaptureFields">
-            <EntityTypeMapping TypeName="BBModel.PaymentTypeCaptureField">
-              <MappingFragment StoreEntitySet="PaymentTypeCaptureField">
-                <ScalarProperty Name="PaymentTypeCaptureFieldId" ColumnName="PaymentTypeCaptureFieldId" />
-                <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
+          <EntitySetMapping Name="PaymentMethodCaptureFields">
+            <EntityTypeMapping TypeName="BBModel.PaymentMethodCaptureField">
+              <MappingFragment StoreEntitySet="PaymentMethodCaptureField">
+                <ScalarProperty Name="PaymentMethodCaptureFieldId" ColumnName="PaymentMethodCaptureFieldId" />
+                <ScalarProperty Name="PaymentMethodId" ColumnName="PaymentMethodId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentPaymentMethodCaptureFields">
+            <EntityTypeMapping TypeName="BBModel.PaymentPaymentMethodCaptureField">
+              <MappingFragment StoreEntitySet="PaymentPaymentMethodCaptureField">
+                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+                <ScalarProperty Name="PaymentMethodCaptureFieldId" ColumnName="PaymentMethodCaptureFieldId" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
