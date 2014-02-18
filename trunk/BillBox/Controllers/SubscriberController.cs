@@ -55,9 +55,9 @@ namespace BillBox.Controllers
             var pageSize = Util.GetPageSize(Common.PagedList.Subscribers);
 
             var subscribers = dbContext.Subscribers
-                .Include(s => s.Parish).OrderBy(s => s.Name)
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize);
+                .Include(s => s.Parish)
+                .OrderBy(s => s.Name)
+                .ToPagedList(pageNumber, pageSize);
             
 
             return View(subscribers);

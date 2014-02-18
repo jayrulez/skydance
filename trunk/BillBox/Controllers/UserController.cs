@@ -63,8 +63,7 @@ namespace BillBox.Controllers
                 .Include(u => u.Agent)
                 .Include(u => u.AgentBranch)
                 .OrderBy(a => a.Name)
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize);            
+                .ToPagedList(pageNumber, pageSize);     
 
             return View(users);
         }

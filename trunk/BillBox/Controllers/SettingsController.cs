@@ -30,8 +30,7 @@ namespace BillBox.Controllers
 
             var paymentMethods = dbContext.PaymentMethods
                 .OrderBy(p => p.Name)
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize);
+                .ToPagedList(pageNumber, pageSize);
 
             return View(paymentMethods);
         }
