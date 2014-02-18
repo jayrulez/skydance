@@ -1,9 +1,8 @@
-﻿@model BillBox.Models.Payment
+﻿@model BillBox.Models.Bill
 
 @{
-    ViewBag.Title = "View Payment";
+    ViewBag.Title = "View Bill";
     Layout = "~/Views/Shared/_Default.cshtml";
-    float total = 0.0F;
 }
 
 <div class="action">
@@ -12,8 +11,8 @@
         </div>
         <div class="section-content">
             <dl>
-                <dt>@Html.DisplayNameFor(m => m.PaymentId)</dt>
-                <dd>@Html.DisplayFor(m => m.PaymentId)</dd>
+                <dt>@Html.DisplayNameFor(m => m.BillId)</dt>
+                <dd>@Html.DisplayFor(m => m.BillId)</dd>
                 
                 <dt>@Html.DisplayNameFor(m => m.SubscriberId)</dt>
                 <dd>@Html.DisplayFor(m => m.Subscriber.Name)</dd>
@@ -37,28 +36,25 @@
                 <dd>@Html.DisplayFor(m => m.Time)</dd>
             </dl>
             <dl>
-            @foreach(BillBox.Models.PaymentCaptureField captureField in Model.PaymentCaptureFields)
+            @foreach(BillBox.Models.BillCaptureField captureField in Model.BillCaptureFields)
             {
                 <dt>@captureField.CaptureField.DisplayName</dt>
                 <dd>@captureField.Value</dd>
             }
             </dl>
             <dl>
-            @foreach(BillBox.Models.PaymentInfo paymentInfo in Model.PaymentInfoes)
+            @foreach(BillBox.Models.Payment payment in Model.Payments)
             {
-                <dt>Payment Type</dt>
-                <dd>@paymentInfo.PaymentType.Name</dd>
+                <dt>Payment Method</dt>
+                <dd>@payment.PaymentMethod.Name</dd>
                 
                 <dt>Amount</dt>
-                <dd>@paymentInfo.Amount</dd>
+                <dd>@payment.Amount</dd>
                 
-                foreach(BillBox.Models.PaymentPaymentTypeCaptureField field in paymentInfo.Payment.PaymentPaymentTypeCaptureFields)
+                foreach(BillBox.Models.PaymentPaymentMethodCaptureField field in payment.PaymentPaymentMethodCaptureFields)
                 {
-                    if(field.PaymentTypeCaptureField.PaymentTypeId == paymentInfo.PaymentType.PaymentTypeId)
-                    {
-                        <dt>@field.PaymentTypeCaptureField.DisplayName</dt>
-                        <dd>@field.Value</dd>
-                    }
+                    <dt>@field.PaymentMethodCaptureField.DisplayName</dt>
+                    <dd>@field.Value</dd>
                 }
                 <hr />
             }

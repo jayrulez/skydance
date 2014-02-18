@@ -1,6 +1,6 @@
-﻿@model IEnumerable<BillBox.Models.PaymentType>
+﻿@model IEnumerable<BillBox.Models.PaymentMethod>
 @{
-    ViewBag.Title = "Payment Types";
+    ViewBag.Title = "Payment Methods";
     Layout = "~/Views/Shared/_Default.cshtml";
     }
 
@@ -10,7 +10,7 @@
         </div>
         <div class="section-content">
             <table>
-                <caption>Payment Types</caption>
+                <caption>Payment Methods</caption>
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -18,13 +18,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach(BillBox.Models.PaymentType paymentType in Model)
+                @foreach(BillBox.Models.PaymentMethod paymentMethod in Model)
                 {
                     <tr>
-                        <td>@paymentType.Name</td>
+                        <td>@paymentMethod.Name</td>
 
-                        <td>@Html.ActionLink("View", "ViewPaymentType", "Settings", new { paymentTypeId = @paymentType.PaymentTypeId }, null) |
-                            @Html.ActionLink("Edit", "EditPaymentType", "Settings", new { paymentTypeId = @paymentType.PaymentTypeId }, null)
+                        <td>@Html.ActionLink("View", "ViewPaymentMethod", "Settings", new { paymentMethodId = @paymentMethod.PaymentMethodId }, null) |
+                            @Html.ActionLink("Edit", "EditPaymentMethod", "Settings", new { paymentMethodId = @paymentMethod.PaymentMethodId }, null)
                         </td>
                     </tr>
                 }

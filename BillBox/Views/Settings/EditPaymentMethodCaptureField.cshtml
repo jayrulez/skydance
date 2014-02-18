@@ -1,7 +1,7 @@
-﻿@model BillBox.Models.PaymentTypeCaptureField
+﻿@model BillBox.Models.PaymentMethodCaptureField
 
 @{
-    ViewBag.Title = "Add Payment Type Capture Field";
+    ViewBag.Title = "Edit Payment Method Capture Field";
     Layout = "~/Views/Shared/_Default.cshtml";
 }
 
@@ -11,14 +11,15 @@
         </div>
         <div class="section-content">
             <div class="form-container">
-                @using (Html.BeginForm("AddPaymentTypeCaptureField","Settings", FormMethod.Post, new { @class = "wf" })) {
+                @using (Html.BeginForm("EditPaymentMethodCaptureField","Settings", FormMethod.Post, new { @class = "wf" })) {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
 
-                    @Html.HiddenFor(m => m.PaymentTypeId)
+                    @Html.HiddenFor(m => m.PaymentMethodCaptureFieldId)
+                    @Html.HiddenFor(m => m.PaymentMethodId)
 
                     <fieldset class="top">
-                        <legend>Payment Type Capture Field</legend>
+                        <legend>Payment Method Capture Field</legend>
                         <div class="row top clearfix">
                                 @Html.LabelFor(m => m.Name)
                                 @Html.TextBoxFor(m => m.Name)
@@ -42,7 +43,7 @@
         
                     </fieldset>
                     <div class="buttons bottom">
-                            <input type="submit" value="Create" />
+                            <input type="submit" value="Save" />
                     </div>
                 }
             </div>

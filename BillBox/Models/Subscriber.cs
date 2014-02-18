@@ -16,8 +16,8 @@ namespace BillBox.Models
     {
         public Subscriber()
         {
+            this.Bills = new HashSet<Bill>();
             this.CaptureFields = new HashSet<CaptureField>();
-            this.Payments = new HashSet<Payment>();
         }
     
         public int SubscriberId { get; set; }
@@ -31,8 +31,8 @@ namespace BillBox.Models
         public string EmailAddress { get; set; }
         public string Website { get; set; }
     
+        public virtual ICollection<Bill> Bills { get; set; }
         public virtual ICollection<CaptureField> CaptureFields { get; set; }
         public virtual Parish Parish { get; set; }
-        public virtual ICollection<Payment> Payments { get; set; }
     }
 }

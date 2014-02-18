@@ -1,11 +1,11 @@
-﻿@model BillBox.Models.Payment
+﻿@model BillBox.Models.Bill
 
 @{
     ViewBag.Title = "New Payment";
     Layout = "~/Views/Shared/_Default.cshtml";
 
     var subscribers  = ViewBag.subscribers as IEnumerable<BillBox.Models.Subscriber>;
-    var paymentTypes = ViewBag.paymentTypes as IEnumerable<BillBox.Models.PaymentType>;
+    var paymentMethods = ViewBag.paymentMethods as IEnumerable<BillBox.Models.PaymentMethod>;
 }
 
 <div class="action">
@@ -28,7 +28,7 @@
 
                         <div id="capture-fields-area"></div>
                         <div id="payment-area">
-                            <div id="payment-type-hidden-fields"></div>
+                            <div id="payment-method-hidden-fields"></div>
                             <div id="payment-area-payment-list">
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                     var fieldsHtml = "";
                     var paymentListHtml = "<div class=\"row inline clearfix\"><dl>";
 
-                    $("input[name^='paymentTypeCaptureField']").each(function () {
+                    $("input[name^='paymentMethodCaptureField']").each(function () {
                         fieldsHtml += '<input type="hidden" name="' + $(this).attr("name") + '" value="' + $(this).val() + '" />';
 
                         paymentListHtml += "<dt>";
@@ -113,7 +113,7 @@
 
                     paymentListHtml += "</dl></div>";
 
-                    $("#payment-type-hidden-fields").append(fieldsHtml);
+                    $("#payment-method-hidden-fields").append(fieldsHtml);
 
                     $("#payment-area-payment-list").append(paymentListHtml);
 
@@ -127,28 +127,28 @@
             }
         });
 
-        $('#payment-type').change(function (e) {
+        $('#payment-method').change(function (e) {
 
-            var paymentTypeId = $(this).val();
+            var paymentMethodId = $(this).val();
 
-            if (paymentTypeId) {
+            if (paymentMethodId) {
 
                 var captureFields = "";
 
                 $.ajax({
                     cache: false,
                     type: 'GET',
-                    url: '@Url.Action("GetPaymentTypeCaptureFields", "Payment")',
-                        data: { 'paymentTypeId': paymentTypeId },
+                    url: '@Url.Action("GetPaymentMethodCaptureFields", "Payment")',
+                        data: { 'paymentMethodId': paymentMethodId },
                         success: function (html) {
-                            $("#payment-type-capture-fields-area").html(html);
+                            $("#payment-method-capture-fields-area").html(html);
                         },
                         error: function () {
                             alert("Error");
                         }
                     });
                 } else {
-                    $("#payment-type-capture-fields-area").html("");
+                    $("#payment-method-capture-fields-area").html("");
                 }
 
         });
@@ -162,16 +162,16 @@
             <legend>Add Payment</legend>
 
                         <div class="row top clearfix">
-                                <label for="payment-type">Payment Method</label>
-                                <select name="paymentType" id="payment-type">
+                                <label for="payment-method">Payment Method</label>
+                                <select name="paymentType" id="payment-method">
                                     <option value="">Select Payment Method</option>
-                                    @foreach(BillBox.Models.PaymentType paymentType in paymentTypes) {
-                                        <option value="@paymentType.PaymentTypeId">@paymentType.Name</option>
+                                    @foreach(BillBox.Models.PaymentMethod paymentMethod in paymentMethods) {
+                                        <option value="@paymentMethod.PaymentMethodId">@paymentMethod.Name</option>
                                     }
                                 </select>
                         </div>
 
-                <div id="payment-type-capture-fields-area"></div>
+                <div id="payment-method-capture-fields-area"></div>
         </fieldset>
     </form>
 </div> 

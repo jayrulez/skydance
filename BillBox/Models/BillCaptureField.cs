@@ -12,13 +12,13 @@ namespace BillBox.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class PaymentCaptureField
+    public partial class BillCaptureField
     {
-        public int PaymentId { get; set; }
+        public int BillId { get; set; }
         public int CaptureFieldId { get; set; }
         public string Value { get; set; }
     
+        public virtual Bill Bill { get; set; }
         public virtual CaptureField CaptureField { get; set; }
-        public virtual Payment Payment { get; set; }
     }
 }

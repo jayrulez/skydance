@@ -21,39 +21,39 @@ namespace BillBox.Controllers
         }
 
         //
-        // GET: /PaymentType/
+        // GET: /PaymentMethod/
 
-        public ActionResult ListPaymentTypes(int? page)
+        public ActionResult ListPaymentMethods(int? page)
         {
             var pageNumber = page ?? 1;
-            var pageSize = Util.GetPageSize(Common.PagedList.PaymentTypes);
+            var pageSize = Util.GetPageSize(Common.PagedList.PaymentMethods);
 
-            var paymentTypes = dbContext.PaymentTypes
+            var paymentMethods = dbContext.PaymentMethods
                 .OrderBy(p => p.Name)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize);
 
-            return View(paymentTypes);
+            return View(paymentMethods);
         }
 
-        public ActionResult CreatePaymentType()
+        public ActionResult CreatePaymentMethod()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreatePaymentType(PaymentType model)
+        public ActionResult CreatePaymentMethod(PaymentMethod model)
         {
             if(ModelState.IsValid)
             {
                 try
                 {
-                    dbContext.PaymentTypes.Add(model);
+                    dbContext.PaymentMethods.Add(model);
 
                     dbContext.SaveChanges();
 
-                    return RedirectToAction("ViewPaymentType", new { paymentTypeId = model.PaymentTypeId });
+                    return RedirectToAction("ViewPaymentMethod", new { paymentMethodId = model.PaymentMethodId });
                 }catch(Exception ex)
                 {
                     ModelState.AddModelError("", ex.Message);
@@ -63,23 +63,23 @@ namespace BillBox.Controllers
             return View(model);
         }
 
-        public ActionResult EditPaymentType(int paymentTypeId = 0)
+        public ActionResult EditPaymentMethod(int paymentMethodId = 0)
         {
-            PaymentType paymentType = dbContext.PaymentTypes.Find(paymentTypeId);
+            PaymentMethod paymentMethod = dbContext.PaymentMethods.Find(paymentMethodId);
 
-            if(paymentType == null)
+            if(paymentMethod == null)
             {
                 return HttpNotFound();
             }
 
-            ViewBag.paymentType = paymentType;
+            ViewBag.paymentMethod = paymentMethod;
 
-            return View(paymentType);
+            return View(paymentMethod);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditPaymentType(PaymentType model)
+        public ActionResult EditPaymentMethod(PaymentMethod model)
         {
             if(ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace BillBox.Controllers
 
                     dbContext.SaveChanges();
 
-                    return RedirectToAction("ViewPaymentType", new { paymentTypeId = model.PaymentTypeId });
+                    return RedirectToAction("ViewPaymentMethod", new { paymentMethodId = model.PaymentMethodId });
 
                 }catch(Exception ex)
                 {
@@ -100,49 +100,49 @@ namespace BillBox.Controllers
             return View(model);
         }
 
-        public ActionResult ViewPaymentType(int paymentTypeId = 0)
+        public ActionResult ViewPaymentMethod(int paymentMethodId = 0)
         {
-            PaymentType paymentType = dbContext.PaymentTypes.Find(paymentTypeId);
+            PaymentMethod paymentMethod = dbContext.PaymentMethods.Find(paymentMethodId);
 
-            if(paymentType == null)
+            if(paymentMethod == null)
             {
                 return HttpNotFound();
             }
 
-            ViewBag.paymentType = paymentType;
+            ViewBag.paymentMethod = paymentMethod;
 
-            return View(paymentType);
+            return View(paymentMethod);
         }
 
-        public ActionResult AddPaymentTypeCaptureField(int paymentTypeId = 0)
+        public ActionResult AddPaymentMethodCaptureField(int paymentMethodId = 0)
         {
-            var paymentType = dbContext.PaymentTypes.Find(paymentTypeId);
+            var paymentMethod = dbContext.PaymentMethods.Find(paymentMethodId);
 
-            if (paymentType == null)
+            if (paymentMethod == null)
             {
                 return HttpNotFound();
             }
 
-            PaymentTypeCaptureField captureField = new PaymentTypeCaptureField();
+            PaymentMethodCaptureField captureField = new PaymentMethodCaptureField();
 
-            captureField.PaymentTypeId = paymentType.PaymentTypeId;
+            captureField.PaymentMethodId = paymentMethod.PaymentMethodId;
 
             return View(captureField);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddPaymentTypeCaptureField(PaymentTypeCaptureField model)
+        public ActionResult AddPaymentMethodCaptureField(PaymentMethodCaptureField model)
         {
             if(ModelState.IsValid)
             {
                 try
                 {
-                    dbContext.PaymentTypeCaptureFields.Add(model);
+                    dbContext.PaymentMethodCaptureFields.Add(model);
 
                     dbContext.SaveChanges();
 
-                    return RedirectToAction("ViewPaymentType", new { paymentTypeId = model.PaymentTypeId });
+                    return RedirectToAction("ViewPaymentMethod", new { paymentMethodId = model.PaymentMethodId });
 
                 }catch(Exception ex)
                 {
@@ -153,9 +153,9 @@ namespace BillBox.Controllers
             return View(model);
         }
 
-        public ActionResult EditPaymentTypeCaptureField(int captureFieldId = 0)
+        public ActionResult EditPaymentMethodCaptureField(int captureFieldId = 0)
         {
-            var captureField = dbContext.PaymentTypeCaptureFields.Find(captureFieldId);
+            var captureField = dbContext.PaymentMethodCaptureFields.Find(captureFieldId);
 
             if(captureField == null)
             {
@@ -167,7 +167,7 @@ namespace BillBox.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditPaymentTypeCaptureField(PaymentTypeCaptureField model)
+        public ActionResult EditPaymentMethodCaptureField(PaymentMethodCaptureField model)
         {
             if(ModelState.IsValid)
             {
@@ -177,7 +177,7 @@ namespace BillBox.Controllers
 
                     dbContext.SaveChanges();
 
-                    return RedirectToAction("ViewPaymentType", new { paymentTypeId = model.PaymentTypeId });
+                    return RedirectToAction("ViewPaymentMethod", new { paymentMethodId = model.PaymentMethodId });
 
                 }catch(Exception ex)
                 {
@@ -188,7 +188,7 @@ namespace BillBox.Controllers
             return View(model);
         }
 
-        public ActionResult OrderPaymentTypeCaptureFields(int? fieldUpId = 0, int? fieldDownId = 0)
+        public ActionResult OrderPaymentMethodCaptureFields(int? fieldUpId = 0, int? fieldDownId = 0)
         {
             var fieldUp   = dbContext.CaptureFields.Find(fieldUpId);
 

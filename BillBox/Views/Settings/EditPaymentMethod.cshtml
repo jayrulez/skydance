@@ -1,7 +1,7 @@
-﻿@model BillBox.Models.PaymentType
+﻿@model BillBox.Models.PaymentMethod
 
 @{
-    ViewBag.Title = "Edit Payment Type";
+    ViewBag.Title = "Edit Payment Method";
     Layout = "~/Views/Shared/_Default.cshtml";
 }
 
@@ -11,14 +11,14 @@
         </div>
         <div class="section-content">
             <div class="form-container">
-                @using (Html.BeginForm("EditPaymentType","Settings", FormMethod.Post, new { @class = "wf" })) {
+                @using (Html.BeginForm("EditPaymentMethod","Settings", FormMethod.Post, new { @class = "wf" })) {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
 
                     <fieldset class="top">
-                        <legend>Edit Payment Type</legend>
+                        <legend>Edit Payment Method</legend>
 
-                        @Html.HiddenFor(m => m.PaymentTypeId)
+                        @Html.HiddenFor(m => m.PaymentMethodId)
 
                         <div class="row top bottom clearfix">
                                 @Html.LabelFor(m => m.Name)

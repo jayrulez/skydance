@@ -171,16 +171,8 @@ ADD CONSTRAINT FK_CaptureField_Subscriber FOREIGN KEY (SubscriberId) REFERENCES 
 
 GO
 
-create table PaymentType (
-	PaymentTypeId INT IDENTITY(1,1) PRIMARY KEY NOT NULL,  
-	Name VARCHAR(40) NOT NULL, 
-	CONSTRAINT UK_PaymentType_Name UNIQUE (Name)
-);
-
-GO
-
-create table Payment (
-	PaymentId INT IDENTITY(1,1) PRIMARY KEY NOT NULL, 
+create table Bill (
+	BillId INT IDENTITY(1,1) PRIMARY KEY NOT NULL, 
 	SubscriberId INT NOT NULL,
 	InvoiceNumber INT NOT NULL, 
 	AgentId INT NOT NULL, 
@@ -189,76 +181,86 @@ create table Payment (
 	Date DATETIME NOT NULL, 
 	Time TIMESTAMP NOT NULL, 
 	Status INT NOT NULL,
-	CONSTRAINT UK_Payment_InvoiceNumber UNIQUE (InvoiceNumber)
+	CONSTRAINT UK_Bill_InvoiceNumber UNIQUE (InvoiceNumber)
 );
 
 GO
 
-ALTER TABLE Payment
-ADD CONSTRAINT FK_Payment_Subscriber FOREIGN KEY (SubscriberId) REFERENCES Subscriber (SubscriberId) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE Payment
-ADD CONSTRAINT FK_Payment_Agent FOREIGN KEY (AgentId) REFERENCES Agent (AgentId) ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE Payment
-ADD CONSTRAINT FK_Payment_AgentBranch FOREIGN KEY (AgentBranchId) REFERENCES AgentBranch (BranchId) ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE Payment
-ADD CONSTRAINT FK_Payment_User FOREIGN KEY (UserId) REFERENCES [User] (UserId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE Bill
+ADD CONSTRAINT FK_Bill_Subscriber FOREIGN KEY (SubscriberId) REFERENCES Subscriber (SubscriberId) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Bill
+ADD CONSTRAINT FK_Bill_Agent FOREIGN KEY (AgentId) REFERENCES Agent (AgentId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE Bill
+ADD CONSTRAINT FK_Bill_AgentBranch FOREIGN KEY (AgentBranchId) REFERENCES AgentBranch (BranchId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE Bill
+ADD CONSTRAINT FK_Bill_User FOREIGN KEY (UserId) REFERENCES [User] (UserId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 GO
 
-create table PaymentCaptureField (
-	PaymentId INT NOT NULL, 
+create table BillCaptureField (
+	BillId INT NOT NULL, 
 	CaptureFieldId INT NOT NULL, 
 	Value TEXT NOT NULL,
-	CONSTRAINT PK_PaymentCaptureField PRIMARY KEY (PaymentId, CaptureFieldId)
+	CONSTRAINT PK_BillCaptureField PRIMARY KEY (BillId, CaptureFieldId)
 );
 
 GO
 
-ALTER TABLE PaymentCaptureField
-ADD CONSTRAINT FK_PaymentCaptureField_Payment FOREIGN KEY (PaymentId) REFERENCES Payment (PaymentId) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE PaymentCaptureField
-ADD CONSTRAINT FK_PaymentCaptureField_CaptureField FOREIGN KEY (CaptureFieldId) REFERENCES CaptureField (CaptureFieldId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE BillCaptureField
+ADD CONSTRAINT FK_BillCaptureField_Bill FOREIGN KEY (BillId) REFERENCES Bill (BillId) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE BillCaptureField
+ADD CONSTRAINT FK_BillCaptureField_CaptureField FOREIGN KEY (CaptureFieldId) REFERENCES CaptureField (CaptureFieldId) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 GO
 
-create table PaymentInfo (
-	PaymentInfoId INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	PaymentId INT NOT NULL, 
-	PaymentTypeId INT NOT NULL,
+create table PaymentMethod (
+	PaymentMethodId INT IDENTITY(1,1) PRIMARY KEY NOT NULL,  
+	Name VARCHAR(40) NOT NULL, 
+	CONSTRAINT UK_PaymentMethod_Name UNIQUE (Name)
+);
+
+GO
+
+create table PaymentMethodCaptureField
+(
+	PaymentMethodCaptureFieldId INT IDENTITY(1,1) PRIMARY KEY NOT NULL, 
+	PaymentMethodId INT NOT NULL, 
+	Name VARCHAR(40) NOT NULL, 
+	DisplayName VARCHAR(60) NOT NULL,
+	Type INT NOT NULL,  
+	OrderNum INT NOT NULL
+	CONSTRAINT UK_PaymentMethodCaptureField UNIQUE (PaymentMethodId, Name)
+);
+
+ALTER TABLE PaymentMethodCaptureField
+ADD CONSTRAINT FK_PaymentMethodCaptureField_PaymentMethod FOREIGN KEY (PaymentMethodId) REFERENCES PaymentMethod (PaymentMethodId) ON DELETE CASCADE ON UPDATE CASCADE;
+
+GO
+
+create table Payment (
+	PaymentId INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	PaymentMethodId INT NOT NULL,
+	BillId INT NOT NULL, 
 	Amount FLOAT NOT NULL
 );
 
 GO
 
-ALTER TABLE PaymentInfo
-ADD CONSTRAINT FK_PaymentInfo_Payment FOREIGN KEY (PaymentId) REFERENCES Payment (PaymentId) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE PaymentInfo
-ADD CONSTRAINT FK_PaymentInfo_PaymentType FOREIGN KEY (PaymentTypeId) REFERENCES PaymentType (PaymentTypeId) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Payment
+ADD CONSTRAINT FK_Payment_Bill FOREIGN KEY (BillId) REFERENCES Bill (BillId) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Payment
+ADD CONSTRAINT FK_Payment_PaymentMethod FOREIGN KEY (PaymentMethodId) REFERENCES PaymentMethod (PaymentMethodId) ON DELETE CASCADE ON UPDATE CASCADE;
 
 GO
 
-create table PaymentTypeCaptureField
-(
-	PaymentTypeCaptureFieldId INT IDENTITY(1,1) PRIMARY KEY NOT NULL, 
-	PaymentTypeId INT NOT NULL, 
-	Name VARCHAR(40) NOT NULL, 
-	DisplayName VARCHAR(60) NOT NULL,
-	Type INT NOT NULL,  
-	OrderNum INT NOT NULL
-	CONSTRAINT UK_PaymentTypeCaptureField UNIQUE (PaymentTypeId, Name)
-);
-
-ALTER TABLE PaymentTypeCaptureField
-ADD CONSTRAINT FK_PaymentTypeCaptureField_PaymentType FOREIGN KEY (PaymentTypeId) REFERENCES PaymentType (PaymentTypeId) ON DELETE CASCADE ON UPDATE CASCADE;
-
-create table PaymentPaymentTypeCaptureField (
+create table PaymentPaymentMethodCaptureField (
 	PaymentId INT NOT NULL, 
-	PaymentTypeCaptureFieldId INT NOT NULL, 
+	PaymentMethodCaptureFieldId INT NOT NULL, 
 	Value TEXT NOT NULL,
-	CONSTRAINT PK_PaymentPaymentTypeCaptureField PRIMARY KEY (PaymentId, PaymentTypeCaptureFieldId)
+	CONSTRAINT PK_PaymentPaymentMethodCaptureField PRIMARY KEY (PaymentId, PaymentMethodCaptureFieldId)
 );
 
-ALTER TABLE PaymentPaymentTypeCaptureField
-ADD CONSTRAINT FK_PaymentPaymentTypeCaptureField_Payment FOREIGN KEY (PaymentId) REFERENCES Payment (PaymentId) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE PaymentPaymentTypeCaptureField
-ADD CONSTRAINT FK_PaymentPaymentTypeCaptureField_PaymentCaptureField FOREIGN KEY (PaymentTypeCaptureFieldId) REFERENCES PaymentTypeCaptureField (PaymentTypeCaptureFieldId) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE PaymentPaymentMethodCaptureField
+ADD CONSTRAINT FK_PaymentPaymentMethodCaptureField_Payment FOREIGN KEY (PaymentId) REFERENCES Payment (PaymentId) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE PaymentPaymentMethodCaptureField
+ADD CONSTRAINT FK_PaymentPaymentMethodCaptureField_PaymentCaptureField FOREIGN KEY (PaymentMethodCaptureFieldId) REFERENCES PaymentMethodCaptureField (PaymentMethodCaptureFieldId) ON DELETE NO ACTION ON UPDATE NO ACTION;

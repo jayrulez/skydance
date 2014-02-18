@@ -16,7 +16,7 @@ namespace BillBox.Models
     {
         public User()
         {
-            this.Payments = new HashSet<Payment>();
+            this.Bills = new HashSet<Bill>();
         }
     
         public int UserId { get; set; }
@@ -35,8 +35,8 @@ namespace BillBox.Models
     
         public virtual Agent Agent { get; set; }
         public virtual AgentBranch AgentBranch { get; set; }
+        public virtual ICollection<Bill> Bills { get; set; }
         public virtual Parish Parish { get; set; }
-        public virtual ICollection<Payment> Payments { get; set; }
         public virtual UserLevel UserLevel { get; set; }
     }
 }

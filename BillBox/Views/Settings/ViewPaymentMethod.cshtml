@@ -1,7 +1,7 @@
-﻿@model BillBox.Models.PaymentType
+﻿@model BillBox.Models.PaymentMethod
 
 @{
-    ViewBag.Title = "View Payment Type";
+    ViewBag.Title = "View Payment Method";
     Layout = "~/Views/Shared/_Default.cshtml";
 }
 
@@ -27,14 +27,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach(BillBox.Models.PaymentTypeCaptureField captureField in Model.PaymentTypeCaptureFields)
+                    @foreach(BillBox.Models.PaymentMethodCaptureField captureField in Model.PaymentMethodCaptureFields)
                     {
                         <tr>
                             <td>@captureField.Name</td>
+                            @if(captureField.DisplayName != null) {
                             <td>@captureField.DisplayName</td>
+                            }
                             <td>@captureField.Type</td>
                             <td>@captureField.OrderNum</td>
-                            <td>@Html.ActionLink("Edit", "EditPaymentTypeCaptureField", new { captureFieldId = @captureField.PaymentTypeCaptureFieldId })</td>
+                            <td>@Html.ActionLink("Edit", "EditPaymentMethodCaptureField", new { captureFieldId = @captureField.PaymentMethodCaptureFieldId })</td>
                         </tr>
                         
                     }
@@ -45,9 +47,9 @@
         </div>
         <div class="section-footer">
             <ul class="details-menu">
-                <li>@Html.ActionLink("Edit", "EditPaymentType", new { paymentTypeId = Model.PaymentTypeId })</li>
-                <li>@Html.ActionLink("Add Capture Field", "AddPaymentTypeCaptureField", new { paymentTypeId = Model.PaymentTypeId })</li>
-                <li>@Html.ActionLink("Back to List", "ListPaymentTypes")</li>
+                <li>@Html.ActionLink("Edit", "EditPaymentMethod", new { paymentMethodId = Model.PaymentMethodId })</li>
+                <li>@Html.ActionLink("Add Capture Field", "AddPaymentMethodCaptureField", new { paymentMethodId = Model.PaymentMethodId })</li>
+                <li>@Html.ActionLink("Back to List", "ListPaymentMethods")</li>
             </ul>
         </div>
     </div>

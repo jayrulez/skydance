@@ -6,16 +6,16 @@ using System.Web;
 
 namespace BillBox.Models
 {
-    [MetadataType(typeof(PaymentModel))]
+    [MetadataType(typeof(BillModel))]
     public partial class Payment
     {
 
     }
 
-    public class PaymentModel
+    public class BillModel
     {
-        [Display(Name = "Payment Id")]
-        public int PaymentId { get; set; }
+        [Display(Name = "Bill Id")]
+        public int BillId { get; set; }
 
         [Required]
         [Display(Name = "Subscriber")]

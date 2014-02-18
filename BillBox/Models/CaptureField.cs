@@ -16,7 +16,7 @@ namespace BillBox.Models
     {
         public CaptureField()
         {
-            this.PaymentCaptureFields = new HashSet<PaymentCaptureField>();
+            this.BillCaptureFields = new HashSet<BillCaptureField>();
         }
     
         public int CaptureFieldId { get; set; }
@@ -26,7 +26,7 @@ namespace BillBox.Models
         public int Type { get; set; }
         public int OrderNum { get; set; }
     
+        public virtual ICollection<BillCaptureField> BillCaptureFields { get; set; }
         public virtual Subscriber Subscriber { get; set; }
-        public virtual ICollection<PaymentCaptureField> PaymentCaptureFields { get; set; }
     }
 }

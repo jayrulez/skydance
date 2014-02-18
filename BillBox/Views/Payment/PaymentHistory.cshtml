@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BillBox.Models.Payment>
+﻿@model IEnumerable<BillBox.Models.Bill>
 @{
     ViewBag.Title = "Payment History";
     Layout = "~/Views/Shared/_Default.cshtml";
@@ -13,7 +13,7 @@
                 <caption>Payment History</caption>
                 <thead>
                     <tr>
-                        <th>Payment Id</th>
+                        <th>Bill Id</th>
                         <th>Subscriber</th>
                         <th>Invoice Number</th>
                         <th>Agent</th>
@@ -25,19 +25,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (BillBox.Models.Payment payment in Model)
+                    @foreach (BillBox.Models.Bill bill in Model)
                     {
                         <tr>
-                            <td>@payment.PaymentId</td>
-                            <td>@payment.Subscriber.Name</td>
-                            <td>@payment.InvoiceNumber</td>
-                            <td>@payment.Agent.Name</td>
-                            <td>@payment.AgentBranch.Name</td>
-                            <td>@payment.User.Name</td>
-                            <td>@payment.Date</td>
-                            <td>@payment.Time</td>
+                            <td>@bill.BillId</td>
+                            <td>@bill.Subscriber.Name</td>
+                            <td>@bill.InvoiceNumber</td>
+                            <td>@bill.Agent.Name</td>
+                            <td>@bill.AgentBranch.Name</td>
+                            <td>@bill.User.Name</td>
+                            <td>@bill.Date</td>
+                            <td>@bill.Time</td>
                             <td>
-                                @Html.ActionLink("View", "ViewPayment", "Payment", new { paymentId = @payment.PaymentId }, null)
+                                @Html.ActionLink("View", "ViewBill", "Payment", new { billId = @bill.BillId }, null)
                             </td>
                         </tr>
                     }
