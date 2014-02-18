@@ -87,10 +87,7 @@ namespace BillBox.Controllers
             var pageNumber = page ?? 1;
             var pageSize = Util.GetPageSize(Common.PagedList.PaymentHistory);
 
-            var bills = dbContext.Bills
-                .OrderBy(b => b.BillId)
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize);  
+            var bills = dbContext.Bills.ToPagedList(pageNumber, pageSize);  
 
             return View(bills);
         }

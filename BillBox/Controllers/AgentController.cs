@@ -23,9 +23,9 @@ namespace BillBox.Controllers
             var pageNumber = page ?? 1;
             var pageSize = Util.GetPageSize(Common.PagedList.Agents);
 
-            var agents = dbContext.Agents.OrderBy(a => a.Name)
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize);
+            var agents = dbContext.Agents
+                .OrderBy(a => a.Name)
+                .ToPagedList(pageNumber, pageSize);
 
             return View(agents);
         }
@@ -233,8 +233,7 @@ namespace BillBox.Controllers
             var branches = dbContext.AgentBranches
                 .Where(b => b.AgentId == agentId)
                 .OrderBy(b => b.Name)
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize);            
+                .ToPagedList(pageNumber, pageSize);            
 
             return View(branches);
         }
