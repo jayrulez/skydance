@@ -76,29 +76,29 @@ namespace BillBox.Controllers
             model.InvoiceNumber = Util.GenerateInvoiceNumber();
             model.Status        = 1;
 
-            //Dictionary<string, string> captureFields;
-
-            //var cf = HttpContext.Request.Params["CaptureFields[accountnumber]"];
-
-            //return Content(cf.ToString());
-
-            //string content = "";
-
-            //foreach (string key in HttpContext.Request.Params)
-            //{
-            //    content += key + ": " +  HttpContext.Request.Params[key] + "\n";
-            //}
-
-            //return Content(content);
-
-            
-
-            //captureFields.Add("", "");
-
             if (ModelState.IsValid)
             {
                 try
                 {
+                    //var subscriber = dbContext.Subscribers.Find(model.SubscriberId);
+
+                    //if(subscriber == null)
+                    //{
+                    //    return HttpNotFound();
+                    //}
+
+                    //foreach(CaptureField captureField in subscriber.CaptureFields)
+                    //{
+                    //    if (HttpContext.Request.Params["CaptureFields[" + captureField.Name + "]"] != null)
+                    //    {
+                    //        BillCaptureField billCaptureField = new BillCaptureField();
+                    //        billCaptureField.CaptureFieldId   = captureField.CaptureFieldId;
+                    //        billCaptureField.Value            = HttpContext.Request.Params["CaptureFields[" + captureField.Name + "]"];
+
+                    //        model.BillCaptureFields.Add(billCaptureField);
+                    //    }
+                    //}
+
                     dbContext.Bills.Add(model);
 
                     dbContext.SaveChanges();
