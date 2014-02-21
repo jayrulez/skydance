@@ -34,8 +34,12 @@ namespace BillBox.Filters
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             //base.HandleUnauthorizedRequest(filterContext);
-            throw new HttpException(403, "You are not authorized to view this page.");
-            //filterContext.HttpContext.Response.RedirectToRoute("/Default/Error");
+
+            UrlHelper urlHelper = new UrlHelper(filterContext.RequestContext);
+
+            filterContext.Controller.TempData["ErrorMessage"] = "You are not authorized to view this page.";
+
+            filterContext.HttpContext.Response.Redirect(urlHelper.Action("Error", "Default"));
         }
     }
 }

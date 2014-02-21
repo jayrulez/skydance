@@ -204,7 +204,7 @@ namespace BillBox.Controllers
             return View(bills);
         }
 
-        [RightFilter(RightName = "ViewPaymentHistory")]
+        [RightFilter(RightName = "ViewBill")]
         public ActionResult ViewBill(int billId = 0)
         {
             Bill bill = dbContext.Bills.Find(billId);
@@ -227,6 +227,32 @@ namespace BillBox.Controllers
             }
 
             bill.Status = (int)BillStatus.Posted;
+
+            try
+            {
+                dbContext.Entry(bill).State = EntityState.Modified;
+                dbContext.SaveChanges();
+
+                return RedirectToAction("ViewBill", new { billId = bill.BillId });
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+
+                return View("Error");
+            }
+        }
+		
+        public ActionResult UnpostBill(int billId = 0)
+        {
+            Bill bill = dbContext.Bills.Find(billId);
+
+            if (bill == null)
+            {
+                return HttpNotFound();
+            }
+
+            bill.Status = (int)BillStatus.Working;
 
             try
             {

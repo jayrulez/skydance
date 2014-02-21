@@ -1,6 +1,8 @@
 ﻿@{
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Default.cshtml";
+
+    string ErrorMessage = TempData["ErrorMessage"] as string;
 }
 
 <div class="action">
@@ -8,7 +10,12 @@
         <div class="section-header">
         </div>
         <div class="section-content">
-
+		@if(ErrorMessage != null && ErrorMessage != string.Empty)
+		{
+			<span>@ErrorMessage</span>
+		}else{
+			<span>An error has occured.</span>
+		}
         </div>
         <div class="section-footer">
         </div>
