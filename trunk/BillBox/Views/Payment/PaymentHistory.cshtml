@@ -20,7 +20,6 @@
                         <th>Agent Branch</th>
                         <th>User</th>
                         <th>Date</th>
-                        <th>Time</th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
@@ -35,7 +34,6 @@
                             <td>@bill.AgentBranch.Name</td>
                             <td>@bill.User.Name</td>
                             <td>@bill.Date</td>
-                            <td>@bill.Time</td>
                             <td>
                                 @Html.ActionLink("View", "ViewBill", "Payment", new { billId = @bill.BillId }, null)
                             </td>

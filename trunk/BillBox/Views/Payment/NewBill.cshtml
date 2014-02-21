@@ -1,10 +1,10 @@
-﻿@model BillBox.Models.Payment
+﻿@model BillBox.Models.Bill
 
 @{
     ViewBag.Title = "New Payment";
     Layout = "~/Views/Shared/_Default.cshtml";
 
-    var paymentMethods = ViewBag.paymentMethods as IEnumerable<BillBox.Models.PaymentMethod>;
+    var subscribers  = ViewBag.subscribers as IEnumerable<BillBox.Models.Subscriber>;
 }
 
 <div class="action">
@@ -13,28 +13,23 @@
         </div>
         <div class="section-content">
             <div class="form-container">
-                @using (Html.BeginForm("NewPayment","Payment", FormMethod.Post, new { @class = "wf" })) {
+                @using (Html.BeginForm("NewBill","Payment", FormMethod.Post, new { @class = "wf" })) {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
 
                     <fieldset class="top bottom">
                         <legend>New Payment</legend>
-                        @Html.HiddenFor(model => model.BillId)
                         <div class="row top clearfix">
-                                @Html.LabelFor(model => model.PaymentMethodId)
-                                @Html.DropDownListFor(model => model.PaymentMethodId, new SelectList(paymentMethods, "PaymentMethodId", "Name"), "Select Payment Method")
-                                @Html.ValidationMessageFor(model => model.PaymentMethodId)
+                                @Html.LabelFor(model => model.SubscriberId)
+                                @Html.DropDownListFor(model => model.SubscriberId, new SelectList(subscribers, "SubscriberId", "Name"), "Select Subscriber")
+                                @Html.ValidationMessageFor(model => model.SubscriberId)
                         </div>
-                        <div class="row clearfix" id="amount-field" style="display: none">
-                                @Html.LabelFor(model => model.Amount)
-                                @Html.TextBoxFor(model => model.Amount)
-                                @Html.ValidationMessageFor(model => model.Amount)
-                        </div>
+
                         <div id="capture-fields-area"></div>
         
                     </fieldset>
                     <div class="buttons bottom">
-                            <input type="submit" value="Add Payment" />
+                            <input type="submit" value="Next" />
                     </div>
                 }
             </div>
@@ -54,7 +49,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#@Html.IdFor(model => model.PaymentMethodId)').change(function (e) {
+            $('#@Html.IdFor(model => model.SubscriberId)').change(function (e) {
 
             var subscriberId = $(this).val();
 
@@ -65,11 +60,10 @@
                 $.ajax({
                     cache: false,
                     type: 'GET',
-                    url: '@Url.Action("GetPaymentMethodCaptureFields", "Payment")',
-                        data: { 'paymentMethodId': subscriberId },
+                    url: '@Url.Action("GetCaptureFields", "Payment")',
+                        data: { 'subscriberId': subscriberId },
                         success: function (html) {
                             $("#capture-fields-area").html(html);
-                            $("#amount-field").show();
                         },
                         error: function () {
                             alert("Error");

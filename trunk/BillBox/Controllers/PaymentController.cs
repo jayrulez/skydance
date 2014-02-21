@@ -49,13 +49,10 @@ namespace BillBox.Controllers
             return PartialView("_PaymentMethodCaptureFields");
         }
 
-        public ActionResult NewPayment()
+        public ActionResult NewBill()
         {
-            var paymentMethods = dbContext.PaymentMethods;
-
             var subscribers = dbContext.Subscribers;
 
-            ViewBag.paymentMethods = paymentMethods;
             ViewBag.subscribers = subscribers;
 
             return View();
@@ -63,8 +60,7 @@ namespace BillBox.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [RightFilter]
-        public ActionResult NewPayment(Bill model)
+        public ActionResult NewBill(Bill model)
         {
             User user = Util.GetLoggedInUser();
 
@@ -80,10 +76,29 @@ namespace BillBox.Controllers
             model.InvoiceNumber = Util.GenerateInvoiceNumber();
             model.Status        = 1;
 
-            if(ModelState.IsValid)
+            //Dictionary<string, string> captureFields;
+
+            //var cf = HttpContext.Request.Params["CaptureFields[accountnumber]"];
+
+            //return Content(cf.ToString());
+
+            //string content = "";
+
+            //foreach (string key in HttpContext.Request.Params)
+            //{
+            //    content += key + ": " +  HttpContext.Request.Params[key] + "\n";
+            //}
+
+            //return Content(content);
+
+            
+
+            //captureFields.Add("", "");
+
+            if (ModelState.IsValid)
             {
                 try
-                {                    
+                {
                     dbContext.Bills.Add(model);
 
                     dbContext.SaveChanges();
@@ -112,9 +127,19 @@ namespace BillBox.Controllers
                 return HttpNotFound();
             }
 
-            return View();
+            Payment payment = new Payment();
+
+            payment.BillId = bill.BillId;
+
+            var paymentMethods = dbContext.PaymentMethods;
+
+            ViewBag.paymentMethods = paymentMethods;
+
+            return View(payment);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult NewPayment(Payment model)
         {
             if(ModelState.IsValid)
@@ -126,6 +151,10 @@ namespace BillBox.Controllers
                 return RedirectToAction("NewPayment", new { billId = model.BillId });
             }
 
+            var paymentMethods = dbContext.PaymentMethods;
+
+            ViewBag.paymentMethods = paymentMethods;
+
             return View(model);
         }
 
@@ -134,7 +163,7 @@ namespace BillBox.Controllers
             var pageNumber = page ?? 1;
             var pageSize = Util.GetPageSize(Common.PagedList.PaymentHistory);
 
-            var bills = dbContext.Bills.ToPagedList(pageNumber, pageSize);  
+            var bills = dbContext.Bills.OrderBy(b => b.BillId).ToPagedList(pageNumber, pageSize);  
 
             return View(bills);
         }
