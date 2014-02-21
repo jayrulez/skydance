@@ -24,6 +24,17 @@ namespace BillBox.Models
     [MetadataType(typeof(UserModel))]
     public partial class User
     {
+        public bool HasRight(string rightName)
+        {
+            if(this.UserLevel == null)
+            {
+                return false;
+            }
+
+            var right = this.UserLevel.UserRights.Where(r => r.Name == rightName);
+
+            return rightName != null;
+        }
     }
 
     public class UserModel

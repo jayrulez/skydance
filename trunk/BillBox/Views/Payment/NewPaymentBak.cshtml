@@ -1,0 +1,182 @@
+﻿@model BillBox.Models.Bill
+
+@{
+    ViewBag.Title = "New Payment";
+    Layout = "~/Views/Shared/_Default.cshtml";
+
+    var subscribers  = ViewBag.subscribers as IEnumerable<BillBox.Models.Subscriber>;
+    var paymentMethods = ViewBag.paymentMethods as IEnumerable<BillBox.Models.PaymentMethod>;
+}
+
+<div class="action">
+    <div class="section">
+        <div class="section-header">
+        </div>
+        <div class="section-content">
+            <div class="form-container">
+                @using (Html.BeginForm("NewPayment","Payment", FormMethod.Post, new { @class = "wf" })) {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <fieldset class="top bottom">
+                        <legend>New Payment</legend>
+                        <div class="row top clearfix">
+                                @Html.LabelFor(model => model.SubscriberId, "Subscriber")
+                                @Html.DropDownListFor(model => model.SubscriberId, new SelectList(subscribers, "SubscriberId", "Name"), "Select Subscriber")
+                                @Html.ValidationMessageFor(model => model.SubscriberId)
+                        </div>
+
+                        <div id="capture-fields-area"></div>
+
+                        <div id="payment-area">
+                            <div id="payment-method-hidden-fields"></div>
+                            <div id="payment-area-payment-list">
+                            </div>
+                        </div>
+
+                        <div class="row inline bottom clearfix">
+                            <a href="#" id="add-payment-link">Add Payment</a>
+                        </div>
+        
+                    </fieldset>
+                    <div class="buttons bottom">
+                            <input type="submit" value="Process" />
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="section-footer">
+        </div>
+    </div>
+</div>
+
+@section SidebarLeft {
+    @Html.Partial("_SidebarMenu")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#@Html.IdFor(model => model.SubscriberId)').change(function (e) {
+
+            var subscriberId = $(this).val();
+
+            if (subscriberId) {
+
+                var captureFields = "";
+
+                $.ajax({
+                    cache: false,
+                    type: 'GET',
+                    url: '@Url.Action("GetCaptureFields", "Payment")',
+                        data: { 'subscriberId': subscriberId },
+                        success: function (html) {
+                            $("#capture-fields-area").html(html);
+                        },
+                        error: function () {
+                            alert("Error");
+                        }
+                    });
+                } else {
+                    $("#capture-fields-area").html("");
+                }
+            });
+        });
+
+        $("#add-payment-link").click(function (e) {
+            e.preventDefault();
+            $("#dialog-form").dialog("open");
+        });
+
+        $("#dialog-form").dialog({
+            autoOpen: false,
+            height: 300,
+            width: 500,
+            modal: true,
+            buttons: {
+                "Add": function () {
+                    var fieldsHtml = $("#payment-method-hidden-fields").html();
+
+                    var paymentListHtml = "<div class=\"row clearfix\"><label>Payment</label>";
+
+                    $("input[name^='paymentMethodCaptureField']").each(function () {
+                        fieldsHtml += '<input type="hidden" name="' + $(this).attr("name") + '" value="' + $(this).val() + '" />';
+
+                        paymentListHtml += $(this).attr("name");
+                        paymentListHtml += ":";
+                        paymentListHtml += $(this).val();
+                        paymentListHtml += "<br/>";
+
+                    });
+
+                    paymentListHtml += "</div>";
+
+                    $("#payment-method-hidden-fields").html(fieldsHtml);
+
+                    $("#payment-area-payment-list").html(paymentListHtml);
+
+                    alert(fieldsHtml);
+
+                    $(this).dialog("close");
+                }
+            },
+            Cancel: function () {
+                $(this).dialog("close");
+            },
+            close: function () {
+            }
+        });
+
+        $('#payment-method').change(function (e) {
+
+            var paymentMethodId = $(this).val();
+
+            if (paymentMethodId) {
+
+                var captureFields = "";
+
+                $.ajax({
+                    cache: false,
+                    type: 'GET',
+                    url: '@Url.Action("GetPaymentMethodCaptureFields", "Payment")',
+                        data: { 'paymentMethodId': paymentMethodId },
+                        success: function (html) {
+                            $("#payment-method-capture-fields-area").html(html);
+                        },
+                        error: function () {
+                            alert("Error");
+                        }
+                    });
+                } else {
+                    $("#payment-method-capture-fields-area").html("");
+                }
+
+        });
+    </script>
+}
+
+<!-- Payment method modal -->
+<div id="dialog-form" title="Add Payment">
+    <form id="add-payment-form" class="wf" method="post">
+        <fieldset>
+            <legend>Add Payment</legend>
+
+                        <div class="row top clearfix">
+                                <label for="payment-method">Payment Method</label>
+                                <select name="paymentType" id="payment-method">
+                                    <option value="">Select Payment Method</option>
+                                    @foreach(BillBox.Models.PaymentMethod paymentMethod in paymentMethods) {
+                                        <option value="@paymentMethod.PaymentMethodId">@paymentMethod.Name</option>
+                                    }
+                                </select>
+                        </div>
+
+                <div id="payment-method-capture-fields-area"></div>
+        </fieldset>
+    </form>
+</div> 
+<!-- /Payment method modal-->
+

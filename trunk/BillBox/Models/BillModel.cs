@@ -7,9 +7,8 @@ using System.Web;
 namespace BillBox.Models
 {
     [MetadataType(typeof(BillModel))]
-    public partial class Payment
+    public partial class Bill
     {
-
     }
 
     public class BillModel
@@ -48,5 +47,17 @@ namespace BillBox.Models
         [Required]
         [Display(Name = "Status")]
         public int Status { get; set; }
+
+        public IEnumerable<Payment> Payments;
+    }
+
+    [MetadataType(typeof(PaymentModel))]
+    public partial class Payment { }
+
+    public class PaymentModel
+    {
+        public int PaymentMethodId;
+        public int BillId;
+        public double Amount;
     }
 }
