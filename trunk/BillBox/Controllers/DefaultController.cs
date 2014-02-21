@@ -59,6 +59,13 @@ namespace BillBox.Controllers
             return RedirectToAction("Index", "Default");
         }
 
+        public ActionResult Error()
+        {
+            ViewBag.Error = "";
+
+            return View();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

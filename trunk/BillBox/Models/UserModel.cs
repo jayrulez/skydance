@@ -31,9 +31,9 @@ namespace BillBox.Models
                 return false;
             }
 
-            var right = this.UserLevel.UserRights.Where(r => r.Name == rightName);
+            var right = this.UserLevel.UserRights.FirstOrDefault(r => r.Name == rightName);
 
-            return rightName != null;
+            return right != null;
         }
     }
 

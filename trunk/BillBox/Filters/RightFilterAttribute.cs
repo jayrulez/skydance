@@ -10,57 +10,32 @@ namespace BillBox.Filters
 {
     public class RightFilterAttribute : AuthorizeAttribute
     {
-        public string RightName;
+        public string RightName {get;set;}
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            User user = Util.GetLoggedInUser();
+            bool isAuthorized = base.AuthorizeCore(httpContext);
 
-            if (RightName == null)
-            {
-                return true;
-            }
-            else if (user == null || !user.HasRight(this.RightName))
+            if(!isAuthorized)
             {
                 return false;
             }
 
-            return base.AuthorizeCore(httpContext);
-        }
-
-        public override void OnAuthorization(AuthorizationContext filterContext)
-        {
             User user = Util.GetLoggedInUser();
 
-            if (RightName == null)
+            if(user == null)
             {
-
-            }
-            else if (user == null || !user.HasRight(this.RightName))
-            {
-                throw new HttpException(403, "You are not authorized to view this page.");
+                return false;
             }
 
-            base.OnAuthorization(filterContext);
+            return RightName == null || user.HasRight(this.RightName);
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            base.HandleUnauthorizedRequest(filterContext);
+            //base.HandleUnauthorizedRequest(filterContext);
+            throw new HttpException(403, "You are not authorized to view this page.");
+            //filterContext.HttpContext.Response.RedirectToRoute("/Default/Error");
         }
-        //public override void OnActionExecuting(ActionExecutingContext filterContext)
-        //{
-        //    User user = Util.GetLoggedInUser();
-
-        //    if (RightName == null)
-        //    {
-
-        //    }else if (user == null || !user.HasRight(this.RightName))
-        //    {
-        //        throw new HttpException(403, "You are not authorized to view this page.");
-        //    }
-
-        //    base.OnActionExecuting(filterContext);
-        //}
     }
 }

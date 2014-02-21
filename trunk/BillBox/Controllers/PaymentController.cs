@@ -199,7 +199,7 @@ namespace BillBox.Controllers
             var pageNumber = page ?? 1;
             var pageSize = Util.GetPageSize(Common.PagedList.PaymentHistory);
 
-            var bills = dbContext.Bills.OrderBy(b => b.BillId).ToPagedList(pageNumber, pageSize);  
+            var bills = dbContext.Bills.Where(b => b.Status == (int)BillStatus.Posted).OrderBy(b => b.BillId).ToPagedList(pageNumber, pageSize);  
 
             return View(bills);
         }
