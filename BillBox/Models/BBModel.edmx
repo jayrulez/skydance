@@ -149,7 +149,6 @@
           <Property Name="AgentBranchId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
-          <Property Name="Time" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="Status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="BillCaptureField">
@@ -722,7 +721,6 @@
           <Property Name="AgentBranchId" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Time" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
           <Property Name="Status" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Agent" Relationship="BBModel.FK_Bill_Agent" FromRole="Bill" ToRole="Agent" />
           <NavigationProperty Name="AgentBranch" Relationship="BBModel.FK_Bill_AgentBranch" FromRole="Bill" ToRole="AgentBranch" />
@@ -1190,7 +1188,6 @@
                 <ScalarProperty Name="AgentBranchId" ColumnName="AgentBranchId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>

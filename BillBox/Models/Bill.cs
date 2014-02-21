@@ -27,7 +27,6 @@ namespace BillBox.Models
         public int AgentBranchId { get; set; }
         public int UserId { get; set; }
         public System.DateTime Date { get; set; }
-        public byte[] Time { get; set; }
         public int Status { get; set; }
     
         public virtual Agent Agent { get; set; }

@@ -178,8 +178,7 @@ create table Bill (
 	AgentId INT NOT NULL, 
 	AgentBranchId INT NOT NULL, 
 	UserId INT NOT NULL, 
-	Date DATETIME NOT NULL, 
-	Time TIMESTAMP NOT NULL, 
+	Date DATETIME NOT NULL,
 	Status INT NOT NULL,
 	CONSTRAINT UK_Bill_InvoiceNumber UNIQUE (InvoiceNumber)
 );

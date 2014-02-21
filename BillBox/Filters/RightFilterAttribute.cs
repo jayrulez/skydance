@@ -8,28 +8,59 @@ using System.Web.Mvc;
 
 namespace BillBox.Filters
 {
-    public class RightFilterAttribute : ActionFilterAttribute, IActionFilter
+    public class RightFilterAttribute : AuthorizeAttribute
     {
         public string RightName;
 
-        public RightFilterAttribute(string rightName = null)
+        protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            this.RightName = rightName;
+            User user = Util.GetLoggedInUser();
+
+            if (RightName == null)
+            {
+                return true;
+            }
+            else if (user == null || !user.HasRight(this.RightName))
+            {
+                return false;
+            }
+
+            return base.AuthorizeCore(httpContext);
         }
 
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        public override void OnAuthorization(AuthorizationContext filterContext)
         {
             User user = Util.GetLoggedInUser();
 
             if (RightName == null)
             {
 
-            }else if (user == null || !user.HasRight(this.RightName))
+            }
+            else if (user == null || !user.HasRight(this.RightName))
             {
                 throw new HttpException(403, "You are not authorized to view this page.");
             }
 
-            base.OnActionExecuting(filterContext);
+            base.OnAuthorization(filterContext);
         }
+
+        protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
+        {
+            base.HandleUnauthorizedRequest(filterContext);
+        }
+        //public override void OnActionExecuting(ActionExecutingContext filterContext)
+        //{
+        //    User user = Util.GetLoggedInUser();
+
+        //    if (RightName == null)
+        //    {
+
+        //    }else if (user == null || !user.HasRight(this.RightName))
+        //    {
+        //        throw new HttpException(403, "You are not authorized to view this page.");
+        //    }
+
+        //    base.OnActionExecuting(filterContext);
+        //}
     }
 }

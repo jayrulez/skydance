@@ -41,14 +41,10 @@ namespace BillBox.Models
         public int Date { get; set; }
 
         [Required]
-        [Display(Name = "Time")]
-        public int Time { get; set; }
-
-        [Required]
         [Display(Name = "Status")]
         public int Status { get; set; }
 
-        public IEnumerable<Payment> Payments;
+        public List<Payment> Payments;
     }
 
     [MetadataType(typeof(PaymentModel))]
