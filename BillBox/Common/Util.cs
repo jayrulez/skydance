@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BillBox.Models;
+using System;
 using System.Web.Configuration;
 
 namespace BillBox.Common
@@ -84,6 +85,27 @@ namespace BillBox.Common
             bool isSuccessful = int.TryParse(GetAppSetting("PasswordExpiryDays"), out numberOfDays);
 
             return (isSuccessful) ? numberOfDays : 30;
+        }
+
+        public static User GetUserById(int userId)
+        {
+            Entities dbContext = new Entities();
+
+            User user = dbContext.Users.Find(userId);
+
+            return user;
+        }
+
+        public static User GetLoggedInUser()
+        {
+            int userId = 1;
+
+            return Util.GetUserById(userId);
+        }
+
+        public static int GenerateInvoiceNumber()
+        {
+            return 0;
         }
     }
 }
