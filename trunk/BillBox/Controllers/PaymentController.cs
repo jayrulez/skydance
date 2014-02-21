@@ -74,30 +74,30 @@ namespace BillBox.Controllers
             model.AgentId       = user.AgentBranch.Agent.AgentId;
             model.Date          = DateTime.Now;
             model.InvoiceNumber = Util.GenerateInvoiceNumber();
-            model.Status        = 1;
+            model.Status        = (int)BillStatus.Init;
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    //var subscriber = dbContext.Subscribers.Find(model.SubscriberId);
+                    var subscriber = dbContext.Subscribers.Find(model.SubscriberId);
 
-                    //if(subscriber == null)
-                    //{
-                    //    return HttpNotFound();
-                    //}
+                    if(subscriber == null)
+                    {
+                        return HttpNotFound();
+                    }
 
-                    //foreach(CaptureField captureField in subscriber.CaptureFields)
-                    //{
-                    //    if (HttpContext.Request.Params["CaptureFields[" + captureField.Name + "]"] != null)
-                    //    {
-                    //        BillCaptureField billCaptureField = new BillCaptureField();
-                    //        billCaptureField.CaptureFieldId   = captureField.CaptureFieldId;
-                    //        billCaptureField.Value            = HttpContext.Request.Params["CaptureFields[" + captureField.Name + "]"];
+                    foreach(CaptureField captureField in subscriber.CaptureFields)
+                    {
+                        if (HttpContext.Request.Params["CaptureFields[" + captureField.Name + "]"] != null)
+                        {
+                            BillCaptureField billCaptureField = new BillCaptureField();
+                            billCaptureField.CaptureFieldId   = captureField.CaptureFieldId;
+                            billCaptureField.Value            = HttpContext.Request.Params["CaptureFields[" + captureField.Name + "]"];
 
-                    //        model.BillCaptureFields.Add(billCaptureField);
-                    //    }
-                    //}
+                            model.BillCaptureFields.Add(billCaptureField);
+                        }
+                    }
 
                     dbContext.Bills.Add(model);
 
@@ -134,6 +134,7 @@ namespace BillBox.Controllers
             var paymentMethods = dbContext.PaymentMethods;
 
             ViewBag.paymentMethods = paymentMethods;
+            ViewBag.bill = bill;
 
             return View(payment);
         }
@@ -142,13 +143,48 @@ namespace BillBox.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult NewPayment(Payment model)
         {
+            Bill bill = dbContext.Bills.Find(model.BillId);
+
+            if (bill == null)
+            {
+                return HttpNotFound();
+            }
+
             if(ModelState.IsValid)
             {
-                dbContext.Payments.Add(model);
+                try
+                {
+                    bill.Status                 = (int)BillStatus.Working;
+                    dbContext.Entry(bill).State = EntityState.Modified;
 
-                dbContext.SaveChanges();
+                    var paymentMethod = dbContext.PaymentMethods.Find(model.PaymentMethodId);
 
-                return RedirectToAction("NewPayment", new { billId = model.BillId });
+                    if (paymentMethod == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    foreach (PaymentMethodCaptureField captureField in paymentMethod.PaymentMethodCaptureFields)
+                    {
+                        if (HttpContext.Request.Params["CaptureFields[" + captureField.Name + "]"] != null)
+                        {
+                            PaymentPaymentMethodCaptureField paymentPaymentMethodCaptureField = new PaymentPaymentMethodCaptureField();
+                            paymentPaymentMethodCaptureField.PaymentMethodCaptureFieldId = captureField.PaymentMethodCaptureFieldId;
+                            paymentPaymentMethodCaptureField.Value = HttpContext.Request.Params["CaptureFields[" + captureField.Name + "]"];
+
+                            model.PaymentPaymentMethodCaptureFields.Add(paymentPaymentMethodCaptureField);
+                        }
+                    }
+
+                    dbContext.Payments.Add(model);
+
+                    dbContext.SaveChanges();
+
+                    return RedirectToAction("NewPayment", new { billId = model.BillId });
+                }catch(Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
             }
 
             var paymentMethods = dbContext.PaymentMethods;
@@ -179,6 +215,32 @@ namespace BillBox.Controllers
             }
 
             return View(bill);
+        }
+
+        public ActionResult PostBill(int billId = 0)
+        {
+            Bill bill = dbContext.Bills.Find(billId);
+
+            if (bill == null)
+            {
+                return HttpNotFound();
+            }
+
+            bill.Status = (int)BillStatus.Posted;
+
+            try
+            {
+                dbContext.Entry(bill).State = EntityState.Modified;
+                dbContext.SaveChanges();
+
+                return RedirectToAction("ViewBill", new { billId = bill.BillId });
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+
+                return View("Error");
+            }
         }
 
         protected override void Dispose(bool disposing)
