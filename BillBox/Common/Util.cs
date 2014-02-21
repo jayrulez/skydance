@@ -1,5 +1,6 @@
 ﻿using BillBox.Models;
 using System;
+using System.Collections.Generic;
 using System.Web.Configuration;
 
 namespace BillBox.Common
@@ -11,8 +12,29 @@ namespace BillBox.Common
         PaymentHistory, PaymentMethods, PaymentTypeCaptureFields
     }
 
+    public enum BillStatus
+    {
+        Init = 0, Working, Posted
+    }
+
+    public enum CaptureFieldType
+    {
+        TextType = 0, IntegerType, AlphabeticType, AlphanumericType
+    }
+
     public class Util
     {
+        public static Dictionary<int, string> GetCaptureFieldTypes()
+        {
+            Dictionary<int, string> types = new Dictionary<int,string>();
+
+            types.Add((int)CaptureFieldType.TextType, "Text");
+            types.Add((int)CaptureFieldType.IntegerType, "Integers");
+            types.Add((int)CaptureFieldType.AlphabeticType, "Alphabetic");
+            types.Add((int)CaptureFieldType.AlphanumericType, "Alphanumeric");
+
+            return types;
+        }
 
         /// <summary>
         /// Returns a string value from the webconfig appsetting based on the specified key.
@@ -105,7 +127,7 @@ namespace BillBox.Common
 
         public static int GenerateInvoiceNumber()
         {
-            return 0;
+            return (int)DateTime.Now.Ticks;
         }
     }
 }

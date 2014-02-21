@@ -1,18 +1,63 @@
 ﻿@model BillBox.Models.Payment
 
 @{
-    ViewBag.Title = "New Payment";
-    Layout = "~/Views/Shared/_Default.cshtml";
+    ViewBag.Title      = "New Payment";
+    Layout             = "~/Views/Shared/_Default.cshtml";
 
     var paymentMethods = ViewBag.paymentMethods as IEnumerable<BillBox.Models.PaymentMethod>;
+    var bill           = ViewBag.bill as BillBox.Models.Bill;
 }
 
 <div class="action">
     <div class="section">
         <div class="section-header">
+                        @if(bill != null) {
+                        <div class="">
+                            <dl>
+                                <dt>Bill Id</dt>
+                                <dd>@bill.BillId</dd>
+                
+                                <dt>Subscriber</dt>
+                                <dd>@bill.Subscriber.Name</dd>
+                
+                                <dt>Invoice Number</dt>
+                                <dd>@bill.InvoiceNumber</dd>
+                
+                                <dt>Agent</dt>
+                                <dd>@bill.Agent.Name</dd>
+                
+                                <dt>Branch</dt>
+                                <dd>@bill.AgentBranch.Name</dd>
+                
+                                <dt>User</dt>
+                                <dd>@bill.User.Name</dd>
+                
+                                <dt>Date</dt>
+                                <dd>@bill.Date</dd>
+
+                                @if(bill.Payments != null)
+                                {
+                                    foreach(BillBox.Models.Payment payment in bill.Payments)
+                                    {
+                                        <hr />
+                                        <dt>Payment Method</dt>
+                                        <dd>@payment.PaymentMethod.Name</dd>  
+                                        <dt>Amount</dt>
+                                        <dd>@payment.Amount</dd> 
+                                        foreach(BillBox.Models.PaymentPaymentMethodCaptureField field in payment.PaymentPaymentMethodCaptureFields)
+                                        {
+                                            <dt>@field.PaymentMethodCaptureField.DisplayName</dt>
+                                            <dd>@field.Value</dd>
+                                        }
+                                    }
+                                }
+
+                            </dl>
+                        </div>
+                        }
         </div>
         <div class="section-content">
-            <div class="form-container">
+            <div class="form-container" id="payment-form-container">
                 @using (Html.BeginForm("NewPayment","Payment", FormMethod.Post, new { @class = "wf" })) {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
@@ -20,6 +65,7 @@
                     <fieldset class="top bottom">
                         <legend>New Payment</legend>
                         @Html.HiddenFor(model => model.BillId)
+
                         <div class="row top clearfix">
                                 @Html.LabelFor(model => model.PaymentMethodId)
                                 @Html.DropDownListFor(model => model.PaymentMethodId, new SelectList(paymentMethods, "PaymentMethodId", "Name"), "Select Payment Method")
