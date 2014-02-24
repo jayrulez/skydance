@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using PagedList;
 using System.Data;
 using BillBox.Common;
+using BillBox.Filters;
 
 namespace BillBox.Controllers
 {
@@ -22,7 +23,7 @@ namespace BillBox.Controllers
 
         //
         // GET: /PaymentMethod/
-
+        [RightFilter(RightName = "VIEW_PAYMENT_METHODS")]
         public ActionResult ListPaymentMethods(int? page)
         {
             var pageNumber = page ?? 1;
@@ -35,6 +36,7 @@ namespace BillBox.Controllers
             return View(paymentMethods);
         }
 
+        [RightFilter(RightName = "CREATE_PAYMENT_METHOD")]
         public ActionResult CreatePaymentMethod()
         {
             return View();
@@ -42,6 +44,7 @@ namespace BillBox.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RightFilter(RightName = "CREATE_PAYMENT_METHOD")]
         public ActionResult CreatePaymentMethod(PaymentMethod model)
         {
             if(ModelState.IsValid)
@@ -62,6 +65,7 @@ namespace BillBox.Controllers
             return View(model);
         }
 
+        [RightFilter(RightName = "EDIT_PAYMENT_METHOD")]
         public ActionResult EditPaymentMethod(int paymentMethodId = 0)
         {
             PaymentMethod paymentMethod = dbContext.PaymentMethods.Find(paymentMethodId);
@@ -78,6 +82,7 @@ namespace BillBox.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RightFilter(RightName = "EDIT_PAYMENT_METHOD")]
         public ActionResult EditPaymentMethod(PaymentMethod model)
         {
             if(ModelState.IsValid)
@@ -99,6 +104,7 @@ namespace BillBox.Controllers
             return View(model);
         }
 
+        [RightFilter(RightName = "VIEW_PAYMENT_METHOD")]
         public ActionResult ViewPaymentMethod(int paymentMethodId = 0)
         {
             PaymentMethod paymentMethod = dbContext.PaymentMethods.Find(paymentMethodId);
@@ -113,6 +119,7 @@ namespace BillBox.Controllers
             return View(paymentMethod);
         }
 
+        [RightFilter(RightName = "CREATE_PAYMENT_METHOD_CAPTURE_FIELD")]
         public ActionResult AddPaymentMethodCaptureField(int paymentMethodId = 0)
         {
             var paymentMethod = dbContext.PaymentMethods.Find(paymentMethodId);
@@ -131,6 +138,7 @@ namespace BillBox.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RightFilter(RightName = "CREATE_PAYMENT_METHOD_CAPTURE_FIELD")]
         public ActionResult AddPaymentMethodCaptureField(PaymentMethodCaptureField model)
         {
             if(ModelState.IsValid)
@@ -152,6 +160,7 @@ namespace BillBox.Controllers
             return View(model);
         }
 
+        [RightFilter(RightName = "EDIT_PAYMENT_METHOD_CAPTURE_FIELD")]
         public ActionResult EditPaymentMethodCaptureField(int captureFieldId = 0)
         {
             var captureField = dbContext.PaymentMethodCaptureFields.Find(captureFieldId);
@@ -166,6 +175,7 @@ namespace BillBox.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RightFilter(RightName = "EDIT_PAYMENT_METHOD_CAPTURE_FIELD")]
         public ActionResult EditPaymentMethodCaptureField(PaymentMethodCaptureField model)
         {
             if(ModelState.IsValid)
@@ -187,6 +197,7 @@ namespace BillBox.Controllers
             return View(model);
         }
 
+        [RightFilter(RightName = "ORDER_PAYMENT_METHOD_CAPTURE_FIELDS")]
         public ActionResult OrderPaymentMethodCaptureFields(int? fieldUpId = 0, int? fieldDownId = 0)
         {
             var fieldUp   = dbContext.CaptureFields.Find(fieldUpId);

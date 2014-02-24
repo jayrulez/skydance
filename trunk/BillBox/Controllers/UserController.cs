@@ -10,6 +10,7 @@ using BillBox.Common;
 
 using PagedList;
 using System.Data.Entity.Infrastructure;
+using BillBox.Filters;
 
 namespace BillBox.Controllers
 {
@@ -18,7 +19,7 @@ namespace BillBox.Controllers
     {
         private Entities dbContext = new Entities();
 
-        [HttpGet]
+        [RightFilter(RightName = "CREATE_USER")]
         public ActionResult Create()
         {            
             LoadLookupValues(ViewBag);
@@ -27,6 +28,7 @@ namespace BillBox.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RightFilter(RightName = "CREATE_USER")]
         public ActionResult Create(User user)
         {
             if (ModelState.IsValid)
@@ -52,7 +54,7 @@ namespace BillBox.Controllers
             return View(user);
         }
 
-        [HttpGet]
+        [RightFilter(RightName = "VIEW_USERS")]
         public ActionResult Index(int? page)
         {
             var pageNumber = page ?? 1;
@@ -68,7 +70,7 @@ namespace BillBox.Controllers
             return View(users);
         }
 
-        [HttpGet]
+        [RightFilter(RightName = "VIEW_USER")]
         public ActionResult Details(int id = 0)
         {
             if (id == 0)
@@ -82,7 +84,7 @@ namespace BillBox.Controllers
             return View(user);
         }
 
-        [HttpGet]
+        [RightFilter(RightName = "EDIT_USER")]
         public ActionResult Edit(int id = 0)
         {
             if (id == 0)
@@ -100,6 +102,7 @@ namespace BillBox.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RightFilter(RightName = "EDIT_USER")]
         public ActionResult Edit(User user)
         {
            
@@ -143,7 +146,6 @@ namespace BillBox.Controllers
 
         }
 
-        [HttpGet]
         public ActionResult AgentBranches(int? id)
         {
             ViewBag.AgentBranches = dbContext.AgentBranches.Where(ab => ab.AgentId == id);

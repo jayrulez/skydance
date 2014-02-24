@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using PagedList;
 using System.Data;
 using BillBox.Common;
+using BillBox.Filters;
 
 namespace BillBox.Controllers
 {
@@ -18,6 +19,7 @@ namespace BillBox.Controllers
         //
         // GET: /Agent/
 
+        [RightFilter(RightName = "VIEW_AGENTS")]
         public ActionResult Index(int? page)
         {
             var pageNumber = page ?? 1;
@@ -30,6 +32,7 @@ namespace BillBox.Controllers
             return View(agents);
         }
 
+        [RightFilter(RightName = "CREATE_AGENT")]
         public ActionResult Create()
         {
             ViewBag.parishes = dbContext.Parishes.OrderBy(p => p.Name);
@@ -39,6 +42,7 @@ namespace BillBox.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RightFilter(RightName = "CREATE_AGENT")]
         public ActionResult Create(Agent agent)
         {
             if(ModelState.IsValid)
@@ -61,6 +65,7 @@ namespace BillBox.Controllers
             return View(agent);
         }
 
+        [RightFilter(RightName = "VIEW_AGENT")]
         public ActionResult Details(int agentId = 0)
         {
             Agent agent = dbContext.Agents.Find(agentId);
@@ -73,6 +78,7 @@ namespace BillBox.Controllers
             return View(agent);
         }
 
+        [RightFilter(RightName = "EDIT_AGENT")]
         public ActionResult Edit(int agentId = 0)
         {
             Agent agent = dbContext.Agents.Find(agentId);
@@ -89,6 +95,7 @@ namespace BillBox.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RightFilter(RightName = "EDIT_AGENT")]
         public ActionResult Edit(Agent agent)
         {
             if (ModelState.IsValid)
@@ -111,6 +118,7 @@ namespace BillBox.Controllers
             return View(agent);
         }
 
+        [RightFilter(RightName = "CREATE_AGENT_BRANCH")]
         public ActionResult AddBranch(int agentId = 0)
         {
             var agent = dbContext.Agents.Find(agentId);
@@ -133,6 +141,7 @@ namespace BillBox.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RightFilter(RightName = "CREATE_AGENT_BRANCH")]
         public ActionResult AddBranch(AgentBranch model)
         {
             var agent = dbContext.Agents.Find(model.AgentId);
@@ -164,6 +173,7 @@ namespace BillBox.Controllers
             return View(model);
         }
 
+        [RightFilter(RightName = "EDIT_AGENT_BRANCH")]
         public ActionResult EditBranch(int branchId = 0)
         {
             AgentBranch branch = dbContext.AgentBranches.Find(branchId);
@@ -181,6 +191,7 @@ namespace BillBox.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RightFilter(RightName = "EDIT_AGENT_BRANCH")]
         public ActionResult EditBranch(AgentBranch model)
         {
             if(ModelState.IsValid)
@@ -205,6 +216,7 @@ namespace BillBox.Controllers
             return View(model);
         }
 
+        [RightFilter(RightName = "VIEW_AGENT_BRANCH")]
         public ActionResult ViewBranch(int branchId = 0)
         {
             var branch = dbContext.AgentBranches.Find(branchId);
@@ -219,6 +231,7 @@ namespace BillBox.Controllers
             return View(branch);
         }
 
+        [RightFilter(RightName = "VIEW_AGENT_BRANCHES")]
         public ActionResult ListBranches( int? page, int agentId = 0)
         {
             var agent = dbContext.Agents.Find(agentId);

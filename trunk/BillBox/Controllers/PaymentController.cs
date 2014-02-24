@@ -49,6 +49,7 @@ namespace BillBox.Controllers
             return PartialView("_PaymentMethodCaptureFields");
         }
 
+        [RightFilter(RightName = "PROCESS_PAYMENT")]
         public ActionResult NewBill()
         {
             var subscribers = dbContext.Subscribers;
@@ -60,6 +61,7 @@ namespace BillBox.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RightFilter(RightName = "PROCESS_PAYMENT")]
         public ActionResult NewBill(Bill model)
         {
             User user = Util.GetLoggedInUser();
@@ -118,6 +120,7 @@ namespace BillBox.Controllers
             return View(model);
         }
 
+        [RightFilter(RightName = "PROCESS_PAYMENT")]
         public ActionResult NewPayment(int billId)
         {
             Bill bill = dbContext.Bills.Find(billId);
@@ -141,6 +144,7 @@ namespace BillBox.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RightFilter(RightName = "PROCESS_PAYMENT")]
         public ActionResult NewPayment(Payment model)
         {
             Bill bill = dbContext.Bills.Find(model.BillId);
@@ -194,6 +198,7 @@ namespace BillBox.Controllers
             return View(model);
         }
 
+        [RightFilter(RightName = "VIEW_PAYMENT_HISTORY")]
         public ActionResult PaymentHistory(int? page, string period = "today")
         {
             var pageNumber = page ?? 1;
@@ -204,7 +209,7 @@ namespace BillBox.Controllers
             return View(bills);
         }
 
-        [RightFilter(RightName = "ViewBill")]
+        [RightFilter(RightName = "VIEW_BILL")]
         public ActionResult ViewBill(int billId = 0)
         {
             Bill bill = dbContext.Bills.Find(billId);
@@ -217,6 +222,7 @@ namespace BillBox.Controllers
             return View(bill);
         }
 
+        [RightFilter(RightName = "PROCESS_PAYMENT")]
         public ActionResult PostBill(int billId = 0)
         {
             Bill bill = dbContext.Bills.Find(billId);
@@ -227,6 +233,8 @@ namespace BillBox.Controllers
             }
 
             bill.Status = (int)BillStatus.Posted;
+
+            //TODO: Cannot post bill with 0 payments
 
             try
             {
@@ -242,7 +250,8 @@ namespace BillBox.Controllers
                 return View("Error");
             }
         }
-		
+
+        [RightFilter(RightName = "UNPOST_BILL")]
         public ActionResult UnpostBill(int billId = 0)
         {
             Bill bill = dbContext.Bills.Find(billId);
@@ -259,7 +268,7 @@ namespace BillBox.Controllers
                 dbContext.Entry(bill).State = EntityState.Modified;
                 dbContext.SaveChanges();
 
-                return RedirectToAction("ViewBill", new { billId = bill.BillId });
+                return RedirectToAction("NewPayment", new { billId = bill.BillId });
             }
             catch (Exception ex)
             {
