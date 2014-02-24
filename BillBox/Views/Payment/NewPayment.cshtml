@@ -6,6 +6,8 @@
 
     var paymentMethods = ViewBag.paymentMethods as IEnumerable<BillBox.Models.PaymentMethod>;
     var bill           = ViewBag.bill as BillBox.Models.Bill;
+    int paymentsCount  = bill != null ? bill.Payments.Count : 0;
+    string formClass   = paymentsCount > 0 ? "none" : "block";
 }
 
 <div class="action">
@@ -57,7 +59,7 @@
                         }
         </div>
         <div class="section-content">
-            <div class="form-container" id="payment-form-container">
+            <div class="form-container" id="payment-form-container" style="display: @formClass">
                 @using (Html.BeginForm("NewPayment","Payment", FormMethod.Post, new { @class = "wf" })) {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
@@ -80,12 +82,22 @@
         
                     </fieldset>
                     <div class="buttons bottom">
-                            <input type="submit" value="Add Payment" />
+                            <input type="submit" value="Add" />
+                            <input type="submit" id="cancel-new-payment" value="Cancel" />
                     </div>
                 }
             </div>
         </div>
         <div class="section-footer">
+            <div class="action-menu" id="bill-action-menu">
+                @if (paymentsCount > 0)
+                {  
+                <ul>
+                    <li>@Html.ActionLink("Post", "PostBill", new { billId = bill.BillId  })</li>
+                    <li><a href="#" id="add-payment-link">Add Payment</a></li>
+                </ul>
+                }
+            </div>
         </div>
     </div>
 </div>
@@ -101,30 +113,44 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#@Html.IdFor(model => model.PaymentMethodId)').change(function (e) {
+                loadCaptureFields($(this).val());
+            });
 
-            var subscriberId = $(this).val();
+            $("#add-payment-link").on("click", function (e) {
+                e.preventDefault();
+                $("#payment-form-container").show();
+                $("#bill-action-menu").hide();
+            });
 
-            if (subscriberId) {
+            $("#cancel-new-payment").on("click", function (e) {
+                e.preventDefault();
+                $("#payment-form-container").hide();
+                $("#bill-action-menu").show();
+            });
+        });
 
+        function loadCaptureFields(paymentMethodId)
+        {
+            if (paymentMethodId)
+            {
                 var captureFields = "";
 
                 $.ajax({
                     cache: false,
                     type: 'GET',
                     url: '@Url.Action("GetPaymentMethodCaptureFields", "Payment")',
-                        data: { 'paymentMethodId': subscriberId },
-                        success: function (html) {
-                            $("#capture-fields-area").html(html);
-                            $("#amount-field").show();
-                        },
-                        error: function () {
-                            alert("Error");
-                        }
-                    });
-                } else {
-                    $("#capture-fields-area").html("");
-                }
-            });
-        });
+                    data: { 'paymentMethodId': paymentMethodId },
+                    success: function (html) {
+                        $("#capture-fields-area").html(html);
+                        $("#amount-field").show();
+                    },
+                    error: function () {
+                        alert("Error");
+                    }
+                });
+            } else {
+                $("#capture-fields-area").html("");
+            }
+        }
     </script>
 }

@@ -8,6 +8,7 @@ using BillBox.Common;
 using System.Data.Entity;
 using PagedList;
 using System.Data;
+using BillBox.Filters;
 
 namespace BillBox.Controllers
 {
@@ -17,6 +18,7 @@ namespace BillBox.Controllers
         private Entities dbContext = new Entities();
 
         [HttpGet]
+        [RightFilter(RightName = "CREATE_SUBSCRIBER")]
         public ActionResult Create()
         {
             ViewBag.Parishes = dbContext.Parishes;
@@ -26,6 +28,7 @@ namespace BillBox.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RightFilter(RightName = "CREATE_SUBSCRIBER")]
         public ActionResult Create(Subscriber subscriber)
         {
             if (ModelState.IsValid)
@@ -49,6 +52,7 @@ namespace BillBox.Controllers
         }
         
         [HttpGet]
+        [RightFilter(RightName = "VIEW_SUBSCRIBERS")]
         public ActionResult Index(int? page)
         {
             var pageNumber = page ?? 1;
@@ -63,7 +67,7 @@ namespace BillBox.Controllers
             return View(subscribers);
         }
 
-        [HttpGet]
+        [RightFilter(RightName = "VIEW_SUBSCRIBER")]
         public ActionResult Details(int id = 0)
         {
             if (id == 0)
@@ -78,7 +82,7 @@ namespace BillBox.Controllers
             return View(subscriber);
         }
 
-        [HttpGet]
+        [RightFilter(RightName = "EDIT_SUBSCRIBER")]
         public ActionResult Edit(int id = 0)
         {
             if (id == 0)
@@ -96,6 +100,7 @@ namespace BillBox.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RightFilter(RightName = "EDIT_SUBSCRIBER")]
         public ActionResult Edit(Subscriber subscriber)
         {
             if (ModelState.IsValid)
@@ -118,7 +123,7 @@ namespace BillBox.Controllers
             return View(subscriber);
         }
 
-        [HttpGet]
+        [RightFilter(RightName = "EDIT_SUBSCRIBER_CAPTURE_FIELD")]
         public ActionResult EditCaptureField(int id = 0)
         {
             if (id == 0)
@@ -134,6 +139,7 @@ namespace BillBox.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RightFilter(RightName = "EDIT_SUBSCRIBER_CAPTURE_FIELD")]
         public ActionResult EditCaptureField(CaptureField captureField)
         {
             if (ModelState.IsValid)
@@ -155,7 +161,7 @@ namespace BillBox.Controllers
             return View(captureField);
         }
 
-        [HttpGet]
+        [RightFilter(RightName = "CREATE_SUBSCRIBER_CAPTURE_FIELD")]
         public ActionResult CreateCaptureField(int id = 0)
         {
             if (id == 0)
@@ -175,6 +181,7 @@ namespace BillBox.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RightFilter(RightName = "CREATE_SUBSCRIBER_CAPTURE_FIELD")]
         public ActionResult CreateCaptureField(CaptureField captureField)
         {
             if (ModelState.IsValid)

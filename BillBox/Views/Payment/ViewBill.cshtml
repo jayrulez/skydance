@@ -58,7 +58,8 @@
             </dl>
         </div>
         <div class="section-footer">
-            <ul class="details-menu">
+            <ul class="action-menu">
+                <li>@Html.ActionLink("Unpost", "UnpostBill", new { billId = @Model.BillId  })</li>
                 <li>@Html.ActionLink("Back to List", "PaymentHistory")</li>
             </ul>
         </div>

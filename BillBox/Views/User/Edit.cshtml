@@ -130,18 +130,18 @@
                     cache: false,
                     type: 'GET',
                     url: '@Url.Action("AgentBranches", "User")',
-            data: { 'id': agentId },
-            success: function (html) {
-                $("#agent-branches-area").html(html);
-            },
-            error: function () {
-                alert("Error loading agent branches");
+                    data: { 'id': agentId },
+                    success: function (html) {
+                        $("#agent-branches-area").html(html);
+                    },
+                    error: function () {
+                        alert("Error loading agent branches");
+                        $("#agent-branches-area").html("");
+                    }
+                });
+            } else {
                 $("#agent-branches-area").html("");
             }
-        });
-    } else {
-        $("#agent-branches-area").html("");
-    }
-}
+        }
     </script>
 }
