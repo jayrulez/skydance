@@ -103,7 +103,7 @@ INSERT INTO PaymentMethod (Name) VALUES ('DebitCard')
 GO
 
 /***********************************************************Payment Type Captured Field*********************************************************************/
-INSERT INTO PaymentMethodCaptureField (PaymentMethodId, Name, DisplayName, Type, OrderNum) VALUES (1, 'test', 'Test Field', 1, 1)
+INSERT INTO PaymentMethodCaptureField (PaymentMethodId, Name, DisplayName, Type, OrderNum) VALUES (3, 'expirydate', 'Expiry Date', 1, 1)
 GO
 
 INSERT INTO PaymentMethodCaptureField (PaymentMethodId, Name, DisplayName, Type, OrderNum) VALUES (2, 'accountnumber', 'Account Number', 1, 2)
@@ -188,11 +188,37 @@ INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (1, 1)
 INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (2, 1)
 INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (3, 1)
 INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (4, 1)
-INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (5, 3)
-INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (6, 3)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (5, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (6, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (7, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (8, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (9, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (10, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (11, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (12, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (13, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (14, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (15, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (16, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (17, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (18, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (19, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (20, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (21, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (22, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (23, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (24, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (25, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (26, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (27, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (28, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (29, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (30, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (31, 1)
 
 
 /***********************************************************Bill*********************************************************************/
+/*
 INSERT INTO Bill (SubscriberId, InvoiceNumber, AgentId, AgentBranchId, UserId, Date, Status)
 VALUES(1, 100, 1, 1, 3, GETDATE(), 1)
 
@@ -202,8 +228,9 @@ VALUES(2, 101, 2, 1, 3, GETDATE(), 1)
 INSERT INTO Bill (SubscriberId, InvoiceNumber, AgentId, AgentBranchId, UserId, Date, Status)
 VALUES(2, 102, 2, 1, 3, GETDATE(), 1)
 GO
-
+*/
 /***********************************************************Payment*********************************************************************/
+/*
 INSERT INTO Payment (PaymentMethodId, BillId, Amount)
 VALUES (1, 1, 2500.00)
 
@@ -212,17 +239,20 @@ VALUES (3, 2, 2500.98)
 
 INSERT INTO Payment (PaymentMethodId, BillId, Amount)
 VALUES (2, 2, 2700.00)
-
+*/
 /***********************************************************Bill Captured Field*********************************************************************/
+/*
 INSERT INTO BillCaptureField (BillId, CaptureFieldId, [Value])
 VALUES (1, 1, '2500.00')
 
 INSERT INTO BillCaptureField (BillId, CaptureFieldId, [Value])
 VALUES (2, 2, '1000.00')
-
+*/
 /***********************************************************Payment PaymentMethod Captured Field*********************************************************************/
+/*
 INSERT INTO PaymentPaymentMethodCaptureField (PaymentId, PaymentMethodCaptureFieldId, [Value])
 VALUES (1, 1, '2500.00')
+*/
 
 
 
