@@ -18,7 +18,7 @@ namespace BillBox.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("NewBill", "Payment");
         }
 
         [AllowAnonymous]
@@ -59,6 +59,7 @@ namespace BillBox.Controllers
             return RedirectToAction("Index", "Default");
         }
 
+        [AllowAnonymous]
         public ActionResult Error()
         {
             ViewBag.Error = "";

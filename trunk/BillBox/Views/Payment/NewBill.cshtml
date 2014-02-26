@@ -49,10 +49,14 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            loadSubscribers($('#@Html.IdFor(model => model.SubscriberId)').val());
+
             $('#@Html.IdFor(model => model.SubscriberId)').change(function (e) {
+                loadSubscribers($(this).val());
+            });
+        });
 
-            var subscriberId = $(this).val();
-
+        function loadSubscribers(subscriberId) {
             if (subscriberId) {
 
                 var captureFields = "";
@@ -72,7 +76,6 @@
                 } else {
                     $("#capture-fields-area").html("");
                 }
-            });
-        });
+        }
     </script>
 }

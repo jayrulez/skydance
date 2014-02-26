@@ -1,7 +1,12 @@
 ﻿using BillBox.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Data.Entity;
 using System.Web.Configuration;
+using System.Data.Entity.Infrastructure;
 
 namespace BillBox.Common
 {
@@ -120,9 +125,13 @@ namespace BillBox.Common
 
         public static User GetLoggedInUser()
         {
-            int userId = 1;
+            string username = System.Web.HttpContext.Current.User.Identity.Name;
 
-            return Util.GetUserById(userId);
+            Entities dbContext = new Entities();
+
+            var user = dbContext.Users.FirstOrDefault(u => u.Username == username);
+
+            return user;
         }
 
         public static int GenerateInvoiceNumber()

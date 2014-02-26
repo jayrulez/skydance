@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "User Level Rights";
+    Layout = "~/Views/Shared/_Default.cshtml";
+    
+    var userLevels = ViewBag.userLevels as IEnumerable<BillBox.Models.UserLevel>;
+    int levelId = ViewBag.levelId;
+    string errorMessage = ViewBag.errorMessage;
+}
+
+<div class="action">
+    <div class="section">
+        <div class="section-header">
+            @if(errorMessage != null && errorMessage != string.Empty)
+            {
+                <span>@errorMessage</span>
+            }
+        </div>
+        <div class="section-content">
+            <div class="form-container">
+                @using (Html.BeginForm("UserLevelRights","Settings", FormMethod.Post, new { @class = "wf" })) {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <fieldset class="top bottom">
+                        <legend>Access Rights</legend>
+                        <div class="row top clearfix">
+                            @Html.Label("User Level")
+                            @Html.DropDownList("LevelId", new SelectList(userLevels, "LevelId", "LevelName", levelId))
+                        </div>
+                        <div id="rights-area"></div>
+                    </fieldset>
+                    <div class="buttons bottom">
+                            <input type="submit" value="Submit" />
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="section-footer">
+        </div>
+    </div>
+</div>
+
+@section SidebarLeft {
+    @Html.Partial("_SidebarMenu")
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            loadRights($("#LevelId").val());
+
+            $("#LevelId").change(function (e) {
+                loadRights($(this).val());
+            });
+
+            function loadRights(levelId) {
+                if(levelId)
+                {
+                    $.ajax({
+                        cache: false,
+                        type: 'GET',
+                        url: '@Url.Action("UserLevelRightsFields", "Settings")',
+                        data: { 'levelId': levelId },
+                        success: function (html) {
+                            $("#rights-area").html(html);
+                        },
+                        error: function () {
+                            $("#rights-area").html("");
+                        }
+                    });
+                }
+            }
+        });
+    </script>    
+}

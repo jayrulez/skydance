@@ -15,6 +15,9 @@ namespace BillBox.Models
 
     public class PaymentMethodModel
     {
+        [Display(Name = "Payment Method")]
+        public int PaymentMethodId { get; set; }
+
         [Required]
         [Display(Name = "Name")]
         //[Unique(typeof(Repository<PaymentType>), typeof(PaymentType), "Name", ErrorMessage = "Payment type already exists.")]
