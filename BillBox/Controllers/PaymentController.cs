@@ -18,14 +18,8 @@ namespace BillBox.Controllers
     {
         private Entities dbContext = new Entities();
 
-        public ActionResult GetCaptureFields()
+        public ActionResult GetCaptureFields(int subscriberId)
         {
-            int subscriberId;
-
-            if(!int.TryParse(HttpContext.Request.Params["subscriberId"], out subscriberId)) {
-                return Content("Error");
-            }
-
             var captureFields = dbContext.CaptureFields.Where(cf => cf.SubscriberId == subscriberId).OrderBy(cf => cf.OrderNum);
 
             ViewBag.captureFields = captureFields;
@@ -33,15 +27,8 @@ namespace BillBox.Controllers
             return PartialView("_CaptureFields");
         }
 
-        public ActionResult GetPaymentMethodCaptureFields()
+        public ActionResult GetPaymentMethodCaptureFields(int paymentMethodId)
         {
-            int paymentMethodId;
-
-            if (!int.TryParse(HttpContext.Request.Params["paymentMethodId"], out paymentMethodId))
-            {
-                return Content("Error");
-            }
-
             var captureFields = dbContext.PaymentMethodCaptureFields.Where(cf => cf.PaymentMethodId == paymentMethodId).OrderBy(cf => cf.OrderNum);
 
             ViewBag.captureFields = captureFields;

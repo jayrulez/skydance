@@ -21,6 +21,19 @@ namespace BillBox.Models
         public bool Autologin { get; set; }
     }
 
+    public partial class UserLevel 
+    {
+        public bool HasRight(int rightId)
+        {
+            return this.UserRights.Any(r => r.RightId == rightId);
+        }
+
+        public bool HasRight(string rightName)
+        {
+            return this.UserRights.Any(r => r.Name == rightName);
+        }
+    }
+
     [MetadataType(typeof(UserModel))]
     public partial class User
     {
@@ -31,9 +44,7 @@ namespace BillBox.Models
                 return false;
             }
 
-            var right = this.UserLevel.UserRights.FirstOrDefault(r => r.Name == rightName);
-
-            return right != null;
+            return this.UserLevel.HasRight(rightName);
         }
     }
 

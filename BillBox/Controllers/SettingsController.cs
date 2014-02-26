@@ -231,6 +231,103 @@ namespace BillBox.Controllers
             }
         }
 
+        [RightFilter(RightName = "ASSIGN_USER_RIGHTS")]
+        public ActionResult UserLevelRights(int levelId = 0)
+        {
+            var userLevels = dbContext.UserLevels;
+
+            ViewBag.userLevels = userLevels;
+
+            ViewBag.levelId = levelId;
+
+            return View();
+        }
+
+        [RightFilter(RightName = "ASSIGN_USER_RIGHTS")]
+        [HttpPost]
+        public ActionResult UserLevelRights()
+        {
+            int levelId;
+
+            if (!int.TryParse(HttpContext.Request.Params["levelId"], out levelId))
+            {
+                ViewBag.errorMessage = "User level not selected.";
+            }
+
+            var level = dbContext.UserLevels.Find(levelId);
+
+            if(level == null)
+            {
+                ViewBag.errorMessage = "Selected User Level is invalid.";
+            }
+
+            var userRights = dbContext.UserRights;
+
+            foreach(UserRight right in userRights)
+            {
+                if (HttpContext.Request.Params["right[" + right.Name + "]"] != null)
+                {
+                    var checkbox = HttpContext.Request.Params["right[" + right.Name + "]"];
+
+                    if (checkbox.Contains("true"))
+                    {
+                        if(!level.HasRight(right.Name))
+                        {
+                            level.UserRights.Add(right);
+
+                            dbContext.Entry(level).State = EntityState.Modified;
+                        }
+                    }
+                    else
+                    {
+                        if(level.HasRight(right.Name))
+                        {
+                            level.UserRights.Remove(right);
+
+                            dbContext.Entry(level).State = EntityState.Modified;
+                        }
+                    }
+                }
+            }
+
+            if(dbContext.Entry(level).State == EntityState.Modified)
+            {
+                try
+                {
+                    dbContext.SaveChanges();
+
+                    return RedirectToAction("UserLevelRights", new { levelId = level.LevelId });
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.errorMessage = ex.Message;
+                }
+            }
+
+            var userLevels = dbContext.UserLevels;
+            ViewBag.userLevels = userLevels;
+            ViewBag.levelId = levelId;
+
+            return View();
+        }
+
+        public ActionResult UserLevelRightsFields(int levelId)
+        {
+            var level = dbContext.UserLevels.Find(levelId);
+
+            if(level == null)
+            {
+                return Content("");
+            }
+
+            var rights = dbContext.UserRights;
+
+            ViewBag.rights = rights;
+            ViewBag.userLevel = level;
+
+            return PartialView("_UserLevelRightsFields");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

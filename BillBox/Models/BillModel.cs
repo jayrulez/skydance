@@ -52,7 +52,9 @@ namespace BillBox.Models
 
     public class PaymentModel
     {
-        public int PaymentMethodId;
+        [Display(Name = "Payment Method")]
+        public int PaymentMethodId { get; set; }
+
         public int BillId;
         public double Amount;
     }

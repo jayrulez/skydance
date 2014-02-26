@@ -70,7 +70,7 @@
 
                         <div class="row top clearfix">
                                 @Html.LabelFor(model => model.PaymentMethodId)
-                                @Html.DropDownListFor(model => model.PaymentMethodId, new SelectList(paymentMethods, "PaymentMethodId", "Name"), "Select Payment Method")
+                                @Html.DropDownListFor(model => model.PaymentMethodId, new SelectList(paymentMethods, "PaymentMethodId", "Name"))
                                 @Html.ValidationMessageFor(model => model.PaymentMethodId)
                         </div>
                         <div class="row clearfix" id="amount-field" style="display: none">
@@ -112,6 +112,9 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+
+            loadCaptureFields($('#@Html.IdFor(model => model.PaymentMethodId)').val());
+
             $('#@Html.IdFor(model => model.PaymentMethodId)').change(function (e) {
                 loadCaptureFields($(this).val());
             });
