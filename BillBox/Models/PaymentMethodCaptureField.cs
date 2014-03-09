@@ -23,8 +23,8 @@ namespace BillBox.Models
         public int PaymentMethodId { get; set; }
         public string Name { get; set; }
         public string DisplayName { get; set; }
-        public int Type { get; set; }
-        public int OrderNum { get; set; }
+        public Nullable<short> Type { get; set; }
+        public Nullable<int> OrderNum { get; set; }
     
         public virtual PaymentMethod PaymentMethod { get; set; }
         public virtual ICollection<PaymentPaymentMethodCaptureField> PaymentPaymentMethodCaptureFields { get; set; }

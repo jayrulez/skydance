@@ -121,8 +121,9 @@
           <Property Name="AddressCity" Type="varchar" Nullable="false" MaxLength="30" />
           <Property Name="ParishId" Type="int" Nullable="false" />
           <Property Name="ContactNumber" Type="varchar" Nullable="false" MaxLength="15" />
-          <Property Name="FaxNumber" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="FaxNumber" Type="varchar" MaxLength="15" />
           <Property Name="EmailAddress" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Inactive" Type="bit" />
         </EntityType>
         <EntityType Name="AgentBranch">
           <Key>
@@ -135,8 +136,9 @@
           <Property Name="AddressCity" Type="varchar" Nullable="false" MaxLength="30" />
           <Property Name="ParishId" Type="int" Nullable="false" />
           <Property Name="ContactNumber" Type="varchar" Nullable="false" MaxLength="15" />
-          <Property Name="FaxNumber" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="FaxNumber" Type="varchar" MaxLength="15" />
           <Property Name="EmailAddress" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Inactive" Type="bit" />
         </EntityType>
         <EntityType Name="Bill">
           <Key>
@@ -168,8 +170,8 @@
           <Property Name="SubscriberId" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="40" />
           <Property Name="DisplayName" Type="varchar" Nullable="false" MaxLength="60" />
-          <Property Name="Type" Type="int" Nullable="false" />
-          <Property Name="OrderNum" Type="int" Nullable="false" />
+          <Property Name="Type" Type="smallint" />
+          <Property Name="OrderNum" Type="int" />
         </EntityType>
         <EntityType Name="Parish">
           <Key>
@@ -202,8 +204,8 @@
           <Property Name="PaymentMethodId" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="40" />
           <Property Name="DisplayName" Type="varchar" Nullable="false" MaxLength="60" />
-          <Property Name="Type" Type="int" Nullable="false" />
-          <Property Name="OrderNum" Type="int" Nullable="false" />
+          <Property Name="Type" Type="smallint" />
+          <Property Name="OrderNum" Type="int" />
         </EntityType>
         <EntityType Name="PaymentPaymentMethodCaptureField">
           <Key>
@@ -227,14 +229,14 @@
           </Key>
           <Property Name="SubscriberId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="40" />
-          <Property Name="OperatingName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="OperatingName" Type="varchar" MaxLength="50" />
           <Property Name="AddressStreet" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="AddressCity" Type="varchar" Nullable="false" MaxLength="30" />
           <Property Name="ParishId" Type="int" Nullable="false" />
           <Property Name="ContactNumber" Type="varchar" Nullable="false" MaxLength="15" />
-          <Property Name="FaxNumber" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="FaxNumber" Type="varchar" MaxLength="15" />
           <Property Name="EmailAddress" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Website" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Website" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -251,8 +253,8 @@
           <Property Name="AddressStreet" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="AddressCity" Type="varchar" Nullable="false" MaxLength="30" />
           <Property Name="ParishId" Type="int" Nullable="false" />
-          <Property Name="ContactNumber" Type="varchar" Nullable="false" MaxLength="15" />
-          <Property Name="EmailAddress" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ContactNumber" Type="varchar" MaxLength="15" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="UserLevel">
           <Key>
@@ -685,8 +687,9 @@
           <Property Name="AddressCity" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
           <Property Name="ParishId" Type="Int32" Nullable="false" />
           <Property Name="ContactNumber" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
-          <Property Name="FaxNumber" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="FaxNumber" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Inactive" Type="Boolean" />
           <NavigationProperty Name="Parish" Relationship="BBModel.FK_Agent_Parish" FromRole="Agent" ToRole="Parish" />
           <NavigationProperty Name="AgentBranches" Relationship="BBModel.FK_AgentBranch_Agent" FromRole="Agent" ToRole="AgentBranch" />
           <NavigationProperty Name="Bills" Relationship="BBModel.FK_Bill_Agent" FromRole="Agent" ToRole="Bill" />
@@ -703,8 +706,9 @@
           <Property Name="AddressCity" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
           <Property Name="ParishId" Type="Int32" Nullable="false" />
           <Property Name="ContactNumber" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
-          <Property Name="FaxNumber" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="FaxNumber" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Inactive" Type="Boolean" />
           <NavigationProperty Name="Agent" Relationship="BBModel.FK_AgentBranch_Agent" FromRole="AgentBranch" ToRole="Agent" />
           <NavigationProperty Name="Parish" Relationship="BBModel.FK_AgentBranch_Parish" FromRole="AgentBranch" ToRole="Parish" />
           <NavigationProperty Name="Bills" Relationship="BBModel.FK_Bill_AgentBranch" FromRole="AgentBranch" ToRole="Bill" />
@@ -748,8 +752,8 @@
           <Property Name="SubscriberId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
           <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
-          <Property Name="Type" Type="Int32" Nullable="false" />
-          <Property Name="OrderNum" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int16" />
+          <Property Name="OrderNum" Type="Int32" />
           <NavigationProperty Name="BillCaptureFields" Relationship="BBModel.FK_BillCaptureField_CaptureField" FromRole="CaptureField" ToRole="BillCaptureField" />
           <NavigationProperty Name="Subscriber" Relationship="BBModel.FK_CaptureField_Subscriber" FromRole="CaptureField" ToRole="Subscriber" />
         </EntityType>
@@ -793,8 +797,8 @@
           <Property Name="PaymentMethodId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
           <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
-          <Property Name="Type" Type="Int32" Nullable="false" />
-          <Property Name="OrderNum" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int16" />
+          <Property Name="OrderNum" Type="Int32" />
           <NavigationProperty Name="PaymentMethod" Relationship="BBModel.FK_PaymentMethodCaptureField_PaymentMethod" FromRole="PaymentMethodCaptureField" ToRole="PaymentMethod" />
           <NavigationProperty Name="PaymentPaymentMethodCaptureFields" Relationship="BBModel.FK_PaymentPaymentMethodCaptureField_PaymentCaptureField" FromRole="PaymentMethodCaptureField" ToRole="PaymentPaymentMethodCaptureField" />
         </EntityType>
@@ -822,14 +826,14 @@
           </Key>
           <Property Name="SubscriberId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
-          <Property Name="OperatingName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="OperatingName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="AddressStreet" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="AddressCity" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
           <Property Name="ParishId" Type="Int32" Nullable="false" />
           <Property Name="ContactNumber" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
-          <Property Name="FaxNumber" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="FaxNumber" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Website" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Website" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Bills" Relationship="BBModel.FK_Bill_Subscriber" FromRole="Subscriber" ToRole="Bill" />
           <NavigationProperty Name="CaptureFields" Relationship="BBModel.FK_CaptureField_Subscriber" FromRole="Subscriber" ToRole="CaptureField" />
           <NavigationProperty Name="Parish" Relationship="BBModel.FK_Subscriber_Parish" FromRole="Subscriber" ToRole="Parish" />
@@ -849,8 +853,8 @@
           <Property Name="AddressStreet" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="AddressCity" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
           <Property Name="ParishId" Type="Int32" Nullable="false" />
-          <Property Name="ContactNumber" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
-          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ContactNumber" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Agent" Relationship="BBModel.FK_User_Agent" FromRole="User" ToRole="Agent" />
           <NavigationProperty Name="AgentBranch" Relationship="BBModel.FK_User_AgentBranch" FromRole="User" ToRole="AgentBranch" />
           <NavigationProperty Name="Bills" Relationship="BBModel.FK_Bill_User" FromRole="User" ToRole="Bill" />
@@ -1160,6 +1164,7 @@
                 <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
                 <ScalarProperty Name="FaxNumber" ColumnName="FaxNumber" />
                 <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1175,6 +1180,7 @@
                 <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
                 <ScalarProperty Name="FaxNumber" ColumnName="FaxNumber" />
                 <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

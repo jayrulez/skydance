@@ -32,8 +32,9 @@ create table Agent (
 	AddressCity VARCHAR(30) NOT NULL, 
 	ParishId INT NOT NULL, 
 	ContactNumber VARCHAR(15) NOT NULL, 
-	FaxNumber VARCHAR(15) NOT NULL, 
+	FaxNumber VARCHAR(15) DEFAULT NULL, 
 	EmailAddress VARCHAR(50) NOT NULL,
+	Inactive BIT DEFAULT 0,
 	CONSTRAINT UK_Agent_Name UNIQUE (Name),
 	CONSTRAINT UK_Agent_EmailAddress UNIQUE (EmailAddress)
 );
@@ -53,8 +54,9 @@ create table AgentBranch (
 	AddressCity VARCHAR(30) NOT NULL, 
 	ParishId INT NOT NULL, 
 	ContactNumber VARCHAR(15) NOT NULL, 
-	FaxNumber VARCHAR(15) NOT NULL, 
+	FaxNumber VARCHAR(15) DEFAULT NULL, 
 	EmailAddress VARCHAR(50) NOT NULL,
+	Inactive BIT DEFAULT 0,
 	CONSTRAINT UK_AgentBranch_Name UNIQUE (Name),
 	CONSTRAINT UK_AgentBranch_EmailAddress UNIQUE (EmailAddress)
 );
@@ -112,8 +114,8 @@ create table [User] (
 	AddressStreet VARCHAR(50) NOT NULL, 
 	AddressCity VARCHAR(30) NOT NULL, 
 	ParishId INT NOT NULL, 
-	ContactNumber VARCHAR(15) NOT NULL,
-	EmailAddress VARCHAR(50) NOT NULL,
+	ContactNumber VARCHAR(15) DEFAULT NULL,
+	EmailAddress VARCHAR(50) DEFAULT NULL,
 	CONSTRAINT UK_User_Username UNIQUE (Username),
 	CONSTRAINT UK_User_EmailAddress UNIQUE (EmailAddress)
 );
@@ -134,14 +136,14 @@ GO
 create table Subscriber (
 	SubscriberId INT IDENTITY(1,1) PRIMARY KEY NOT NULL, 
 	Name VARCHAR(40) NOT NULL, 
-	OperatingName VARCHAR(50) NOT NULL, 
+	OperatingName VARCHAR(50) DEFAULT NULL, 
 	AddressStreet VARCHAR(50) NOT NULL, 
 	AddressCity VARCHAR(30) NOT NULL, 
 	ParishId INT NOT NULL, 
 	ContactNumber VARCHAR(15) NOT NULL, 
-	FaxNumber VARCHAR(15) NOT NULL, 
+	FaxNumber VARCHAR(15) DEFAULT NULL, 
 	EmailAddress VARCHAR(50) NOT NULL,
-	Website VARCHAR(50) NOT NULL,
+	Website VARCHAR(50) DEFAULT NULL,
 	CONSTRAINT UK_Subscriber_Name UNIQUE (Name),
 	CONSTRAINT UK_Subscriber_OperatingName UNIQUE (OperatingName),
 	CONSTRAINT UK_Subscriber_EmailAddress UNIQUE (EmailAddress)
@@ -159,8 +161,8 @@ create table CaptureField (
 	SubscriberId INT NOT NULL, 
 	Name VARCHAR(40) NOT NULL, 
 	DisplayName VARCHAR(60) NOT NULL,
-	Type INT NOT NULL,  
-	OrderNum INT NOT NULL
+	Type SMALLINT DEFAULT NULL,  
+	OrderNum INT DEFAULT NULL
 	CONSTRAINT UK_CaptureField UNIQUE (SubscriberId, Name)
 );
 
@@ -226,8 +228,8 @@ create table PaymentMethodCaptureField
 	PaymentMethodId INT NOT NULL, 
 	Name VARCHAR(40) NOT NULL, 
 	DisplayName VARCHAR(60) NOT NULL,
-	Type INT NOT NULL,  
-	OrderNum INT NOT NULL
+	Type SMALLINT DEFAULT NULL,  
+	OrderNum INT DEFAULT NULL
 	CONSTRAINT UK_PaymentMethodCaptureField UNIQUE (PaymentMethodId, Name)
 );
 

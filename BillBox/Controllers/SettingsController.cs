@@ -214,7 +214,7 @@ namespace BillBox.Controllers
                 return Content("Error_field_down_not_found");
             }
 
-            int fieldUpPos = fieldUp.OrderNum;
+            int fieldUpPos = fieldUp.OrderNum.Value;
 
             fieldUp.OrderNum = fieldDown.OrderNum;
 
