@@ -55,7 +55,9 @@ namespace BillBox.Controllers
 
             if(user == null || user.AgentBranch == null)
             {
-                throw new HttpException(403, "You are not authorized to view this page.");
+                TempData["ErrorMessage"] = "Your account must associated with an agent to process payments.";
+
+                return RedirectToAction("Error", "Default");
             }
 
             model.UserId        = user.UserId;
