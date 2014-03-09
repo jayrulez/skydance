@@ -29,6 +29,7 @@ namespace BillBox.Models
         public string ContactNumber { get; set; }
         public string FaxNumber { get; set; }
         public string EmailAddress { get; set; }
+        public Nullable<bool> Inactive { get; set; }
     
         public virtual Parish Parish { get; set; }
         public virtual ICollection<AgentBranch> AgentBranches { get; set; }
