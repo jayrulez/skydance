@@ -14,7 +14,7 @@ namespace BillBox.Common
     public enum PagedList
     {
         General = 0, Users, Agents, Branches, Subscribers, CaptureFields,
-        PaymentHistory, PaymentMethods, PaymentTypeCaptureFields
+        PaymentHistory, PaymentMethods, PaymentTypeCaptureFields, CollectionsReport
     }
 
     public enum BillStatus
@@ -95,6 +95,8 @@ namespace BillBox.Common
                     break;
                 case PagedList.PaymentTypeCaptureFields: key = "PageSize_PaymentTypeCaptureFields";
                     break;
+                case PagedList.CollectionsReport: key = "PageSize_CollectionsReport";
+                    break;
                 default: key = "PageSize_General";
                     break;
             }
@@ -129,6 +131,7 @@ namespace BillBox.Common
 
             Entities dbContext = new Entities();
 
+            
             var user = dbContext.Users.FirstOrDefault(u => u.Username == username);
 
             return user;

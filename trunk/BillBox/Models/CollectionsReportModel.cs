@@ -1,0 +1,43 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.ComponentModel.DataAnnotations;
+using BillBox.Common;
+
+namespace BillBox.Models
+{
+    public class CollectionsReportModel
+    {   
+        [Display(Name="Invoice Number")]
+        public int InvoiceNumber { get; set; }
+
+        [Display(Name="Payment Date")]
+        public DateTime Date { get; set; }
+
+        [Display(Name="Amount")]
+        public double Amount { get; set; }
+
+        [Display(Name="Subscriber")]
+        public string Subscriber { get; set; }
+
+        [Display(Name="Agent")]
+        public string Agent { get; set; }
+
+        [Display(Name="Branch")]
+        public string Branch { get; set; }
+
+        [Display(Name="Date Range")]
+        public string DateRange { get; set; }
+
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
+
+        public CollectionsReportModel()
+        {
+            this.PageNumber = 1;
+            this.PageSize = Util.GetPageSize(Common.PagedList.CollectionsReport);
+        }
+        
+    }
+}

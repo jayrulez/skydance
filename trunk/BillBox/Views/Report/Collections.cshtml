@@ -1,0 +1,109 @@
+﻿@model BillBox.Models.CollectionsReportModel
+@{
+    ViewBag.Title = "Daily Collections Report";
+    Layout = "~/Views/Shared/_Default.cshtml";
+
+    var collections = ViewBag.Collections as IEnumerable<BillBox.Models.CollectionsReportModel>;
+
+    var subscribers = ViewBag.Subscribers as IEnumerable<BillBox.Models.Subscriber>;
+    var agents = ViewBag.Agents as IEnumerable<BillBox.Models.Agent>;
+    var branches = ViewBag.Branches as IEnumerable<BillBox.Models.AgentBranch>;
+}
+
+<h2>Collections Report</h2>
+
+@using (Html.BeginForm("Collections", "Report", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    <div class="row clearfix">
+        @Html.LabelFor(model => model.DateRange)
+        @Html.TextBoxFor(model => model.DateRange)
+    </div>
+    <div class="row clearfix">
+        @Html.LabelFor(model => model.Subscriber)
+        @Html.DropDownListFor(model => model.Subscriber, new SelectList(subscribers, "Name", "Name"), "All")
+    </div>
+
+    <div class="row clearfix">
+        @Html.LabelFor(model => model.Agent)
+        @Html.DropDownListFor(model => model.Agent, new SelectList(agents, "Name", "Name"), "All")
+    </div>
+
+    <div class="row clearfix" id="agent-branches-area">
+        @if (branches != null)
+        {
+            @Html.LabelFor(model => model.Branch)
+            @Html.DropDownListFor(model => model.Branch, new SelectList(branches, "Name", "Name"), "All")
+        }
+    </div>
+
+    <div class="buttons bottom">
+        <input type="submit" value="Generate" />
+    </div>
+
+}
+
+@if (collections != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.LabelFor(model => model.InvoiceNumber)</th>
+                <th>@Html.LabelFor(model => model.Date)</th>
+                <th>@Html.LabelFor(model => model.Subscriber)</th>
+                <th>@Html.LabelFor(model => model.Agent)</th>
+                <th>@Html.LabelFor(model => model.Branch)</th>
+                <th>@Html.LabelFor(model => model.Amount)</th>
+            </tr>
+        </thead>
+        @foreach (var collection in collections)
+        {
+            <tr>
+                <td>@collection.InvoiceNumber</td>
+                <td>@collection.Date.ToShortDateString()</td>
+                <td>@collection.Subscriber</td>
+                <td>@collection.Agent</td>
+                <td>@collection.Branch</td>
+                <td>$@collection.Amount</td>
+            </tr>
+        }
+    </table>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#@Html.IdFor(model => model.Agent)').change(function () {
+                loadAgentBranches($(this).val());
+            });
+        });
+
+        function loadAgentBranches(agent) {
+            if (agent) {
+                $.ajax({
+                    cache: false,
+                    type: 'GET',
+                    url: '@Url.Action("Branches", "Report")',
+                    data: { 'agent': agent },
+                    success: function (html) {
+                        $("#agent-branches-area").html(html);
+                    },
+                    error: function () {
+                        alert("Error loading agent branches");
+                        $("#agent-branches-area").html("");
+                    }
+                });
+            } else {
+                $("#agent-branches-area").html("");
+            }
+        }
+    </script>
+}
+
+
