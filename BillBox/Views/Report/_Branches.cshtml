@@ -1,0 +1,10 @@
+﻿@model BillBox.Models.CollectionsReportModel
+
+@{  var branches = ViewBag.Branches as IEnumerable<BillBox.Models.AgentBranch>; }
+
+<div>
+    @Html.LabelFor(model => model.Branch)
+    @Html.DropDownListFor(model => model.Branch, new SelectList(branches, "Name", "Name"), "All")
+</div>
+
+
