@@ -137,6 +137,7 @@ namespace BillBox.Common
             return user;
         }
 
+       
         public static int GenerateInvoiceNumber()
         {
             return (int)DateTime.Now.Ticks;

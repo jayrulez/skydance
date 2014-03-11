@@ -40,6 +40,11 @@ namespace BillBox.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(model.Username, model.Autologin);
 
+                    var userRights = user.GetUserRights();
+
+                    if (userRights.Count > 0)
+                        Session["UserRights"] = userRights;
+
                     return RedirectToAction("Index", "Default");
                 }
                 else
