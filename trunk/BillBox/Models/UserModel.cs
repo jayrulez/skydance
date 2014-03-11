@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -45,6 +46,18 @@ namespace BillBox.Models
             }
 
             return this.UserLevel.HasRight(rightName);
+        }
+
+        public IList<string> GetUserRights()
+        {
+            IList<string> rights = new List<string>();
+
+            using(Entities dbContext = new Entities())
+            {
+                rights = dbContext.Users.Find(this.UserId).UserLevel.UserRights.Select(r => r.Name).ToList();                
+            }
+
+            return rights;
         }
     }
 

@@ -17,7 +17,7 @@ namespace BillBox.Controllers
         [HttpGet]
         [RightFilter(RightName = "GENERATE_REPORT")]
         public ActionResult Collections()
-        {
+        {            
             LoadLookupValues(ViewBag);
             return View();
         }
