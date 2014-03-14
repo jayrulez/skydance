@@ -1,4 +1,6 @@
-﻿<ul class="sidebar-menu">
+﻿@using BillBox.Common
+
+<ul class="sidebar-menu">
     @if(HttpContext.Current.Session["UserRights"] != null)
     {
         var rights = (IList<string>)HttpContext.Current.Session["UserRights"];
@@ -7,11 +9,12 @@
         {
             <li>@Html.ActionLink("List Agents", "Index")</li>
         }
-        if(rights.Contains("CREATE_AGENT"))
-        {
-            <li>@Html.ActionLink("Create Agent", "Create")</li>
-        }
+        //if(rights.Contains("CREATE_AGENT"))
+        //{
+            <li>@Html.ActionLink("Create Agent", "Create").IfUserHasPermission("CREATE_AGENT", rights)</li>
+        //}
     } 
+    
     
     
 </ul>

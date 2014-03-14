@@ -12,11 +12,11 @@
 
 <h2>Collections Report</h2>
 
-@using (Html.BeginForm("Collections", "Report", FormMethod.Post))
+@using (Html.BeginForm("Collections", "Report", FormMethod.Get, null))
 {
-    @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
+    @Html.Hidden("generate", true)
 
     <div class="row clearfix">
         @Html.LabelFor(model => model.DateRange)
@@ -71,6 +71,27 @@
             </tr>
         }
     </table>
+    <div>
+        <ul>
+            @if (Model.HasPreviousPage)
+            {
+                <li><a href="@Url.Action("Collections", new { generate = true, DateRange = Model.DateRange, Subscriber = Model.Subscriber, Agent = Model.Agent, Branch = Model.Branch, page = Model.PageNumber - 1 })">&larr; Prev</a></li>
+            }
+            else
+            {
+                <li class="disabled"><a href="#">&rarr; Prev</a></li>
+            }
+
+            @if(Model.HasNextPage)
+            {
+                <li><a href="@Url.Action("Collections", new { generate=true, DateRange=Model.DateRange, Subscriber = Model.Subscriber, Agent = Model.Agent, Branch = Model.Branch, page = Model.PageNumber + 1 })">&rarr; Next</a></li>
+            }
+            else
+            {
+                <li class="disabled"><a href="#">&rarr; Next</a></li>
+            }
+        </ul>
+    </div>
 }
 
 
