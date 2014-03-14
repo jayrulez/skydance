@@ -1,0 +1,33 @@
+﻿@model BillBox.Models.Bill
+
+@{
+    ViewBag.Title = "View Receipt";
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+
+<div class="action">
+    <div class="section">
+        <div class="section-header">
+        </div>
+        <div class="section-content">
+            <dl>                
+                <dt>@Html.DisplayNameFor(m => m.InvoiceNumber)</dt>
+                <dd>@Html.DisplayFor(m => m.InvoiceNumber)</dd>
+
+                <dt>@Html.DisplayNameFor(m => m.SubscriberId)</dt>
+                <dd>@Html.DisplayFor(m => m.Subscriber.Name)</dd>
+
+                <dt>@Html.DisplayNameFor(m => m.Date)</dt>
+                <dd>@Html.DisplayFor(m => m.Date)</dd>
+
+                <dt>Total</dt>
+                <dd>@Model.Amount()</dd>
+            </dl>
+        </div>
+        <div class="section-footer">
+            <ul class="action-menu">
+                <li><a href="#">Print</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

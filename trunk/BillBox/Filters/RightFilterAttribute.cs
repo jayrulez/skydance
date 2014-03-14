@@ -33,7 +33,7 @@ namespace BillBox.Filters
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            //base.HandleUnauthorizedRequest(filterContext);
+            base.HandleUnauthorizedRequest(filterContext);
 
             UrlHelper urlHelper = new UrlHelper(filterContext.RequestContext);
 

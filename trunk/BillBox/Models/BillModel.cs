@@ -9,6 +9,17 @@ namespace BillBox.Models
     [MetadataType(typeof(BillModel))]
     public partial class Bill
     {
+        public double Amount()
+        {
+            double amount = 0.00;
+            
+            foreach(var payment in this.Payments)
+            {
+                amount += payment.Amount;
+            }
+
+            return amount;
+        }
     }
 
     public class BillModel

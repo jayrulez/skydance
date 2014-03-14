@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width" />
+
+
+    
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic"  id="style-resource-3">
+
+    @Styles.Render("~/Assets/neon.css")
+
+	<!--[if lt IE 9]><script src="http://themes.laborator.co/neon/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body class="page-body page-fade">
+
+    <div class="page-container">
+
+        <div class="sidebar-menu">
+
+
+            <header class="logo-env">
+
+                <!-- logo -->
+                <div class="logo">
+                    <a href="dashboard/main/index.html">
+                        <img src="assets/images/logo%402x.png" width="120" alt="" />
+                    </a>
+                </div>
+
+                <!-- logo collapse icon -->
+
+                <div class="sidebar-collapse">
+                    <a href="#" class="sidebar-collapse-icon with-animation">
+                        <!-- add class "with-animation" if you want sidebar to have animation during expanding/collapsing transition -->
+                        <i class="entypo-menu"></i>
+                    </a>
+                </div>
+
+
+
+                <!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
+                <div class="sidebar-mobile-menu visible-xs">
+                    <a href="#" class="with-animation">
+                        <!-- add class "with-animation" to support animation -->
+                        <i class="entypo-menu"></i>
+                    </a>
+                </div>
+
+            </header>
+
+
+
+
+
+            <ul id="main-menu" class="">
+                <li class="opened active">
+                    <a href="@Html.Action("NewBill", "Payment")"><i class="entypo-gauge"></i><span>Payments</span></a>
+                    <ul>
+                        <li class="active">
+                            <a href="@Html.Action("NewBill", "Payment")"><span>New Payment</span></a>
+                        </li>
+
+                        <li>
+                            <a href="@Html.Action("PaymentHistory", "Payment")"><span>Payment History</span></a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <li>
+                    <a href="layouts/layout-api/index.html"><i class="entypo-layout"></i><span>Users</span></a>
+
+
+                    <ul>
+
+                        <li>
+                            <a href="layouts/collapsed-sidebar/index.html"><span>Collapsed Sidebar</span></a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <li>
+                    <a href="ui/panels/index.html"><i class="entypo-newspaper"></i><span>Agents</span></a>
+
+
+                    <ul>
+                        <li>
+                            <a href="ui/panels/index.html"><span>Panels</span></a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <li>
+                    <a href="mailbox/main/index.html"><i class="entypo-mail"></i><span>Subscribers</span></a>
+
+
+                    <ul>
+                        <li>
+                            <a href="mailbox/main/index.html"><i class="entypo-inbox"></i><span>Inbox</span></a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <li>
+                    <a href="forms/main/index.html"><i class="entypo-doc-text"></i><span>Reports</span></a>
+
+
+                    <ul>
+                        <li>
+                            <a href="forms/main/index.html"><span>Basic Elements</span></a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <li>
+                    <a href="tables/main/index.html"><i class="entypo-window"></i><span>Settings</span></a>
+
+
+                    <ul>
+                        <li>
+                            <a href="tables/main/index.html"><span>Basic Tables</span></a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+            </ul>
+
+        </div>
+        <div class="main-content">
+            @RenderBody()
+
+            <!-- Footer -->
+            <footer class="main">
+
+                <div class="pull-right">
+                    <a href="#"><strong>Billbox</strong></a>
+                </div>
+
+                &copy; 2014 <a href="#">Billbox</a>
+
+            </footer>
+        </div>
+
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/Assets/neon.js")
+
+    <script type="text/javascript">
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    </script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+

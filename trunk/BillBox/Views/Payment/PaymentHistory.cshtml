@@ -29,7 +29,7 @@
                         <tr>
                             <td>@bill.BillId</td>
                             <td>@bill.Subscriber.Name</td>
-                            <td>@bill.InvoiceNumber</td>
+                            <td>@Html.ActionLink(@bill.InvoiceNumber.ToString(), "ViewReceipt", new { invoiceNumber = @bill.InvoiceNumber })</td>
                             <td>@bill.Agent.Name</td>
                             <td>@bill.AgentBranch.Name</td>
                             <td>@bill.User.Name</td>
