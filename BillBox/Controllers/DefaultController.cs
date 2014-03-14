@@ -62,7 +62,7 @@ namespace BillBox.Controllers
             FormsAuthentication.SignOut();
             Session.Clear();
 
-            return RedirectToAction("Index", "Default");
+            return RedirectToAction("Index", "Login");
         }
 
         [AllowAnonymous]
@@ -70,6 +70,13 @@ namespace BillBox.Controllers
         {
             ViewBag.Error = "";
 
+            return View();
+        }
+
+
+        [AllowAnonymous]
+        public ActionResult Test()
+        {
             return View();
         }
 

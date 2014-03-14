@@ -267,6 +267,19 @@ namespace BillBox.Controllers
             }
         }
 
+        [RightFilter(RightName = "VIEW_RECEIPT")]
+        public ActionResult ViewReceipt(int invoiceNumber = 0)
+        {
+            Bill bill = dbContext.Bills.FirstOrDefault(b => b.InvoiceNumber == invoiceNumber && b.Status == (int)BillStatus.Posted);
+
+            if(bill == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(bill);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if(disposing)

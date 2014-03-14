@@ -19,30 +19,32 @@
 						</div>
 						<div class="global-utils clearfix">
 							@if (Request.IsAuthenticated)
-                            {
+       {
 							    <div class="global-nav">
 								    <ul>
 									    <li>
 										    <a>Payments</a>
 										    <ul>
-											    <li>@Html.ActionLink("New Payment","NewBill", "Payment")</li>
-											    <li>@Html.ActionLink("Payment History","PaymentHistory", "Payment")</li>
+											    <li>@Html.ActionLink("New Payment", "NewBill", "Payment")</li>
+											    <li>@Html.ActionLink("Payment History", "PaymentHistory", "Payment")</li>
 										    </ul>
 									    </li>
-									    <li>@Html.ActionLink("Users","Index", "User")</li>
-									    <li>@Html.ActionLink("Agents","Index", "Agent")</li>
-									    <li>@Html.ActionLink("Subscribers","Index", "Subscriber")</li>
-									    <li>@Html.ActionLink("Settings","Index", "Settings")</li>
-                                        <li>@Html.ActionLink("Logout (" + User.Identity.Name + ")","Logout", "Default")</li>
+									    <li>@Html.ActionLink("Users", "Index", "User")</li>
+									    <li>@Html.ActionLink("Agents", "Index", "Agent")</li>
+									    <li>@Html.ActionLink("Subscribers", "Index", "Subscriber")</li>
+									    <li>@Html.ActionLink("Settings", "Index", "Settings")</li>
+                                        <li>@Html.ActionLink("Logout (" + User.Identity.Name + ")", "Logout", "Default")</li>
 								    </ul>
 							    </div>
-							}else{
+       }
+       else
+       {
 							    <div class="global-nav">
 								    <ul>
 									    <li>@Html.ActionLink("Login", "Login", "Default")</li>
 								    </ul>
 							    </div>
-							}
+       }
 						</div>
 					</div>
 				</div>
@@ -50,17 +52,21 @@
 			<div id="canvas-container">
                 @{
                     string tagClass = "";
-                    
-                    if(IsSectionDefined("SidebarLeft") && IsSectionDefined("SidebarRight"))
+
+                    if (IsSectionDefined("SidebarLeft") && IsSectionDefined("SidebarRight"))
                     {
                         tagClass = "sidebars clearfix";
-                    }else if(IsSectionDefined("SidebarLeft"))
+                    }
+                    else if (IsSectionDefined("SidebarLeft"))
                     {
                         tagClass = "sidebar-left clearfix";
-                    }else if(IsSectionDefined("SidebarRight"))
+                    }
+                    else if (IsSectionDefined("SidebarRight"))
                     {
                         tagClass = "sidebar-right clearfix";
-                    }else{
+                    }
+                    else
+                    {
                         tagClass = "";
                     }
                 }
@@ -99,6 +105,7 @@
 		</div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
     @RenderSection("scripts", required: false)
 </body>
 </html>
