@@ -10,6 +10,18 @@ using System.Data.Entity.Infrastructure;
 
 namespace BillBox.Common
 {
+    public static class CustomExtensions
+    {
+        public static string HiddenFormat(this bool value)
+        {
+            return (!value) ? "hidden" : string.Empty;
+        }
+
+        public static MvcHtmlString IfUserHasPermission (this MvcHtmlString mvcHtmlString, string permissionName, IList<string> userPermissions)
+        {
+            return (userPermissions.Contains(permissionName)) ? mvcHtmlString : MvcHtmlString.Empty;
+        }
+    }
 
     public enum PagedList
     {
@@ -141,6 +153,11 @@ namespace BillBox.Common
         public static int GenerateInvoiceNumber()
         {
             return (int)DateTime.Now.Ticks;
+        }
+
+        public static bool CheckPermission(string permission)
+        {
+            return false;
         }
     }
 }

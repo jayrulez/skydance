@@ -32,11 +32,28 @@ namespace BillBox.Models
 
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
+        public int Count { get; set; }
 
         public CollectionsReportModel()
         {
             this.PageNumber = 1;
             this.PageSize = Util.GetPageSize(Common.PagedList.CollectionsReport);
+        }
+
+        public bool HasPreviousPage
+        {
+            get
+            {
+                return (PageNumber > 1) ? true : false;
+            }
+        }
+
+        public bool HasNextPage
+        {
+            get
+            {
+                return ((PageNumber * PageSize) < Count) ? true : false;
+            }
         }
         
     }
