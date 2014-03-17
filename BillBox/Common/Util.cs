@@ -7,21 +7,23 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using System.Web.Configuration;
 using System.Data.Entity.Infrastructure;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace BillBox.Common
 {
-    public static class CustomExtensions
-    {
-        public static string HiddenFormat(this bool value)
-        {
-            return (!value) ? "hidden" : string.Empty;
-        }
+    //public static class CustomExtensions
+    //{
+    //    public static string HiddenFormat(this bool value)
+    //    {
+    //        return (!value) ? "hidden" : string.Empty;
+    //    }
 
-        public static MvcHtmlString IfUserHasPermission (this MvcHtmlString mvcHtmlString, string permissionName, IList<string> userPermissions)
-        {
-            return (userPermissions.Contains(permissionName)) ? mvcHtmlString : MvcHtmlString.Empty;
-        }
-    }
+    //    public static MvcHtmlString IfUserHasPermission (this MvcHtmlString mvcHtmlString, string permissionName, IList<string> userPermissions)
+    //    {
+    //        return (userPermissions.Contains(permissionName)) ? mvcHtmlString : MvcHtmlString.Empty;
+    //    }
+    //}
 
     public enum PagedList
     {
@@ -130,23 +132,35 @@ namespace BillBox.Common
 
         public static User GetUserById(int userId)
         {
-            Entities dbContext = new Entities();
+            try
+            {
+                Entities dbContext = new Entities();
 
-            User user = dbContext.Users.Find(userId);
-
-            return user;
+                User user = dbContext.Users.Find(userId);
+                return user;
+            }
+            catch (EntityException ex)
+            {
+                throw ex;
+            }
         }
 
         public static User GetLoggedInUser()
         {
-            string username = System.Web.HttpContext.Current.User.Identity.Name;
+            try
+            {
+                string username = System.Web.HttpContext.Current.User.Identity.Name;
 
-            Entities dbContext = new Entities();
+                Entities dbContext = new Entities();
 
-            
-            var user = dbContext.Users.FirstOrDefault(u => u.Username == username);
+                var user = dbContext.Users.FirstOrDefault(u => u.Username == username);
 
-            return user;
+                return user;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }  
         }
 
        
@@ -155,9 +169,25 @@ namespace BillBox.Common
             return (int)DateTime.Now.Ticks;
         }
 
-        public static bool CheckPermission(string permission)
+        //public static bool CheckPermission(string permission)
+        //{
+        //    return false;
+        //}
+
+        public static bool HandleException(Exception baseException, out string errorMessage)
         {
-            return false;
+            bool handled = false;
+            errorMessage = string.Empty;
+
+            if (baseException.Message.Contains("Cannot open database") || 
+                baseException.Message.Contains("Login failed") || 
+                baseException.Message.Contains("network-related"))
+            {
+               errorMessage = "Database server is not available! Please inform the system admistrator";
+                handled = true;
+            }            
+
+            return handled;
         }
     }
 }

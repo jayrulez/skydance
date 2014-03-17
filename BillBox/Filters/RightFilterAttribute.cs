@@ -3,7 +3,10 @@ using BillBox.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web;
+using System.Web.Http.Filters;
 using System.Web.Mvc;
 
 namespace BillBox.Filters
@@ -13,22 +16,40 @@ namespace BillBox.Filters
         public string RightName {get;set;}
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
-        {
-            bool isAuthorized = base.AuthorizeCore(httpContext);
-
-            if(!isAuthorized)
+        {    
+            try
             {
-                return false;
+                bool isAuthorized = base.AuthorizeCore(httpContext);
+
+                if (!isAuthorized)
+                {
+                    return false;
+                }
+
+                var user = Util.GetLoggedInUser();
+
+                if (user == null)
+                {
+                    return false;
+                }
+
+                return RightName == null || user.HasRight(this.RightName);
+
             }
-
-            User user = Util.GetLoggedInUser();
-
-            if(user == null)
+            catch (Exception ex)
             {
-                return false;
-            }
+                return true;
+                //string errorMessage;
+                //var isHandled = Util.HandleException(ex.GetBaseException(), out errorMessage);
 
-            return RightName == null || user.HasRight(this.RightName);
+                //if (isHandled)
+                //{
+                    //put errorMessage in tempdata
+                //}
+
+                //httpContext.Response.Redirect("Default/Error");
+            }
+            
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
