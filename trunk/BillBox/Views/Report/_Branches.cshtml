@@ -1,6 +1,8 @@
 ﻿@model BillBox.Models.CollectionsReportModel
 
-@{  var branches = ViewBag.Branches as IEnumerable<BillBox.Models.AgentBranch>; }
+@{  
+    var branches = ViewBag.Branches as IEnumerable<BillBox.Models.AgentBranch>;
+}
 
 <div>
     @Html.LabelFor(model => model.Branch)
