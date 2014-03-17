@@ -52,9 +52,9 @@ namespace BillBox.Models
         {
             IList<string> rights = new List<string>();
 
-            using(Entities dbContext = new Entities())
+            using (Entities dbContext = new Entities())
             {
-                rights = dbContext.Users.Find(this.UserId).UserLevel.UserRights.Select(r => r.Name).ToList();                
+                rights = dbContext.Users.Find(this.UserId).UserLevel.UserRights.Select(r => r.Name).ToList();
             }
 
             return rights;
