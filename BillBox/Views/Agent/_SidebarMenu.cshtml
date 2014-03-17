@@ -1,20 +1,4 @@
-﻿@using BillBox.Common
-
-<ul class="sidebar-menu">
-    @if(HttpContext.Current.Session["UserRights"] != null)
-    {
-        var rights = (IList<string>)HttpContext.Current.Session["UserRights"];
-        
-        if(rights.Contains("VIEW_AGENTS"))
-        {
-            <li>@Html.ActionLink("List Agents", "Index")</li>
-        }
-        //if(rights.Contains("CREATE_AGENT"))
-        //{
-            <li>@Html.ActionLink("Create Agent", "Create").IfUserHasPermission("CREATE_AGENT", rights)</li>
-        //}
-    } 
-    
-    
-    
+﻿<ul class="sidebar-menu">
+    <li>@Html.ActionLink("List Agents", "Index")</li>
+    <li>@Html.ActionLink("Create Agent", "Create")</li>
 </ul>

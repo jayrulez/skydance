@@ -9,100 +9,99 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    <div id="page">
+        <div id="header-container">
+            <div id="header">
+                <div id="header-content" class="clearfix">
+                    <div class="logo">
+                        @Html.ActionLink("Bill Box", "Index", "Default")
+                    </div>
+                    <div class="global-utils clearfix">
+                        @if (Request.IsAuthenticated)
+                        {
+                            <div class="global-nav">
+                                <ul>
+                                    <li>
+                                        <a>Payments</a>
+                                        <ul>
+                                            <li>@Html.ActionLink("New Payment", "NewBill", "Payment")</li>
+                                            <li>@Html.ActionLink("Payment History", "PaymentHistory", "Payment")</li>
+                                        </ul>
+                                    </li>
+                                    <li>@Html.ActionLink("Users", "Index", "User")</li>
+                                    <li>@Html.ActionLink("Agents", "Index", "Agent")</li>
+                                    <li>@Html.ActionLink("Subscribers", "Index", "Subscriber")</li>
+                                    <li>@Html.ActionLink("Settings", "Index", "Settings")</li>
+                                    <li>@Html.ActionLink("Logout (" + User.Identity.Name + ")", "Logout", "Default")</li>
+                                </ul>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="global-nav">
+                                <ul>
+                                    <li>@Html.ActionLink("Login", "Login", "Default")</li>
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="canvas-container">
+            @{
+                string tagClass = "";
 
-		<div id="page">
-			<div id="header-container">
-				<div id="header">
-					<div id="header-content" class="clearfix">
-						<div class="logo">
-							@Html.ActionLink("Bill Box", "Index", "Default")
-						</div>
-						<div class="global-utils clearfix">
-							@if (Request.IsAuthenticated)
-       {
-							    <div class="global-nav">
-								    <ul>
-									    <li>
-										    <a>Payments</a>
-										    <ul>
-											    <li>@Html.ActionLink("New Payment", "NewBill", "Payment")</li>
-											    <li>@Html.ActionLink("Payment History", "PaymentHistory", "Payment")</li>
-										    </ul>
-									    </li>
-									    <li>@Html.ActionLink("Users", "Index", "User")</li>
-									    <li>@Html.ActionLink("Agents", "Index", "Agent")</li>
-									    <li>@Html.ActionLink("Subscribers", "Index", "Subscriber")</li>
-									    <li>@Html.ActionLink("Settings", "Index", "Settings")</li>
-                                        <li>@Html.ActionLink("Logout (" + User.Identity.Name + ")", "Logout", "Default")</li>
-								    </ul>
-							    </div>
-       }
-       else
-       {
-							    <div class="global-nav">
-								    <ul>
-									    <li>@Html.ActionLink("Login", "Login", "Default")</li>
-								    </ul>
-							    </div>
-       }
-						</div>
-					</div>
-				</div>
-			</div>
-			<div id="canvas-container">
-                @{
-                    string tagClass = "";
-
-                    if (IsSectionDefined("SidebarLeft") && IsSectionDefined("SidebarRight"))
-                    {
-                        tagClass = "sidebars clearfix";
-                    }
-                    else if (IsSectionDefined("SidebarLeft"))
-                    {
-                        tagClass = "sidebar-left clearfix";
-                    }
-                    else if (IsSectionDefined("SidebarRight"))
-                    {
-                        tagClass = "sidebar-right clearfix";
-                    }
-                    else
-                    {
-                        tagClass = "";
-                    }
+                if (IsSectionDefined("SidebarLeft") && IsSectionDefined("SidebarRight"))
+                {
+                    tagClass = "sidebars clearfix";
                 }
-				<div id="canvas" class="@tagClass">
+                else if (IsSectionDefined("SidebarLeft"))
+                {
+                    tagClass = "sidebar-left clearfix";
+                }
+                else if (IsSectionDefined("SidebarRight"))
+                {
+                    tagClass = "sidebar-right clearfix";
+                }
+                else
+                {
+                    tagClass = "";
+                }
+            }
+            <div id="canvas" class="@tagClass">
 
-                    @if (IsSectionDefined("SidebarLeft"))
-                    {
-					    <div id="sidebar-left">
-						    <div class="sidebar-content">
-							    @RenderSection("SidebarLeft")
-						    </div>
-					    </div>
-                    }
+                @if (IsSectionDefined("SidebarLeft"))
+                {
+                    <div id="sidebar-left">
+                        <div class="sidebar-content">
+                            @RenderSection("SidebarLeft")
+                        </div>
+                    </div>
+                }
 
-					<div id="content">
-                        @RenderBody()
-					</div>
+                <div id="content">
+                    @RenderBody()
+                </div>
 
-                    @if (IsSectionDefined("SidebarRight"))
-                    {
-					    <div id="sidebar-right">
-						    <div class="sidebar-content">					
-							    @RenderSection("SidebarRight")
-						    </div>
-					    </div>
-                    }
-                    
-				</div>
-			</div>
-			<div id="footer-container">
-				<div id="footer">
-					<div id="footer-content">
-					</div>
-				</div>
-			</div>
-		</div>
+                @if (IsSectionDefined("SidebarRight"))
+                {
+                    <div id="sidebar-right">
+                        <div class="sidebar-content">
+                            @RenderSection("SidebarRight")
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+        <div id="footer-container">
+            <div id="footer">
+                <div id="footer-content">
+                </div>
+            </div>
+        </div>
+    </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
