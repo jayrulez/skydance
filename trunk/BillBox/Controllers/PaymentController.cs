@@ -20,30 +20,52 @@ namespace BillBox.Controllers
 
         public ActionResult GetCaptureFields(int subscriberId)
         {
-            var captureFields = dbContext.CaptureFields.Where(cf => cf.SubscriberId == subscriberId).OrderBy(cf => cf.OrderNum);
+            try
+            {
+                var captureFields = dbContext.CaptureFields.Where(cf => cf.SubscriberId == subscriberId).OrderBy(cf => cf.OrderNum);
 
-            ViewBag.captureFields = captureFields;
+                ViewBag.captureFields = captureFields;
 
-            return PartialView("_CaptureFields");
+                return PartialView("_CaptureFields");
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         public ActionResult GetPaymentMethodCaptureFields(int paymentMethodId)
         {
-            var captureFields = dbContext.PaymentMethodCaptureFields.Where(cf => cf.PaymentMethodId == paymentMethodId).OrderBy(cf => cf.OrderNum);
+            try
+            {
+                var captureFields = dbContext.PaymentMethodCaptureFields.Where(cf => cf.PaymentMethodId == paymentMethodId).OrderBy(cf => cf.OrderNum);
 
-            ViewBag.captureFields = captureFields;
+                ViewBag.captureFields = captureFields;
 
-            return PartialView("_PaymentMethodCaptureFields");
+                return PartialView("_PaymentMethodCaptureFields");
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
+
         }
 
         [RightFilter(RightName = "PROCESS_PAYMENT")]
         public ActionResult NewBill()
         {
-            var subscribers = dbContext.Subscribers;
+            try
+            {
+                var subscribers = dbContext.Subscribers;
 
-            ViewBag.subscribers = subscribers;
+                ViewBag.subscribers = subscribers;
 
-            return View();
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         [HttpPost]
@@ -51,40 +73,40 @@ namespace BillBox.Controllers
         [RightFilter(RightName = "PROCESS_PAYMENT")]
         public ActionResult NewBill(Bill model)
         {
-            User user = Util.GetLoggedInUser();
-
-            if(user == null || user.AgentBranch == null)
+            try
             {
-                TempData["ErrorMessage"] = "Your account must associated with an agent to process payments.";
+                User user = Util.GetLoggedInUser();
 
-                return RedirectToAction("Error", "Default");
-            }
+                if (user == null || user.AgentBranch == null)
+                {
+                    TempData["ErrorMessage"] = "Your account must associated with an agent to process payments.";
 
-            model.UserId        = user.UserId;
-            model.AgentBranchId = user.AgentBranch.BranchId;
-            model.AgentId       = user.AgentBranch.Agent.AgentId;
-            model.Date          = DateTime.Now;
-            model.InvoiceNumber = Util.GenerateInvoiceNumber();
-            model.Status        = (int)BillStatus.Init;
+                    return RedirectToAction("Error", "Default");
+                }
 
-            if (ModelState.IsValid)
-            {
-                try
+                model.UserId = user.UserId;
+                model.AgentBranchId = user.AgentBranch.BranchId;
+                model.AgentId = user.AgentBranch.Agent.AgentId;
+                model.Date = DateTime.Now;
+                model.InvoiceNumber = Util.GenerateInvoiceNumber();
+                model.Status = (int)BillStatus.Init;
+
+                if (ModelState.IsValid)
                 {
                     var subscriber = dbContext.Subscribers.Find(model.SubscriberId);
 
-                    if(subscriber == null)
+                    if (subscriber == null)
                     {
                         return HttpNotFound();
                     }
 
-                    foreach(CaptureField captureField in subscriber.CaptureFields)
+                    foreach (CaptureField captureField in subscriber.CaptureFields)
                     {
                         if (HttpContext.Request.Params["CaptureFields[" + captureField.Name + "]"] != null)
                         {
                             BillCaptureField billCaptureField = new BillCaptureField();
-                            billCaptureField.CaptureFieldId   = captureField.CaptureFieldId;
-                            billCaptureField.Value            = HttpContext.Request.Params["CaptureFields[" + captureField.Name + "]"];
+                            billCaptureField.CaptureFieldId = captureField.CaptureFieldId;
+                            billCaptureField.Value = HttpContext.Request.Params["CaptureFields[" + captureField.Name + "]"];
 
                             model.BillCaptureFields.Add(billCaptureField);
                         }
@@ -95,40 +117,50 @@ namespace BillBox.Controllers
                     dbContext.SaveChanges();
 
                     return RedirectToAction("NewPayment", new { billId = model.BillId });
+
                 }
-                catch (Exception ex)
+                else
                 {
-                    ModelState.AddModelError("", ex.Message);
+                    var subscribers = dbContext.Subscribers;
+
+                    ViewBag.subscribers = subscribers;
+
+                    return View(model);
                 }
             }
-
-            var subscribers = dbContext.Subscribers;
-
-            ViewBag.subscribers  = subscribers;
-
-            return View(model);
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         [RightFilter(RightName = "PROCESS_PAYMENT")]
         public ActionResult NewPayment(int billId)
         {
-            Bill bill = dbContext.Bills.Find(billId);
-
-            if (bill == null)
+            try
             {
-                return HttpNotFound();
+                Bill bill = dbContext.Bills.Find(billId);
+
+                if (bill == null)
+                {
+                    return HttpNotFound();
+                }
+
+                Payment payment = new Payment();
+
+                payment.BillId = bill.BillId;
+
+                var paymentMethods = dbContext.PaymentMethods;
+
+                ViewBag.paymentMethods = paymentMethods;
+                ViewBag.bill = bill;
+
+                return View(payment);
             }
-
-            Payment payment = new Payment();
-
-            payment.BillId = bill.BillId;
-
-            var paymentMethods = dbContext.PaymentMethods;
-
-            ViewBag.paymentMethods = paymentMethods;
-            ViewBag.bill = bill;
-
-            return View(payment);
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         [HttpPost]
@@ -136,18 +168,18 @@ namespace BillBox.Controllers
         [RightFilter(RightName = "PROCESS_PAYMENT")]
         public ActionResult NewPayment(Payment model)
         {
-            Bill bill = dbContext.Bills.Find(model.BillId);
-
-            if (bill == null)
+            try
             {
-                return HttpNotFound();
-            }
+                Bill bill = dbContext.Bills.Find(model.BillId);
 
-            if(ModelState.IsValid)
-            {
-                try
+                if (bill == null)
                 {
-                    bill.Status                 = (int)BillStatus.Working;
+                    return HttpNotFound();
+                }
+
+                if (ModelState.IsValid)
+                {
+                    bill.Status = (int)BillStatus.Working;
                     dbContext.Entry(bill).State = EntityState.Modified;
 
                     var paymentMethod = dbContext.PaymentMethods.Find(model.PaymentMethodId);
@@ -174,59 +206,77 @@ namespace BillBox.Controllers
                     dbContext.SaveChanges();
 
                     return RedirectToAction("NewPayment", new { billId = model.BillId });
-                }catch(Exception ex)
+                }
+                else
                 {
-                    ModelState.AddModelError("", ex.Message);
+                    var paymentMethods = dbContext.PaymentMethods;
+
+                    ViewBag.paymentMethods = paymentMethods;
+
+                    return View(model);
                 }
             }
-
-            var paymentMethods = dbContext.PaymentMethods;
-
-            ViewBag.paymentMethods = paymentMethods;
-
-            return View(model);
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         [RightFilter(RightName = "VIEW_PAYMENT_HISTORY")]
         public ActionResult PaymentHistory(int? page, string period = "today")
         {
-            var pageNumber = page ?? 1;
-            var pageSize = Util.GetPageSize(Common.PagedList.PaymentHistory);
+            try
+            {
+                var pageNumber = page ?? 1;
+                var pageSize = Util.GetPageSize(Common.PagedList.PaymentHistory);
 
-            var bills = dbContext.Bills.Where(b => b.Status == (int)BillStatus.Posted).OrderBy(b => b.BillId).ToPagedList(pageNumber, pageSize);  
+                var bills = dbContext.Bills.Where(b => b.Status == (int)BillStatus.Posted).OrderBy(b => b.BillId).ToPagedList(pageNumber, pageSize);
 
-            return View(bills);
+                return View(bills);
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
+            
         }
 
         [RightFilter(RightName = "VIEW_BILL")]
         public ActionResult ViewBill(int billId = 0)
         {
-            Bill bill = dbContext.Bills.Find(billId);
-
-            if(bill == null)
+            try
             {
-                return HttpNotFound();
-            }
+                Bill bill = dbContext.Bills.Find(billId);
 
-            return View(bill);
+                if (bill == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(bill);
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }            
         }
 
         [RightFilter(RightName = "PROCESS_PAYMENT")]
         public ActionResult PostBill(int billId = 0)
-        {
-            Bill bill = dbContext.Bills.Find(billId);
-
-            if (bill == null)
-            {
-                return HttpNotFound();
-            }
-
-            bill.Status = (int)BillStatus.Posted;
-
-            //TODO: Cannot post bill with 0 payments
-
+        {  
             try
             {
+                Bill bill = dbContext.Bills.Find(billId);
+
+                if (bill == null)
+                {
+                    return HttpNotFound();
+                }
+
+                bill.Status = (int)BillStatus.Posted;
+
+                //TODO: Cannot post bill with 0 payments
+
                 dbContext.Entry(bill).State = EntityState.Modified;
                 dbContext.SaveChanges();
 
@@ -234,26 +284,24 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Message = ex.Message;
-
-                return View("Error");
+                return HandleErrorOnController(ex.GetBaseException());
             }
         }
 
         [RightFilter(RightName = "UNPOST_BILL")]
         public ActionResult UnpostBill(int billId = 0)
         {
-            Bill bill = dbContext.Bills.Find(billId);
-
-            if (bill == null)
-            {
-                return HttpNotFound();
-            }
-
-            bill.Status = (int)BillStatus.Working;
-
             try
             {
+                Bill bill = dbContext.Bills.Find(billId);
+
+                if (bill == null)
+                {
+                    return HttpNotFound();
+                }
+
+                bill.Status = (int)BillStatus.Working;
+
                 dbContext.Entry(bill).State = EntityState.Modified;
                 dbContext.SaveChanges();
 
@@ -261,31 +309,48 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Message = ex.Message;
-
-                return View("Error");
+                return HandleErrorOnController(ex.GetBaseException());
             }
         }
 
         [RightFilter(RightName = "VIEW_RECEIPT")]
         public ActionResult ViewReceipt(int invoiceNumber = 0)
         {
-            Bill bill = dbContext.Bills.FirstOrDefault(b => b.InvoiceNumber == invoiceNumber && b.Status == (int)BillStatus.Posted);
-
-            if(bill == null)
+            try
             {
-                return HttpNotFound();
-            }
+                Bill bill = dbContext.Bills.FirstOrDefault(b => b.InvoiceNumber == invoiceNumber && b.Status == (int)BillStatus.Posted);
 
-            return View(bill);
+                if (bill == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(bill);
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }            
         }
 
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
                 dbContext.Dispose();
 
             base.Dispose(disposing);
         }
+
+        private RedirectToRouteResult HandleErrorOnController(Exception exception)
+        {
+            string errorMessage;
+            bool isHandled = Util.HandleException(exception, out errorMessage);
+
+            if (isHandled)
+                TempData["ErrorMessage"] = errorMessage;
+
+            return RedirectToAction("Error", "Default", null);
+        }
+
     }
 }

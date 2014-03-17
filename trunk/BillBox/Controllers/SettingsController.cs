@@ -21,19 +21,26 @@ namespace BillBox.Controllers
             return View();
         }
 
-        //
-        // GET: /PaymentMethod/
+
         [RightFilter(RightName = "VIEW_PAYMENT_METHODS")]
         public ActionResult ListPaymentMethods(int? page)
         {
             var pageNumber = page ?? 1;
             var pageSize = Util.GetPageSize(Common.PagedList.PaymentMethods);
 
-            var paymentMethods = dbContext.PaymentMethods
-                .OrderBy(p => p.Name)
-                .ToPagedList(pageNumber, pageSize);
+            try
+            {
+                var paymentMethods = dbContext.PaymentMethods
+                    .OrderBy(p => p.Name)
+                    .ToPagedList(pageNumber, pageSize);
 
-            return View(paymentMethods);
+                return View(paymentMethods);
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
+
         }
 
         [RightFilter(RightName = "CREATE_PAYMENT_METHOD")]
@@ -47,37 +54,47 @@ namespace BillBox.Controllers
         [RightFilter(RightName = "CREATE_PAYMENT_METHOD")]
         public ActionResult CreatePaymentMethod(PaymentMethod model)
         {
-            if(ModelState.IsValid)
+            try
             {
-                try
+                if (ModelState.IsValid)
                 {
                     dbContext.PaymentMethods.Add(model);
 
                     dbContext.SaveChanges();
 
                     return RedirectToAction("ViewPaymentMethod", new { paymentMethodId = model.PaymentMethodId });
-                }catch(Exception ex)
+                }
+                else
                 {
-                    ModelState.AddModelError("", ex.Message);
+                    return View(model);
                 }
             }
-
-            return View(model);
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         [RightFilter(RightName = "EDIT_PAYMENT_METHOD")]
         public ActionResult EditPaymentMethod(int paymentMethodId = 0)
         {
-            PaymentMethod paymentMethod = dbContext.PaymentMethods.Find(paymentMethodId);
-
-            if(paymentMethod == null)
+            try
             {
-                return HttpNotFound();
+                PaymentMethod paymentMethod = dbContext.PaymentMethods.Find(paymentMethodId);
+
+                if (paymentMethod == null)
+                {
+                    return HttpNotFound();
+                }
+
+                ViewBag.paymentMethod = paymentMethod;
+
+                return View(paymentMethod);
             }
-
-            ViewBag.paymentMethod = paymentMethod;
-
-            return View(paymentMethod);
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         [HttpPost]
@@ -85,55 +102,74 @@ namespace BillBox.Controllers
         [RightFilter(RightName = "EDIT_PAYMENT_METHOD")]
         public ActionResult EditPaymentMethod(PaymentMethod model)
         {
-            if(ModelState.IsValid)
+            try
             {
-                try
+                if (ModelState.IsValid)
                 {
                     dbContext.Entry(model).State = EntityState.Modified;
 
                     dbContext.SaveChanges();
 
                     return RedirectToAction("ViewPaymentMethod", new { paymentMethodId = model.PaymentMethodId });
-
-                }catch(Exception ex)
-                {
-                    ModelState.AddModelError("", ex.Message);
                 }
+                else
+                {
+                    return View(model);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
             }
 
-            return View(model);
         }
 
         [RightFilter(RightName = "VIEW_PAYMENT_METHOD")]
         public ActionResult ViewPaymentMethod(int paymentMethodId = 0)
         {
-            PaymentMethod paymentMethod = dbContext.PaymentMethods.Find(paymentMethodId);
-
-            if(paymentMethod == null)
+            try
             {
-                return HttpNotFound();
+                PaymentMethod paymentMethod = dbContext.PaymentMethods.Find(paymentMethodId);
+
+                if (paymentMethod == null)
+                {
+                    return HttpNotFound();
+                }
+
+                ViewBag.paymentMethod = paymentMethod;
+
+                return View(paymentMethod);
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
             }
 
-            ViewBag.paymentMethod = paymentMethod;
-
-            return View(paymentMethod);
         }
 
         [RightFilter(RightName = "CREATE_PAYMENT_METHOD_CAPTURE_FIELD")]
         public ActionResult AddPaymentMethodCaptureField(int paymentMethodId = 0)
         {
-            var paymentMethod = dbContext.PaymentMethods.Find(paymentMethodId);
-
-            if (paymentMethod == null)
+            try
             {
-                return HttpNotFound();
+                var paymentMethod = dbContext.PaymentMethods.Find(paymentMethodId);
+
+                if (paymentMethod == null)
+                {
+                    return HttpNotFound();
+                }
+
+                PaymentMethodCaptureField captureField = new PaymentMethodCaptureField();
+
+                captureField.PaymentMethodId = paymentMethod.PaymentMethodId;
+
+                return View(captureField);
             }
-
-            PaymentMethodCaptureField captureField = new PaymentMethodCaptureField();
-
-            captureField.PaymentMethodId = paymentMethod.PaymentMethodId;
-
-            return View(captureField);
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         [HttpPost]
@@ -141,36 +177,47 @@ namespace BillBox.Controllers
         [RightFilter(RightName = "CREATE_PAYMENT_METHOD_CAPTURE_FIELD")]
         public ActionResult AddPaymentMethodCaptureField(PaymentMethodCaptureField model)
         {
-            if(ModelState.IsValid)
+            try
             {
-                try
+                if (ModelState.IsValid)
                 {
                     dbContext.PaymentMethodCaptureFields.Add(model);
 
                     dbContext.SaveChanges();
 
                     return RedirectToAction("ViewPaymentMethod", new { paymentMethodId = model.PaymentMethodId });
-
-                }catch(Exception ex)
-                {
-                    ModelState.AddModelError("", ex.Message);
                 }
-            }
+                else
+                {
+                    return View(model);
+                }
 
-            return View(model);
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         [RightFilter(RightName = "EDIT_PAYMENT_METHOD_CAPTURE_FIELD")]
         public ActionResult EditPaymentMethodCaptureField(int captureFieldId = 0)
         {
-            var captureField = dbContext.PaymentMethodCaptureFields.Find(captureFieldId);
-
-            if(captureField == null)
+            try
             {
-                return HttpNotFound();
+                var captureField = dbContext.PaymentMethodCaptureFields.Find(captureFieldId);
+
+                if (captureField == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(captureField);
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
             }
 
-            return View(captureField);
         }
 
         [HttpPost]
@@ -178,154 +225,174 @@ namespace BillBox.Controllers
         [RightFilter(RightName = "EDIT_PAYMENT_METHOD_CAPTURE_FIELD")]
         public ActionResult EditPaymentMethodCaptureField(PaymentMethodCaptureField model)
         {
-            if(ModelState.IsValid)
+            try
             {
-                try
+                if (ModelState.IsValid)
                 {
                     dbContext.Entry(model).State = EntityState.Modified;
 
                     dbContext.SaveChanges();
 
                     return RedirectToAction("ViewPaymentMethod", new { paymentMethodId = model.PaymentMethodId });
-
-                }catch(Exception ex)
+                }
+                else
                 {
-                    ModelState.AddModelError("", ex.Message);
+                    return View(model);
                 }
             }
-
-            return View(model);
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         [RightFilter(RightName = "ORDER_PAYMENT_METHOD_CAPTURE_FIELDS")]
         public ActionResult OrderPaymentMethodCaptureFields(int? fieldUpId = 0, int? fieldDownId = 0)
         {
-            var fieldUp   = dbContext.CaptureFields.Find(fieldUpId);
-
-            if(fieldUp == null)
-            {
-                return Content("Error_field_up_not_found");
-            }
-
-            var fieldDown = dbContext.CaptureFields.Find(fieldDownId);
-
-            if (fieldDown == null)
-            {
-                return Content("Error_field_down_not_found");
-            }
-
-            int fieldUpPos = fieldUp.OrderNum.Value;
-
-            fieldUp.OrderNum = fieldDown.OrderNum;
-
-            fieldDown.OrderNum = fieldUpPos;
-
             try
             {
+                var fieldUp = dbContext.CaptureFields.Find(fieldUpId);
+
+                if (fieldUp == null)
+                {
+                    return Content("Error_field_up_not_found");
+                }
+
+                var fieldDown = dbContext.CaptureFields.Find(fieldDownId);
+
+                if (fieldDown == null)
+                {
+                    return Content("Error_field_down_not_found");
+                }
+
+                int fieldUpPos = fieldUp.OrderNum.Value;
+
+                fieldUp.OrderNum = fieldDown.OrderNum;
+
+                fieldDown.OrderNum = fieldUpPos;
+
                 dbContext.SaveChanges();
 
                 return Content("Success");
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                return Content(ex.Message);
+                return HandleErrorOnController(ex.GetBaseException());
             }
         }
 
         [RightFilter(RightName = "ASSIGN_USER_RIGHTS")]
         public ActionResult UserLevelRights(int levelId = 0)
         {
-            var userLevels = dbContext.UserLevels;
+            try
+            {
+                var userLevels = dbContext.UserLevels;
 
-            ViewBag.userLevels = userLevels;
+                ViewBag.userLevels = userLevels;
 
-            ViewBag.levelId = levelId;
+                ViewBag.levelId = levelId;
 
-            return View();
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
+
         }
 
         [RightFilter(RightName = "ASSIGN_USER_RIGHTS")]
         [HttpPost]
         public ActionResult UserLevelRights()
         {
-            int levelId;
-
-            if (!int.TryParse(HttpContext.Request.Params["levelId"], out levelId))
+            try
             {
-                ViewBag.errorMessage = "User level not selected.";
-            }
+                int levelId;
 
-            var level = dbContext.UserLevels.Find(levelId);
-
-            if(level == null)
-            {
-                ViewBag.errorMessage = "Selected User Level is invalid.";
-            }
-
-            var userRights = dbContext.UserRights;
-
-            foreach(UserRight right in userRights)
-            {
-                if (HttpContext.Request.Params["right[" + right.Name + "]"] != null)
+                if (!int.TryParse(HttpContext.Request.Params["levelId"], out levelId))
                 {
-                    var checkbox = HttpContext.Request.Params["right[" + right.Name + "]"];
+                    ViewBag.errorMessage = "User level not selected.";
+                }
 
-                    if (checkbox.Contains("true"))
+                var level = dbContext.UserLevels.Find(levelId);
+
+                if (level == null)
+                {
+                    ViewBag.errorMessage = "Selected User Level is invalid.";
+                }
+
+                var userRights = dbContext.UserRights;
+
+                foreach (UserRight right in userRights)
+                {
+                    if (HttpContext.Request.Params["right[" + right.Name + "]"] != null)
                     {
-                        if(!level.HasRight(right.Name))
-                        {
-                            level.UserRights.Add(right);
+                        var checkbox = HttpContext.Request.Params["right[" + right.Name + "]"];
 
-                            dbContext.Entry(level).State = EntityState.Modified;
+                        if (checkbox.Contains("true"))
+                        {
+                            if (!level.HasRight(right.Name))
+                            {
+                                level.UserRights.Add(right);
+
+                                dbContext.Entry(level).State = EntityState.Modified;
+                            }
                         }
-                    }
-                    else
-                    {
-                        if(level.HasRight(right.Name))
+                        else
                         {
-                            level.UserRights.Remove(right);
+                            if (level.HasRight(right.Name))
+                            {
+                                level.UserRights.Remove(right);
 
-                            dbContext.Entry(level).State = EntityState.Modified;
+                                dbContext.Entry(level).State = EntityState.Modified;
+                            }
                         }
                     }
                 }
-            }
 
-            if(dbContext.Entry(level).State == EntityState.Modified)
-            {
-                try
+                if (dbContext.Entry(level).State == EntityState.Modified)
                 {
                     dbContext.SaveChanges();
 
                     return RedirectToAction("UserLevelRights", new { levelId = level.LevelId });
                 }
-                catch (Exception ex)
-                {
-                    ViewBag.errorMessage = ex.Message;
-                }
+
+                var userLevels = dbContext.UserLevels;
+                ViewBag.userLevels = userLevels;
+                ViewBag.levelId = levelId;
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
             }
 
-            var userLevels = dbContext.UserLevels;
-            ViewBag.userLevels = userLevels;
-            ViewBag.levelId = levelId;
-
-            return View();
         }
 
         public ActionResult UserLevelRightsFields(int levelId)
         {
-            var level = dbContext.UserLevels.Find(levelId);
-
-            if(level == null)
+            try
             {
-                return Content("");
+                var level = dbContext.UserLevels.Find(levelId);
+
+                if (level == null)
+                {
+                    return Content("");
+                }
+
+                var rights = dbContext.UserRights;
+
+                ViewBag.rights = rights;
+                ViewBag.userLevel = level;
+
+                return PartialView("_UserLevelRightsFields");
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
             }
 
-            var rights = dbContext.UserRights;
-
-            ViewBag.rights = rights;
-            ViewBag.userLevel = level;
-
-            return PartialView("_UserLevelRightsFields");
         }
 
         protected override void Dispose(bool disposing)
@@ -335,5 +402,15 @@ namespace BillBox.Controllers
             base.Dispose(disposing);
         }
 
+        private RedirectToRouteResult HandleErrorOnController(Exception exception)
+        {
+            string errorMessage;
+            bool isHandled = Util.HandleException(exception, out errorMessage);
+
+            if (isHandled)
+                TempData["ErrorMessage"] = errorMessage;
+
+            return RedirectToAction("Error", "Default", null);
+        }
     }
 }

@@ -21,50 +21,65 @@ namespace BillBox.Controllers
         [RightFilter(RightName = "CREATE_SUBSCRIBER")]
         public ActionResult Create()
         {
-            ViewBag.Parishes = dbContext.Parishes;
+            try
+            {
+                ViewBag.Parishes = dbContext.Parishes;
 
-            return View();
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [RightFilter(RightName = "CREATE_SUBSCRIBER")]
         public ActionResult Create(Subscriber subscriber)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
+                if (ModelState.IsValid)
                 {
                     dbContext.Subscribers.Add(subscriber);
                     dbContext.SaveChanges();
 
                     return RedirectToAction("Details", new { id = subscriber.SubscriberId });
                 }
-                catch (Exception ex)
+                else
                 {
-                    ModelState.AddModelError("", ex.Message);
+                    ViewBag.Parishes = dbContext.Parishes.AsEnumerable<BillBox.Models.Parish>();
+
+                    return View(subscriber);
                 }
             }
-
-            ViewBag.Parishes = dbContext.Parishes.AsEnumerable<BillBox.Models.Parish>();
-
-            return View(subscriber);
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
-        
+
         [HttpGet]
         [RightFilter(RightName = "VIEW_SUBSCRIBERS")]
         public ActionResult Index(int? page)
         {
-            var pageNumber = page ?? 1;
-            var pageSize = Util.GetPageSize(Common.PagedList.Subscribers);
+            try
+            {
+                var pageNumber = page ?? 1;
+                var pageSize = Util.GetPageSize(Common.PagedList.Subscribers);
 
-            var subscribers = dbContext.Subscribers
-                .Include(s => s.Parish)
-                .OrderBy(s => s.Name)
-                .ToPagedList(pageNumber, pageSize);
-            
+                var subscribers = dbContext.Subscribers
+                    .Include(s => s.Parish)
+                    .OrderBy(s => s.Name)
+                    .ToPagedList(pageNumber, pageSize);
 
-            return View(subscribers);
+                return View(subscribers);
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         [RightFilter(RightName = "VIEW_SUBSCRIBER")]
@@ -73,13 +88,19 @@ namespace BillBox.Controllers
             if (id == 0)
                 return HttpNotFound();
 
-            var subscriber = dbContext.Subscribers.Find(id);
+            try
+            {
+                var subscriber = dbContext.Subscribers.Find(id);
 
-            if (subscriber == null)            
-                return HttpNotFound();
-            
+                if (subscriber == null)
+                    return HttpNotFound();
 
-            return View(subscriber);
+                return View(subscriber);
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         [RightFilter(RightName = "EDIT_SUBSCRIBER")]
@@ -88,14 +109,21 @@ namespace BillBox.Controllers
             if (id == 0)
                 return HttpNotFound();
 
-            var subscriber = dbContext.Subscribers.Find(id);
+            try
+            {
+                var subscriber = dbContext.Subscribers.Find(id);
 
-            if (subscriber == null)            
-                return HttpNotFound();            
+                if (subscriber == null)
+                    return HttpNotFound();
 
-            ViewBag.Parishes = dbContext.Parishes;
+                ViewBag.Parishes = dbContext.Parishes;
 
-            return View(subscriber);
+                return View(subscriber);
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         [HttpPost]
@@ -103,24 +131,26 @@ namespace BillBox.Controllers
         [RightFilter(RightName = "EDIT_SUBSCRIBER")]
         public ActionResult Edit(Subscriber subscriber)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
+                if (ModelState.IsValid)
                 {
                     dbContext.Entry(subscriber).State = EntityState.Modified;
 
                     dbContext.SaveChanges();
 
-                    return RedirectToAction("Details", new { id = subscriber.SubscriberId});
+                    return RedirectToAction("Details", new { id = subscriber.SubscriberId });
                 }
-                catch (Exception ex)
+                else
                 {
-                    ModelState.AddModelError("", ex.Message);
-                }                
+                    ViewBag.Parishes = dbContext.Parishes;
+                    return View(subscriber);
+                }
             }
-
-            ViewBag.Parishes = dbContext.Parishes;
-            return View(subscriber);
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         [RightFilter(RightName = "EDIT_SUBSCRIBER_CAPTURE_FIELD")]
@@ -129,12 +159,20 @@ namespace BillBox.Controllers
             if (id == 0)
                 return HttpNotFound();
 
-            var captureField = dbContext.CaptureFields.Find(id);
+            try
+            {
+                var captureField = dbContext.CaptureFields.Find(id);
 
-            if (captureField == null)
-                return HttpNotFound();
+                if (captureField == null)
+                    return HttpNotFound();
 
-            return View(captureField);
+                return View(captureField);
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
+
         }
 
         [HttpPost]
@@ -142,23 +180,25 @@ namespace BillBox.Controllers
         [RightFilter(RightName = "EDIT_SUBSCRIBER_CAPTURE_FIELD")]
         public ActionResult EditCaptureField(CaptureField captureField)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
+                if (ModelState.IsValid)
                 {
                     dbContext.Entry(captureField).State = EntityState.Modified;
-                    
+
                     dbContext.SaveChanges();
 
                     return RedirectToAction("Details", "Subscriber", new { id = captureField.SubscriberId });
                 }
-                catch (Exception ex)
+                else
                 {
-                    ModelState.AddModelError("", ex.Message);
+                    return View(captureField);
                 }
             }
-
-            return View(captureField);
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         [RightFilter(RightName = "CREATE_SUBSCRIBER_CAPTURE_FIELD")]
@@ -167,16 +207,24 @@ namespace BillBox.Controllers
             if (id == 0)
                 return HttpNotFound();
 
-            var subscriber  = dbContext.Subscribers.Find(id); 
+            try
+            {
+                var subscriber = dbContext.Subscribers.Find(id);
 
-            if (subscriber == null)
-                return HttpNotFound();
+                if (subscriber == null)
+                    return HttpNotFound();
 
-            var captureField = new CaptureField();
+                var captureField = new CaptureField();
 
-            captureField.SubscriberId = subscriber.SubscriberId;
+                captureField.SubscriberId = subscriber.SubscriberId;
 
-            return View(captureField);
+                return View(captureField);
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
+
         }
 
         [HttpPost]
@@ -184,24 +232,25 @@ namespace BillBox.Controllers
         [RightFilter(RightName = "CREATE_SUBSCRIBER_CAPTURE_FIELD")]
         public ActionResult CreateCaptureField(CaptureField captureField)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
+                if (ModelState.IsValid)
                 {
                     dbContext.CaptureFields.Add(captureField);
 
                     dbContext.SaveChanges();
 
                     return RedirectToAction("Details", new { id = captureField.SubscriberId });
-
                 }
-                catch (Exception ex)
+                else
                 {
-                    ModelState.AddModelError("", ex.Message);
+                    return View(captureField);
                 }
             }
-
-            return View(captureField);
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -212,5 +261,15 @@ namespace BillBox.Controllers
             base.Dispose(disposing);
         }
 
+        private RedirectToRouteResult HandleErrorOnController(Exception exception)
+        {
+            string errorMessage;
+            bool isHandled = Util.HandleException(exception, out errorMessage);
+
+            if (isHandled)
+                TempData["ErrorMessage"] = errorMessage;
+
+            return RedirectToAction("Error", "Default", null);
+        }
     }
 }

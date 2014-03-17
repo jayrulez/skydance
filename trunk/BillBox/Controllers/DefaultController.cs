@@ -32,44 +32,49 @@ namespace BillBox.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var user = dbContext.Users.FirstOrDefault(u => u.Username == model.Username && u.Password == model.Password);
-
-                if (user != null)
+                if (ModelState.IsValid)
                 {
-                    FormsAuthentication.SetAuthCookie(model.Username, model.Autologin);
+                    var user = dbContext.Users.FirstOrDefault(u => u.Username == model.Username && u.Password == model.Password);
 
-                    var userRights = user.GetUserRights();
+                    if (user != null)
+                    {
+                        FormsAuthentication.SetAuthCookie(model.Username, model.Autologin);
 
-                    if (userRights.Count > 0)
-                        Session["UserRights"] = userRights;
+                        var userRights = user.GetUserRights();
 
-                    return RedirectToAction("Index", "Default");
+                        if (userRights.Count > 0)
+                            Session["UserRights"] = userRights;
+
+                        return RedirectToAction("Index", "Default");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    }
+
                 }
-                else
-                {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                }
-
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
             }
 
             return View(model);
         }
-
+         
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
             Session.Clear();
 
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Login", "Default");
         }
 
         [AllowAnonymous]
         public ActionResult Error()
         {
-            ViewBag.Error = "";
-
             return View();
         }
 
@@ -86,6 +91,17 @@ namespace BillBox.Controllers
                 dbContext.Dispose();
 
             base.Dispose(disposing);
+        }
+
+        private RedirectToRouteResult HandleErrorOnController(Exception exception)
+        {
+            string errorMessage;
+            bool isHandled = Util.HandleException(exception, out errorMessage);
+
+            if (isHandled)
+                TempData["ErrorMessage"] = errorMessage;
+
+            return RedirectToAction("Error", "Default", null);
         }
     }
 }

@@ -28,27 +28,27 @@ namespace BillBox.Controllers
                 Branch = branch
             };
 
-            /*check if form is been loaded for the first time and just return the view with an empty filter*/
-            if (generate == null || generate == false)
+            try
             {
-                LoadLookupValues(ViewBag);
-            } 
-            else
-            {
-                try
+                /*check if form is been loaded for the first time and just return the view with an empty filter*/
+                if (generate == null || generate == false)
+                {
+                    LoadLookupValues(ViewBag);
+                }
+                else
                 {
                     /*prepare collections in the db context*/
                     var collections = dbContext.Bills
-                    .Where(bill => bill.Status == (int)BillStatus.Posted)
-                    .GroupJoin(dbContext.Payments, bill => bill.BillId, payment => payment.BillId, (bill, billGroup) => new CollectionsReportModel
-                    {
-                        InvoiceNumber = bill.InvoiceNumber,
-                        Date = bill.Date,
-                        Amount = billGroup.Sum(p => p.Amount),
-                        Agent = bill.Agent.Name,
-                        Branch = bill.AgentBranch.Name,
-                        Subscriber = bill.Subscriber.Name
-                    });
+                        .Where(bill => bill.Status == (int)BillStatus.Posted)
+                        .GroupJoin(dbContext.Payments, bill => bill.BillId, payment => payment.BillId, (bill, billGroup) => new CollectionsReportModel
+                        {
+                            InvoiceNumber = bill.InvoiceNumber,
+                            Date = bill.Date,
+                            Amount = billGroup.Sum(p => p.Amount),
+                            Agent = bill.Agent.Name,
+                            Branch = bill.AgentBranch.Name,
+                            Subscriber = bill.Subscriber.Name
+                        });
 
                     /*prepare filters and then filter the collections in the context*/
                     if (!string.IsNullOrEmpty(filter.DateRange))
@@ -100,31 +100,40 @@ namespace BillBox.Controllers
 
                     filter.Count = collections.Count();
 
-                    /*Apply paging and pass the result to the viewbag*/                   
+                    /*Apply paging and pass the result to the viewbag*/
                     ViewBag.Collections = collections.OrderBy(c => c.Date).ToPagedList(filter.PageNumber, filter.PageSize);
-                   
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", ex.Message);
-                }
+                }                
+
             }
-            
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
+
             return View(filter);
         }
 
-        
+
         [HttpGet]
+        [RightFilter(RightName = "VIEW_AGENT_BRANCHES")]
         public ActionResult Branches(string agent)
         {
-            ViewBag.Branches = dbContext.AgentBranches.Where(b => b.Agent.Name == agent);
-            return View("_Branches");
+            try
+            {
+                ViewBag.Branches = dbContext.AgentBranches.Where(b => b.Agent.Name == agent);
+                return View("_Branches");
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
+            
         }
 
 
         private DateTime StringToDate(string date)
         {
-            string [] strDate;
+            string[] strDate;
 
             if (date.Contains('/'))
                 strDate = date.Split('/');
@@ -160,6 +169,15 @@ namespace BillBox.Controllers
             base.Dispose(disposing);
         }
 
+        private RedirectToRouteResult HandleErrorOnController(Exception exception)
+        {
+            string errorMessage;
+            bool isHandled = Util.HandleException(exception, out errorMessage);
 
+            if (isHandled)
+                TempData["ErrorMessage"] = errorMessage;
+
+            return RedirectToAction("Error", "Default", null);
+        }
     }
 }

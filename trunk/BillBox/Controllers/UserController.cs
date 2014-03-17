@@ -21,9 +21,16 @@ namespace BillBox.Controllers
 
         [RightFilter(RightName = "CREATE_USER")]
         public ActionResult Create()
-        {            
-            LoadLookupValues(ViewBag);
-            return View();
+        {
+            try
+            {
+                LoadLookupValues(ViewBag);
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         [HttpPost]
@@ -31,9 +38,9 @@ namespace BillBox.Controllers
         [RightFilter(RightName = "CREATE_USER")]
         public ActionResult Create(User user)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
+                if (ModelState.IsValid)
                 {
                     user.PasswordExpireAt = DateTime.Now.AddDays(Util.GetPasswordExpirationDays());
 
@@ -43,13 +50,15 @@ namespace BillBox.Controllers
                     return RedirectToAction("Details", new { id = user.UserId });
 
                 }
-                catch (Exception ex)
+                else
                 {
-                    ModelState.AddModelError("", ex.Message);
+                    LoadLookupValues(ViewBag);
                 }
-            }            
-                
-            LoadLookupValues(ViewBag);
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
 
             return View(user);
         }
@@ -60,14 +69,22 @@ namespace BillBox.Controllers
             var pageNumber = page ?? 1;
             var pageSize = Util.GetPageSize(Common.PagedList.Users);
 
-            var users = dbContext.Users
-                .Include(u => u.UserLevel)
-                .Include(u => u.Agent)
-                .Include(u => u.AgentBranch)
-                .OrderBy(a => a.Name)
-                .ToPagedList(pageNumber, pageSize);     
+            try
+            {
+                var users = dbContext.Users
+                    .Include(u => u.UserLevel)
+                    .Include(u => u.Agent)
+                    .Include(u => u.AgentBranch)
+                    .OrderBy(a => a.Name)
+                    .ToPagedList(pageNumber, pageSize);
 
-            return View(users);
+                return View(users);
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
+
         }
 
         [RightFilter(RightName = "VIEW_USER")]
@@ -76,12 +93,19 @@ namespace BillBox.Controllers
             if (id == 0)
                 return HttpNotFound();
 
-            var user = dbContext.Users.Find(id);
+            try
+            {
+                var user = dbContext.Users.Find(id);
 
-            if (user == null)            
-                return HttpNotFound();
-            
-            return View(user);
+                if (user == null)
+                    return HttpNotFound();
+
+                return View(user);
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         [RightFilter(RightName = "EDIT_USER")]
@@ -90,14 +114,22 @@ namespace BillBox.Controllers
             if (id == 0)
                 return HttpNotFound();
 
-            var user = dbContext.Users.Find(id);
+            try
+            {
+                var user = dbContext.Users.Find(id);
 
-            if (user == null)            
-                return HttpNotFound();
-            
-            LoadLookupValues(ViewBag, user.AgentId ?? 0);
+                if (user == null)
+                    return HttpNotFound();
 
-            return View(user);
+                LoadLookupValues(ViewBag, user.AgentId ?? 0);
+
+                return View(user);
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
+
         }
 
         [HttpPost]
@@ -105,15 +137,14 @@ namespace BillBox.Controllers
         [RightFilter(RightName = "EDIT_USER")]
         public ActionResult Edit(User user)
         {
-           
-            if (ModelState.IsValid)
+            try
             {
-                try
+                if (ModelState.IsValid)
                 {
                     if (user.Password == null)
                     {
                         user.Password = String.Empty;
-                    }              
+                    }
 
                     dbContext.Users.Attach(user);
 
@@ -129,28 +160,37 @@ namespace BillBox.Controllers
                     {
                         user.PasswordExpireAt = DateTime.Now.AddDays(Util.GetPasswordExpirationDays());
                     }
-                    
+
                     dbContext.SaveChanges();
 
                     return RedirectToAction("Details", new { id = user.UserId });
                 }
-                catch (Exception ex)
+                else
                 {
-                    ModelState.AddModelError("", ex.Message);
+                    LoadLookupValues(ViewBag, user.AgentId ?? 0);
+                    return View(user);
                 }
             }
-
-            LoadLookupValues(ViewBag, user.AgentId ?? 0);
-
-            return View(user);
-
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         public ActionResult AgentBranches(int? id)
         {
-            ViewBag.AgentBranches = dbContext.AgentBranches.Where(ab => ab.AgentId == id);
+            if (id == null)
+                return HttpNotFound();
+            try
+            {
+                ViewBag.AgentBranches = dbContext.AgentBranches.Where(ab => ab.AgentId == id);
 
-            return PartialView("_AgentBranches");
+                return PartialView("_AgentBranches");
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }            
         }
 
         private void LoadLookupValues(dynamic dictionary, int agentId = 0)
@@ -160,12 +200,23 @@ namespace BillBox.Controllers
             dictionary.Agents = dbContext.Agents.OrderBy(a => a.Name);
 
             if (agentId != 0)
-                ViewBag.AgentBranches = dbContext.AgentBranches.Where(ab => ab.AgentId == agentId);
+                dictionary.AgentBranches = dbContext.AgentBranches.Where(ab => ab.AgentId == agentId);
+        }
+
+        private RedirectToRouteResult HandleErrorOnController(Exception exception)
+        {
+            string errorMessage;
+            bool isHandled = Util.HandleException(exception, out errorMessage);
+
+            if (isHandled)
+                TempData["ErrorMessage"] = errorMessage;
+
+            return RedirectToAction("Error", "Default", null);
         }
 
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
                 dbContext.Dispose();
 
             base.Dispose(disposing);
