@@ -43,13 +43,12 @@ namespace BillBox.Controllers
             try
             {
                 ViewBag.parishes = dbContext.Parishes.OrderBy(p => p.Name);
+                return View();
             }
             catch (Exception ex)
             {
                 return HandleErrorOnController(ex.GetBaseException());
             }
-
-            return View();
         }
 
         [HttpPost]
@@ -69,14 +68,13 @@ namespace BillBox.Controllers
                 else
                 {
                     ViewBag.parishes = dbContext.Parishes.OrderBy(p => p.Name);
+                    return View(agent);
                 }
             }
             catch (Exception ex)
             {
                 return HandleErrorOnController(ex.GetBaseException());
             }
-
-            return View(agent);
         }
 
 
@@ -92,8 +90,10 @@ namespace BillBox.Controllers
                 {
                     return HttpNotFound();
                 }
-
-                return View(agent);
+                else
+                {
+                    return View(agent);
+                }
             }
             catch (Exception ex)
             {
@@ -112,10 +112,12 @@ namespace BillBox.Controllers
                 {
                     return HttpNotFound();
                 }
+                else
+                {
+                    ViewBag.parishes = dbContext.Parishes.OrderBy(p => p.Name);
 
-                ViewBag.parishes = dbContext.Parishes.OrderBy(p => p.Name);
-
-                return View(agent);
+                    return View(agent);
+                }
             }
             catch (Exception ex)
             {
@@ -141,14 +143,13 @@ namespace BillBox.Controllers
                 else
                 {
                     ViewBag.parishes = dbContext.Parishes.OrderBy(p => p.Name);
+                    return View(agent);
                 }
             }
             catch (Exception ex)
             {
                 return HandleErrorOnController(ex.GetBaseException());
             }
-
-            return View(agent);
         }
 
         [RightFilter(RightName = "CREATE_AGENT_BRANCH")]
@@ -162,21 +163,19 @@ namespace BillBox.Controllers
                 {
                     return HttpNotFound();
                 }
-
-                ViewBag.parishes = dbContext.Parishes.OrderBy(p => p.Name);
-
-                var branch = new AgentBranch()
+                else
                 {
-                    AgentId = agentId
-                };
+                    var branch = new AgentBranch() { AgentId = agentId };
 
-                return View(branch);
+                    ViewBag.parishes = dbContext.Parishes.OrderBy(p => p.Name);
+
+                    return View(branch);
+                }
             }
             catch (Exception ex)
             {
                 return HandleErrorOnController(ex.GetBaseException());
             }
-            
         }
 
         [HttpPost]
@@ -184,18 +183,16 @@ namespace BillBox.Controllers
         [RightFilter(RightName = "CREATE_AGENT_BRANCH")]
         public ActionResult AddBranch(AgentBranch model)
         {
-            
+            try
+            {
+                var agent = dbContext.Agents.Find(model.AgentId);
 
-            
-                try
+                if (agent == null)
                 {
-                    var agent = dbContext.Agents.Find(model.AgentId);
-
-                    if (agent == null)
-                    {
-                        return HttpNotFound();
-                    }
-
+                    return HttpNotFound();
+                }
+                else
+                {
                     if (ModelState.IsValid)
                     {
                         dbContext.AgentBranches.Add(model);
@@ -207,14 +204,14 @@ namespace BillBox.Controllers
                     else
                     {
                         ViewBag.parishes = dbContext.Parishes.OrderBy(p => p.Name);
+                        return View(model);
                     }
                 }
-                catch (Exception ex)
-                {
-                    return HandleErrorOnController(ex.GetBaseException());
-                }
-
-            return View(model);
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         [RightFilter(RightName = "EDIT_AGENT_BRANCH")]
@@ -228,16 +225,17 @@ namespace BillBox.Controllers
                 {
                     return HttpNotFound();
                 }
+                else
+                {
+                    ViewBag.parishes = dbContext.Parishes.OrderBy(p => p.Name);
 
-                ViewBag.parishes = dbContext.Parishes.OrderBy(p => p.Name);
-
-                return View(branch);
+                    return View(branch);
+                }                
             }
             catch (Exception ex)
             {
                 return HandleErrorOnController(ex.GetBaseException());
             }
-            
         }
 
         [HttpPost]
@@ -245,43 +243,50 @@ namespace BillBox.Controllers
         [RightFilter(RightName = "EDIT_AGENT_BRANCH")]
         public ActionResult EditBranch(AgentBranch model)
         {
-           
-                try
+            try
+            {
+                if (ModelState.IsValid)
                 {
-                    if (ModelState.IsValid)
-                    {
-                        dbContext.Entry(model).State = EntityState.Modified;
+                    dbContext.Entry(model).State = EntityState.Modified;
 
-                        dbContext.SaveChanges();
+                    dbContext.SaveChanges();
 
-                        return RedirectToAction("ViewBranch", new { branchId = model.BranchId });
-                    }
-                    else
-                    {
-                        ViewBag.parishes = dbContext.Parishes.OrderBy(p => p.Name);
-                    }
+                    return RedirectToAction("ViewBranch", new { branchId = model.BranchId });
                 }
-                catch (Exception ex)
+                else
                 {
-                    return HandleErrorOnController(ex.GetBaseException());
+                    ViewBag.parishes = dbContext.Parishes.OrderBy(p => p.Name);
+                    return View(model);
                 }
-
-            return View(model);
+            }
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         [RightFilter(RightName = "VIEW_AGENT_BRANCH")]
         public ActionResult ViewBranch(int branchId = 0)
         {
-            var branch = dbContext.AgentBranches.Find(branchId);
-
-            if (branch == null)
+            try
             {
-                return HttpNotFound();
+                var branch = dbContext.AgentBranches.Find(branchId);
+
+                if (branch == null)
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    ViewBag.branch = branch;
+
+                    return View(branch);
+                }                
             }
-
-            ViewBag.branch = branch;
-
-            return View(branch);
+            catch (Exception ex)
+            {
+                return HandleErrorOnController(ex.GetBaseException());
+            }
         }
 
         [RightFilter(RightName = "VIEW_AGENT_BRANCHES")]
@@ -297,13 +302,15 @@ namespace BillBox.Controllers
                 {
                     return HttpNotFound();
                 }
+                else
+                {
+                    var branches = dbContext.AgentBranches
+                        .Where(b => b.AgentId == agentId)
+                        .OrderBy(b => b.Name)
+                        .ToPagedList(pageNumber, pageSize);
 
-                var branches = dbContext.AgentBranches
-                    .Where(b => b.AgentId == agentId)
-                    .OrderBy(b => b.Name)
-                    .ToPagedList(pageNumber, pageSize);
-
-                return View(branches);
+                    return View(branches);
+                }
             }
             catch (Exception ex)
             {

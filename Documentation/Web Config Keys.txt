@@ -1,0 +1,16 @@
+<add key="PageSize_General" value="25"/>
+<add key="PageSize_Users" value="25"/>
+<add key="PageSize_Agents" value="25"/>
+<add key="PageSize_Branches" value="25"/>
+<add key="PageSize_Subscribers" value="25"/>
+<add key="PageSize_CaptureFields" value="25"/>
+<add key="PageSize_PaymentHistory" value="25"/>
+<add key="PageSize_PaymentTypes" value="25"/>
+<add key="PageSize_PaymentTypeCaptureFields" value="25"/>
+<add key="PageSize_CollectionsReport" value="3"/>
+<add key="PasswordExpiryDays" value="90"/>
+<add key="ProcessingFee" value=""/>
+<add key="ProcessingFeeGCT" value=""/>
+<add key="UKViolation_AgentEmail" value="UK_Agent_EmailAddress" />
+<add key="UKViolation_AgentName" value="UK_Agent_Name" />
+<add key="UnknownErrorMsg" value="An unknown error during execution. Please advise the system administrator"/>
