@@ -57,8 +57,7 @@ namespace BillBox
                 "~/Assets/js/plugins/metisMenu/jquery.metisMenu.js",
                 "~/Assets/js/plugins/morris/raphael-2.1.0.min.js",
                 "~/Assets/js/plugins/morris/morris.js",
-                "~/Assets/js/sb-admin.js",
-                "~/Assets/js/demo/dashboard-demo.js"
+                "~/Assets/js/sb-admin.js"
                 ));
         }
     }

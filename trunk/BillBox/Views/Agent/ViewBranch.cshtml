@@ -1,49 +1,52 @@
 ﻿@model BillBox.Models.AgentBranch
 
 @{
-    ViewBag.Title = "View Agent";
-    Layout = "~/Views/Shared/_Default.cshtml";
+    ViewBag.Title = "View Branch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="action">
-    <div class="section">
-        <div class="section-header">
-        </div>
-        <div class="section-content">
-            <dl>
-                <dt>@Html.DisplayNameFor(m => m.Name)</dt>
-                <dd>@Html.DisplayFor(m => m.Name)</dd>
-                
-                <dt>@Html.DisplayNameFor(m => m.AddressStreet)</dt>
-                <dd>
-                    @Html.DisplayFor(m => m.AddressStreet)
-                    <br />
-                    @Html.DisplayFor(m => m.AddressCity)
-                    @if(Model.Parish != null) {
+
+<div class="row">
+    <div class="col-lg-12">
+        <!--<h1 class="page-header">View Branch</h1>-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                View Branch
+            </div>
+            <div class="panel-body">
+                <dl>
+                    <dt>@Html.DisplayNameFor(m => m.Name)</dt>
+                    <dd>@Html.DisplayFor(m => m.Name)</dd>
+
+                    <dt>@Html.DisplayNameFor(m => m.AddressStreet)</dt>
+                    <dd>
+                        @Html.DisplayFor(m => m.AddressStreet)
                         <br />
-                        @Html.DisplayFor(m => m.Parish.Name)
-                    }
-                </dd>
+                        @Html.DisplayFor(m => m.AddressCity)
+                        @if (Model.Parish != null)
+                        {
+                            <br />
+                            @Html.DisplayFor(m => m.Parish.Name)
+                        }
+                    </dd>
 
-                <dt>@Html.DisplayNameFor(model => model.ContactNumber)</dt>
-                <dd>@Html.DisplayFor(model => model.ContactNumber)</dd>
+                    <dt>@Html.DisplayNameFor(model => model.ContactNumber)</dt>
+                    <dd>@Html.DisplayFor(model => model.ContactNumber)</dd>
 
-                <dt>@Html.DisplayNameFor(model => model.FaxNumber)</dt>
-                <dd>@Html.DisplayFor(model => model.FaxNumber)</dd>
+                    <dt>@Html.DisplayNameFor(model => model.FaxNumber)</dt>
+                    <dd>@Html.DisplayFor(model => model.FaxNumber)</dd>
 
-                <dt>@Html.DisplayNameFor(model => model.EmailAddress)</dt>
-                <dd>@Html.DisplayFor(model => model.EmailAddress)</dd>
-            </dl>
-        </div>
-        <div class="section-footer">
-            <ul class="details-menu">
-                <li>@Html.ActionLink("Edit", "EditBranch", new { branchId=Model.BranchId })</li>
-                <li>@Html.ActionLink("Back to List", "ListBranches", new { agentId = Model.Agent.AgentId })</li>
-            </ul>
+                    <dt>@Html.DisplayNameFor(model => model.EmailAddress)</dt>
+                    <dd>@Html.DisplayFor(model => model.EmailAddress)</dd>
+                </dl>
+            </div>
+            <div class="panel-footer">
+                <ul class="details-menu">
+                    <li>@Html.ActionLink("Edit", "EditBranch", new { branchId = Model.BranchId })</li>
+                    <li>@Html.ActionLink("Back to List", "ListBranches", new { agentId = Model.Agent.AgentId })</li>
+                </ul>
+            </div>
         </div>
     </div>
+    <!-- /.col-lg-12 -->
 </div>
-
-@section SidebarLeft {
-    @Html.Partial("_SidebarMenu")
-}

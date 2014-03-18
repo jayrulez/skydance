@@ -5,14 +5,20 @@
 
 @foreach (BillBox.Models.UserRight right in rights)
 {
-    <div class="row inline clearfix">
-        @Html.CheckBox("right["+right.Name+"]", userLevel.HasRight(right.RightId))
-        @if(right.DisplayName != null && right.DisplayName != string.Empty)
-        {
-            @Html.Label(right.DisplayName)
-        }else{
-            @Html.Label(right.Name)
-        }
-        
+    <div class="form-group">
+        <label>
+            @Html.CheckBox("right[" + right.Name + "]", userLevel.HasRight(right.RightId))
+            @if (right.DisplayName != null && right.DisplayName != string.Empty)
+            {
+                @right.DisplayName
+            }
+            else
+            {
+                @right.Name
+            }
+        </label>
+
+
+
     </div>
 }

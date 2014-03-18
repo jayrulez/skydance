@@ -2,70 +2,72 @@
 
 @{
     ViewBag.Title = "View Bill";
-    Layout = "~/Views/Shared/_Default.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="action">
-    <div class="section">
-        <div class="section-header">
-        </div>
-        <div class="section-content">
-            <dl>
-                <dt>@Html.DisplayNameFor(m => m.BillId)</dt>
-                <dd>@Html.DisplayFor(m => m.BillId)</dd>
+<div class="row">
+    <div class="col-lg-12">
+        <!--<h1 class="page-header">View Branch</h1>-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                View Bill
+            </div>
+            <div class="panel-body">
+                <dl>
+                    <dt>@Html.DisplayNameFor(m => m.BillId)</dt>
+                    <dd>@Html.DisplayFor(m => m.BillId)</dd>
+
+                    <dt>@Html.DisplayNameFor(m => m.SubscriberId)</dt>
+                    <dd>@Html.DisplayFor(m => m.Subscriber.Name)</dd>
+
+                    <dt>@Html.DisplayNameFor(m => m.InvoiceNumber)</dt>
+                    <dd>@Html.DisplayFor(m => m.InvoiceNumber)</dd>
+
+                    <dt>@Html.DisplayNameFor(m => m.AgentId)</dt>
+                    <dd>@Html.DisplayFor(m => m.Agent.Name)</dd>
+
+                    <dt>@Html.DisplayNameFor(m => m.AgentBranchId)</dt>
+                    <dd>@Html.DisplayFor(m => m.AgentBranch.Name)</dd>
+
+                    <dt>@Html.DisplayNameFor(m => m.UserId)</dt>
+                    <dd>@Html.DisplayFor(m => m.User.Name)</dd>
+
+                    <dt>@Html.DisplayNameFor(m => m.Date)</dt>
+                    <dd>@Html.DisplayFor(m => m.Date)</dd>
+                </dl>
+                <dl>
+                    @foreach (BillBox.Models.BillCaptureField captureField in Model.BillCaptureFields)
+                    {
+                        <dt>@captureField.CaptureField.DisplayName</dt>
+                        <dd>@captureField.Value</dd>
+                    }
+                </dl>
+                <dl>
+                    @foreach (BillBox.Models.Payment payment in Model.Payments)
+                    {
+                        <dt>Payment Method</dt>
+                        <dd>@payment.PaymentMethod.Name</dd>
                 
-                <dt>@Html.DisplayNameFor(m => m.SubscriberId)</dt>
-                <dd>@Html.DisplayFor(m => m.Subscriber.Name)</dd>
+                        <dt>Amount</dt>
+                        <dd>@payment.Amount</dd>
                 
-                <dt>@Html.DisplayNameFor(m => m.InvoiceNumber)</dt>
-                <dd>@Html.DisplayFor(m => m.InvoiceNumber)</dd>
-                
-                <dt>@Html.DisplayNameFor(m => m.AgentId)</dt>
-                <dd>@Html.DisplayFor(m => m.Agent.Name)</dd>
-                
-                <dt>@Html.DisplayNameFor(m => m.AgentBranchId)</dt>
-                <dd>@Html.DisplayFor(m => m.AgentBranch.Name)</dd>
-                
-                <dt>@Html.DisplayNameFor(m => m.UserId)</dt>
-                <dd>@Html.DisplayFor(m => m.User.Name)</dd>
-                
-                <dt>@Html.DisplayNameFor(m => m.Date)</dt>
-                <dd>@Html.DisplayFor(m => m.Date)</dd>
-            </dl>
-            <dl>
-            @foreach(BillBox.Models.BillCaptureField captureField in Model.BillCaptureFields)
-            {
-                <dt>@captureField.CaptureField.DisplayName</dt>
-                <dd>@captureField.Value</dd>
-            }
-            </dl>
-            <dl>
-            @foreach(BillBox.Models.Payment payment in Model.Payments)
-            {
-                <dt>Payment Method</dt>
-                <dd>@payment.PaymentMethod.Name</dd>
-                
-                <dt>Amount</dt>
-                <dd>@payment.Amount</dd>
-                
-                foreach(BillBox.Models.PaymentPaymentMethodCaptureField field in payment.PaymentPaymentMethodCaptureFields)
-                {
-                    <dt>@field.PaymentMethodCaptureField.DisplayName</dt>
-                    <dd>@field.Value</dd>
-                }
-                <hr />
-            }
-            </dl>
-        </div>
-        <div class="section-footer">
-            <ul class="action-menu">
-                <li>@Html.ActionLink("Unpost", "UnpostBill", new { billId = @Model.BillId  })</li>
-                <li>@Html.ActionLink("Back to List", "PaymentHistory")</li>
-            </ul>
+                        foreach (BillBox.Models.PaymentPaymentMethodCaptureField field in payment.PaymentPaymentMethodCaptureFields)
+                        {
+                        <dt>@field.PaymentMethodCaptureField.DisplayName</dt>
+                        <dd>@field.Value</dd>
+                        }
+                        <hr />
+                    }
+                </dl>
+            </div>
+            <div class="panel-footer">
+                <ul class="action-menu">
+                    <li>@Html.ActionLink("Unpost", "UnpostBill", new { billId = @Model.BillId })</li>
+                    <li>@Html.ActionLink("Back to List", "PaymentHistory")</li>
+                </ul>
+            </div>
         </div>
     </div>
+    <!-- /.col-lg-12 -->
 </div>
 
-@section SidebarLeft {
-    @Html.Partial("_SidebarMenu")
-}

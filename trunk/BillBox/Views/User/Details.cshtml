@@ -2,86 +2,88 @@
 
 @{
     ViewBag.Title = "View User";
-    Layout = "~/Views/Shared/_Default.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="action">
-    <div class="section">
-        <div class="section-header">
-        </div>
-        <div class="section-content">
-            <dl>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Name)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Name)
-                </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Username)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Username)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.AddressStreet)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.AddressStreet)
-                    <br />
-                    @Html.DisplayFor(model => model.AddressCity)
-                    @if (Model.Parish != null)
-                    {
-                        <br />                 
-                        @Html.DisplayFor(model => model.Parish.Name)
-                    }
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.ContactNumber)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.ContactNumber)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.EmailAddress)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.EmailAddress)
-                </dd>
-
-                @if (Model.Agent != null)
-                {
+<div class="row">
+    <div class="col-lg-12">
+        <!--<h1 class="page-header">View Agent</h1>-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                View User
+            </div>
+            <div class="panel-body">
+                <dl>
                     <dt>
-                        @Html.DisplayNameFor(model => model.Agent.Name)
+                        @Html.DisplayNameFor(model => model.Name)
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.Agent.Name)
+                        @Html.DisplayFor(model => model.Name)
                     </dd>
-                    if (Model.AgentBranch != null)
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Username)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Username)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AddressStreet)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.AddressStreet)
+                        <br />
+                        @Html.DisplayFor(model => model.AddressCity)
+                        @if (Model.Parish != null)
+                        {
+                            <br />                 
+                            @Html.DisplayFor(model => model.Parish.Name)
+                        }
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ContactNumber)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.ContactNumber)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EmailAddress)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.EmailAddress)
+                    </dd>
+
+                    @if (Model.Agent != null)
                     {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Agent.Name)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Agent.Name)
+                        </dd>
+                        if (Model.AgentBranch != null)
+                        {
                         <dt>
                             @Html.DisplayNameFor(model => model.AgentBranch.Name)
                         </dt>
                         <dd>
                             @Html.DisplayFor(model => model.AgentBranch.Name)
                         </dd>
+                        }
                     }
-                }
-            </dl>
+                </dl>
+            </div>
+            <div class="panel-footer">
+                <ul class="details-menu">
+                    <li>@Html.ActionLink("Edit", "Edit", new { id = Model.UserId })</li>
+                    <li>@Html.ActionLink("Back to List", "Index")</li>
+                </ul>
+            </div>
         </div>
     </div>
+    <!-- /.col-lg-12 -->
 </div>
-<div class="section-footer">
-    <ul class="details-menu">
-        <li>@Html.ActionLink("Edit", "Edit", new { id = Model.UserId })</li>
-        <li>@Html.ActionLink("Back to List", "Index")</li>
-    </ul>
-</div>
-
-@section SidebarLeft {
-    @Html.Partial("_SidebarMenu")
-}

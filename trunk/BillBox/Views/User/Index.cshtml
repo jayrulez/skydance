@@ -1,50 +1,55 @@
 ﻿@model IEnumerable<BillBox.Models.User>
 @{
     ViewBag.Title = "Users";
-    Layout = "~/Views/Shared/_Default.cshtml";    
+    Layout = "~/Views/Shared/_Layout.cshtml";    
 }
 
-<div class="action">
-    <div class="section">
-        <div class="section-header">
-        </div>
-        <div class="section-content">
-            <table>
-                <caption>Users</caption>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Username</th>
-                        <th>User Level</th>
-                        <th>Agent</th>
-                        <th>Branch</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
-                <tbody>
-                @foreach(BillBox.Models.User user in Model)
-                {
-                    <tr>
-                        <td>@user.Name</td>
-                        <td>@user.Username</td>
-                        <td>@if(@user.UserLevel != null) { @user.UserLevel.LevelName }</td>
-                        <td>@if(@user.Agent != null) { @user.Agent.Name }</td>
-                        <td>@if(@user.AgentBranch != null) { @user.AgentBranch.Name }</td>
-                        <td>
-                            @Html.ActionLink("View", "Details", "User", new { id = @user.UserId }, null) | 
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Agents
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Username</th>
+                                <th>User Level</th>
+                                <th>Agent</th>
+                                <th>Branch</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (BillBox.Models.User user in Model)
+                            {
+                                <tr>
+                                    <td>@user.Name</td>
+                                    <td>@user.Username</td>
+                                    <td>@if (@user.UserLevel != null)
+                                        { @user.UserLevel.LevelName }</td>
+                                    <td>@if (@user.Agent != null)
+                                        { @user.Agent.Name }</td>
+                                    <td>@if (@user.AgentBranch != null)
+                                        { @user.AgentBranch.Name }</td>
+                                    <td>
+                                        @Html.ActionLink("View", "Details", "User", new { id = @user.UserId }, null) | 
                             @Html.ActionLink("Edit", "Edit", "User", new { id = @user.UserId }, null)
-                        </td>
-                    </tr>
-                }
-                </tbody>
-                <tfoot></tfoot>
-            </table>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.panel-body -->
         </div>
-        <div class="section-footer">
-        </div>
+        <!-- /.panel -->
     </div>
+    <!-- /.col-lg-12 -->
 </div>
-
-@section SidebarLeft {
-    @Html.Partial("_SidebarMenu")
-}
