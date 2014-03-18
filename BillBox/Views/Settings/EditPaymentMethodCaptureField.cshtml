@@ -2,60 +2,54 @@
 
 @{
     ViewBag.Title = "Edit Payment Method Capture Field";
-    Layout = "~/Views/Shared/_Default.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="action">
-    <div class="section">
-        <div class="section-header">
-        </div>
-        <div class="section-content">
-            <div class="form-container">
-                @using (Html.BeginForm("EditPaymentMethodCaptureField","Settings", FormMethod.Post, new { @class = "wf" })) {
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(true)
 
-                    @Html.HiddenFor(m => m.PaymentMethodCaptureFieldId)
-                    @Html.HiddenFor(m => m.PaymentMethodId)
-
-                    <fieldset class="top">
-                        <legend>Payment Method Capture Field</legend>
-                        <div class="row top clearfix">
-                                @Html.LabelFor(m => m.Name)
-                                @Html.TextBoxFor(m => m.Name)
-                                @Html.ValidationMessageFor(m => m.Name)
-                        </div>
-                        <div class="row clearfix">
-                                @Html.LabelFor(m => m.DisplayName)
-                                @Html.TextBoxFor(m => m.DisplayName)
-                                @Html.ValidationMessageFor(m => m.DisplayName)
-                        </div>
-                        <div class="row clearfix">
-                                @Html.LabelFor(m => m.Type)
-                                @Html.TextBoxFor(m => m.Type)
-                                @Html.ValidationMessageFor(m => m.Type)
-                        </div>
-                        <div class="row bottom clearfix">
-                                @Html.LabelFor(m => m.OrderNum)
-                                @Html.TextBoxFor(m => m.OrderNum)
-                                @Html.ValidationMessageFor(m => m.OrderNum)
-                        </div>
-        
-                    </fieldset>
-                    <div class="buttons bottom">
-                            <input type="submit" value="Save" />
-                    </div>
-                }
+<div class="row">
+    <div class="col-lg-12">
+        <!--<h1 class="page-header">Edit Capture Field</h1>-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Edit Capture Field
             </div>
-        </div>
-        <div class="section-footer">
+            <div class="panel-body">
+                <div class="row">
+                    @using (Html.BeginForm("EditPaymentMethodCaptureField", "Settings", FormMethod.Post, new { role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        @Html.HiddenFor(m => m.PaymentMethodCaptureFieldId)
+                        @Html.HiddenFor(m => m.PaymentMethodId)
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Name)
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Name)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.DisplayName)
+                            @Html.TextBoxFor(m => m.DisplayName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.DisplayName)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Type)
+                            @Html.TextBoxFor(m => m.Type, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Type)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.OrderNum)
+                            @Html.TextBoxFor(m => m.OrderNum, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.OrderNum)
+                        </div>
+
+                        <button type="submit" class="btn btn-default">Edit Capture Field</button>
+                    }
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
-@section SidebarLeft {
-    @Html.Partial("_SidebarMenu")
-}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

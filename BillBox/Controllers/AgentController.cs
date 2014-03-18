@@ -309,6 +309,8 @@ namespace BillBox.Controllers
                         .OrderBy(b => b.Name)
                         .ToPagedList(pageNumber, pageSize);
 
+                    ViewBag.Agent = agent;
+
                     return View(branches);
                 }
             }
