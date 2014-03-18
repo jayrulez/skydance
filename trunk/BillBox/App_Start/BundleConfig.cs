@@ -44,37 +44,22 @@ namespace BillBox
 
 
 
-            bundles.Add(new StyleBundle("~/Assets/neon.css").Include(
-                "~/Assets/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css",
-                "~/Assets/css/font-icons/entypo/css/entypo.css",
+            bundles.Add(new StyleBundle("~/Assets/sb.css").Include(
                 "~/Assets/css/bootstrap.min.css",
-                "~/Assets/css/neon-core.min.css",
-                "~/Assets/css/neon-theme.min.css",
-                "~/Assets/css/neon-forms.min.css",
-                "~/Assets/css/custom.css",
-                "~/Assets/css/skins/red.css",
-                "~/Assets/js/jvectormap/jquery-jvectormap-1.2.2.css",
-                "~/Assets/js/rickshaw/rickshaw.min.css"));
+                "~/Assets/font-awesome/css/font-awesome.css",
+                "~/Assets/css/plugins/morris/morris-0.4.3.min.css",
+                "~/Assets/css/plugins/timeline/timeline.css",
+                "~/Assets/css/sb-admin.css"
+            ));
 
-            bundles.Add(new ScriptBundle("~/Assets/neon.js").Include(
-                "~/Assets/js/gsap/main-gsap.js",
-                "~/Assets/js/bootstrap.js",
-                "~/Assets/js/joinable.js",
-                "~/Assets/js/resizeable.js",
-                "~/Assets/js/neon-api.js",
-                "~/Assets/js/cookies.min.js",
-                "~/Assets/js/jvectormap/jquery-jvectormap-1.2.2.min.js",
-                "~/Assets/js/jvectormap/jquery-jvectormap-europe-merc-en.js",
-                "~/Assets/js/jquery.sparkline.min.js",
-                "~/Assets/js/rickshaw/vendor/d3.v3.js",
-                "~/Assets/js/rickshaw/rickshaw.min.js",
-                "~/Assets/js/raphael-min.js",
-                "~/Assets/js/morris.min.js",
-                "~/Assets/js/toastr.js",
-                "~/Assets/js/neon-chat.js",
-                "~/Assets/js/neon-custom.js",
-                "~/Assets/js/neon-demo.js",
-                "~/Assets/js/neon-skins.js"));
+            bundles.Add(new ScriptBundle("~/Assets/sb.js").Include(
+                "~/Assets/js/bootstrap.min.js",
+                "~/Assets/js/plugins/metisMenu/jquery.metisMenu.js",
+                "~/Assets/js/plugins/morris/raphael-2.1.0.min.js",
+                "~/Assets/js/plugins/morris/morris.js",
+                "~/Assets/js/sb-admin.js",
+                "~/Assets/js/demo/dashboard-demo.js"
+                ));
         }
     }
 }
