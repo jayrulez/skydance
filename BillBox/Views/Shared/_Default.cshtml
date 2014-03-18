@@ -3,7 +3,6 @@
 <html>
 <head>
     <title>@ViewBag.Title</title>
-    <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/themes/base/css")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -14,7 +13,7 @@
             <div id="header">
                 <div id="header-content" class="clearfix">
                     <div class="logo">
-                        @Html.ActionLink("Bill Box", "Index", "Default")
+                        @Html.ActionLink("Bill Box", "Index", "Default", null, new { @class = "navbar-brand" })
                     </div>
                     <div class="global-utils clearfix">
                         @if (Request.IsAuthenticated)
@@ -33,6 +32,7 @@
                                     <li>@Html.ActionLink("Subscribers", "Index", "Subscriber")</li>
                                     <li>@Html.ActionLink("Settings", "Index", "Settings")</li>
                                     <li>@Html.ActionLink("Logout (" + User.Identity.Name + ")", "Logout", "Default")</li>
+                                    
                                 </ul>
                             </div>
                         }

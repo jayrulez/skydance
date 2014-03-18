@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Assets/sb.css")
+</head>
+<body>
+    <div id="wrapper">
+
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Bill Box", "Index", "Default", null, new { @class = "navbar-brand" })
+            </div>
+
+            @if(Request.IsAuthenticated)
+            {
+                <ul class="nav navbar-top-links navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+						    <li><a href="@Html.Action("Logout", "Default")"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+			}
+
+        </nav>
+
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+					<!--
+                    <li class="sidebar-search">
+                        <div class="input-group custom-search-form">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </li>
+					-->
+                    <li class="active">
+                        <a href="@Html.Action("NewBill", "Payment")"><i class="fa fa-dashboard fa-fw"></i> Payments<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="@Html.Action("NewBill", "Payment")">New Payment</a>
+                            </li>
+                            <li>
+                                <a href="@Html.Action("PaymentHistory", "Payment")">Payment History</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="@Html.Action("Index", "Agent")"><i class="fa fa-bar-chart-o fa-fw"></i> Agents<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="@Html.Action("Index", "Agent")">View Agents</a>
+                            </li>
+                            <li>
+                                <a href="@Html.Action("Create", "Agent")">Create Agent</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="@Html.Action("Index", "Subscriber")"><i class="fa fa-table fa-fw"></i> Subscribers<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="@Html.Action("Index", "Subscriber")">View Subscribers</a>
+                            </li>
+                            <li>
+                                <a href="@Html.Action("Create", "Subscriber")">Create Subscriber</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="@Html.Action("Index", "Report")"><i class="fa fa-edit fa-fw"></i> Reports</a>
+                    </li>
+                    <li>
+                        <a href="@Html.Action("Index", "User")"><i class="fa fa-wrench fa-fw"></i> Users<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="@Html.Action("Index", "User")">View Users</a>
+                            </li>
+                            <li>
+                                <a href="@Html.Action("Create", "User")">Create User</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="@Html.Action("Index", "Settings")"><i class="fa fa-sitemap fa-fw"></i> Settings<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="@Html.Action("Index", "Settings")">General Settings</a>
+                            </li>
+                            <li>
+                                <a href="@Html.Action("UserLevelRights", "Settings")">Permissions</a>
+                            </li>
+                            <li>
+                                <a href="@Html.Action("ListPaymentMethods", "Settings")">Permissions</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                </ul>
+                <!-- /#side-menu -->
+            </div>
+            <!-- /.sidebar-collapse -->
+        </nav>
+        <!-- /.navbar-static-side -->
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+					@RenderBody()
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /#wrapper -->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/Assets/sb.js")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

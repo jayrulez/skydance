@@ -181,6 +181,7 @@ INSERT INTO UserRight (Name, DisplayName) VALUES('ASSIGN_USER_RIGHTS', 'Assign U
 INSERT INTO UserRight (Name, DisplayName) VALUES('VIEW_USER_RIGHTS', 'View User Rights')
 
 INSERT INTO UserRight (Name, DisplayName) VALUES('GENERATE_REPORT', 'Generate Report')
+INSERT INTO UserRight (Name, DisplayName) VALUES('VIEW_RECEIPT', 'View Receipt')
 
 GO
 
@@ -218,6 +219,7 @@ INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (29, 1)
 INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (30, 1)
 INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (31, 1)
 INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (32, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (33, 1)
 
 
 /***********************************************************Bill*********************************************************************/
