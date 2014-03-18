@@ -221,6 +221,8 @@
             <PropertyRef Name="Name" />
           </Key>
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="64" />
+          <Property Name="DisplayName" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="Type" Type="smallint" />
           <Property Name="Value" Type="text" />
         </EntityType>
         <EntityType Name="Subscriber">
@@ -818,6 +820,8 @@
             <PropertyRef Name="Name" />
           </Key>
           <Property Name="Name" Type="String" Nullable="false" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="Type" Type="Int16" />
           <Property Name="Value" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
         </EntityType>
         <EntityType Name="Subscriber">
@@ -1270,6 +1274,8 @@
             <EntityTypeMapping TypeName="BBModel.Setting">
               <MappingFragment StoreEntitySet="Settings">
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
               </MappingFragment>
             </EntityTypeMapping>

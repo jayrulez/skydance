@@ -2,6 +2,11 @@ USE [Billbox]
 GO
 
 
+INSERT INTO Settings(Name, DisplayName, Value) VALUES ('ProcessingFee', 'Processing Fee', '25.00')
+GO
+INSERT INTO Settings(Name, DisplayName, Value) VALUES ('ProcessingFeeGCT', 'GCT (%)', '2.5')
+GO
+
 /***********************************************************Parish*********************************************************************/
 
 INSERT INTO Parish(Name) VALUES ('Hanover')

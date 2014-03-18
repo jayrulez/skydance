@@ -36,23 +36,28 @@ namespace BillBox.Common
         Init = 0, Working, Posted
     }
 
-    public enum CaptureFieldType
+    public enum FieldType
     {
-        TextType = 0, IntegerType, AlphabeticType, AlphanumericType
+        TextType = 0, IntegerType, AlphabeticType, AlphanumericType, DoubleType
     }
 
     public class Util
     {
-        public static Dictionary<int, string> GetCaptureFieldTypes()
+        public static SelectList GetFieldTypes()
         {
-            Dictionary<int, string> types = new Dictionary<int,string>();
+            int textType = (int)FieldType.TextType;
+            int integerType = (int)FieldType.IntegerType;
+            int alphabeticType = (int)FieldType.AlphabeticType;
+            int alphanumericType = (int)FieldType.AlphanumericType;
+            int doubleType = (int)FieldType.DoubleType;
 
-            types.Add((int)CaptureFieldType.TextType, "Text");
-            types.Add((int)CaptureFieldType.IntegerType, "Integers");
-            types.Add((int)CaptureFieldType.AlphabeticType, "Alphabetic");
-            types.Add((int)CaptureFieldType.AlphanumericType, "Alphanumeric");
-
-            return types;
+            return new SelectList(new [] {
+                new {ID = textType.ToString(), Name = "Text"},
+                new {ID = integerType.ToString(), Name = "Integers"},
+                new {ID = alphabeticType.ToString(), Name = "Alphabetic"},
+                new {ID = alphanumericType.ToString(), Name = "Alphanumeric"},
+                new {ID = doubleType.ToString(), Name = "Decimal"}
+            }, "ID", "Name");
         }
 
         /// <summary>
