@@ -15,6 +15,8 @@ namespace BillBox.Models
     public partial class Setting
     {
         public string Name { get; set; }
+        public string DisplayName { get; set; }
+        public Nullable<short> Type { get; set; }
         public string Value { get; set; }
     }
 }

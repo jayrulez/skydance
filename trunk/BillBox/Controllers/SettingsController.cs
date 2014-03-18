@@ -18,6 +18,13 @@ namespace BillBox.Controllers
 
         public ActionResult Index()
         {
+            var settings = dbContext.Settings;
+
+            return View(settings);
+        }
+
+        public ActionResult SaveSettings()
+        {
             return View();
         }
 
