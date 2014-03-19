@@ -16,6 +16,7 @@ namespace BillBox.Controllers
     {
         private Entities dbContext = new Entities();
 
+        [RightFilter(RightName = "VIEW_SETTINGS")]
         public ActionResult Index()
         {
             var settings = dbContext.Settings;
@@ -23,6 +24,7 @@ namespace BillBox.Controllers
             return View(settings);
         }
 
+        [RightFilter(RightName = "CHANGE_SETTINGS")]
         public ActionResult SaveSettings()
         {
             return View();

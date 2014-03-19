@@ -192,6 +192,9 @@ INSERT INTO UserRight (Name, DisplayName) VALUES('VIEW_USER_RIGHTS', 'View User 
 INSERT INTO UserRight (Name, DisplayName) VALUES('GENERATE_REPORT', 'Generate Report')
 INSERT INTO UserRight (Name, DisplayName) VALUES('VIEW_RECEIPT', 'View Receipt')
 
+INSERT INTO UserRight (Name, DisplayName) VALUES('VIEW_SETTINGS', 'View Settings')
+INSERT INTO UserRight (Name, DisplayName) VALUES('CHANGE_SETTINGS', 'Change Settings')
+
 GO
 
 
@@ -229,6 +232,8 @@ INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (30, 1)
 INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (31, 1)
 INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (32, 1)
 INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (33, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (34, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (35, 1)
 
 
 /***********************************************************Bill*********************************************************************/
