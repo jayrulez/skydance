@@ -71,12 +71,15 @@ namespace BillBox.Controllers
 
             try
             {
+                var totalRecords = dbContext.Users.Count();
                 var users = dbContext.Users
                     .Include(u => u.UserLevel)
                     .Include(u => u.Agent)
                     .Include(u => u.AgentBranch)
                     .OrderBy(a => a.Name)
                     .ToPagedList(pageNumber, pageSize);
+
+                Util.PreparePagerInfo(ControllerContext.RequestContext, ViewBag, "Index", pageNumber, pageSize, totalRecords);
 
                 return View(users);
             }

@@ -33,8 +33,8 @@ namespace BillBox.Models
         public int SubscriberId { get; set; }
 
         [Required]
-        [Display(Name = "Invoice Number")]
-        public int InvoiceNumber { get; set; }
+        [Display(Name = "Receipt Number")]
+        public int ReceiptNumber { get; set; }
 
         [Required]
         [Display(Name = "Agent")]

@@ -9,6 +9,7 @@ using System.Web.Configuration;
 using System.Data.Entity.Infrastructure;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web.Routing;
 
 namespace BillBox.Common
 {
@@ -229,6 +230,31 @@ namespace BillBox.Common
         public static string DisplayForDollar(string amount)
         {
             return "$" + amount;
+        }
+
+        public static void PreparePagerInfo(RequestContext context, dynamic dictionary, string actionName, int pageNumber, int pageSize, int totalRecordCount, object routeValues = null)
+        {
+            var routeValueDictionary = new RouteValueDictionary(routeValues);
+            var helper = new UrlHelper(context);
+
+            if (pageNumber > 1)
+            {
+                routeValueDictionary.Add("page", pageNumber - 1);
+                dictionary.Previous = helper.Action(actionName, routeValueDictionary);
+            }
+
+            if ((pageNumber * pageSize) < totalRecordCount)
+            {
+                if (routeValueDictionary.ContainsKey("page"))
+                    routeValueDictionary.Remove("page");
+
+                routeValueDictionary.Add("page", pageNumber + 1);
+                dictionary.Next = helper.Action(actionName, routeValueDictionary);
+            }
+
+            dictionary.RecordTotal = totalRecordCount;
+            dictionary.RecordBegin = ((pageNumber - 1) * pageSize) + 1;
+            dictionary.RecordEnd = (pageNumber * pageSize) < totalRecordCount ? (pageNumber * pageSize) : totalRecordCount;
         }
     }
 }

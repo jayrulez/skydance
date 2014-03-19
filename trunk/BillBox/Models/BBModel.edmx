@@ -4,147 +4,41 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="BBModelStoreContainer">
-          <EntitySet Name="Agent" EntityType="BBModel.Store.Agent" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="AgentBranch" EntityType="BBModel.Store.AgentBranch" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Bill" EntityType="BBModel.Store.Bill" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="BillCaptureField" EntityType="BBModel.Store.BillCaptureField" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="CaptureField" EntityType="BBModel.Store.CaptureField" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Parish" EntityType="BBModel.Store.Parish" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Payment" EntityType="BBModel.Store.Payment" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PaymentMethod" EntityType="BBModel.Store.PaymentMethod" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PaymentMethodCaptureField" EntityType="BBModel.Store.PaymentMethodCaptureField" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PaymentPaymentMethodCaptureField" EntityType="BBModel.Store.PaymentPaymentMethodCaptureField" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Settings" EntityType="BBModel.Store.Settings" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Subscriber" EntityType="BBModel.Store.Subscriber" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="User" EntityType="BBModel.Store.User" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="UserLevel" EntityType="BBModel.Store.UserLevel" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="UserRight" EntityType="BBModel.Store.UserRight" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="UserRight_UserLevel" EntityType="BBModel.Store.UserRight_UserLevel" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_Agent_Parish" Association="BBModel.Store.FK_Agent_Parish">
-            <End Role="Parish" EntitySet="Parish" />
-            <End Role="Agent" EntitySet="Agent" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AgentBranch_Agent" Association="BBModel.Store.FK_AgentBranch_Agent">
-            <End Role="Agent" EntitySet="Agent" />
-            <End Role="AgentBranch" EntitySet="AgentBranch" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AgentBranch_Parish" Association="BBModel.Store.FK_AgentBranch_Parish">
-            <End Role="Parish" EntitySet="Parish" />
-            <End Role="AgentBranch" EntitySet="AgentBranch" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Bill_Agent" Association="BBModel.Store.FK_Bill_Agent">
-            <End Role="Agent" EntitySet="Agent" />
-            <End Role="Bill" EntitySet="Bill" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Bill_AgentBranch" Association="BBModel.Store.FK_Bill_AgentBranch">
-            <End Role="AgentBranch" EntitySet="AgentBranch" />
-            <End Role="Bill" EntitySet="Bill" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Bill_Subscriber" Association="BBModel.Store.FK_Bill_Subscriber">
-            <End Role="Subscriber" EntitySet="Subscriber" />
-            <End Role="Bill" EntitySet="Bill" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Bill_User" Association="BBModel.Store.FK_Bill_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Bill" EntitySet="Bill" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BillCaptureField_Bill" Association="BBModel.Store.FK_BillCaptureField_Bill">
-            <End Role="Bill" EntitySet="Bill" />
-            <End Role="BillCaptureField" EntitySet="BillCaptureField" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BillCaptureField_CaptureField" Association="BBModel.Store.FK_BillCaptureField_CaptureField">
-            <End Role="CaptureField" EntitySet="CaptureField" />
-            <End Role="BillCaptureField" EntitySet="BillCaptureField" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CaptureField_Subscriber" Association="BBModel.Store.FK_CaptureField_Subscriber">
-            <End Role="Subscriber" EntitySet="Subscriber" />
-            <End Role="CaptureField" EntitySet="CaptureField" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Payment_Bill" Association="BBModel.Store.FK_Payment_Bill">
-            <End Role="Bill" EntitySet="Bill" />
-            <End Role="Payment" EntitySet="Payment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Payment_PaymentMethod" Association="BBModel.Store.FK_Payment_PaymentMethod">
-            <End Role="PaymentMethod" EntitySet="PaymentMethod" />
-            <End Role="Payment" EntitySet="Payment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentMethodCaptureField_PaymentMethod" Association="BBModel.Store.FK_PaymentMethodCaptureField_PaymentMethod">
-            <End Role="PaymentMethod" EntitySet="PaymentMethod" />
-            <End Role="PaymentMethodCaptureField" EntitySet="PaymentMethodCaptureField" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentPaymentMethodCaptureField_Payment" Association="BBModel.Store.FK_PaymentPaymentMethodCaptureField_Payment">
-            <End Role="Payment" EntitySet="Payment" />
-            <End Role="PaymentPaymentMethodCaptureField" EntitySet="PaymentPaymentMethodCaptureField" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentPaymentMethodCaptureField_PaymentCaptureField" Association="BBModel.Store.FK_PaymentPaymentMethodCaptureField_PaymentCaptureField">
-            <End Role="PaymentMethodCaptureField" EntitySet="PaymentMethodCaptureField" />
-            <End Role="PaymentPaymentMethodCaptureField" EntitySet="PaymentPaymentMethodCaptureField" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Subscriber_Parish" Association="BBModel.Store.FK_Subscriber_Parish">
-            <End Role="Parish" EntitySet="Parish" />
-            <End Role="Subscriber" EntitySet="Subscriber" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Agent" Association="BBModel.Store.FK_User_Agent">
-            <End Role="Agent" EntitySet="Agent" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_AgentBranch" Association="BBModel.Store.FK_User_AgentBranch">
-            <End Role="AgentBranch" EntitySet="AgentBranch" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Parish" Association="BBModel.Store.FK_User_Parish">
-            <End Role="Parish" EntitySet="Parish" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_UserLevel" Association="BBModel.Store.FK_User_UserLevel">
-            <End Role="UserLevel" EntitySet="UserLevel" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserRight_UserLevel_UserLevel" Association="BBModel.Store.FK_UserRight_UserLevel_UserLevel">
-            <End Role="UserLevel" EntitySet="UserLevel" />
-            <End Role="UserRight_UserLevel" EntitySet="UserRight_UserLevel" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserRight_UserLevel_UserRight" Association="BBModel.Store.FK_UserRight_UserLevel_UserRight">
-            <End Role="UserRight" EntitySet="UserRight" />
-            <End Role="UserRight_UserLevel" EntitySet="UserRight_UserLevel" />
-          </AssociationSet>
-        </EntityContainer>
+    <Schema Namespace="BBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Agent">
           <Key>
             <PropertyRef Name="AgentId" />
           </Key>
-          <Property Name="AgentId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="40" />
-          <Property Name="AddressStreet" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="AddressCity" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="AgentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="AddressStreet" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddressCity" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="ParishId" Type="int" Nullable="false" />
-          <Property Name="ContactNumber" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="ContactNumber" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="FaxNumber" Type="varchar" MaxLength="15" />
-          <Property Name="EmailAddress" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Inactive" Type="bit" />
         </EntityType>
         <EntityType Name="AgentBranch">
           <Key>
             <PropertyRef Name="BranchId" />
           </Key>
-          <Property Name="BranchId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BranchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AgentId" Type="int" Nullable="false" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="40" />
-          <Property Name="AddressStreet" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="AddressCity" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="Name" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="AddressStreet" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddressCity" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="ParishId" Type="int" Nullable="false" />
-          <Property Name="ContactNumber" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="ContactNumber" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="FaxNumber" Type="varchar" MaxLength="15" />
-          <Property Name="EmailAddress" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Inactive" Type="bit" />
         </EntityType>
         <EntityType Name="Bill">
           <Key>
             <PropertyRef Name="BillId" />
           </Key>
-          <Property Name="BillId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BillId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SubscriberId" Type="int" Nullable="false" />
           <Property Name="ReceiptNumber" Type="int" Nullable="false" />
           <Property Name="AgentId" Type="int" Nullable="false" />
@@ -170,10 +64,10 @@
           <Key>
             <PropertyRef Name="CaptureFieldId" />
           </Key>
-          <Property Name="CaptureFieldId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CaptureFieldId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SubscriberId" Type="int" Nullable="false" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="40" />
-          <Property Name="DisplayName" Type="varchar" Nullable="false" MaxLength="60" />
+          <Property Name="Name" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="DisplayName" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="Type" Type="smallint" />
           <Property Name="OrderNum" Type="int" />
         </EntityType>
@@ -181,14 +75,14 @@
           <Key>
             <PropertyRef Name="ParishId" />
           </Key>
-          <Property Name="ParishId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="ParishId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
             <PropertyRef Name="PaymentId" />
           </Key>
-          <Property Name="PaymentId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PaymentMethodId" Type="int" Nullable="false" />
           <Property Name="BillId" Type="int" Nullable="false" />
           <Property Name="Amount" Type="float" Nullable="false" />
@@ -197,17 +91,17 @@
           <Key>
             <PropertyRef Name="PaymentMethodId" />
           </Key>
-          <Property Name="PaymentMethodId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="40" />
+          <Property Name="PaymentMethodId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="40" Nullable="false" />
         </EntityType>
         <EntityType Name="PaymentMethodCaptureField">
           <Key>
             <PropertyRef Name="PaymentMethodCaptureFieldId" />
           </Key>
-          <Property Name="PaymentMethodCaptureFieldId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentMethodCaptureFieldId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PaymentMethodId" Type="int" Nullable="false" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="40" />
-          <Property Name="DisplayName" Type="varchar" Nullable="false" MaxLength="60" />
+          <Property Name="Name" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="DisplayName" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="Type" Type="smallint" />
           <Property Name="OrderNum" Type="int" />
         </EntityType>
@@ -224,8 +118,8 @@
           <Key>
             <PropertyRef Name="Name" />
           </Key>
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="64" />
-          <Property Name="DisplayName" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="Name" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="DisplayName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Type" Type="smallint" />
           <Property Name="Value" Type="text" />
         </EntityType>
@@ -233,31 +127,31 @@
           <Key>
             <PropertyRef Name="SubscriberId" />
           </Key>
-          <Property Name="SubscriberId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="40" />
+          <Property Name="SubscriberId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="OperatingName" Type="varchar" MaxLength="50" />
-          <Property Name="AddressStreet" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="AddressCity" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="AddressStreet" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddressCity" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="ParishId" Type="int" Nullable="false" />
-          <Property Name="ContactNumber" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="ContactNumber" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="FaxNumber" Type="varchar" MaxLength="15" />
-          <Property Name="EmailAddress" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Website" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserLevelId" Type="int" Nullable="false" />
           <Property Name="AgentId" Type="int" />
           <Property Name="AgentBranchId" Type="int" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="60" />
-          <Property Name="Username" Type="varchar" Nullable="false" MaxLength="32" />
-          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="128" />
+          <Property Name="Name" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="PasswordExpireAt" Type="date" />
-          <Property Name="AddressStreet" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="AddressCity" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="AddressStreet" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddressCity" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="ParishId" Type="int" Nullable="false" />
           <Property Name="ContactNumber" Type="varchar" MaxLength="15" />
           <Property Name="EmailAddress" Type="varchar" MaxLength="50" />
@@ -266,15 +160,15 @@
           <Key>
             <PropertyRef Name="LevelId" />
           </Key>
-          <Property Name="LevelId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="LevelName" Type="varchar" Nullable="false" MaxLength="40" />
+          <Property Name="LevelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LevelName" Type="varchar" MaxLength="40" Nullable="false" />
         </EntityType>
         <EntityType Name="UserRight">
           <Key>
             <PropertyRef Name="RightId" />
           </Key>
-          <Property Name="RightId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="40" />
+          <Property Name="RightId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="DisplayName" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="UserRight_UserLevel">
@@ -286,10 +180,10 @@
           <Property Name="LevelId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Agent_Parish">
-          <End Role="Parish" Type="BBModel.Store.Parish" Multiplicity="1">
+          <End Role="Parish" Type="Self.Parish" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Agent" Type="BBModel.Store.Agent" Multiplicity="*" />
+          <End Role="Agent" Type="Self.Agent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Parish">
               <PropertyRef Name="ParishId" />
@@ -300,10 +194,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AgentBranch_Agent">
-          <End Role="Agent" Type="BBModel.Store.Agent" Multiplicity="1">
+          <End Role="Agent" Type="Self.Agent" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AgentBranch" Type="BBModel.Store.AgentBranch" Multiplicity="*" />
+          <End Role="AgentBranch" Type="Self.AgentBranch" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Agent">
               <PropertyRef Name="AgentId" />
@@ -314,8 +208,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AgentBranch_Parish">
-          <End Role="Parish" Type="BBModel.Store.Parish" Multiplicity="1" />
-          <End Role="AgentBranch" Type="BBModel.Store.AgentBranch" Multiplicity="*" />
+          <End Role="Parish" Type="Self.Parish" Multiplicity="1" />
+          <End Role="AgentBranch" Type="Self.AgentBranch" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Parish">
               <PropertyRef Name="ParishId" />
@@ -326,8 +220,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Bill_Agent">
-          <End Role="Agent" Type="BBModel.Store.Agent" Multiplicity="1" />
-          <End Role="Bill" Type="BBModel.Store.Bill" Multiplicity="*" />
+          <End Role="Agent" Type="Self.Agent" Multiplicity="1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Agent">
               <PropertyRef Name="AgentId" />
@@ -338,8 +232,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Bill_AgentBranch">
-          <End Role="AgentBranch" Type="BBModel.Store.AgentBranch" Multiplicity="1" />
-          <End Role="Bill" Type="BBModel.Store.Bill" Multiplicity="*" />
+          <End Role="AgentBranch" Type="Self.AgentBranch" Multiplicity="1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AgentBranch">
               <PropertyRef Name="BranchId" />
@@ -350,10 +244,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Bill_Subscriber">
-          <End Role="Subscriber" Type="BBModel.Store.Subscriber" Multiplicity="1">
+          <End Role="Subscriber" Type="Self.Subscriber" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Bill" Type="BBModel.Store.Bill" Multiplicity="*" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Subscriber">
               <PropertyRef Name="SubscriberId" />
@@ -364,8 +258,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Bill_User">
-          <End Role="User" Type="BBModel.Store.User" Multiplicity="1" />
-          <End Role="Bill" Type="BBModel.Store.Bill" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -376,10 +270,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BillCaptureField_Bill">
-          <End Role="Bill" Type="BBModel.Store.Bill" Multiplicity="1">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="BillCaptureField" Type="BBModel.Store.BillCaptureField" Multiplicity="*" />
+          <End Role="BillCaptureField" Type="Self.BillCaptureField" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Bill">
               <PropertyRef Name="BillId" />
@@ -390,8 +284,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BillCaptureField_CaptureField">
-          <End Role="CaptureField" Type="BBModel.Store.CaptureField" Multiplicity="1" />
-          <End Role="BillCaptureField" Type="BBModel.Store.BillCaptureField" Multiplicity="*" />
+          <End Role="CaptureField" Type="Self.CaptureField" Multiplicity="1" />
+          <End Role="BillCaptureField" Type="Self.BillCaptureField" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CaptureField">
               <PropertyRef Name="CaptureFieldId" />
@@ -402,10 +296,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CaptureField_Subscriber">
-          <End Role="Subscriber" Type="BBModel.Store.Subscriber" Multiplicity="1">
+          <End Role="Subscriber" Type="Self.Subscriber" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="CaptureField" Type="BBModel.Store.CaptureField" Multiplicity="*" />
+          <End Role="CaptureField" Type="Self.CaptureField" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Subscriber">
               <PropertyRef Name="SubscriberId" />
@@ -416,10 +310,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Payment_Bill">
-          <End Role="Bill" Type="BBModel.Store.Bill" Multiplicity="1">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Payment" Type="BBModel.Store.Payment" Multiplicity="*" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Bill">
               <PropertyRef Name="BillId" />
@@ -430,10 +324,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Payment_PaymentMethod">
-          <End Role="PaymentMethod" Type="BBModel.Store.PaymentMethod" Multiplicity="1">
+          <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Payment" Type="BBModel.Store.Payment" Multiplicity="*" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PaymentMethod">
               <PropertyRef Name="PaymentMethodId" />
@@ -444,10 +338,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PaymentMethodCaptureField_PaymentMethod">
-          <End Role="PaymentMethod" Type="BBModel.Store.PaymentMethod" Multiplicity="1">
+          <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="PaymentMethodCaptureField" Type="BBModel.Store.PaymentMethodCaptureField" Multiplicity="*" />
+          <End Role="PaymentMethodCaptureField" Type="Self.PaymentMethodCaptureField" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PaymentMethod">
               <PropertyRef Name="PaymentMethodId" />
@@ -458,10 +352,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PaymentPaymentMethodCaptureField_Payment">
-          <End Role="Payment" Type="BBModel.Store.Payment" Multiplicity="1">
+          <End Role="Payment" Type="Self.Payment" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="PaymentPaymentMethodCaptureField" Type="BBModel.Store.PaymentPaymentMethodCaptureField" Multiplicity="*" />
+          <End Role="PaymentPaymentMethodCaptureField" Type="Self.PaymentPaymentMethodCaptureField" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Payment">
               <PropertyRef Name="PaymentId" />
@@ -472,8 +366,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PaymentPaymentMethodCaptureField_PaymentCaptureField">
-          <End Role="PaymentMethodCaptureField" Type="BBModel.Store.PaymentMethodCaptureField" Multiplicity="1" />
-          <End Role="PaymentPaymentMethodCaptureField" Type="BBModel.Store.PaymentPaymentMethodCaptureField" Multiplicity="*" />
+          <End Role="PaymentMethodCaptureField" Type="Self.PaymentMethodCaptureField" Multiplicity="1" />
+          <End Role="PaymentPaymentMethodCaptureField" Type="Self.PaymentPaymentMethodCaptureField" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PaymentMethodCaptureField">
               <PropertyRef Name="PaymentMethodCaptureFieldId" />
@@ -484,10 +378,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Subscriber_Parish">
-          <End Role="Parish" Type="BBModel.Store.Parish" Multiplicity="1">
+          <End Role="Parish" Type="Self.Parish" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Subscriber" Type="BBModel.Store.Subscriber" Multiplicity="*" />
+          <End Role="Subscriber" Type="Self.Subscriber" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Parish">
               <PropertyRef Name="ParishId" />
@@ -498,10 +392,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Agent">
-          <End Role="Agent" Type="BBModel.Store.Agent" Multiplicity="0..1">
+          <End Role="Agent" Type="Self.Agent" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="User" Type="BBModel.Store.User" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Agent">
               <PropertyRef Name="AgentId" />
@@ -512,8 +406,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_AgentBranch">
-          <End Role="AgentBranch" Type="BBModel.Store.AgentBranch" Multiplicity="0..1" />
-          <End Role="User" Type="BBModel.Store.User" Multiplicity="*" />
+          <End Role="AgentBranch" Type="Self.AgentBranch" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AgentBranch">
               <PropertyRef Name="BranchId" />
@@ -524,8 +418,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Parish">
-          <End Role="Parish" Type="BBModel.Store.Parish" Multiplicity="1" />
-          <End Role="User" Type="BBModel.Store.User" Multiplicity="*" />
+          <End Role="Parish" Type="Self.Parish" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Parish">
               <PropertyRef Name="ParishId" />
@@ -536,10 +430,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_UserLevel">
-          <End Role="UserLevel" Type="BBModel.Store.UserLevel" Multiplicity="1">
+          <End Role="UserLevel" Type="Self.UserLevel" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="User" Type="BBModel.Store.User" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserLevel">
               <PropertyRef Name="LevelId" />
@@ -550,10 +444,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserRight_UserLevel_UserLevel">
-          <End Role="UserLevel" Type="BBModel.Store.UserLevel" Multiplicity="1">
+          <End Role="UserLevel" Type="Self.UserLevel" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="UserRight_UserLevel" Type="BBModel.Store.UserRight_UserLevel" Multiplicity="*" />
+          <End Role="UserRight_UserLevel" Type="Self.UserRight_UserLevel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserLevel">
               <PropertyRef Name="LevelId" />
@@ -564,10 +458,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserRight_UserLevel_UserRight">
-          <End Role="UserRight" Type="BBModel.Store.UserRight" Multiplicity="1">
+          <End Role="UserRight" Type="Self.UserRight" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="UserRight_UserLevel" Type="BBModel.Store.UserRight_UserLevel" Multiplicity="*" />
+          <End Role="UserRight_UserLevel" Type="Self.UserRight_UserLevel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserRight">
               <PropertyRef Name="RightId" />
@@ -577,8 +471,113 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+        <EntityContainer Name="BBModelStoreContainer">
+          <EntitySet Name="Agent" EntityType="Self.Agent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AgentBranch" EntityType="Self.AgentBranch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bill" EntityType="Self.Bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BillCaptureField" EntityType="Self.BillCaptureField" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CaptureField" EntityType="Self.CaptureField" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parish" EntityType="Self.Parish" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentMethod" EntityType="Self.PaymentMethod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentMethodCaptureField" EntityType="Self.PaymentMethodCaptureField" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentPaymentMethodCaptureField" EntityType="Self.PaymentPaymentMethodCaptureField" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subscriber" EntityType="Self.Subscriber" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLevel" EntityType="Self.UserLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRight" EntityType="Self.UserRight" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRight_UserLevel" EntityType="Self.UserRight_UserLevel" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Agent_Parish" Association="Self.FK_Agent_Parish">
+            <End Role="Parish" EntitySet="Parish" />
+            <End Role="Agent" EntitySet="Agent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgentBranch_Agent" Association="Self.FK_AgentBranch_Agent">
+            <End Role="Agent" EntitySet="Agent" />
+            <End Role="AgentBranch" EntitySet="AgentBranch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgentBranch_Parish" Association="Self.FK_AgentBranch_Parish">
+            <End Role="Parish" EntitySet="Parish" />
+            <End Role="AgentBranch" EntitySet="AgentBranch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_Agent" Association="Self.FK_Bill_Agent">
+            <End Role="Agent" EntitySet="Agent" />
+            <End Role="Bill" EntitySet="Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_AgentBranch" Association="Self.FK_Bill_AgentBranch">
+            <End Role="AgentBranch" EntitySet="AgentBranch" />
+            <End Role="Bill" EntitySet="Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_Subscriber" Association="Self.FK_Bill_Subscriber">
+            <End Role="Subscriber" EntitySet="Subscriber" />
+            <End Role="Bill" EntitySet="Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_User" Association="Self.FK_Bill_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Bill" EntitySet="Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillCaptureField_Bill" Association="Self.FK_BillCaptureField_Bill">
+            <End Role="Bill" EntitySet="Bill" />
+            <End Role="BillCaptureField" EntitySet="BillCaptureField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillCaptureField_CaptureField" Association="Self.FK_BillCaptureField_CaptureField">
+            <End Role="CaptureField" EntitySet="CaptureField" />
+            <End Role="BillCaptureField" EntitySet="BillCaptureField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CaptureField_Subscriber" Association="Self.FK_CaptureField_Subscriber">
+            <End Role="Subscriber" EntitySet="Subscriber" />
+            <End Role="CaptureField" EntitySet="CaptureField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Bill" Association="Self.FK_Payment_Bill">
+            <End Role="Bill" EntitySet="Bill" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_PaymentMethod" Association="Self.FK_Payment_PaymentMethod">
+            <End Role="PaymentMethod" EntitySet="PaymentMethod" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentMethodCaptureField_PaymentMethod" Association="Self.FK_PaymentMethodCaptureField_PaymentMethod">
+            <End Role="PaymentMethod" EntitySet="PaymentMethod" />
+            <End Role="PaymentMethodCaptureField" EntitySet="PaymentMethodCaptureField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentPaymentMethodCaptureField_Payment" Association="Self.FK_PaymentPaymentMethodCaptureField_Payment">
+            <End Role="Payment" EntitySet="Payment" />
+            <End Role="PaymentPaymentMethodCaptureField" EntitySet="PaymentPaymentMethodCaptureField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentPaymentMethodCaptureField_PaymentCaptureField" Association="Self.FK_PaymentPaymentMethodCaptureField_PaymentCaptureField">
+            <End Role="PaymentMethodCaptureField" EntitySet="PaymentMethodCaptureField" />
+            <End Role="PaymentPaymentMethodCaptureField" EntitySet="PaymentPaymentMethodCaptureField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subscriber_Parish" Association="Self.FK_Subscriber_Parish">
+            <End Role="Parish" EntitySet="Parish" />
+            <End Role="Subscriber" EntitySet="Subscriber" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Agent" Association="Self.FK_User_Agent">
+            <End Role="Agent" EntitySet="Agent" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_AgentBranch" Association="Self.FK_User_AgentBranch">
+            <End Role="AgentBranch" EntitySet="AgentBranch" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Parish" Association="Self.FK_User_Parish">
+            <End Role="Parish" EntitySet="Parish" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_UserLevel" Association="Self.FK_User_UserLevel">
+            <End Role="UserLevel" EntitySet="UserLevel" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRight_UserLevel_UserLevel" Association="Self.FK_UserRight_UserLevel_UserLevel">
+            <End Role="UserLevel" EntitySet="UserLevel" />
+            <End Role="UserRight_UserLevel" EntitySet="UserRight_UserLevel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRight_UserLevel_UserRight" Association="Self.FK_UserRight_UserLevel_UserRight">
+            <End Role="UserRight" EntitySet="UserRight" />
+            <End Role="UserRight_UserLevel" EntitySet="UserRight_UserLevel" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1369,6 +1368,7 @@
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

@@ -26,7 +26,10 @@ namespace BillBox.Controllers
 
             try
             {
+                var totalRecords = dbContext.Agents.Count();
                 var agents = dbContext.Agents.OrderBy(a => a.Name).ToPagedList(pageNumber, pageSize);
+
+                Util.PreparePagerInfo(ControllerContext.RequestContext, ViewBag, "Index", pageNumber, pageSize, totalRecords);
 
                 return View(agents);
             }
@@ -306,12 +309,16 @@ namespace BillBox.Controllers
                 }
                 else
                 {
+                    var totalRecords = dbContext.AgentBranches.Where(b => b.AgentId == agentId).Count();
+
                     var branches = dbContext.AgentBranches
                         .Where(b => b.AgentId == agentId)
                         .OrderBy(b => b.Name)
                         .ToPagedList(pageNumber, pageSize);
 
                     ViewBag.Agent = agent;
+
+                    Util.PreparePagerInfo(ControllerContext.RequestContext, ViewBag, "ListBranches", pageNumber, pageSize, totalRecords, new { agentId = agentId});
 
                     return View(branches);
                 }

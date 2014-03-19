@@ -17,8 +17,8 @@ namespace BillBox.Filters
     {
         public string RightName {get;set;}
 
-        private bool isException;
-        private string errorMessage;
+        private bool isException = false;
+        private string errorMessage = string.Empty;
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {    
@@ -43,7 +43,7 @@ namespace BillBox.Filters
             }
             catch(Exception ex)
             {
-                var isHandled = Util.HandleException(ex, out this.errorMessage);
+                var isHandled = Util.HandleException(ex.GetBaseException(), out this.errorMessage);
                 this.isException = true;
                 return false;
             }
@@ -58,7 +58,7 @@ namespace BillBox.Filters
 
             if(this.isException)
             {
-                filterContext.HttpContext.Response.Redirect(urlHelper.Action("Error", "Default"));
+                filterContext.HttpContext.Response.Redirect(urlHelper.Action("Error", "Default", new { msg = errorMessage }));
             }
             else
             {
