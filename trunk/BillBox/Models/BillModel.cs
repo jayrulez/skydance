@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BillBox.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace BillBox.Models
             }
 
             return amount;
-        }
+        }       
     }
 
     public class BillModel
