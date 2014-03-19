@@ -49,7 +49,7 @@
                         <dd>@payment.PaymentMethod.Name</dd>
                 
                         <dt>Amount</dt>
-                        <dd>@payment.Amount</dd>
+                        <dd>@BillBox.Common.Util.DisplayForDollar(payment.Amount)</dd>
                 
                         foreach (BillBox.Models.PaymentPaymentMethodCaptureField field in payment.PaymentPaymentMethodCaptureFields)
                         {

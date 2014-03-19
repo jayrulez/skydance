@@ -11,6 +11,8 @@
 <add key="PasswordExpiryDays" value="90"/>
 <add key="ProcessingFee" value=""/>
 <add key="ProcessingFeeGCT" value=""/>
+<add key="CommissionRate" value=""/>
+<add key="CommissionGCT" value=""/>
 <add key="UKViolation_AgentEmail" value="UK_Agent_EmailAddress" />
 <add key="UKViolation_AgentName" value="UK_Agent_Name" />
 <add key="UnknownErrorMsg" value="An unknown error during execution. Please advise the system administrator"/>

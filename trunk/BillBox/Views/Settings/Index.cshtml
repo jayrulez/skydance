@@ -14,20 +14,22 @@
             </div>
             <div class="panel-body">
                 <div class="row">
-                    @using (Html.BeginForm("SaveSettings", "Settings", FormMethod.Post, new { role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true)
-
-                        foreach(BillBox.Models.Setting setting in Model)
+                    <div class="col-lg-6">
+                        @using (Html.BeginForm("SaveSettings", "Settings", FormMethod.Post, new { role = "form" }))
                         {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+
+                            foreach (BillBox.Models.Setting setting in Model)
+                            {
                             <div class="form-group">
                                 @Html.Label(setting.DisplayName)
                                 @Html.TextBox(setting.Name, setting.Value, new { @class = "form-control" })
                             </div>
+                            }
+                            <button type="submit" class="btn btn-default">Save Settings</button>
                         }
-                        <button type="submit" class="btn btn-default">Save Settings</button>
-                    }
+                    </div>
                 </div>
             </div>
         </div>

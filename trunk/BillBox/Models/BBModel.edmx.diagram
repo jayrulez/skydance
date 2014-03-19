@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bd7d2245f1e04189ba2298dec57906c5" Name="Diagram1">
+      <Diagram DiagramId="a349eed14efa4a0c97e44d7fc1db6055" Name="Diagram1">
         <EntityTypeShape EntityType="BBModel.Agent" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="BBModel.AgentBranch" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.Bill" Width="1.5" PointX="7.5" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.BillCaptureField" Width="1.5" PointX="9.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BBModel.Bill" Width="1.5" PointX="7.5" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BBModel.BillCaptureField" Width="1.5" PointX="9.75" PointY="9.625" IsExpanded="true" />
         <EntityTypeShape EntityType="BBModel.CaptureField" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BBModel.Parish" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="BBModel.Payment" Width="1.5" PointX="12.75" PointY="6.75" IsExpanded="true" />
@@ -18,7 +18,7 @@
         <EntityTypeShape EntityType="BBModel.Setting" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BBModel.Subscriber" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
         <EntityTypeShape EntityType="BBModel.User" Width="1.5" PointX="10.5" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BBModel.UserLevel" Width="1.5" PointX="8.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BBModel.UserLevel" Width="1.5" PointX="8.25" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BBModel.UserRight" Width="1.5" PointX="10.5" PointY="12.75" IsExpanded="true" />
         <AssociationConnector Association="BBModel.FK_Agent_Parish" ManuallyRouted="false" />
         <AssociationConnector Association="BBModel.FK_AgentBranch_Agent" ManuallyRouted="false" />
