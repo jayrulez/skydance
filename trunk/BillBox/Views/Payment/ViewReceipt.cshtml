@@ -2,38 +2,68 @@
 
 @{
     ViewBag.Title = "View Receipt";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Default.cshtml";
 }
 
-
-<div class="row">
-    <div class="col-lg-12">
-        <!--<h1 class="page-header">View Receipt</h1>-->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                View Receipt
-            </div>
-            <div class="panel-body">
-                <dl>
-                    <dt>@Html.DisplayNameFor(m => m.ReceiptNumber)</dt>
-                    <dd>@Html.DisplayFor(m => m.ReceiptNumber)</dd>
-
-                    <dt>@Html.DisplayNameFor(m => m.SubscriberId)</dt>
-                    <dd>@Html.DisplayFor(m => m.Subscriber.Name)</dd>
-
-                    <dt>@Html.DisplayNameFor(m => m.Date)</dt>
-                    <dd>@Html.DisplayFor(m => m.Date)</dd>
-
-                    <dt>Total</dt>
-                    <dd>@BillBox.Common.Util.DisplayForDollar(Model.Amount())</dd>
-                </dl>
-            </div>
-            <div class="panel-footer">
-                <ul class="action-menu">
-                    <li><a href="#">Print</a></li>
-                </ul>
-            </div>
+<div id="receipt-outline">
+    <div class="receipt-header">
+        <div class="logo">
+        </div>
+        <div class="address">
         </div>
     </div>
-    <!-- /.col-lg-12 -->
+
+    <div class="receipt-body">
+        <div class="bill-fields">
+            <table>
+                <tr>
+                    <td>@Html.DisplayNameFor(m => m.SubscriberId)</td>
+                    <td>@Html.DisplayFor(m => m.Subscriber.Name)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(m => m.ReceiptNumber)</td>
+                    <td>@Html.DisplayFor(m => m.ReceiptNumber)</td>
+
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(m => m.Date)</td>
+                    <td>@Html.DisplayFor(m => m.Date)</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="bill-payments">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Payment Method</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (BillBox.Models.Payment payment in Model.Payments)
+                    {
+                        <tr>
+                            <td>@payment.PaymentMethod.Name</td>
+
+                            <td>@BillBox.Common.Util.DisplayForDollar(payment.Amount)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <hr />
+        <div class="bill-amounts">
+            <table>
+                <tr>
+                    <td>Total</td>
+                    <td>@BillBox.Common.Util.DisplayForDollar(Model.Amount())</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="receipt-footer">
+    </div>
 </div>

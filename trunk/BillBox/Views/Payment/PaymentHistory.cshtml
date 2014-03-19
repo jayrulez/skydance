@@ -36,7 +36,7 @@
                                 <tr>
                                     <td>@bill.BillId</td>
                                     <td>@bill.Subscriber.Name</td>
-                                    <td>@Html.ActionLink(@bill.ReceiptNumber.ToString(), "ViewReceipt", new { receiptNumber = @bill.ReceiptNumber })</td>
+                                    <td>@Html.ActionLink(@bill.ReceiptNumber.ToString(), "ViewReceipt", new { receiptNumber = @bill.ReceiptNumber }, new { _target = "blank" })</td>
                                     <td>@bill.Agent.Name</td>
                                     <td>@bill.AgentBranch.Name</td>
                                     <td>@bill.User.Name</td>
