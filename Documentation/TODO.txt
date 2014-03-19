@@ -1,4 +1,17 @@
 CODE CLEANUP
 
+breadcrumbs
+unique attribute
+css panel
+action buttons
 
-REPORTS
+update button
+create button
+generate receipt number
+
+save settings
+remove payment
+date range control
+menu icons
+
+view/details display
