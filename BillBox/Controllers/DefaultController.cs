@@ -73,8 +73,11 @@ namespace BillBox.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Error()
+        public ActionResult Error(string msg)
         {
+            if (!string.IsNullOrEmpty(msg))
+                TempData["ErrorMessage"] = msg;
+
             return View();
         }
 

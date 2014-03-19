@@ -10,6 +10,7 @@ using BillBox.Models;
 using PagedList;
 using System.Data.Common;
 using BillBox.Filters;
+using System.Web.Routing;
 
 namespace BillBox.Controllers
 {
@@ -236,22 +237,15 @@ namespace BillBox.Controllers
 
                 var bills = dbContext.Bills.Where(b => b.Status == (int)BillStatus.Posted).OrderByDescending(b => b.Date).ToPagedList(pageNumber, pageSize);
 
-                if(pageNumber > 1)
-                    ViewBag.Previous = Url.Action("PaymentHistory", new { page = pageNumber -1, period = period });
-                if (((pageNumber * pageSize) < count))
-                    ViewBag.Next = Url.Action("PaymentHistory", new { page = pageNumber + 1, period = period });
-
-                ViewBag.RecordTotal = count;
-                ViewBag.RecordBegin = ((pageNumber - 1) * pageSize) + 1;
-                ViewBag.RecordEnd = (pageNumber * pageSize) < count ? (pageNumber * pageSize) : count;
-
+                Util.PreparePagerInfo(ControllerContext.RequestContext, ViewBag, "PaymentHistory", pageNumber, pageSize, count, new { period = period });
+                
                 return View(bills);
             }
             catch (Exception ex)
             {
                 return HandleErrorOnController(ex.GetBaseException());
             }
-            
+
         }
 
         [RightFilter(RightName = "VIEW_BILL")]
@@ -271,12 +265,12 @@ namespace BillBox.Controllers
             catch (Exception ex)
             {
                 return HandleErrorOnController(ex.GetBaseException());
-            }            
+            }
         }
 
         [RightFilter(RightName = "PROCESS_PAYMENT")]
         public ActionResult PostBill(int billId = 0)
-        {  
+        {
             try
             {
                 Bill bill = dbContext.Bills.Find(billId);
@@ -343,7 +337,7 @@ namespace BillBox.Controllers
             catch (Exception ex)
             {
                 return HandleErrorOnController(ex.GetBaseException());
-            }            
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -365,5 +359,25 @@ namespace BillBox.Controllers
             return RedirectToAction("Error", "Default", null);
         }
 
+        private void PreparePagerInfo(dynamic dictionary, string actionName, string controllerName, int pageNumber, int pageSize, int totalRecordCount, object routeValues)
+        {
+            var routeValueDictionary = new RouteValueDictionary(routeValues);
+
+            if (pageNumber > 1)
+            {
+                routeValueDictionary.Add("page", pageNumber - 1);
+                dictionary.Previous = Url.Action(actionName, controllerName, routeValueDictionary);
+            }
+
+            if (((pageNumber * pageSize) < totalRecordCount))
+            {
+                routeValueDictionary.Add("page", pageNumber + 1);
+                dictionary.Next = Url.Action(actionName, controllerName, routeValueDictionary);
+            }
+
+            dictionary.RecordTotal = totalRecordCount;
+            dictionary.RecordBegin = ((pageNumber - 1) * pageSize) + 1;
+            dictionary.RecordEnd = (pageNumber * pageSize) < totalRecordCount ? (pageNumber * pageSize) : totalRecordCount;
+        }
     }
 }

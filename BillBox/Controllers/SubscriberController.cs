@@ -69,10 +69,13 @@ namespace BillBox.Controllers
                 var pageNumber = page ?? 1;
                 var pageSize = Util.GetPageSize(Common.PagedList.Subscribers);
 
+                var totalRecords = dbContext.Subscribers.Count();
                 var subscribers = dbContext.Subscribers
                     .Include(s => s.Parish)
                     .OrderBy(s => s.Name)
                     .ToPagedList(pageNumber, pageSize);
+
+                Util.PreparePagerInfo(ControllerContext.RequestContext, ViewBag, "Index", pageNumber, pageSize, totalRecords);
 
                 return View(subscribers);
             }
