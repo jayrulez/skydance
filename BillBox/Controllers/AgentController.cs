@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
 using PagedList;
 using System.Data;
 using BillBox.Common;
@@ -79,7 +78,6 @@ namespace BillBox.Controllers
                 return HandleErrorOnController(ex.GetBaseException());
             }
         }
-
 
 
         [RightFilter(RightName = "VIEW_AGENT")]
