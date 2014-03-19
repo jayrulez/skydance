@@ -146,12 +146,16 @@
           </Key>
           <Property Name="BillId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="SubscriberId" Type="int" Nullable="false" />
-          <Property Name="InvoiceNumber" Type="int" Nullable="false" />
+          <Property Name="ReceiptNumber" Type="int" Nullable="false" />
           <Property Name="AgentId" Type="int" Nullable="false" />
           <Property Name="AgentBranchId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="ProcessingFee" Type="float" />
+          <Property Name="ProcessingFeeGCT" Type="float" />
+          <Property Name="Commission" Type="float" />
+          <Property Name="CommissionGCT" Type="float" />
         </EntityType>
         <EntityType Name="BillCaptureField">
           <Key>
@@ -722,12 +726,16 @@
           </Key>
           <Property Name="BillId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="SubscriberId" Type="Int32" Nullable="false" />
-          <Property Name="InvoiceNumber" Type="Int32" Nullable="false" />
+          <Property Name="ReceiptNumber" Type="Int32" Nullable="false" />
           <Property Name="AgentId" Type="Int32" Nullable="false" />
           <Property Name="AgentBranchId" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="ProcessingFee" Type="Double" />
+          <Property Name="ProcessingFeeGCT" Type="Double" />
+          <Property Name="Commission" Type="Double" />
+          <Property Name="CommissionGCT" Type="Double" />
           <NavigationProperty Name="Agent" Relationship="BBModel.FK_Bill_Agent" FromRole="Bill" ToRole="Agent" />
           <NavigationProperty Name="AgentBranch" Relationship="BBModel.FK_Bill_AgentBranch" FromRole="Bill" ToRole="AgentBranch" />
           <NavigationProperty Name="Subscriber" Relationship="BBModel.FK_Bill_Subscriber" FromRole="Bill" ToRole="Subscriber" />
@@ -1193,12 +1201,16 @@
               <MappingFragment StoreEntitySet="Bill">
                 <ScalarProperty Name="BillId" ColumnName="BillId" />
                 <ScalarProperty Name="SubscriberId" ColumnName="SubscriberId" />
-                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
                 <ScalarProperty Name="AgentId" ColumnName="AgentId" />
                 <ScalarProperty Name="AgentBranchId" ColumnName="AgentBranchId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ProcessingFee" ColumnName="ProcessingFee" />
+                <ScalarProperty Name="ProcessingFeeGCT" ColumnName="ProcessingFeeGCT" />
+                <ScalarProperty Name="Commission" ColumnName="Commission" />
+                <ScalarProperty Name="CommissionGCT" ColumnName="CommissionGCT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

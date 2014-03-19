@@ -44,12 +44,13 @@ namespace BillBox
 
 
 
-            bundles.Add(new StyleBundle("~/Assets/sb.css").Include(
+            bundles.Add(new StyleBundle("~/Assets/css").Include(
                 "~/Assets/css/bootstrap.min.css",
                 "~/Assets/font-awesome/css/font-awesome.css",
                 "~/Assets/css/plugins/morris/morris-0.4.3.min.css",
                 "~/Assets/css/plugins/timeline/timeline.css",
-                "~/Assets/css/sb-admin.css"
+                "~/Assets/css/sb-admin.css",
+                "~/Assets/css/sb.css"
             ));
 
             bundles.Add(new ScriptBundle("~/Assets/sb.js").Include(

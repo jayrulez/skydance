@@ -169,6 +169,7 @@ namespace BillBox.Controllers
 
                     ViewBag.parishes = dbContext.Parishes.OrderBy(p => p.Name);
 
+                    ViewBag.Agent = agent;
                     return View(branch);
                 }
             }
@@ -204,6 +205,7 @@ namespace BillBox.Controllers
                     else
                     {
                         ViewBag.parishes = dbContext.Parishes.OrderBy(p => p.Name);
+                        ViewBag.Agent = agent;
                         return View(model);
                     }
                 }

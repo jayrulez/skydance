@@ -88,7 +88,7 @@ namespace BillBox.Controllers
                     model.AgentBranchId = user.AgentBranch.BranchId;
                     model.AgentId = user.AgentBranch.Agent.AgentId;
                     model.Date = DateTime.Now;
-                    model.InvoiceNumber = Util.GenerateInvoiceNumber();
+                    model.ReceiptNumber = Util.GenerateReceiptNumber();
                     model.Status = (int)BillStatus.Init;
 
                     if (ModelState.IsValid)
@@ -327,11 +327,11 @@ namespace BillBox.Controllers
         }
 
         [RightFilter(RightName = "VIEW_RECEIPT")]
-        public ActionResult ViewReceipt(int invoiceNumber = 0)
+        public ActionResult ViewReceipt(int receiptNumber = 0)
         {
             try
             {
-                Bill bill = dbContext.Bills.FirstOrDefault(b => b.InvoiceNumber == invoiceNumber && b.Status == (int)BillStatus.Posted);
+                Bill bill = dbContext.Bills.FirstOrDefault(b => b.ReceiptNumber == receiptNumber && b.Status == (int)BillStatus.Posted);
 
                 if (bill == null)
                 {

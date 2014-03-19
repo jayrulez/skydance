@@ -178,13 +178,17 @@ GO
 create table Bill (
 	BillId INT IDENTITY(1,1) PRIMARY KEY NOT NULL, 
 	SubscriberId INT NOT NULL,
-	InvoiceNumber INT NOT NULL, 
+	ReceiptNumber INT NOT NULL, 
 	AgentId INT NOT NULL, 
 	AgentBranchId INT NOT NULL, 
 	UserId INT NOT NULL, 
 	Date DATETIME NOT NULL,
 	Status INT NOT NULL,
-	CONSTRAINT UK_Bill_InvoiceNumber UNIQUE (InvoiceNumber)
+	ProcessingFee FLOAT DEFAULT NULL,
+	ProcessingFeeGCT FLOAT DEFAULT NULL,
+	Commission FLOAT DEFAULT NULL,
+	CommissionGCT FLOAT DEFAULT NULL,
+	CONSTRAINT UK_Bill_ReceiptNumber UNIQUE (ReceiptNumber)
 );
 
 GO

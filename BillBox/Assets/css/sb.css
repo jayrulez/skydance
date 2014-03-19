@@ -2,19 +2,29 @@
 }
 
 ul.action-menu, ul.details-menu {
-    list-style-type: none;
+    list-style-type: inline;
 }
 
 ul.action-menu li, ul.details-menu li {
-    display: none;
+    display: inline-block;
 }
 
 ul.action-menu li a, ul.details-menu li a {
     display: block;
     padding: 2px 5px;
     background: #808080;
+	color: #ffffff;
+	font-weight: bold;
 }
 
 ul.action-menu li a:hover, ul.details-menu li a:hover {
+	text-decoration: none;
+	color: #808080;
+	background: #ffffff;
 }
 
+dl dt {}
+dl dd {
+	margin-left: 100px;
+	margin-bottom: 10px;
+}

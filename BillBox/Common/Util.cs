@@ -85,6 +85,27 @@ namespace BillBox.Common
             return value;
         }
 
+        public static string GetDbSetting(string key, bool fallback = true)
+        {
+            Entities dbContext = new Entities();
+
+            var setting = dbContext.Settings.FirstOrDefault(s => s.Name == key);
+
+            if (setting != null)
+            {
+                return setting.Value;
+            }
+            else
+            {
+                if(fallback)
+                {
+                    return Util.GetAppSetting(key);
+                }
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// Get the size of the specified page list
         /// </summary>
@@ -169,7 +190,7 @@ namespace BillBox.Common
         }
 
        
-        public static int GenerateInvoiceNumber()
+        public static int GenerateReceiptNumber()
         {
             return (int)DateTime.Now.Ticks;
         }
@@ -193,6 +214,21 @@ namespace BillBox.Common
             }            
 
             return handled;
+        }
+
+        public static string DisplayForDollar(double amount)
+        {
+            return "$" + amount.ToString();
+        }
+
+        public static string DisplayForDollar(float amount)
+        {
+            return "$" + amount.ToString();
+        }
+
+        public static string DisplayForDollar(string amount)
+        {
+            return "$" + amount;
         }
     }
 }
