@@ -73,7 +73,7 @@ namespace BillBox.Models
         public string AddressStreet { get; set; }
 
         [Required]
-        [Display(Name = "City")]
+        [Display(Name = "Town/City")]
         public string AddressCity { get; set; }
 
         [Required]

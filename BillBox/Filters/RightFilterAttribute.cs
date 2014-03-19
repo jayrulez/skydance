@@ -1,10 +1,12 @@
 ﻿using BillBox.Common;
 using BillBox.Models;
+//using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+//using System.Security.Policy;
 using System.Web;
 using System.Web.Http.Filters;
 using System.Web.Mvc;
@@ -15,12 +17,15 @@ namespace BillBox.Filters
     {
         public string RightName {get;set;}
 
+        private bool isException;
+        private string errorMessage;
+
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {    
             try
             {
                 bool isAuthorized = base.AuthorizeCore(httpContext);
-
+                
                 if (!isAuthorized)
                 {
                     return false;
@@ -36,18 +41,11 @@ namespace BillBox.Filters
                 return RightName == null || user.HasRight(this.RightName);
 
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                return true;
-                //string errorMessage;
-                //var isHandled = Util.HandleException(ex.GetBaseException(), out errorMessage);
-
-                //if (isHandled)
-                //{
-                    //put errorMessage in tempdata
-                //}
-
-                //httpContext.Response.Redirect("Default/Error");
+                var isHandled = Util.HandleException(ex, out this.errorMessage);
+                this.isException = true;
+                return false;
             }
             
         }
@@ -58,9 +56,14 @@ namespace BillBox.Filters
 
             UrlHelper urlHelper = new UrlHelper(filterContext.RequestContext);
 
-            filterContext.Controller.TempData["ErrorMessage"] = "You are not authorized to view this page.";
-
-            filterContext.HttpContext.Response.Redirect(urlHelper.Action("Error", "Default"));
+            if(this.isException)
+            {
+                filterContext.HttpContext.Response.Redirect(urlHelper.Action("Error", "Default"));
+            }
+            else
+            {
+                filterContext.HttpContext.Response.Redirect(urlHelper.Action("Login", "Default"));
+            }
         }
     }
 }

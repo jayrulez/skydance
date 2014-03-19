@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "Payment History";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var previous = ViewBag.Previous as Nullable<int>;
+    var next = ViewBag.Next as Nullable<int>;
 }
 
 
@@ -45,6 +48,9 @@
                             }
                         </tbody>
                     </table>
+                    
+                    @Html.Partial("_Pager") @*parameters already set in controller*@
+
                 </div>
             </div>
             <!-- /.panel-body -->

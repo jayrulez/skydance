@@ -1,8 +1,35 @@
 ﻿@{
+    var previous = ViewBag.Previous as string;
+    var next = ViewBag.Next as string;
+    var recordBegin = ViewBag.RecordBegin as Nullable<int>;
+    var recordEnd = ViewBag.RecordEnd as Nullable<int>;
+    var recordTotal = ViewBag.RecordTotal as Nullable<int>;
 
 }
 
 <ul class="pagination">
-  <li><a href="#">&laquo;</a></li>
-  <li><a href="#">&raquo;</a></li>
+    @if (!string.IsNullOrEmpty(previous))
+    {
+        <li><a href="@previous">&laquo;</a></li>
+    }
+    else
+    {
+        <li class="disabled"><a href="#">&laquo;</a></li>
+    }
+
+    @if(recordBegin.HasValue && recordEnd.HasValue && recordTotal.HasValue)
+    {
+        <li class="disabled"><a href="#">@recordBegin to @recordEnd of @recordTotal</a></li>
+    }    
+
+    @if (!string.IsNullOrEmpty(next))
+    {
+        <li><a href="@next">&raquo;</a></li>
+    }
+    else
+    {
+        <li class="disabled"><a href="#">&raquo;</a></li>
+    }
 </ul>
+
+

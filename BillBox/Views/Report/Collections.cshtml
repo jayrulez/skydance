@@ -10,121 +10,146 @@
     var branches = ViewBag.Branches as IEnumerable<BillBox.Models.AgentBranch>;
 }
 
-<h2>Collections Report</h2>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Collections Report
+            </div>
+            <div class="panel-body">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Parameters
+                    </div>
+                    <div class="panel-body">
+                        @using (Html.BeginForm("Collections", "Report", FormMethod.Get, null))
+                        {
+                            @Html.ValidationSummary(true)
 
-@using (Html.BeginForm("Collections", "Report", FormMethod.Get, null))
-{
-    @Html.ValidationSummary(true)
+                            @Html.Hidden("generate", true)
 
-    @Html.Hidden("generate", true)
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DateRange)
+                                @Html.TextBoxFor(model => model.DateRange, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Subscriber)
+                                @Html.DropDownListFor(model => model.Subscriber, new SelectList(subscribers, "Name", "Name"), "All", new { @class = "form-control" })
+                            </div>
 
-    <div class="row clearfix">
-        @Html.LabelFor(model => model.DateRange)
-        @Html.TextBoxFor(model => model.DateRange)
-    </div>
-    <div class="row clearfix">
-        @Html.LabelFor(model => model.Subscriber)
-        @Html.DropDownListFor(model => model.Subscriber, new SelectList(subscribers, "Name", "Name"), "All")
-    </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Agent)
+                                @Html.DropDownListFor(model => model.Agent, new SelectList(agents, "Name", "Name"), "All", new { @class = "form-control" })
+                            </div>
 
-    <div class="row clearfix">
-        @Html.LabelFor(model => model.Agent)
-        @Html.DropDownListFor(model => model.Agent, new SelectList(agents, "Name", "Name"), "All")
-    </div>
+                            <div class="form-group" id="agent-branches-area">
+                                @if (branches != null)
+                                {
+                                    @Html.LabelFor(model => model.Branch)
+                                    @Html.DropDownListFor(model => model.Branch, new SelectList(branches, "Name", "Name"), "All", new { @class = "form-control" })
+                                }
+                            </div>
 
-    <div class="row clearfix" id="agent-branches-area">
-        @if (branches != null)
-        {
-            @Html.LabelFor(model => model.Branch)
-            @Html.DropDownListFor(model => model.Branch, new SelectList(branches, "Name", "Name"), "All")
-        }
-    </div>
+                            <div class="buttons bottom">
+                                <input type="submit" class="btn btn-default" value="Generate" />
+                            </div>
 
-    <div class="buttons bottom">
-        <input type="submit" value="Generate" />
-    </div>
-
-}
-
-@if (collections != null)
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>@Html.LabelFor(model => model.InvoiceNumber)</th>
-                <th>@Html.LabelFor(model => model.Date)</th>
-                <th>@Html.LabelFor(model => model.Subscriber)</th>
-                <th>@Html.LabelFor(model => model.Agent)</th>
-                <th>@Html.LabelFor(model => model.Branch)</th>
-                <th>@Html.LabelFor(model => model.Amount)</th>
-            </tr>
-        </thead>
-        @foreach (var collection in collections)
-        {
-            <tr>
-                <td>@collection.InvoiceNumber</td>
-                <td>@collection.Date.ToShortDateString()</td>
-                <td>@collection.Subscriber</td>
-                <td>@collection.Agent</td>
-                <td>@collection.Branch</td>
-                <td>$@collection.Amount</td>
-            </tr>
-        }
-    </table>
-    <div class="pagination">
-        <ul>
-            @if (Model.HasPreviousPage)
-            {
-                <li><a href="@Url.Action("Collections", new { generate = true, DateRange = Model.DateRange, Subscriber = Model.Subscriber, Agent = Model.Agent, Branch = Model.Branch, page = Model.PageNumber - 1 })">&larr; Prev</a></li>
-            }
-            else
-            {
-                <li class="disabled"><a href="#">&larr; Prev</a></li>
-            }
-
-            @if (Model.HasNextPage)
-            {
-                <li><a href="@Url.Action("Collections", new { generate=true, DateRange=Model.DateRange, Subscriber = Model.Subscriber, Agent = Model.Agent, Branch = Model.Branch, page = Model.PageNumber + 1 })">&rarr; Next</a></li>
-            }
-            else
-            {
-                <li class="disabled"><a href="#">&rarr; Next</a></li>
-            }
-        </ul>
-    </div>
-}
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Result
+                    </div>
+                    <div class="panel-body">
+                        @if (collections != null)
+                        {
+                            <div class="table-responsive"></div>
+                            <table class="table table-borderedr">
+                                <thead>
+                                    <tr>
+                                        <th>@Html.LabelFor(model => model.InvoiceNumber)</th>
+                                        <th>@Html.LabelFor(model => model.Date)</th>
+                                        <th>@Html.LabelFor(model => model.Subscriber)</th>
+                                        <th>@Html.LabelFor(model => model.Agent)</th>
+                                        <th>@Html.LabelFor(model => model.Branch)</th>
+                                        <th>@Html.LabelFor(model => model.Amount)</th>
+                                    </tr>
+                                </thead>
+                                @foreach (var collection in collections)
+                                {
+                                    <tr>
+                                        <td>@collection.InvoiceNumber</td>
+                                        <td>@collection.Date.ToShortDateString()</td>
+                                        <td>@collection.Subscriber</td>
+                                        <td>@collection.Agent</td>
+                                        <td>@collection.Branch</td>
+                                        <td>$@collection.Amount</td>
+                                    </tr>
+                                }
+                            </table>
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script type="text/javascript">
-        $(document).ready(function () {
+                            if (Model.HasPreviousPage)
+                            {
+                                ViewBag.Previous = Url.Action("Collections", new { generate = true, DateRange = Model.DateRange, Subscriber = Model.Subscriber, Agent = Model.Agent, Branch = Model.Branch, page = Model.PageNumber - 1 });
+                            }
 
-            $('#@Html.IdFor(model => model.Agent)').change(function () {
-                loadAgentBranches($(this).val());
-            });
-        });
 
-        function loadAgentBranches(agent) {
-            if (agent) {
-                $.ajax({
-                    cache: false,
-                    type: 'GET',
-                    url: '@Url.Action("Branches", "Report")',
-                    data: { 'agent': agent },
-                    success: function (html) {
-                        $("#agent-branches-area").html(html);
-                    },
-                    error: function () {
-                        alert("Error loading agent branches");
-                        $("#agent-branches-area").html("");
+                            if (Model.HasNextPage)
+                            {
+                                ViewBag.Next = Url.Action("Collections", new { generate = true, DateRange = Model.DateRange, Subscriber = Model.Subscriber, Agent = Model.Agent, Branch = Model.Branch, page = Model.PageNumber + 1 });
+                            }
+
+                            ViewBag.RecordTotal = Model.Count;
+                            ViewBag.RecordBegin = ((Model.PageNumber - 1) * Model.PageSize) + 1;
+                            ViewBag.RecordEnd = (Model.PageNumber * Model.PageSize) < Model.Count ? (Model.PageNumber * Model.PageSize) : Model.Count;
+                            
+
+                            @Html.Partial("_Pager", new BillBox.Models.PagerModel<BillBox.Models.CollectionsReportModel>())
+                        }
+
+
+                    </div>
+
+                </div>
+            </div>
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+                <script type="text/javascript">
+                    $(document).ready(function () {
+
+                        $('#@Html.IdFor(model => model.Agent)').change(function () {
+                            loadAgentBranches($(this).val());
+                        });
+                    });
+
+                    function loadAgentBranches(agent) {
+                        if (agent) {
+                            $.ajax({
+                                cache: false,
+                                type: 'GET',
+                                url: '@Url.Action("Branches", "Report")',
+                                data: { 'agent': agent },
+                                success: function (html) {
+                                    $("#agent-branches-area").html(html);
+                                },
+                                error: function () {
+                                    alert("Error loading agent branches");
+                                    $("#agent-branches-area").html("");
+                                }
+                            });
+                        } else {
+                            $("#agent-branches-area").html("");
+                        }
                     }
-                });
-            } else {
-                $("#agent-branches-area").html("");
+                </script>
             }
-        }
-    </script>
-}
+        </div>
+    </div>
+</div>
+
 
 

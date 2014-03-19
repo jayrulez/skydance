@@ -232,7 +232,18 @@ namespace BillBox.Controllers
                 var pageNumber = page ?? 1;
                 var pageSize = Util.GetPageSize(Common.PagedList.PaymentHistory);
 
-                var bills = dbContext.Bills.Where(b => b.Status == (int)BillStatus.Posted).OrderBy(b => b.BillId).ToPagedList(pageNumber, pageSize);
+                var count = dbContext.Bills.Where(b => b.Status == (int)BillStatus.Posted).Count();
+
+                var bills = dbContext.Bills.Where(b => b.Status == (int)BillStatus.Posted).OrderByDescending(b => b.Date).ToPagedList(pageNumber, pageSize);
+
+                if(pageNumber > 1)
+                    ViewBag.Previous = Url.Action("PaymentHistory", new { page = pageNumber -1, period = period });
+                if (((pageNumber * pageSize) < count))
+                    ViewBag.Next = Url.Action("PaymentHistory", new { page = pageNumber + 1, period = period });
+
+                ViewBag.RecordTotal = count;
+                ViewBag.RecordBegin = ((pageNumber - 1) * pageSize) + 1;
+                ViewBag.RecordEnd = (pageNumber * pageSize) < count ? (pageNumber * pageSize) : count;
 
                 return View(bills);
             }

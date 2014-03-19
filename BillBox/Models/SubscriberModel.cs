@@ -55,4 +55,29 @@ namespace BillBox.Models
         public string Website { get; set; }
         
     }
+
+    [MetadataType(typeof(CaptureFieldModel))]
+    public partial class CaptureField
+    {
+    }
+
+    public class CaptureFieldModel
+    {
+        [Required]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "Display Name")]
+        public string DisplayName { get; set; }
+
+        [Required]
+        [Display(Name = "Type")]
+        public int Type { get; set; }
+
+        [Required]
+        [Display(Name = "Order Number")]
+        public Nullable<int> OrderNum { get; set; }
+    }
+
 }
