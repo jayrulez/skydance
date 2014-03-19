@@ -17,16 +17,18 @@
                 Collections Report
             </div>
             <div class="panel-body">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Parameters
-                    </div>
-                    <div class="panel-body">
-                        @using (Html.BeginForm("Collections", "Report", FormMethod.Get, null))
-                        {
-                            @Html.ValidationSummary(true)
 
-                            @Html.Hidden("generate", true)
+                @using (Html.BeginForm("Collections", "Report", FormMethod.Get, null))
+                {
+                    @Html.ValidationSummary(true)
+
+                    @Html.Hidden("generate", true)
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Parameters
+                        </div>
+                        <div class="panel-body">
 
                             <div class="form-group">
                                 @Html.LabelFor(model => model.DateRange)
@@ -49,16 +51,15 @@
                                     @Html.DropDownListFor(model => model.Branch, new SelectList(branches, "Name", "Name"), "All", new { @class = "form-control" })
                                 }
                             </div>
-
+                        </div>
+                        <div class="panel-footer">
                             <div class="buttons bottom">
                                 <input type="submit" class="btn btn-default" value="Generate" />
                             </div>
-
-                        }
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="panel-body">
+                }
+
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Result
@@ -92,64 +93,68 @@
                             </table>
 
 
-                            if (Model.HasPreviousPage)
-                            {
-                                ViewBag.Previous = Url.Action("Collections", new { generate = true, DateRange = Model.DateRange, Subscriber = Model.Subscriber, Agent = Model.Agent, Branch = Model.Branch, page = Model.PageNumber - 1 });
-                            }
+                                if (Model.HasPreviousPage)
+                                {
+                                    ViewBag.Previous = Url.Action("Collections", new { generate = true, DateRange = Model.DateRange, Subscriber = Model.Subscriber, Agent = Model.Agent, Branch = Model.Branch, page = Model.PageNumber - 1 });
+                                }
 
 
-                            if (Model.HasNextPage)
-                            {
-                                ViewBag.Next = Url.Action("Collections", new { generate = true, DateRange = Model.DateRange, Subscriber = Model.Subscriber, Agent = Model.Agent, Branch = Model.Branch, page = Model.PageNumber + 1 });
-                            }
+                                if (Model.HasNextPage)
+                                {
+                                    ViewBag.Next = Url.Action("Collections", new { generate = true, DateRange = Model.DateRange, Subscriber = Model.Subscriber, Agent = Model.Agent, Branch = Model.Branch, page = Model.PageNumber + 1 });
+                                }
 
-                            ViewBag.RecordTotal = Model.Count;
-                            ViewBag.RecordBegin = ((Model.PageNumber - 1) * Model.PageSize) + 1;
-                            ViewBag.RecordEnd = (Model.PageNumber * Model.PageSize) < Model.Count ? (Model.PageNumber * Model.PageSize) : Model.Count;
-                            
+                                ViewBag.RecordTotal = Model.Count;
+                                ViewBag.RecordBegin = ((Model.PageNumber - 1) * Model.PageSize) + 1;
+                                ViewBag.RecordEnd = (Model.PageNumber * Model.PageSize) < Model.Count ? (Model.PageNumber * Model.PageSize) : Model.Count;
 
-                            @Html.Partial("_Pager", new BillBox.Models.PagerModel<BillBox.Models.CollectionsReportModel>())
                         }
 
 
                     </div>
-
+                    <div class="panel-footer">
+                        @Html.Partial("_Pager")
+                    </div>
                 </div>
             </div>
-            @section Scripts {
-                @Scripts.Render("~/bundles/jqueryval")
-                <script type="text/javascript">
-                    $(document).ready(function () {
+            <div class="panel-footer">
 
-                        $('#@Html.IdFor(model => model.Agent)').change(function () {
-                            loadAgentBranches($(this).val());
-                        });
-                    });
-
-                    function loadAgentBranches(agent) {
-                        if (agent) {
-                            $.ajax({
-                                cache: false,
-                                type: 'GET',
-                                url: '@Url.Action("Branches", "Report")',
-                                data: { 'agent': agent },
-                                success: function (html) {
-                                    $("#agent-branches-area").html(html);
-                                },
-                                error: function () {
-                                    alert("Error loading agent branches");
-                                    $("#agent-branches-area").html("");
-                                }
-                            });
-                        } else {
-                            $("#agent-branches-area").html("");
-                        }
-                    }
-                </script>
-            }
+            </div>
         </div>
     </div>
 </div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#@Html.IdFor(model => model.Agent)').change(function () {
+                loadAgentBranches($(this).val());
+            });
+        });
+
+        function loadAgentBranches(agent) {
+            if (agent) {
+                $.ajax({
+                    cache: false,
+                    type: 'GET',
+                    url: '@Url.Action("Branches", "Report")',
+                    data: { 'agent': agent },
+                    success: function (html) {
+                        $("#agent-branches-area").html(html);
+                    },
+                    error: function () {
+                        alert("Error loading agent branches");
+                        $("#agent-branches-area").html("");
+                    }
+                });
+            } else {
+                $("#agent-branches-area").html("");
+            }
+        }
+    </script>
+}
+
 
 
 
