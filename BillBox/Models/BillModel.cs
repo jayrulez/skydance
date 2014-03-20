@@ -20,7 +20,12 @@ namespace BillBox.Models
             }
 
             return amount;
-        }       
+        }
+
+        public double Total()
+        {
+            return this.Amount() + this.ProcessingFee.GetValueOrDefault() + this.ProcessingFeeGCT.GetValueOrDefault();
+        }
     }
 
     public class BillModel
