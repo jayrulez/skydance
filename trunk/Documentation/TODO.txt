@@ -5,9 +5,6 @@ unique attribute
 css panel
 action buttons
 
-update button
-create button
-generate receipt number
 
 save settings
 remove payment
