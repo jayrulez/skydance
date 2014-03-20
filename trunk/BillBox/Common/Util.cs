@@ -198,8 +198,8 @@ namespace BillBox.Common
             {
                errorMessage = "Database server is not available! Please inform the system admistrator";
                 handled = true;
-            }            
-
+            }
+            errorMessage = baseException.Message;
             return handled;
         }
 

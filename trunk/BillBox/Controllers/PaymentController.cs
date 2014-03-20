@@ -418,6 +418,8 @@ namespace BillBox.Controllers
 
             if (isHandled)
                 TempData["ErrorMessage"] = errorMessage;
+            else
+                TempData["ErrorMessage"] = exception.Message;
 
             return RedirectToAction("Error", "Default", null);
         }

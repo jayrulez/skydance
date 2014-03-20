@@ -42,9 +42,9 @@
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Subscriber</th>
-                                            <th>Invoice Number</th>
-                                            <th>Date</th>
+                                            <th>@Html.DisplayNameFor(p => p.Bill.Subscriber)</th>
+                                            <th>@Html.DisplayNameFor(p => p.Bill.ReceiptNumber)</th>
+                                            <th>@Html.DisplayNameFor(p => p.Bill.Date)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -69,9 +69,9 @@
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Payment Method</th>
-                                            <th>Amount</th>
+                                            <th>@Html.DisplayNameFor(p => p.PaymentMethodId)</th>
                                             <th>Data</th>
+                                            <th>@Html.DisplayNameFor(p => p.Amount)</th>
                                             <th>&nbsp;</th>
                                         </tr>
                                     </thead>
@@ -95,7 +95,12 @@
                                                 <td>@Html.ActionLink("Remove", "RemovePayment", new { paymentId = payment.PaymentId })</td>
                                             </tr>
                                         }
-
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td><span class="bill-total">@BillBox.Common.Util.DisplayForDollar(bill.Total())</span></td>
+                                        </tr>
                                     </tbody>
 
                                 </table>
