@@ -7,44 +7,60 @@
 
 <div class="row main">
     <div class="col-lg-12">
+        <ol class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Default")</li>
+            <li>@Html.ActionLink("Agents", "Index", "Agent")</li>
+            <li class="active">@Model.Name</li>
+        </ol>
         <!--<h1 class="page-header">View Agent</h1>-->
         <div class="panel panel-default">
             <div class="panel-heading">
-                View Agent
+                Agent Information
             </div>
             <div class="panel-body">
-                <dl>
-                    <dt>@Html.DisplayNameFor(m => m.Name)</dt>
-                    <dd>@Html.DisplayFor(m => m.Name)</dd>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
 
-                    <dt>@Html.DisplayNameFor(m => m.AddressStreet)</dt>
-                    <dd>
-                        @Html.DisplayFor(m => m.AddressStreet)
-                        <br />
-                        @Html.DisplayFor(m => m.AddressCity)
-                        @if (Model.Parish != null)
-                        {
-                            <br />
-                            @Html.DisplayFor(m => m.Parish.Name)
-                        }
-                    </dd>
+                                <th>@Html.DisplayNameFor(m => m.Name)</th>
+                                <th>@Html.DisplayNameFor(m => m.AddressStreet)</th>
+                                <th>@Html.DisplayNameFor(model => model.ContactNumber)</th>
+                                <th>@Html.DisplayNameFor(model => model.FaxNumber)</th>
+                                <th>@Html.DisplayNameFor(model => model.EmailAddress)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Html.DisplayFor(m => m.Name)</td>
 
-                    <dt>@Html.DisplayNameFor(model => model.ContactNumber)</dt>
-                    <dd>@Html.DisplayFor(model => model.ContactNumber)</dd>
+                                <td>
+                                    @Html.DisplayFor(m => m.AddressStreet)
+                                    <br />
+                                    @Html.DisplayFor(m => m.AddressCity)
+                                    @if (Model.Parish != null)
+                                    {
+                                        <br />
+                                        @Html.DisplayFor(m => m.Parish.Name)
+                                    }
+                                </td>
 
-                    <dt>@Html.DisplayNameFor(model => model.FaxNumber)</dt>
-                    <dd>@Html.DisplayFor(model => model.FaxNumber)</dd>
+                                <td>@Html.DisplayFor(model => model.ContactNumber)</td>
 
-                    <dt>@Html.DisplayNameFor(model => model.EmailAddress)</dt>
-                    <dd>@Html.DisplayFor(model => model.EmailAddress)</dd>
-                </dl>
+                                <td>@Html.DisplayFor(model => model.FaxNumber)</td>
+
+                                <td>@Html.DisplayFor(model => model.EmailAddress)</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
             </div>
             <div class="panel-footer">
                 <ul class="details-menu">
                     <li>@Html.ActionLink("Edit", "Edit", new { agentId = Model.AgentId })</li>
                     <li>@Html.ActionLink("Add Branch", "AddBranch", new { agentId = Model.AgentId })</li>
                     <li>@Html.ActionLink("View Branches", "ListBranches", new { agentId = Model.AgentId })</li>
-                    <li>@Html.ActionLink("Back to List", "Index")</li>
                 </ul>
             </div>
         </div>

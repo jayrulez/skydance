@@ -7,11 +7,17 @@
 }
 
 <div class="row main">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
+        <ol class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Default")</li>
+            <li>@Html.ActionLink("Agents", "Index", "Agent")</li>
+            <li>@Html.ActionLink(Model.Name, "Details", "Agent", new { agentId = Model.AgentId }, null)</li>
+            <li class="active">Edit</li>
+        </ol>
         <!--<h1 class="page-header">Edit Agent</h1>-->
         <div class="panel panel-default">
             <div class="panel-heading">
-                Edit Agent
+                Agent Information
             </div>
             <div class="panel-body">
                 <div class="row">

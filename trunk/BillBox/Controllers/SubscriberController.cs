@@ -169,6 +169,7 @@ namespace BillBox.Controllers
                 if (captureField == null)
                     return HttpNotFound();
 
+                ViewBag.subscriber = captureField.Subscriber;
                 return View(captureField);
             }
             catch (Exception ex)
@@ -195,6 +196,7 @@ namespace BillBox.Controllers
                 }
                 else
                 {
+                    ViewBag.subscriber = captureField.Subscriber;
                     return View(captureField);
                 }
             }
@@ -221,6 +223,7 @@ namespace BillBox.Controllers
 
                 captureField.SubscriberId = subscriber.SubscriberId;
 
+                ViewBag.subscriber = subscriber;
                 return View(captureField);
             }
             catch (Exception ex)
@@ -247,6 +250,7 @@ namespace BillBox.Controllers
                 }
                 else
                 {
+                    ViewBag.subscriber = captureField.Subscriber;
                     return View(captureField);
                 }
             }

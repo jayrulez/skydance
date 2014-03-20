@@ -9,14 +9,21 @@
 
 
 <div class="row main">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
+        <ol class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Default")</li>
+            <li>@Html.ActionLink("Settings", "Index", "Settings")</li>
+            <li class="active">Permissions</li>
+        </ol>
         <!--<h1 class="page-header">Add Capture Field</h1>-->
         <div class="panel panel-default">
             <div class="panel-heading">
                 @if (errorMessage != null && errorMessage != string.Empty)
                 {
                     <span>@errorMessage</span>
-                }else{
+                }
+                else
+                {
                     <span>Permissions</span>
                 }
             </div>

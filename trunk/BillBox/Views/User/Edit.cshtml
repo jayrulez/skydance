@@ -11,11 +11,16 @@
 }
 
 <div class="row main">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
+        <ol class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Default")</li>
+            <li>@Html.ActionLink("Users", "Index", "User")</li>
+            <li class="active">Edit User</li>
+        </ol>
         <!--<h1 class="page-header">Create Agent</h1>-->
         <div class="panel panel-default">
             <div class="panel-heading">
-                Edit User
+                User Information
             </div>
             <div class="panel-body">
                 <div class="row">

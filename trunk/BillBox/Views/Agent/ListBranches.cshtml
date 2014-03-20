@@ -8,11 +8,15 @@
 
 <div class="row main">
     <div class="col-lg-12">
+        <ol class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Default")</li>
+            <li>@Html.ActionLink("Agents", "Index", "Agent")</li>
+            <li>@Html.ActionLink(agent.Name, "Details", "Agent", new { agentId = agent.AgentId }, null)</li>
+            <li class="active">Branches</li>
+        </ol>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span><a href="@Url.Action("Details", "Agent", new { agentId = agent.AgentId })">@agent.Name</a></span>
-                <span>&#187;</span>
-                <span>Branches</span>
+                <span>@agent.Name Branches</span>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">

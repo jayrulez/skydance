@@ -8,13 +8,17 @@
 }
 
 <div class="row main">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
+        <ol class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Default")</li>
+            <li>@Html.ActionLink("Agents", "Index", "Agent")</li>
+            <li>@Html.ActionLink(agent.Name, "Details", "Agent", new { agentId = agent.AgentId }, null)</li>
+            <li class="active">Add Branch</li>
+        </ol>
         <!--<h1 class="page-header">Add Branch</h1>-->
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span><a href="@Url.Action("Details", "Agent", new { agentId = agent.AgentId })">@agent.Name</a></span>
-                <span>&#187;</span>
-                <span>Add Branch</span>
+                <span>Branch Information</span>
             </div>
             <div class="panel-body">
                 <div class="row">
