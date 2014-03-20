@@ -194,6 +194,7 @@ INSERT INTO UserRight (Name, DisplayName) VALUES('VIEW_RECEIPT', 'View Receipt')
 
 INSERT INTO UserRight (Name, DisplayName) VALUES('VIEW_SETTINGS', 'View Settings')
 INSERT INTO UserRight (Name, DisplayName) VALUES('CHANGE_SETTINGS', 'Change Settings')
+INSERT INTO UserRight (Name, DisplayName) VALUES('REMOVE_PAYMENT', 'Remove Payment')
 
 GO
 
@@ -234,6 +235,7 @@ INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (32, 1)
 INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (33, 1)
 INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (34, 1)
 INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (35, 1)
+INSERT INTO UserRight_UserLevel (RightId, LevelId) VALUES (36, 1)
 
 
 /***********************************************************Bill*********************************************************************/

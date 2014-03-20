@@ -3,11 +3,6 @@ CODE CLEANUP
 unique attribute
 action buttons
 
-
-save settings
-remove payment
 date range control
-menu icons
 
-horizontal forms
 custom fields {enforce type}

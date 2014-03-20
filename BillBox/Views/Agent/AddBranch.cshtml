@@ -23,49 +23,67 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-6">
-                        @using (Html.BeginForm("AddBranch", "Agent", FormMethod.Post, new { role = "form" }))
+                        @using (Html.BeginForm("AddBranch", "Agent", FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary(true)
                             @Html.HiddenFor(m => m.AgentId)
 
                             <div class="form-group">
-                                @Html.LabelFor(m => m.Name)
-                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.Name)
+                                @Html.LabelFor(m => m.Name, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Name)
+                                </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.AddressStreet)
-                                @Html.TextBoxFor(m => m.AddressStreet, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.AddressStreet)
+                                @Html.LabelFor(m => m.AddressStreet, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.TextBoxFor(m => m.AddressStreet, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.AddressStreet)
+                                </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.AddressCity)
-                                @Html.TextBoxFor(m => m.AddressCity, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.AddressCity)
+                                @Html.LabelFor(m => m.AddressCity, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.TextBoxFor(m => m.AddressCity, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.AddressCity)
+                                </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.ParishId, "Parish")
-                                @Html.DropDownListFor(m => m.ParishId, new SelectList(parishes, "ParishId", "Name"), "Select Parish", new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.ParishId)
+                                @Html.LabelFor(m => m.ParishId, "Parish", new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.DropDownListFor(m => m.ParishId, new SelectList(parishes, "ParishId", "Name"), "Select Parish", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.ParishId)
+                                </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.ContactNumber)
-                                @Html.TextBoxFor(m => m.ContactNumber, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.ContactNumber)
+                                @Html.LabelFor(m => m.ContactNumber, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.TextBoxFor(m => m.ContactNumber, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.ContactNumber)
+                                </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.FaxNumber)
-                                @Html.TextBoxFor(m => m.FaxNumber, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.FaxNumber)
+                                @Html.LabelFor(m => m.FaxNumber, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.TextBoxFor(m => m.FaxNumber, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.FaxNumber)
+                                </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.EmailAddress)
-                                @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.EmailAddress)
+                                @Html.LabelFor(m => m.EmailAddress, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.EmailAddress)
+                                </div>
                             </div>
 
-                            <button type="submit" class="btn btn-default">Save</button>
+                            <div class="form-group">
+                                <div class="col-sm-offset-5 col-sm-7">
+                                    <button type="submit" class="btn btn-default">Save</button>
+                                </div>
+                            </div>
                         }
                     </div>
                 </div>

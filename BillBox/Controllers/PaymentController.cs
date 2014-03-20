@@ -225,6 +225,44 @@ namespace BillBox.Controllers
             }
         }
 
+        [HttpGet]
+        [RightFilter(RightName = "REMOVE_PAYMENT")]
+        public ActionResult RemovePayment(int paymentId = 0)
+        {
+            var payment = dbContext.Payments.Find(paymentId);
+            int billId = 0;
+
+            if (payment == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                billId = payment.BillId;
+
+                if (payment.Bill.Status == (int)BillStatus.Posted)
+                {
+                    TempData["Error"] = "Payments cannot be removed from a posted bill. Try unposting the bill first.";
+                }
+                else
+                {
+                    try
+                    {
+                        dbContext.Payments.Remove(payment);
+                        dbContext.SaveChanges();
+
+                        TempData["Message"] = "The payment was removed.";
+                    }catch(Exception ex)
+                    {
+                        TempData["Error"] = ex.Message;
+                    }
+                }
+            }
+
+            return RedirectToAction("NewPayment", new { billId = billId });
+        }
+
+        [HttpGet]
         [RightFilter(RightName = "VIEW_PAYMENT_HISTORY")]
         public ActionResult PaymentHistory(int? page, string period = "today")
         {
@@ -282,12 +320,20 @@ namespace BillBox.Controllers
 
                 bill.Status = (int)BillStatus.Posted;
 
-                //TODO: Cannot post bill with 0 payments
+                if (bill.Payments.Count <= 0)
+                {
+                    TempData["Error"] = "You cannot post a bill without payments";
 
-                dbContext.Entry(bill).State = EntityState.Modified;
-                dbContext.SaveChanges();
+                    return RedirectToAction("NewPayment", new { billId = bill.BillId });
+                }
+                else
+                {
 
-                return RedirectToAction("ViewBill", new { billId = bill.BillId });
+                    dbContext.Entry(bill).State = EntityState.Modified;
+                    dbContext.SaveChanges();
+                    return RedirectToAction("ViewBill", new { billId = bill.BillId });
+                }
+
             }
             catch (Exception ex)
             {

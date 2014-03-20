@@ -23,19 +23,25 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-6">
-                        @using (Html.BeginForm("NewBill", "Payment", FormMethod.Post, new { role = "form" }))
+                        @using (Html.BeginForm("NewBill", "Payment", FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary(true)
 
                             <div class="form-group">
-                                @Html.LabelFor(model => model.SubscriberId)
-                                @Html.DropDownListFor(model => model.SubscriberId, new SelectList(subscribers, "SubscriberId", "Name"), "Select Subscriber", new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.SubscriberId)
+                                @Html.LabelFor(model => model.SubscriberId, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.DropDownListFor(model => model.SubscriberId, new SelectList(subscribers, "SubscriberId", "Name"), "Select Subscriber", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.SubscriberId)
+                                </div>
                             </div>
                             <div id="capture-fields-area"></div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-5 col-sm-7">
+                                    <button type="submit" class="btn btn-default">Next</button>
+                                </div>
+                            </div>
 
-                            <button type="submit" class="btn btn-default">Next</button>
                         }
                     </div>
                 </div>

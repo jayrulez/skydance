@@ -5,7 +5,9 @@
 @foreach (BillBox.Models.CaptureField captureField in captureFields)
 {
     <div class="form-group">
-        <label for="capture-field-@captureField.Name.ToLower()">@captureField.DisplayName</label>
-        <input type="text" name="CaptureFields[@captureField.Name]" class="form-control" id="capture-field-@captureField.Name.ToLower()" />
+        <label for="capture-field-@captureField.Name.ToLower()" class="col-sm-5 control-label">@captureField.DisplayName</label>
+        <div class="col-sm-7">
+            <input type="text" name="CaptureFields[@captureField.Name]" class="form-control" id="capture-field-@captureField.Name.ToLower()" />
+        </div>
     </div>
 }

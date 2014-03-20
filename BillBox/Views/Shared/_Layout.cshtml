@@ -10,13 +10,15 @@
 
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
+                <a href="@Url.Action("Index", "Default")">
+                    <img src="@Url.Content("~/Assets/img/logo.png")" alt="logo" />
+                </a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Bill Box", "Index", "Default", null, new { @class = "navbar-brand" })
             </div>
 
             @if (Request.IsAuthenticated)
@@ -51,7 +53,7 @@
                     </li>
 					-->
                     <li class="active">
-                        <a href="@Url.Action("NewBill", "Payment")"><i class="fa fa-dashboard fa-fw"></i>Payments<span class="fa arrow"></span></a>
+                        <a href="@Url.Action("NewBill", "Payment")"><i class="fa fa-bar-chart-o fa-fw"></i>Payments<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="@Url.Action("NewBill", "Payment")">New Payment</a>
@@ -62,7 +64,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index", "Agent")"><i class="fa fa-bar-chart-o fa-fw"></i>Agents<span class="fa arrow"></span></a>
+                        <a href="@Url.Action("Index", "Agent")"><i class="fa fa-dashboard fa-fw"></i>Agents<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="@Url.Action("Index", "Agent")">View Agents</a>
@@ -74,7 +76,7 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="@Url.Action("Index", "Subscriber")"><i class="fa fa-table fa-fw"></i>Subscribers<span class="fa arrow"></span></a>
+                        <a href="@Url.Action("Index", "Subscriber")"><i class="fa fa-sitemap fa-fw"></i>Subscribers<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="@Url.Action("Index", "Subscriber")">View Subscribers</a>
@@ -85,10 +87,10 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="@Url.Action("Collections", "Report")"><i class="fa fa-edit fa-fw"></i>Reports</a>
+                        <a href="@Url.Action("Collections", "Report")"><i class="fa fa-table fa-fw"></i>Reports</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index", "User")"><i class="fa fa-wrench fa-fw"></i>Users<span class="fa arrow"></span></a>
+                        <a href="@Url.Action("Index", "User")"><i class="fa fa-edit fa-fw"></i>Users<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="@Url.Action("Index", "User")">View Users</a>
@@ -99,7 +101,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index", "Settings")"><i class="fa fa-sitemap fa-fw"></i>Settings<span class="fa arrow"></span></a>
+                        <a href="@Url.Action("Index", "Settings")"><i class="fa fa-wrench fa-fw"></i>Settings<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="@Url.Action("Index", "Settings")">General Settings</a>

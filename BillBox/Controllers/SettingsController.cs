@@ -25,9 +25,33 @@ namespace BillBox.Controllers
         }
 
         [RightFilter(RightName = "CHANGE_SETTINGS")]
+        [HttpPost]
         public ActionResult SaveSettings()
         {
-            return View();
+            var settings = dbContext.Settings;
+
+            foreach(Setting setting in settings)
+            {
+                if (HttpContext.Request.Params[setting.Name] != null)
+                {
+                    setting.Value = HttpContext.Request.Params[setting.Name];
+
+                    dbContext.Entry(setting).State = EntityState.Modified;
+                }
+            }
+
+            try
+            {
+                dbContext.SaveChanges();
+
+                ViewBag.Message = "The new settings have been saved.";
+
+            }catch(Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+            }
+
+            return View("Index", settings);
         }
 
 
