@@ -12,6 +12,14 @@
             <li>@Html.ActionLink("Settings", "Index", "Settings")</li>
             <li class="active">General Settings</li>
         </ol>
+        @if(ViewBag.Message != null)
+        {
+            <div class="alert alert-success">@ViewBag.Message</div>
+        }
+        else if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+        }
         <!--<h1 class="page-header">Create Agent</h1>-->
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -20,7 +28,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-6">
-                        @using (Html.BeginForm("SaveSettings", "Settings", FormMethod.Post, new { role = "form" }))
+                        @using (Html.BeginForm("SaveSettings", "Settings", FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary(true)
@@ -28,11 +36,18 @@
                             foreach (BillBox.Models.Setting setting in Model)
                             {
                             <div class="form-group">
-                                @Html.Label(setting.DisplayName)
-                                @Html.TextBox(setting.Name, setting.Value, new { @class = "form-control" })
+                                @Html.Label(setting.DisplayName, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.TextBox(setting.Name, setting.Value, new { @class = "form-control" })
+                                </div>
                             </div>
                             }
-                            <button type="submit" class="btn btn-default">Save Settings</button>
+                            <div class="form-group">
+                                <div class="col-sm-offset-5 col-sm-7">
+                                    <button type="submit" class="btn btn-default">Save</button>
+                                </div>
+                            </div>
+                            
                         }
                     </div>
                 </div>

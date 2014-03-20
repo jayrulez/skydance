@@ -3,8 +3,10 @@
 @{  var Branches = (ViewBag.AgentBranches != null) ? ViewBag.AgentBranches : null; }
 
 <div class="form-group">
-    @Html.LabelFor(model => model.AgentBranchId)
-    @Html.DropDownListFor(model => model.AgentBranchId, new SelectList(Branches, "BranchId", "Name"), "Select Branch", new { @class = "form-control" })
-    @Html.ValidationMessageFor(model => model.AgentBranchId)
+    @Html.LabelFor(model => model.AgentBranchId, new { @class = "col-sm-5 control-label" })
+    <div class="col-sm-7">
+        @Html.DropDownListFor(model => model.AgentBranchId, new SelectList(Branches, "BranchId", "Name"), "Select Branch", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.AgentBranchId)
+    </div>
 </div>
 

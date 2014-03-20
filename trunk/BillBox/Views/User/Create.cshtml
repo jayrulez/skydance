@@ -25,45 +25,59 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-6">
-                        @using (Html.BeginForm("Create", "User", FormMethod.Post, new { role = "form" }))
+                        @using (Html.BeginForm("Create", "User", FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary(true)
 
                             <div class="form-group">
-                                @Html.LabelFor(m => m.Name)
-                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.Name)
+                                @Html.LabelFor(m => m.Name, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Name)
+                                </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.Username)
-                                @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.Username)
+                                @Html.LabelFor(m => m.Username, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Username)
+                                </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(model => model.Password)
-                                @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Password)
+                                @Html.LabelFor(model => model.Password, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Password)
+                                </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.AddressStreet)
-                                @Html.TextBoxFor(m => m.AddressStreet, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.AddressStreet)
+                                @Html.LabelFor(m => m.AddressStreet, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.TextBoxFor(m => m.AddressStreet, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.AddressStreet)
+                                </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.AddressCity)
-                                @Html.TextBoxFor(m => m.AddressCity, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.AddressCity)
+                                @Html.LabelFor(m => m.AddressCity, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.TextBoxFor(m => m.AddressCity, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.AddressCity)
+                                </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.ParishId, "Parish")
-                                @Html.DropDownListFor(m => m.ParishId, new SelectList(Parishes, "ParishId", "Name"), "Select Parish", new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.ParishId)
+                                @Html.LabelFor(m => m.ParishId, "Parish", new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.DropDownListFor(m => m.ParishId, new SelectList(Parishes, "ParishId", "Name"), "Select Parish", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.ParishId)
+                                </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.ContactNumber)
-                                @Html.TextBoxFor(m => m.ContactNumber, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.ContactNumber)
+                                @Html.LabelFor(m => m.ContactNumber, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.TextBoxFor(m => m.ContactNumber, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.ContactNumber)
+                                </div>
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(m => m.EmailAddress)
@@ -72,20 +86,28 @@
                             </div>
                         
                             <div class="form-group">
-                                @Html.LabelFor(model => model.AgentId)
-                                @Html.DropDownListFor(model => model.AgentId, new SelectList(Agents, "AgentId", "Name"), "Select Agent", new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.AgentId)
+                                @Html.LabelFor(model => model.AgentId, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.DropDownListFor(model => model.AgentId, new SelectList(Agents, "AgentId", "Name"), "Select Agent", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.AgentId)
+                                </div>
                             </div>
 
                             <div id="agent-branches-area" class="row clearfix">
                             </div>
 
                             <div class="form-group">
-                                @Html.LabelFor(model => model.UserLevelId)
-                                @Html.DropDownListFor(model => model.UserLevelId, new SelectList(UserLevels, "LevelId", "LevelName"), "Select User Level", new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.UserLevelId)
+                                @Html.LabelFor(model => model.UserLevelId, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.DropDownListFor(model => model.UserLevelId, new SelectList(UserLevels, "LevelId", "LevelName"), "Select User Level", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.UserLevelId)
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-default">Save</button>
+                            <div class="form-group">
+                                <div class="col-sm-offset-5 col-sm-7">
+                                    <button type="submit" class="btn btn-default">Save</button>
+                                </div>
+                            </div>
                         }
                     </div>
                 </div>

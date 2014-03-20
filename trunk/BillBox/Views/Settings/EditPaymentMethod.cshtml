@@ -22,19 +22,25 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-6">
-                        @using (Html.BeginForm("EditPaymentMethod", "Settings", FormMethod.Post, new { role = "form" }))
+                        @using (Html.BeginForm("EditPaymentMethod", "Settings", FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary(true)
                             @Html.HiddenFor(m => m.PaymentMethodId)
 
                             <div class="form-group">
-                                @Html.LabelFor(m => m.Name)
-                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.Name)
+                                @Html.LabelFor(m => m.Name, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Name)
+                                </div>
                             </div>
-
-                            <button type="submit" class="btn btn-default">Save</button>
+                            
+                            <div class="form-group">
+                                <div class="col-sm-offset-5 col-sm-7">
+                                    <button type="submit" class="btn btn-default">Save</button>
+                                </div>
+                            </div>
                         }
                     </div>
                 </div>

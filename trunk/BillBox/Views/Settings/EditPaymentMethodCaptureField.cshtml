@@ -24,7 +24,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-6">
-                        @using (Html.BeginForm("EditPaymentMethodCaptureField", "Settings", FormMethod.Post, new { role = "form" }))
+                        @using (Html.BeginForm("EditPaymentMethodCaptureField", "Settings", FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary(true)
@@ -32,27 +32,39 @@
                             @Html.HiddenFor(m => m.PaymentMethodId)
 
                             <div class="form-group">
-                                @Html.LabelFor(m => m.Name)
-                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.Name)
+                                @Html.LabelFor(m => m.Name, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Name)
+                                </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.DisplayName)
-                                @Html.TextBoxFor(m => m.DisplayName, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.DisplayName)
+                                @Html.LabelFor(m => m.DisplayName, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.TextBoxFor(m => m.DisplayName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.DisplayName)
+                                </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.Type)
-                                @Html.DropDownListFor(m => m.Type, BillBox.Common.Util.GetFieldTypes(), null, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.Type)
+                                @Html.LabelFor(m => m.Type, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.DropDownListFor(m => m.Type, BillBox.Common.Util.GetFieldTypes(), null, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Type)
+                                </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.OrderNum)
-                                @Html.TextBoxFor(m => m.OrderNum, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.OrderNum)
+                                @Html.LabelFor(m => m.OrderNum, new { @class = "col-sm-5 control-label" })
+                                <div class="col-sm-7">
+                                    @Html.TextBoxFor(m => m.OrderNum, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.OrderNum)
+                                </div>
                             </div>
 
-                            <button type="submit" class="btn btn-default">Save</button>
+                            <div class="form-group">
+                                <div class="col-sm-offset-5 col-sm-7">
+                                    <button type="submit" class="btn btn-default">Save</button>
+                                </div>
+                            </div>
                         }
                     </div>
                 </div>
