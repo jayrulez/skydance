@@ -14,7 +14,7 @@
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover">
+                    <table class="table  table-bordered table-striped table-hover">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -31,20 +31,27 @@
                                 <tr>
                                     <td>@user.Name</td>
                                     <td>@user.Username</td>
-                                    <td>@if (@user.UserLevel != null)
-                                        { @user.UserLevel.LevelName }</td>
-                                    <td>@if (@user.Agent != null)
-                                        { @user.Agent.Name }</td>
-                                    <td>@if (@user.AgentBranch != null)
-                                        { @user.AgentBranch.Name }</td>
                                     <td>
-                                        @Html.ActionLink("View", "Details", "User", new { id = @user.UserId }, null) | 
+                                        @if (@user.UserLevel != null)
+                                        { @user.UserLevel.LevelName }
+                                </td>
+                                <td>
+                                    @if (@user.Agent != null)
+                                    { @user.Agent.Name }
+                            </td>
+                            <td>
+                                @if (@user.AgentBranch != null)
+                                { @user.AgentBranch.Name }
+                        </td>
+                        <td>
+                            @Html.ActionLink("View", "Details", "User", new { id = @user.UserId }, null) |
                             @Html.ActionLink("Edit", "Edit", "User", new { id = @user.UserId }, null)
-                                    </td>
-                                </tr>
+                        </td>
+                    </tr>
                             }
                         </tbody>
                     </table>
+
                 </div>
             </div>
             <!-- /.panel-body -->

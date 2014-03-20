@@ -13,19 +13,6 @@ using System.Web.Routing;
 
 namespace BillBox.Common
 {
-    //public static class CustomExtensions
-    //{
-    //    public static string HiddenFormat(this bool value)
-    //    {
-    //        return (!value) ? "hidden" : string.Empty;
-    //    }
-
-    //    public static MvcHtmlString IfUserHasPermission (this MvcHtmlString mvcHtmlString, string permissionName, IList<string> userPermissions)
-    //    {
-    //        return (userPermissions.Contains(permissionName)) ? mvcHtmlString : MvcHtmlString.Empty;
-    //    }
-    //}
-
     public enum PagedList
     {
         General = 0, Users, Agents, Branches, Subscribers, CaptureFields,
@@ -193,14 +180,11 @@ namespace BillBox.Common
        
         public static int GenerateReceiptNumber()
         {
-            return (int)DateTime.Now.Ticks;
+            
+            return (int)DateTime.Now.Ticks % 100000000;
         }
 
-        //public static bool CheckPermission(string permission)
-        //{
-        //    return false;
-        //}
-
+        
         public static bool HandleException(Exception baseException, out string errorMessage)
         {
             bool handled = false;

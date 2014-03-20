@@ -15,82 +15,107 @@
         <!--<h1 class="page-header">New Payment</h1>-->
         <div class="panel panel-default">
             <div class="panel-heading">
-                @if (bill != null)
-                {
-                    <div class="">
-                        <dl>
-                            <dt>Subscriber</dt>
-                            <dd>@bill.Subscriber.Name</dd>
-
-                            <dt>Invoice Number</dt>
-                            <dd>@bill.ReceiptNumber</dd>
-
-                            <dt>Date</dt>
-                            <dd>@bill.Date</dd>
-
-                            @if (bill.Payments != null)
-                            {
-                                foreach (BillBox.Models.Payment payment in bill.Payments)
-                                {
-                                <hr />
-                                <dt>Payment Method</dt>
-                                <dd>@payment.PaymentMethod.Name</dd>  
-                                <dt>Amount</dt>
-                                <dd>@BillBox.Common.Util.DisplayForDollar(payment.Amount)</dd> 
-                                    foreach (BillBox.Models.PaymentPaymentMethodCaptureField field in payment.PaymentPaymentMethodCaptureFields)
-                                    {
-                                <dt>@field.PaymentMethodCaptureField.DisplayName</dt>
-                                <dd>@field.Value</dd>
-                                    }
-                                }
-                            }
-
-                        </dl>
-                    </div>
-                }
+                New Payment
             </div>
             <div class="panel-body">
-                <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Payment Information
+                    </div>
+                    <div class="panel-body">
+                    </div>
+                    @if (bill != null)
+                    {
+                        <div class="">
+                            <dl>
+                                <dt>Subscriber</dt>
+                                <dd>@bill.Subscriber.Name</dd>
+
+                                <dt>Invoice Number</dt>
+                                <dd>@bill.ReceiptNumber</dd>
+
+                                <dt>Date</dt>
+                                <dd>@bill.Date</dd>
+                            </dl>
+                        </div>
+                    }
+                </div>
+                @if (bill.Payments != null)
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Payments</div>
+                        <div class="panel-body">
+                            <dl>
+                                @foreach (BillBox.Models.Payment payment in bill.Payments)
+                                {
+                                    <hr />
+                                    <dt>Payment Method</dt>
+                                    <dd>@payment.PaymentMethod.Name</dd>
+                                    <dt>Amount</dt>
+                                    <dd>@BillBox.Common.Util.DisplayForDollar(payment.Amount)</dd>
+                                    foreach (BillBox.Models.PaymentPaymentMethodCaptureField field in payment.PaymentPaymentMethodCaptureFields)
+                                    {
+                                        <dt>@field.PaymentMethodCaptureField.DisplayName</dt>
+                                        <dd>@field.Value</dd>
+                                    }
+                                }
+                            </dl>
+                        </div>
+                    </div>
+
+                }
+
+                <div class="rowsdsds">
                     <div class="form-container" id="payment-form-container" style="display: @formDisplay">
-                        <div class="col-lg-6">
-                            @using (Html.BeginForm("NewPayment", "Payment", FormMethod.Post, new { role = "form" }))
-                            {
-                                @Html.AntiForgeryToken()
-                                @Html.ValidationSummary(true)
-                                @Html.HiddenFor(model => model.BillId)
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Add Payment
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-lg-6">
+                                    @using (Html.BeginForm("NewPayment", "Payment", FormMethod.Post, new { role = "form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true)
+                                        @Html.HiddenFor(model => model.BillId)
 
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.PaymentMethodId)
-                                    @Html.DropDownListFor(model => model.PaymentMethodId, new SelectList(paymentMethods, "PaymentMethodId", "Name"), new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.PaymentMethodId)
-                                </div>
-                                <div class="form-group" id="amount-field" style="display: none">
-                                    @Html.LabelFor(model => model.Amount)
-                                    @Html.TextBoxFor(model => model.Amount, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Amount)
-                                </div>
-                            
-                                <div id="capture-fields-area"></div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.PaymentMethodId)
+                                            @Html.DropDownListFor(model => model.PaymentMethodId, new SelectList(paymentMethods, "PaymentMethodId", "Name"), new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.PaymentMethodId)
+                                        </div>
+                                        <div class="form-group" id="amount-field" style="display: none">
+                                            @Html.LabelFor(model => model.Amount)
+                                            @Html.TextBoxFor(model => model.Amount, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Amount)
+                                        </div>
 
-                                <button type="submit" class="btn btn-default">Add</button>
-                                <button type="reset" id="cancel-new-payment">Cancel</button>
-                            }
+                                        <div id="capture-fields-area"></div>
+
+                                        <button type="submit" class="btn btn-default">Add</button>
+                                        <button type="reset" id="cancel-new-payment">Cancel</button>
+                                    }
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            @if (paymentsCount > 0)
-            {  
-                <div class="panel-footer">
+            <div class="panel-footer">
+                @if (paymentsCount > 0)
+                {
+
                     <ul class="action-menu">
                         <li>@Html.ActionLink("Post", "PostBill", new { billId = bill.BillId })</li>
                         <li><a href="#" id="add-payment-link">Add Payment</a></li>
                     </ul>
-                </div>
-            }
+
+                }
+            </div>
         </div>
     </div>
 </div>
+
 
 
 @section Scripts {
