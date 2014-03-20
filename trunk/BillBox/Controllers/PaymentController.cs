@@ -320,6 +320,23 @@ namespace BillBox.Controllers
 
                 bill.Status = (int)BillStatus.Posted;
 
+
+                //Commission Calculations
+                double commissionRate     = Convert.ToDouble(Util.GetDbSetting("CommissionRate"))/100.00;
+                double commission         = commissionRate * bill.Amount();
+                double commissionGCTRate  = Convert.ToDouble(Util.GetDbSetting("CommissionGCT"))/100.00;
+                double commissionGCT      = commission * commissionGCTRate;
+
+                //Processing Fee Calculations
+                double processingFee        = Convert.ToDouble(Util.GetDbSetting("ProcessingFee"));
+                double processingFeeGCTRate = Convert.ToDouble(Util.GetDbSetting("ProcessingFeeGCT")) / 100.00;
+                double processingFeeGCT     = processingFee * processingFeeGCTRate;
+
+                bill.Commission       = commission - commissionGCT;
+                bill.CommissionGCT    = commissionGCT;
+                bill.ProcessingFee    = processingFee;
+                bill.ProcessingFeeGCT = processingFeeGCT;
+
                 if (bill.Payments.Count <= 0)
                 {
                     TempData["Error"] = "You cannot post a bill without payments";
