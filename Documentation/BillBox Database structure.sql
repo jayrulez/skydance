@@ -1,14 +1,14 @@
---use master
---go
+use master
+go
 
---drop database Billbox
---go
+drop database Billbox
+go
 
---create database Billbox
---go
+create database Billbox
+go
 
---use Billbox
---go
+use Billbox
+go
 
 create table Settings (
 	Name VARCHAR(64) PRIMARY KEY NOT NULL, 

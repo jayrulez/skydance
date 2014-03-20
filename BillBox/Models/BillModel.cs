@@ -22,6 +22,11 @@ namespace BillBox.Models
             return amount;
         }
 
+        public double t()
+        {
+            return 10.50;
+        }
+
         public double Total()
         {
             return this.Amount() + this.ProcessingFee.GetValueOrDefault() + this.ProcessingFeeGCT.GetValueOrDefault();

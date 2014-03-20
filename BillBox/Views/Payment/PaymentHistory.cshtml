@@ -25,13 +25,13 @@
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>Bill Id</th>
-                                <th>Subscriber</th>
-                                <th>Invoice Number</th>
-                                <th>Agent</th>
-                                <th>Agent Branch</th>
-                                <th>User</th>
-                                <th>Date</th>
+                                <th>@Html.DisplayNameFor(b => b.FirstOrDefault().BillId)</th>
+                                <th>@Html.DisplayNameFor(b => b.FirstOrDefault().Subscriber)</th>
+                                <th>@Html.DisplayNameFor(b => b.FirstOrDefault().ReceiptNumber)</th>
+                                <th>@Html.DisplayNameFor(b => b.FirstOrDefault().Agent)</th>
+                                <th>@Html.DisplayNameFor(b => b.FirstOrDefault().AgentBranchId)</th>
+                                <th>@Html.DisplayNameFor(b => b.FirstOrDefault().User)</th>
+                                <th>@Html.DisplayNameFor(b => b.FirstOrDefault().Date)</th>
                                 <th>&nbsp;</th>
                             </tr>
                         </thead>
