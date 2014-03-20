@@ -1,8 +1,6 @@
 CODE CLEANUP
 
-breadcrumbs
 unique attribute
-css panel
 action buttons
 
 
@@ -11,4 +9,5 @@ remove payment
 date range control
 menu icons
 
-view/details display
+horizontal forms
+custom fields {enforce type}

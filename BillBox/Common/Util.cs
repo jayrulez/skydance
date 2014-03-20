@@ -26,7 +26,7 @@ namespace BillBox.Common
 
     public enum FieldType
     {
-        TextType = 0, IntegerType, AlphabeticType, AlphanumericType, DoubleType
+        TextType = 0, IntegerType, AlphabeticType, AlphanumericType, DoubleType, DateType
     }
 
     public class Util
@@ -38,13 +38,15 @@ namespace BillBox.Common
             int alphabeticType = (int)FieldType.AlphabeticType;
             int alphanumericType = (int)FieldType.AlphanumericType;
             int doubleType = (int)FieldType.DoubleType;
+            int dateType = (int)FieldType.DateType;
 
             return new SelectList(new [] {
                 new {ID = textType.ToString(), Name = "Text"},
                 new {ID = integerType.ToString(), Name = "Integers"},
                 new {ID = alphabeticType.ToString(), Name = "Alphabetic"},
                 new {ID = alphanumericType.ToString(), Name = "Alphanumeric"},
-                new {ID = doubleType.ToString(), Name = "Decimal"}
+                new {ID = doubleType.ToString(), Name = "Decimal"},
+                new {ID = dateType.ToString(), Name = "Date"}
             }, "ID", "Name");
         }
 

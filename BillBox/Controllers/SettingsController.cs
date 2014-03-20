@@ -173,6 +173,8 @@ namespace BillBox.Controllers
 
                 captureField.PaymentMethodId = paymentMethod.PaymentMethodId;
 
+                ViewBag.paymentMethod = paymentMethod;
+
                 return View(captureField);
             }
             catch (Exception ex)
@@ -220,6 +222,7 @@ namespace BillBox.Controllers
                     return HttpNotFound();
                 }
 
+                ViewBag.paymenMethod = captureField.PaymentMethod;
                 return View(captureField);
             }
             catch (Exception ex)
@@ -244,10 +247,10 @@ namespace BillBox.Controllers
 
                     return RedirectToAction("ViewPaymentMethod", new { paymentMethodId = model.PaymentMethodId });
                 }
-                else
-                {
-                    return View(model);
-                }
+
+                ViewBag.paymentMethod = model.PaymentMethod;
+
+                return View(model);
             }
             catch (Exception ex)
             {

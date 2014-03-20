@@ -6,11 +6,18 @@
 }
 
 <div class="row main">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
+        <ol class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Default")</li>
+            <li>@Html.ActionLink("Settings", "Index", "Settings")</li>
+            <li>@Html.ActionLink("Payment Methods", "ListPaymentMethods", "Settings")</li>
+            <li>@Html.ActionLink(Model.Name, "ViewPaymentMethod", "Settings", new { paymentMethodId = Model.PaymentMethodId }, null)</li>
+            <li class="active">Edit Payment Method</li>
+        </ol>
         <!--<h1 class="page-header">Edit Payment Method</h1>-->
         <div class="panel panel-default">
             <div class="panel-heading">
-                Edit Payment Method
+                Payment Method Information
             </div>
             <div class="panel-body">
                 <div class="row">

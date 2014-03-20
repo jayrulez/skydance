@@ -3,14 +3,21 @@
 @{
     ViewBag.Title = "Create Capture Field";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var subscriber = ViewBag.subscriber as BillBox.Models.Subscriber;
 }
 
 <div class="row main">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
+        <ol class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Default")</li>
+            <li>@Html.ActionLink("Subscribers", "Index", "Subscriber")</li>
+            <li>@Html.ActionLink(subscriber.Name, "Details", "Subscriber", new { id = subscriber.SubscriberId })</li>
+            <li class="active">Add Capture Field</li>
+        </ol>
         <!--<h1 class="page-header">Add Capture Field</h1>-->
         <div class="panel panel-default">
             <div class="panel-heading">
-                Create Capture Field
+                Capture Field Information
             </div>
             <div class="panel-body">
                 <div class="row">
