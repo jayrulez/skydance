@@ -372,6 +372,12 @@ namespace BillBox.Controllers
 
                 bill.Status = (int)BillStatus.Working;
 
+
+                bill.Commission = 0.0;
+                bill.CommissionGCT = 0.0;
+                bill.ProcessingFee = 0.0;
+                bill.ProcessingFeeGCT = 0.0;
+
                 dbContext.Entry(bill).State = EntityState.Modified;
                 dbContext.SaveChanges();
 
