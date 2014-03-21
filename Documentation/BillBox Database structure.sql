@@ -14,7 +14,8 @@ create table Settings (
 	Name VARCHAR(64) PRIMARY KEY NOT NULL, 
 	DisplayName VARCHAR(255) NOT NULL,
 	Type SMALLINT DEFAULT NULL,  
-	Value TEXT DEFAULT NULL
+	Value TEXT DEFAULT NULL,
+	IsSystemSetting SMALLINT DEFAULT 0
 );
 
 GO

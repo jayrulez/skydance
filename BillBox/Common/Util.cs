@@ -42,7 +42,7 @@ namespace BillBox.Common
 
             return new SelectList(new [] {
                 new {ID = textType.ToString(), Name = "Text"},
-                new {ID = integerType.ToString(), Name = "Integers"},
+                new {ID = integerType.ToString(), Name = "Integer"},
                 new {ID = alphabeticType.ToString(), Name = "Alphabetic"},
                 new {ID = alphanumericType.ToString(), Name = "Alphanumeric"},
                 new {ID = doubleType.ToString(), Name = "Decimal"},
@@ -179,14 +179,7 @@ namespace BillBox.Common
             }  
         }
 
-       
-        public static int GenerateReceiptNumber()
-        {
-            
-            return (int)DateTime.Now.Ticks % 100000000;
-        }
-
-        
+              
         public static bool HandleException(Exception baseException, out string errorMessage)
         {
             bool handled = false;

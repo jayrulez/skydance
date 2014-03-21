@@ -33,40 +33,43 @@
                             Parameters
                         </div>
                         <div class="panel-body">
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.DateRange, new { @class = "col-sm-5 control-label" })
-                                <div class="col-sm-7">
-                                    @Html.TextBoxFor(model => model.DateRange, new { @class = "form-control" })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Subscriber, new { @class = "col-sm-5 control-label" })
-                                <div class="col-sm-7">
-                                    @Html.DropDownListFor(model => model.Subscriber, new SelectList(subscribers, "Name", "Name"), "All", new { @class = "form-control" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Agent, new { @class = "col-sm-5 control-label" })
-                                <div class="col-sm-7">
-                                    @Html.DropDownListFor(model => model.Agent, new SelectList(agents, "Name", "Name"), "All", new { @class = "form-control" })
-                                </div>
-                            </div>
-
-                            <div class="form-group" id="agent-branches-area">
-                                @if (branches != null)
-                                {
-                                    @Html.LabelFor(model => model.Branch, new { @class = "col-sm-5 control-label" })
-                                    <div class="col-sm-7">
-                                        @Html.DropDownListFor(model => model.Branch, new SelectList(branches, "Name", "Name"), "All", new { @class = "form-control" })
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.DateRange, new { @class = "col-sm-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(model => model.DateRange, new { @class = "form-control" })
+                                        </div>
                                     </div>
-                                }
-                            </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Subscriber, new { @class = "col-sm-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.DropDownListFor(model => model.Subscriber, new SelectList(subscribers, "Name", "Name"), "All", new { @class = "form-control" })
+                                        </div>
+                                    </div>
 
-                            <div class="form-group">
-                                <div class="col-sm-offset-5 col-sm-7">
-                                    <button type="submit" class="btn btn-default">Save</button>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Agent, new { @class = "col-sm-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.DropDownListFor(model => model.Agent, new SelectList(agents, "Name", "Name"), "All", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" id="agent-branches-area">
+                                        @if (branches != null)
+                                        {
+                                            @Html.LabelFor(model => model.Branch, new { @class = "col-sm-5 control-label" })
+                                            <div class="col-sm-7">
+                                                @Html.DropDownListFor(model => model.Branch, new SelectList(branches, "Name", "Name"), "All", new { @class = "form-control" })
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-5 col-sm-7">
+                                            <button type="submit" class="btn btn-default">Generate</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -81,14 +84,14 @@
                 {
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Result
+                            Results
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive"></div>
                             <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>@Html.LabelFor(model => model.InvoiceNumber)</th>
+                                        <th>@Html.LabelFor(model => model.ReceiptNumber)</th>
                                         <th>@Html.LabelFor(model => model.Date)</th>
                                         <th>@Html.LabelFor(model => model.Subscriber)</th>
                                         <th>@Html.LabelFor(model => model.Agent)</th>
@@ -99,7 +102,7 @@
                                 @foreach (var collection in collections)
                                 {
                                     <tr>
-                                        <td>@collection.InvoiceNumber</td>
+                                        <td>@collection.ReceiptNumber</td>
                                         <td>@collection.Date.ToShortDateString()</td>
                                         <td>@collection.Subscriber</td>
                                         <td>@collection.Agent</td>
@@ -135,6 +138,7 @@
             </div>
         </div>
     </div>
+
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
