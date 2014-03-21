@@ -81,19 +81,19 @@
                                     @Html.DisplayFor(model => model.EmailAddress)
                                 </td>
 
-                                @if (Model.Agent != null)
-                                {
+                                <td>
+                                    @if (Model.Agent != null)
+                                    {
 
-                                    <td>
                                         @Html.DisplayFor(model => model.Agent.Name)
-                                    </td>
-                                }
-                                @if (Model.AgentBranch != null)
-                                {
-                                    <td>
+                                    }
+                                </td>
+                                <td>
+                                    @if (Model.AgentBranch != null)
+                                    {
                                         @Html.DisplayFor(model => model.AgentBranch.Name)
-                                    </td>
-                                }
+                                    }
+                                </td>
                             </tr>
                         </tbody>
 
