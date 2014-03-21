@@ -246,7 +246,8 @@ namespace BillBox.Controllers
                     return HttpNotFound();
                 }
 
-                ViewBag.paymenMethod = captureField.PaymentMethod;
+                ViewBag.paymentMethod = captureField.PaymentMethod;
+
                 return View(captureField);
             }
             catch (Exception ex)
@@ -271,6 +272,8 @@ namespace BillBox.Controllers
 
                     return RedirectToAction("ViewPaymentMethod", new { paymentMethodId = model.PaymentMethodId });
                 }
+
+                //var paymentMethod = dbContext.PaymentMethods.FirstOrDefault(p => p.PaymentMethodId == model.PaymentMethodId);
 
                 ViewBag.paymentMethod = model.PaymentMethod;
 
