@@ -16,5 +16,3 @@ resize colum 2 in Settings/Payment methods
 display type text in view payment method view
 
 rename integers to integer in payment method type
-
-fix object instance error in EditPaymentMethodCaptureField view
