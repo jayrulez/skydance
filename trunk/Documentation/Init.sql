@@ -2,13 +2,15 @@ USE [Billbox]
 GO
 
 
-INSERT INTO Settings(Name, DisplayName, Value) VALUES ('ProcessingFee', 'Processing Fee', '25.00')
+INSERT INTO Settings(Name, DisplayName, Value) VALUES ('ProcessingFee', 'Processing Fee ($)', '25.00')
 GO
 INSERT INTO Settings(Name, DisplayName, Value) VALUES ('ProcessingFeeGCT', 'Processing Fee GCT (%)', '2.5')
 GO
 INSERT INTO Settings(Name, DisplayName, Value) VALUES ('CommissionRate', 'Commission (%)', '2.5')
 GO
 INSERT INTO Settings(Name, DisplayName, Value) VALUES ('CommissionGCT', 'Commission GCT (%)', '2.5')
+GO
+INSERT INTO Settings(Name, DisplayName, Value, IsSystemSetting) VALUES ('NextReceiptNumber', 'ReceiptNumber', '2001411210', 1)
 GO
 
 /***********************************************************Parish*********************************************************************/

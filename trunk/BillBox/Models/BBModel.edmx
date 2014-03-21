@@ -40,7 +40,7 @@
           </Key>
           <Property Name="BillId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SubscriberId" Type="int" Nullable="false" />
-          <Property Name="ReceiptNumber" Type="int" Nullable="false" />
+          <Property Name="ReceiptNumber" Type="bigint" Nullable="false" />
           <Property Name="AgentId" Type="int" Nullable="false" />
           <Property Name="AgentBranchId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
@@ -122,6 +122,7 @@
           <Property Name="DisplayName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Type" Type="smallint" />
           <Property Name="Value" Type="text" />
+          <Property Name="IsSystemSetting" Type="smallint" />
         </EntityType>
         <EntityType Name="Subscriber">
           <Key>
@@ -830,6 +831,7 @@
           <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
           <Property Name="Type" Type="Int16" />
           <Property Name="Value" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="IsSystemSetting" Type="Int16" />
         </EntityType>
         <EntityType Name="Subscriber">
           <Key>
@@ -1284,6 +1286,7 @@
           <EntitySetMapping Name="Settings">
             <EntityTypeMapping TypeName="BBModel.Setting">
               <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="IsSystemSetting" ColumnName="IsSystemSetting" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
                 <ScalarProperty Name="Type" ColumnName="Type" />

@@ -18,5 +18,6 @@ namespace BillBox.Models
         public string DisplayName { get; set; }
         public Nullable<short> Type { get; set; }
         public string Value { get; set; }
+        public Nullable<short> IsSystemSetting { get; set; }
     }
 }
