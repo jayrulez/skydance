@@ -7,29 +7,31 @@
 
 }
 
-<ul class="pagination">
-    @if (!string.IsNullOrEmpty(previous))
-    {
-        <li><a href="@previous">&laquo;</a></li>
-    }
-    else
-    {
-        <li class="disabled"><a href="#">&laquo;</a></li>
-    }
+@if (recordTotal > 0)
+{
+    <ul class="pagination">
+        @if (!string.IsNullOrEmpty(previous))
+        {
+            <li><a href="@previous">&laquo;</a></li>
+        }
+        else
+        {
+            <li class="disabled"><a href="#">&laquo;</a></li>
+        }
 
-    @if(recordBegin.HasValue && recordEnd.HasValue && recordTotal.HasValue)
-    {
-        <li class="disabled"><a href="#">@recordBegin to @recordEnd of @recordTotal</a></li>
-    }    
+        @if (recordBegin.HasValue && recordEnd.HasValue && recordTotal.HasValue)
+        {
+            <li class="disabled"><a href="#">@recordBegin to @recordEnd of @recordTotal</a></li>
+        }
 
-    @if (!string.IsNullOrEmpty(next))
-    {
-        <li><a href="@next">&raquo;</a></li>
-    }
-    else
-    {
-        <li class="disabled"><a href="#">&raquo;</a></li>
-    }
-</ul>
-
+        @if (!string.IsNullOrEmpty(next))
+        {
+            <li><a href="@next">&raquo;</a></li>
+        }
+        else
+        {
+            <li class="disabled"><a href="#">&raquo;</a></li>
+        }
+    </ul>
+}
 

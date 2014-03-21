@@ -63,24 +63,27 @@
                                     </div>
                                 }
                             </div>
-                        </div>
-                        <div class="panel-footer">
+
                             <div class="form-group">
                                 <div class="col-sm-offset-5 col-sm-7">
                                     <button type="submit" class="btn btn-default">Save</button>
                                 </div>
                             </div>
                         </div>
+                        @*<div class="panel-footer">
+                                <div class="buttons bottom">
+                                    <input type="submit" class="btn btn-default" value="Generate" />
+                                </div>
+                            </div>*@
                     </div>
                 }
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Result
-                    </div>
-                    <div class="panel-body">
-                        @if (collections != null)
-                        {
+                @if (collections != null)
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Result
+                        </div>
+                        <div class="panel-body">
                             <div class="table-responsive"></div>
                             <table class="table table-bordered table-striped">
                                 <thead>
@@ -107,31 +110,28 @@
                             </table>
 
 
-                                if (Model.HasPreviousPage)
-                                {
-                                    ViewBag.Previous = Url.Action("Collections", new { generate = true, DateRange = Model.DateRange, Subscriber = Model.Subscriber, Agent = Model.Agent, Branch = Model.Branch, page = Model.PageNumber - 1 });
-                                }
+                            @if (Model.HasPreviousPage)
+                            {
+                                ViewBag.Previous = Url.Action("Collections", new { generate = true, DateRange = Model.DateRange, Subscriber = Model.Subscriber, Agent = Model.Agent, Branch = Model.Branch, page = Model.PageNumber - 1 });
+                            }
 
 
-                                if (Model.HasNextPage)
-                                {
-                                    ViewBag.Next = Url.Action("Collections", new { generate = true, DateRange = Model.DateRange, Subscriber = Model.Subscriber, Agent = Model.Agent, Branch = Model.Branch, page = Model.PageNumber + 1 });
-                                }
+                            @if (Model.HasNextPage)
+                            {
+                                ViewBag.Next = Url.Action("Collections", new { generate = true, DateRange = Model.DateRange, Subscriber = Model.Subscriber, Agent = Model.Agent, Branch = Model.Branch, page = Model.PageNumber + 1 });
+                            }
 
-                                ViewBag.RecordTotal = Model.Count;
-                                ViewBag.RecordBegin = ((Model.PageNumber - 1) * Model.PageSize) + 1;
-                                ViewBag.RecordEnd = (Model.PageNumber * Model.PageSize) < Model.Count ? (Model.PageNumber * Model.PageSize) : Model.Count;
-
-                        }
-
-
+                            @{
+                            ViewBag.RecordTotal = Model.Count;
+                            ViewBag.RecordBegin = ((Model.PageNumber - 1) * Model.PageSize) + 1;
+                            ViewBag.RecordEnd = (Model.PageNumber * Model.PageSize) < Model.Count ? (Model.PageNumber * Model.PageSize) : Model.Count;
+                            }
+                        </div>
+                        <div class="panel-footer">
+                            @Html.Partial("_Pager")
+                        </div>
                     </div>
-                    <div class="panel-footer">
-                        @Html.Partial("_Pager")
-                    </div>
-                </div>
-            </div>
-            <div class="panel-footer">
+                }
             </div>
         </div>
     </div>

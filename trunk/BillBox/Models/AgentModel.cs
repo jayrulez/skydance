@@ -69,7 +69,7 @@ namespace BillBox.Models
         public string Name { get; set; }
 
         [Required]
-        [Display(Name = "Street")]
+        [Display(Name = "Address")]
         public string AddressStreet { get; set; }
 
         [Required]
