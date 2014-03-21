@@ -56,14 +56,16 @@ namespace BillBox.Filters
 
             UrlHelper urlHelper = new UrlHelper(filterContext.RequestContext);
 
-            if (this.isException)
-            {
-                filterContext.HttpContext.Response.Redirect(urlHelper.Action("Error", "Default", new { msg = errorMessage }));
-            }
-            else
-            {
-                filterContext.HttpContext.Response.Redirect(urlHelper.Action("Login", "Default"));
-            }
+            filterContext.HttpContext.Response.Redirect(urlHelper.Action("Error", "Default", new { msg = errorMessage }));
+
+            //if(this.isException)
+            //{
+            //    filterContext.HttpContext.Response.Redirect(urlHelper.Action("Error", "Default", new { msg = errorMessage }));
+            //}
+            //else
+            //{
+            //    filterContext.HttpContext.Response.Redirect(urlHelper.Action("Login", "Default"));
+            //}
         }
     }
 }

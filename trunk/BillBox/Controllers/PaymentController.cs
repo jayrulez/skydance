@@ -89,7 +89,6 @@ namespace BillBox.Controllers
                     model.AgentBranchId = user.AgentBranch.BranchId;
                     model.AgentId = user.AgentBranch.Agent.AgentId;
                     model.Date = DateTime.Now;
-                    model.ReceiptNumber = GenerateReceiptNumber();
                     model.Status = (int)BillStatus.Init;
 
                     if (ModelState.IsValid)
@@ -135,43 +134,6 @@ namespace BillBox.Controllers
             {
                 return HandleErrorOnController(ex.GetBaseException());
             }
-        }
-
-        private int GenerateReceiptNumber()
-        {
-            try
-            {
-                var setting = dbContext.Settings.Where(s => s.Name == "NextReceiptNumber").FirstOrDefault();
-
-                if(setting == null)
-                {
-                    throw new ArgumentNullException();
-                }
-
-                int receiptNumber = Int32.Parse(setting.Value);
-
-                setting.Value = (++receiptNumber).ToString();
-
-                dbContext.SaveChanges();
-
-                return receiptNumber;
-            }
-            catch (Exception ex)
-            {
-                var baseExType = ex.GetBaseException().GetType();
-
-                if (baseExType == typeof(FormatException) || 
-                    baseExType == typeof(OverflowException) || 
-                    baseExType == typeof(ArgumentNullException))
-                {
-                    throw new Exception("Unable to generate receipt number");
-                }
-                else
-                {
-                    throw ex;
-                }               
-            }
-            
         }
 
         [RightFilter(RightName = "PROCESS_PAYMENT")]
@@ -431,7 +393,7 @@ namespace BillBox.Controllers
         {
             try
             {
-                Bill bill = dbContext.Bills.FirstOrDefault(b => b.ReceiptNumber == receiptNumber && b.Status == (int)BillStatus.Posted);
+                Bill bill = dbContext.Bills.FirstOrDefault(b => b.BillId == receiptNumber && b.Status == (int)BillStatus.Posted);
 
                 if (bill == null)
                 {
