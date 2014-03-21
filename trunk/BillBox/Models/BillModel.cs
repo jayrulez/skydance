@@ -35,16 +35,12 @@ namespace BillBox.Models
 
     public class BillModel
     {
-        [Display(Name = "Bill Id")]
+        [Display(Name = "Receipt Number")]
         public int BillId { get; set; }
 
         [Required]
         [Display(Name = "Subscriber")]
         public int SubscriberId { get; set; }
-
-        [Required]
-        [Display(Name = "Receipt Number")]
-        public int ReceiptNumber { get; set; }
 
         [Required]
         [Display(Name = "Agent")]
@@ -65,6 +61,10 @@ namespace BillBox.Models
         [Required]
         [Display(Name = "Status")]
         public int Status { get; set; }
+
+        [Required]
+        [Display(Name = "Customer Name")]
+        public int CustomerName { get; set; }
 
         public List<Payment> Payments;
     }

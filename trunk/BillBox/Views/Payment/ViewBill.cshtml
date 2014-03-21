@@ -9,7 +9,7 @@
     <div class="col-lg-12">
         <ol class="breadcrumb">
             <li>@Html.ActionLink("Home", "Index", "Default")</li>
-            <li><a href="#">Payment</a></li>
+            <li>@Html.ActionLink("Payment", "PaymentHistory", "Payment")</li>
             <li class="active">View Payment</li>
         </ol>
         <!--<h1 class="page-header">View Branch</h1>-->
@@ -25,7 +25,6 @@
 
                                 <th>@Html.DisplayNameFor(m => m.BillId)</th>
                                 <th>@Html.DisplayNameFor(m => m.SubscriberId)</th>
-                                <th>@Html.DisplayNameFor(m => m.ReceiptNumber)</th>
                                 <th>@Html.DisplayNameFor(m => m.AgentId)</th>
                                 <th>@Html.DisplayNameFor(m => m.AgentBranchId)</th>
                                 <th>@Html.DisplayNameFor(m => m.UserId)</th>
@@ -37,8 +36,6 @@
                                 <td>@Html.DisplayFor(m => m.BillId)</td>
 
                                 <td>@Html.DisplayFor(m => m.Subscriber.Name)</td>
-
-                                <td>@Html.DisplayFor(m => m.ReceiptNumber)</td>
 
                                 <td>@Html.DisplayFor(m => m.Agent.Name)</td>
 

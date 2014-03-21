@@ -43,14 +43,14 @@
                                     <thead>
                                         <tr>
                                             <th>@Html.DisplayNameFor(p => p.Bill.Subscriber)</th>
-                                            <th>@Html.DisplayNameFor(p => p.Bill.ReceiptNumber)</th>
+                                            <th>@Html.DisplayNameFor(p => p.Bill.BillId)</th>
                                             <th>@Html.DisplayNameFor(p => p.Bill.Date)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>@bill.Subscriber.Name</td>
-                                            <td>@bill.ReceiptNumber</td>
+                                            <td>@bill.BillId</td>
                                             <td>@bill.Date</td>
                                         </tr>
                                     </tbody>
@@ -100,7 +100,7 @@
                                             
                                             <td>&nbsp;</td>
                                             <td>&nbsp;</td>
-                                            <td><span class="bill-total">@BillBox.Common.Util.DisplayForDollar(bill.Total())</span></td>
+                                            <td><strong>@BillBox.Common.Util.DisplayForDollar(bill.Total())</strong></td>
                                             <td>&nbsp;</td>
                                         </tr>
                                     </tbody>

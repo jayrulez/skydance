@@ -389,11 +389,11 @@ namespace BillBox.Controllers
         }
 
         [RightFilter(RightName = "VIEW_RECEIPT")]
-        public ActionResult ViewReceipt(int receiptNumber = 0)
+        public ActionResult ViewReceipt(int billId = 0)
         {
             try
             {
-                Bill bill = dbContext.Bills.FirstOrDefault(b => b.BillId == receiptNumber && b.Status == (int)BillStatus.Posted);
+                Bill bill = dbContext.Bills.FirstOrDefault(b => b.BillId == billId && b.Status == (int)BillStatus.Posted);
 
                 if (bill == null)
                 {
