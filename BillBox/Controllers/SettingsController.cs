@@ -19,7 +19,7 @@ namespace BillBox.Controllers
         [RightFilter(RightName = "VIEW_SETTINGS")]
         public ActionResult Index()
         {
-            var settings = dbContext.Settings.Where(s => s.IsSystemSetting == 0);
+            var settings = dbContext.Settings;
 
             return View(settings);
         }

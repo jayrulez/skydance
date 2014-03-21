@@ -14,8 +14,7 @@ create table Settings (
 	Name VARCHAR(64) PRIMARY KEY NOT NULL, 
 	DisplayName VARCHAR(255) NOT NULL,
 	Type SMALLINT DEFAULT NULL,  
-	Value TEXT DEFAULT NULL,
-	IsSystemSetting SMALLINT DEFAULT 0
+	Value TEXT DEFAULT NULL
 );
 
 GO
@@ -177,19 +176,18 @@ ADD CONSTRAINT FK_CaptureField_Subscriber FOREIGN KEY (SubscriberId) REFERENCES 
 GO
 
 create table Bill (
-	BillId INT IDENTITY(1,1) PRIMARY KEY NOT NULL, 
+	BillId INT IDENTITY(10001,1) PRIMARY KEY NOT NULL, 
 	SubscriberId INT NOT NULL,
-	ReceiptNumber INT NOT NULL, 
 	AgentId INT NOT NULL, 
 	AgentBranchId INT NOT NULL, 
 	UserId INT NOT NULL, 
 	Date DATETIME NOT NULL,
 	Status INT NOT NULL,
+	CustomerName VARCHAR(255) DEFAULT NULL,
 	ProcessingFee FLOAT DEFAULT NULL,
 	ProcessingFeeGCT FLOAT DEFAULT NULL,
 	Commission FLOAT DEFAULT NULL,
-	CommissionGCT FLOAT DEFAULT NULL,
-	CONSTRAINT UK_Bill_ReceiptNumber UNIQUE (ReceiptNumber)
+	CommissionGCT FLOAT DEFAULT NULL
 );
 
 GO

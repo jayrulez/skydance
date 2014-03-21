@@ -22,12 +22,12 @@ namespace BillBox.Models
     
         public int BillId { get; set; }
         public int SubscriberId { get; set; }
-        public int ReceiptNumber { get; set; }
         public int AgentId { get; set; }
         public int AgentBranchId { get; set; }
         public int UserId { get; set; }
         public System.DateTime Date { get; set; }
         public int Status { get; set; }
+        public string CustomerName { get; set; }
         public Nullable<double> ProcessingFee { get; set; }
         public Nullable<double> ProcessingFeeGCT { get; set; }
         public Nullable<double> Commission { get; set; }
