@@ -27,7 +27,6 @@
                             <tr>
                                 <th>@Html.DisplayNameFor(b => b.FirstOrDefault().BillId)</th>
                                 <th>@Html.DisplayNameFor(b => b.FirstOrDefault().Subscriber)</th>
-                                <th>@Html.DisplayNameFor(b => b.FirstOrDefault().ReceiptNumber)</th>
                                 <th>@Html.DisplayNameFor(b => b.FirstOrDefault().Agent)</th>
                                 <th>@Html.DisplayNameFor(b => b.FirstOrDefault().AgentBranchId)</th>
                                 <th>@Html.DisplayNameFor(b => b.FirstOrDefault().User)</th>
@@ -39,9 +38,8 @@
                             @foreach (BillBox.Models.Bill bill in Model)
                             {
                                 <tr>
-                                    <td>@bill.BillId</td>
+                                    <td>@Html.ActionLink(@bill.BillId.ToString(), "ViewReceipt", new { billId = @bill.BillId }, new { _target = "blank" })</td>
                                     <td>@bill.Subscriber.Name</td>
-                                    <td>@Html.ActionLink(@bill.ReceiptNumber.ToString(), "ViewReceipt", new { receiptNumber = @bill.ReceiptNumber }, new { _target = "blank" })</td>
                                     <td>@bill.Agent.Name</td>
                                     <td>@bill.AgentBranch.Name</td>
                                     <td>@bill.User.Name</td>
