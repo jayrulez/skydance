@@ -36,13 +36,13 @@
                                     <td>@agent.Name</td>
                                     <td>
                                         @agent.AddressStreet
-                                        <br />
+                                        @*<br />
                                         @agent.AddressCity
                                         @if (agent.Parish != null)
                                         {
                                             <br />
                                             @agent.Parish.Name
-                                        }
+                                        }*@
                                     </td>
 
                                     <td>@agent.ContactNumber</td>

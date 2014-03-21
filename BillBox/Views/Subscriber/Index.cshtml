@@ -37,14 +37,14 @@
                                     <td>@subscriber.OperatingName</td>
                                     <td>
                                         @subscriber.AddressStreet
-                                        <br />
+                                        @*<br />
                                         @subscriber.AddressCity
 
                                         @if (subscriber.Parish != null)
                                         {
                                             <br />
                                             @subscriber.Parish.Name
-                                        }
+                                        }*@
                                     </td>
                                     <td>@subscriber.ContactNumber</td>
                                     <td>@subscriber.FaxNumber</td>
