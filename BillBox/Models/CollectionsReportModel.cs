@@ -9,8 +9,8 @@ namespace BillBox.Models
 {
     public class CollectionsReportModel
     {   
-        [Display(Name="Invoice Number")]
-        public int InvoiceNumber { get; set; }
+        [Display(Name="Receipt Number")]
+        public int BillId { get; set; }
 
         [Display(Name="Payment Date")]
         public DateTime Date { get; set; }

@@ -42,7 +42,7 @@ namespace BillBox.Controllers
                         .Where(bill => bill.Status == (int)BillStatus.Posted)
                         .GroupJoin(dbContext.Payments, bill => bill.BillId, payment => payment.BillId, (bill, billGroup) => new CollectionsReportModel
                         {
-                            ReceiptNumber = bill.ReceiptNumber,
+                            BillId = bill.BillId,
                             Date = bill.Date,
                             Amount = billGroup.Sum(p => p.Amount),
                             Agent = bill.Agent.Name,
