@@ -5,31 +5,6 @@
 *date range control
 *custom fields {enforce type}
 *display type text in view payment method view
-*fix util.handleexception
-*add change password feature
+*fix util.handleexception (handle additional ex)
+**add change password feature
 
-/*
-*PLEASE NOTE
-*IsSystemSetting SMALLINT added to settings table.UPdate db with code below
-*/
-
-drop table Settings
-go
-create table Settings (
-	Name VARCHAR(64) PRIMARY KEY NOT NULL, 
-	DisplayName VARCHAR(255) NOT NULL,
-	Type SMALLINT DEFAULT NULL,  
-	Value TEXT DEFAULT NULL,
-	IsSystemSetting SMALLINT DEFAULT 0
-);
-GO
-INSERT INTO Settings(Name, DisplayName, Value) VALUES ('ProcessingFee', 'Processing Fee ($)', '25.00')
-GO
-INSERT INTO Settings(Name, DisplayName, Value) VALUES ('ProcessingFeeGCT', 'Processing Fee GCT (%)', '2.5')
-GO
-INSERT INTO Settings(Name, DisplayName, Value) VALUES ('CommissionRate', 'Commission (%)', '2.5')
-GO
-INSERT INTO Settings(Name, DisplayName, Value) VALUES ('CommissionGCT', 'Commission GCT (%)', '2.5')
-GO
-INSERT INTO Settings(Name, DisplayName, Value, IsSystemSetting) VALUES ('NextReceiptNumber', 'ReceiptNumber', '2001411210', 1)
-GO

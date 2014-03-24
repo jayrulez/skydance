@@ -185,14 +185,23 @@ namespace BillBox.Common
             bool handled = false;
             errorMessage = string.Empty;
 
-            if (baseException.Message.Contains("Cannot open database") || 
-                baseException.Message.Contains("Login failed") || 
-                baseException.Message.Contains("network-related"))
+            //if (baseException.Message.Contains("Cannot open database") || 
+            //    baseException.Message.Contains("Login failed") || 
+            //    baseException.Message.Contains("network-related") ||
+            //    baseException.Message.Contains("permission was denied"))
+            //{
+            //   errorMessage = "Database error!";
+            //    handled = true;
+            //}
+
+            if(baseException.GetType() == typeof(SqlException))
             {
-               errorMessage = "Database server is not available! Please inform the system admistrator";
-                handled = true;
+                errorMessage = "Database error";
             }
-            errorMessage = baseException.Message;
+
+            //to be remove for production
+            errorMessage += "! " + baseException.Message;
+
             return handled;
         }
 
