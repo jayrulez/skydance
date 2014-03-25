@@ -38,7 +38,7 @@
                             @foreach (BillBox.Models.Bill bill in Model)
                             {
                                 <tr>
-                                    <td>@Html.ActionLink(@bill.BillId.ToString(), "ViewReceipt", new { billId = @bill.BillId }, new { _target = "blank" })</td>
+                                    <td><a href="@Url.Action("ViewReceipt", new { billId = @bill.BillId })" target="_blank">@bill.BillId.ToString()</a></td>
                                     <td>@bill.Subscriber.Name</td>
                                     <td>@bill.Agent.Name</td>
                                     <td>@bill.AgentBranch.Name</td>

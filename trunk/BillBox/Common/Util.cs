@@ -26,13 +26,14 @@ namespace BillBox.Common
 
     public enum FieldType
     {
-        TextType = 0, IntegerType, AlphabeticType, AlphanumericType, DoubleType, DateType
+        StringType = 0, TextType, IntegerType, AlphabeticType, AlphanumericType, DoubleType, DateType
     }
 
     public class Util
     {
         public static SelectList GetFieldTypes()
         {
+            int stringType = (int)FieldType.StringType;
             int textType = (int)FieldType.TextType;
             int integerType = (int)FieldType.IntegerType;
             int alphabeticType = (int)FieldType.AlphabeticType;
@@ -40,7 +41,8 @@ namespace BillBox.Common
             int doubleType = (int)FieldType.DoubleType;
             int dateType = (int)FieldType.DateType;
 
-            return new SelectList(new [] {
+            return new SelectList(new[] {
+                new {ID = stringType.ToString(), Name = "String"},
                 new {ID = textType.ToString(), Name = "Text"},
                 new {ID = integerType.ToString(), Name = "Integer"},
                 new {ID = alphabeticType.ToString(), Name = "Alphabetic"},
@@ -48,6 +50,13 @@ namespace BillBox.Common
                 new {ID = doubleType.ToString(), Name = "Decimal"},
                 new {ID = dateType.ToString(), Name = "Date"}
             }, "ID", "Name");
+        }
+
+        public static string GetFieldType(int fieldType)
+        {
+            var types = Util.GetFieldTypes();
+
+            return types.Where(p => p.Value == fieldType.ToString()).First().Text;
         }
 
         /// <summary>
@@ -207,17 +216,22 @@ namespace BillBox.Common
 
         public static string DisplayForDollar(double amount)
         {
-            return "$" + amount.ToString();
+            return "$" + amount.ToString("0.00");
         }
 
         public static string DisplayForDollar(float amount)
         {
-            return "$" + amount.ToString();
+            return "$" + amount.ToString("0.00");
         }
 
         public static string DisplayForDollar(string amount)
         {
             return "$" + amount;
+        }
+
+        public static double Round(double amount)
+        {
+            return Math.Round(amount, 2, MidpointRounding.ToEven);
         }
 
         public static void PreparePagerInfo(RequestContext context, dynamic dictionary, string actionName, int pageNumber, int pageSize, int totalRecordCount, object routeValues = null)

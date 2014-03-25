@@ -106,8 +106,8 @@
             </div>
             <div class="panel-footer">
                 <ul class="action-menu">
-                    <li>@Html.ActionLink("Unpost", "UnpostBill", new { billId = @Model.BillId })</li>
-                    <li>@Html.ActionLink("Back to List", "PaymentHistory")</li>
+                    <li>@Html.ActionLink("Unpost", "UnpostBill", new { billId = @Model.BillId }, new { @class = "btn btn-danger" })</li>
+                    <li><a href="@Url.Action("ViewReceipt", new { billId = @Model.BillId })" target="_blank" class="btn btn-default">View Receipt</a></li>
                 </ul>
             </div>
         </div>

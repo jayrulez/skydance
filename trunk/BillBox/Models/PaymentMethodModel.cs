@@ -20,7 +20,7 @@ namespace BillBox.Models
 
         [Required]
         [Display(Name = "Name")]
-        //[Unique(typeof(Repository<PaymentType>), typeof(PaymentType), "Name", ErrorMessage = "Payment type already exists.")]
+        [Unique(typeof(Entities), "Name")]
         public string Name { get; set; }
     }
 

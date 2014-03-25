@@ -11,6 +11,7 @@ using BillBox.Common;
 using PagedList;
 using System.Data.Entity.Infrastructure;
 using BillBox.Filters;
+using System.Data;
 
 namespace BillBox.Controllers
 {
@@ -18,6 +19,61 @@ namespace BillBox.Controllers
     public class UserController : Controller
     {
         private Entities dbContext = new Entities();
+
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePasswordModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    User LoggedInUser = Util.GetLoggedInUser();
+
+                    if(LoggedInUser == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    User user = dbContext.Users.Find(LoggedInUser.UserId);
+
+                    if(model.OldPassword != user.Password)
+                    {
+                        ModelState.AddModelError("", "The old password is incorrect.");
+                    }
+                    else if (model.NewPassword != model.ConfirmPassword)
+                    {
+                        ModelState.AddModelError("", "You must confirm your new password.");
+                    }
+                    else
+                    {
+                        user.Password = model.NewPassword;
+
+                        dbContext.Entry(user).State = EntityState.Modified;
+
+                        dbContext.SaveChanges();
+
+                        TempData["Message"] = "Your password was changed.";
+
+                        return RedirectToAction("ChangePassword");
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+                //return HandleErrorOnController(ex.GetBaseException());
+            }
+
+            return View(model);
+        }
 
         [RightFilter(RightName = "CREATE_USER")]
         public ActionResult Create()
@@ -152,7 +208,7 @@ namespace BillBox.Controllers
                     dbContext.Users.Attach(user);
 
                     var entry = dbContext.Entry(user);
-                    entry.State = System.Data.EntityState.Modified;
+                    entry.State = EntityState.Modified;
 
 
                     if (user.Password == String.Empty)
