@@ -48,7 +48,12 @@ namespace BillBox.Controllers
                             Amount = billGroup.Sum(p => p.Amount),
                             Agent = bill.Agent.Name,
                             Branch = bill.AgentBranch.Name,
-                            Subscriber = bill.Subscriber.Name
+                            Subscriber = bill.Subscriber.Name,
+                            ProcessingFee = bill.GetProcessingFee(),
+                            ProcessingFeeGCT = bill.GetProcessingFeeGCT(),
+                            Commission = bill.GetCommission(),
+                            CommissionGCT = bill.GetCommissionGCT(),
+                            Total = bill.Total()
                         });
 
                     /*prepare filters and then filter the collections in the context*/
@@ -93,7 +98,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                throw ex;
+                //return HandleErrorOnController(ex.GetBaseException());
             }
 
             return View(filter);

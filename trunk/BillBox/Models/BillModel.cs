@@ -22,14 +22,29 @@ namespace BillBox.Models
             return amount;
         }
 
-        public double t()
-        {
-            return 10.50;
-        }
-
         public double Total()
         {
-            return this.Amount() + this.ProcessingFee.GetValueOrDefault() + this.ProcessingFeeGCT.GetValueOrDefault();
+            return this.Amount() + this.GetProcessingFee() + this.GetProcessingFeeGCT();
+        }
+
+        public double GetProcessingFee()
+        {
+            return this.ProcessingFee.GetValueOrDefault(0.00);
+        }
+
+        public double GetProcessingFeeGCT()
+        {
+            return this.ProcessingFeeGCT.GetValueOrDefault(0.00);
+        }
+
+        public double GetCommission()
+        {
+            return this.Commission.GetValueOrDefault(0.00);
+        }
+
+        public double GetCommissionGCT()
+        {
+            return this.CommissionGCT.GetValueOrDefault(0.00);
         }
     }
 

@@ -102,6 +102,11 @@
                                         <th>@Html.LabelFor(model => model.Agent)</th>
                                         <th>@Html.LabelFor(model => model.Branch)</th>
                                         <th style="text-align: right">@Html.LabelFor(model => model.Amount)</th>
+                                        <th>@Html.LabelFor(model => model.ProcessingFee)</th>
+                                        <th>@Html.LabelFor(model => model.ProcessingFeeGCT)</th>
+                                        <th>@Html.LabelFor(model => model.Commission)</th>
+                                        <th>@Html.LabelFor(model => model.CommissionGCT)</th>
+                                        <th>@Html.LabelFor(model => model.Total)</th>
                                     </tr>
                                 </thead>
                                 @foreach (var collection in collections)
@@ -113,6 +118,11 @@
                                         <td>@collection.Agent</td>
                                         <td>@collection.Branch</td>
                                         <td style="text-align: right">@BillBox.Common.Util.DisplayForDollar(collection.Amount)</td>
+                                        <td>@collection.ProcessingFee</td>
+                                        <td>@collection.ProcessingFeeGCT</td>
+                                        <td>@collection.Commission</td>
+                                        <td>@collection.CommissionGCT</td>
+                                        <td>@collection.Total</td>
                                     </tr>
                                 }
                             </table>
