@@ -35,12 +35,15 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.DateRange, new { @class = "col-sm-5 control-label" })
-                                        <div class="col-sm-4">
-                                            @Html.TextBoxFor(model => model.DateRange, new { @class = "form-control" })
+                                        @Html.LabelFor(model => model.DateRangeFrom, new { @class = "col-sm-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(model => model.DateRangeFrom, new { @class = "form-control" })
                                         </div>
-                                        <div class="col-sm-4">
-                                            @Html.TextBoxFor(model => model.DateRange, new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.DateRangeTo, new { @class = "col-sm-5 control-label" })
+                                        <div class="col-sm-7">
+                                            @Html.TextBoxFor(model => model.DateRangeTo, new { @class = "form-control" })
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -98,7 +101,7 @@
                                         <th>@Html.LabelFor(model => model.Subscriber)</th>
                                         <th>@Html.LabelFor(model => model.Agent)</th>
                                         <th>@Html.LabelFor(model => model.Branch)</th>
-                                        <th>@Html.LabelFor(model => model.Amount)</th>
+                                        <th style="text-align: right">@Html.LabelFor(model => model.Amount)</th>
                                     </tr>
                                 </thead>
                                 @foreach (var collection in collections)
@@ -109,7 +112,7 @@
                                         <td>@collection.Subscriber</td>
                                         <td>@collection.Agent</td>
                                         <td>@collection.Branch</td>
-                                        <td>@BillBox.Common.Util.DisplayForDollar(collection.Amount)</td>
+                                        <td style="text-align: right">@BillBox.Common.Util.DisplayForDollar(collection.Amount)</td>
                                     </tr>
                                 }
                             </table>
@@ -117,13 +120,13 @@
 
                             @if (Model.HasPreviousPage)
                             {
-                                ViewBag.Previous = Url.Action("Collections", new { generate = true, DateRange = Model.DateRange, Subscriber = Model.Subscriber, Agent = Model.Agent, Branch = Model.Branch, page = Model.PageNumber - 1 });
+                                ViewBag.Previous = Url.Action("Collections", new { generate = true, DateRangeTo = Model.DateRangeTo, DateRangeFrom = Model.DateRangeFrom, Subscriber = Model.Subscriber, Agent = Model.Agent, Branch = Model.Branch, page = Model.PageNumber - 1 });
                             }
 
 
                             @if (Model.HasNextPage)
                             {
-                                ViewBag.Next = Url.Action("Collections", new { generate = true, DateRange = Model.DateRange, Subscriber = Model.Subscriber, Agent = Model.Agent, Branch = Model.Branch, page = Model.PageNumber + 1 });
+                                ViewBag.Next = Url.Action("Collections", new { generate = true, DateRangeTo = Model.DateRangeTo, DateRangeFrom = Model.DateRangeFrom, Subscriber = Model.Subscriber, Agent = Model.Agent, Branch = Model.Branch, page = Model.PageNumber + 1 });
                             }
 
                             @{
@@ -150,6 +153,17 @@
             $('#@Html.IdFor(model => model.Agent)').change(function () {
                 loadAgentBranches($(this).val());
             });
+
+            var dpProperties = new Object({
+                changeMonth: true,
+                changeYear: true,
+                //dateFormat: "yy-mm-dd",
+                defaultDate: +0,
+                maxDate: 0
+            });
+
+            $("#@Html.IdFor(m => m.DateRangeFrom)").datepicker(dpProperties);
+            $("#@Html.IdFor(m => m.DateRangeTo)").datepicker(dpProperties);
         });
 
         function loadAgentBranches(agent) {
