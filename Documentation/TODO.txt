@@ -1,6 +1,6 @@
 *CODE CLEANUP
-*date range control
 *custom fields {enforce type}
 *fix util.handleexception (handle additional ex)
 **exception logging
+*payment history filter [today, past 7 days, past 30 days, custom daterange]
 

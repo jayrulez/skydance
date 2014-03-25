@@ -27,8 +27,11 @@ namespace BillBox.Models
         [Display(Name="Branch")]
         public string Branch { get; set; }
 
-        [Display(Name="Date Range")]
-        public string DateRange { get; set; }
+        [Display(Name="From Date")]
+        public string DateRangeFrom { get; set; }
+
+        [Display(Name = "To Date")]
+        public string DateRangeTo { get; set; }
 
         public int PageNumber { get; set; }
         public int PageSize { get; set; }

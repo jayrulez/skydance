@@ -17,12 +17,13 @@ namespace BillBox.Controllers
 
         [HttpGet]
         [RightFilter(RightName = "GENERATE_REPORT")]
-        public ActionResult Collections(int? page, bool? generate, string dateRange, string subscriber, string agent, string branch)
+        public ActionResult Collections(int? page, bool? generate, string dateRangeFrom, string dateRangeTo, string subscriber, string agent, string branch)
         {
             var filter = new CollectionsReportModel()
             {
                 PageNumber = page ?? 1,
-                DateRange = dateRange,
+                DateRangeFrom = dateRangeFrom,
+                DateRangeTo = dateRangeTo,
                 Subscriber = subscriber,
                 Agent = agent,
                 Branch = branch
@@ -51,36 +52,21 @@ namespace BillBox.Controllers
                         });
 
                     /*prepare filters and then filter the collections in the context*/
-                    if (!string.IsNullOrEmpty(filter.DateRange))
+                    if (!string.IsNullOrEmpty(filter.DateRangeFrom))
                     {
                         DateTime fromDate;
+
+                        fromDate = StringToDate(dateRangeFrom);
+                        collections = collections.Where(c => c.Date >= fromDate);
+                    }
+
+                    if (!string.IsNullOrEmpty(filter.DateRangeTo))
+                    {
                         DateTime toDate;
 
-                        /*check if a date range was was entered. indicated with a -*/
-                        if (filter.DateRange.Contains('-'))
-                        {
-                            var dates = filter.DateRange.Split('-');
-
-                            if (dates.Length == 2)
-                            {
-                                fromDate = StringToDate(dates[0]);
-                                toDate = StringToDate(dates[1]).AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999);
-
-                                collections = collections.Where(c => c.Date >= fromDate && c.Date <= toDate);
-
-                            }
-                            else
-                            {
-                                throw new Exception("Invalid date range");
-                            }
-                        }
-                        else/*single date was entered*/
-                        {
-                            fromDate = StringToDate(filter.DateRange);
-                            toDate = fromDate.AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999);
-                            collections = collections.Where(c => c.Date >= fromDate && c.Date <= toDate);
-                        }
-
+                        toDate = StringToDate(dateRangeTo);
+                        toDate = toDate.AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999);
+                        collections = collections.Where(c => c.Date <= toDate);
                     }
 
                     /*filter the remainding params*/
