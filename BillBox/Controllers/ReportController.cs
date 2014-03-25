@@ -49,11 +49,10 @@ namespace BillBox.Controllers
                             Agent = bill.Agent.Name,
                             Branch = bill.AgentBranch.Name,
                             Subscriber = bill.Subscriber.Name,
-                            ProcessingFee = bill.GetProcessingFee(),
-                            ProcessingFeeGCT = bill.GetProcessingFeeGCT(),
-                            Commission = bill.GetCommission(),
-                            CommissionGCT = bill.GetCommissionGCT(),
-                            Total = bill.Total()
+                            ProcessingFee = (double)(bill.ProcessingFee.HasValue ? bill.ProcessingFee : 0.00),
+                            ProcessingFeeGCT = (double)(bill.ProcessingFeeGCT.HasValue ? bill.ProcessingFeeGCT : 0.00),
+                            Commission = (double)(bill.Commission.HasValue ? bill.Commission : 0.00),
+                            CommissionGCT = (double)(bill.CommissionGCT.HasValue ? bill.CommissionGCT : 0.00)
                         });
 
                     /*prepare filters and then filter the collections in the context*/
