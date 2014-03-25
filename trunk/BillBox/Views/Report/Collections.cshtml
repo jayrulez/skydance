@@ -106,23 +106,21 @@
                                         <th>@Html.LabelFor(model => model.ProcessingFeeGCT)</th>
                                         <th>@Html.LabelFor(model => model.Commission)</th>
                                         <th>@Html.LabelFor(model => model.CommissionGCT)</th>
-                                        <th>@Html.LabelFor(model => model.Total)</th>
                                     </tr>
                                 </thead>
                                 @foreach (var collection in collections)
                                 {
                                     <tr>
-                                        <td>@collection.BillId</td>
+                                        <td><a href="@Url.Action("ViewReceipt", "Payment", new { billId = collection.BillId })" target="_blank">@collection.BillId.ToString()</a></td>
                                         <td>@collection.Date.ToShortDateString()</td>
                                         <td>@collection.Subscriber</td>
                                         <td>@collection.Agent</td>
                                         <td>@collection.Branch</td>
                                         <td style="text-align: right">@BillBox.Common.Util.DisplayForDollar(collection.Amount)</td>
-                                        <td>@collection.ProcessingFee</td>
-                                        <td>@collection.ProcessingFeeGCT</td>
-                                        <td>@collection.Commission</td>
-                                        <td>@collection.CommissionGCT</td>
-                                        <td>@collection.Total</td>
+                                        <td>@BillBox.Common.Util.DisplayForDollar(collection.ProcessingFee)</td>
+                                        <td>@BillBox.Common.Util.DisplayForDollar(collection.ProcessingFeeGCT)</td>
+                                        <td>@BillBox.Common.Util.DisplayForDollar(collection.Commission)</td>
+                                        <td>@BillBox.Common.Util.DisplayForDollar(collection.CommissionGCT)</td>
                                     </tr>
                                 }
                             </table>

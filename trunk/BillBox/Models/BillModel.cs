@@ -24,27 +24,7 @@ namespace BillBox.Models
 
         public double Total()
         {
-            return this.Amount() + this.GetProcessingFee() + this.GetProcessingFeeGCT();
-        }
-
-        public double GetProcessingFee()
-        {
-            return this.ProcessingFee.GetValueOrDefault(0.00);
-        }
-
-        public double GetProcessingFeeGCT()
-        {
-            return this.ProcessingFeeGCT.GetValueOrDefault(0.00);
-        }
-
-        public double GetCommission()
-        {
-            return this.Commission.GetValueOrDefault(0.00);
-        }
-
-        public double GetCommissionGCT()
-        {
-            return this.CommissionGCT.GetValueOrDefault(0.00);
+            return this.Amount() + this.ProcessingFee.GetValueOrDefault(0.00) + this.ProcessingFeeGCT.GetValueOrDefault(0.00);
         }
     }
 
