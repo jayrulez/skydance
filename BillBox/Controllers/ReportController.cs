@@ -92,16 +92,15 @@ namespace BillBox.Controllers
 
                     /*Apply paging and pass the result to the viewbag*/
                     ViewBag.Collections = collections.OrderBy(c => c.Date).ToPagedList(filter.PageNumber, filter.PageSize);
-                }                
+                }
+
+                return View(filter);        
 
             }
             catch (Exception ex)
             {
-                throw ex;
-                //return HandleErrorOnController(ex.GetBaseException());
+                return HandleErrorOnController(ex.GetBaseException());
             }
-
-            return View(filter);
         }
 
 
