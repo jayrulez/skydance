@@ -161,8 +161,8 @@
                 {
 
                     <ul class="action-menu">
-                        <li>@Html.ActionLink("Post", "PostBill", new { billId = bill.BillId })</li>
-                        <li><a href="#" id="add-payment-link">Add Payment</a></li>
+                        <li>@Html.ActionLink("Post", "PostBill", new { billId = bill.BillId }, new { @class = "btn btn-success" })</li>
+                        <li><a href="#" id="add-payment-link" class="btn btn-default">Add Payment</a></li>
                     </ul>
 
                 }

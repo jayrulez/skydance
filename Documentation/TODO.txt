@@ -1,10 +1,6 @@
 *CODE CLEANUP
-*receipt UI
-*unique attribute
-*action buttons
 *date range control
 *custom fields {enforce type}
-*display type text in view payment method view
 *fix util.handleexception (handle additional ex)
-**add change password feature
+**exception logging
 

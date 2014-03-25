@@ -18,7 +18,7 @@ namespace BillBox.Models
         public int AgentId;
 
         [Required]
-        //[Index("UK_Username", unique: true)]
+        [Unique(typeof(Entities), "Name")]
         [Display(Name = "Agent Name")]
         public string Name { get; set; }
 
@@ -66,6 +66,7 @@ namespace BillBox.Models
 
         [Required]
         [Display(Name = "Branch Name")]
+        [Unique(typeof(Entities), "Name")]
         public string Name { get; set; }
 
         [Required]

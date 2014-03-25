@@ -1,0 +1,22 @@
+body {text-align: center;}
+table {width: 100%;}
+#receipt-view {margin: 0 auto; width: 294px; padding: 5px 4px; border: 1px dotted #ff0000;}
+
+#receipt-view .receipt-header {margin-bottom: 3px;}
+#receipt-view .receipt-header .logo {}
+#receipt-view .receipt-header .address {border-bottom: 1px dashed #eeeeee;}
+#receipt-view .receipt-body {}
+#receipt-view .receipt-body .bill-fields {border-bottom: 1px dashed #eeeeee;margin-bottom: 3px;}
+#receipt-view .receipt-body .bill-fields  table {}
+#receipt-view .receipt-body .bill-fields  table tr {}
+#receipt-view .receipt-body .bill-fields  table tr td.field{text-align: left; font-weight: bold;}
+#receipt-view .receipt-body .bill-fields  table tr td.value {text-align: left;}
+
+#receipt-view .receipt-body .bill-payments {}
+#receipt-view .receipt-body .bill-payments  table {}
+#receipt-view .receipt-body .bill-payments  table thead {}
+#receipt-view .receipt-body .bill-payments  table thead tr {}
+#receipt-view .receipt-body .bill-payments  table thead tr th{text-align: right;}
+#receipt-view .receipt-body .bill-payments  table tbody {}
+#receipt-view .receipt-body .bill-payments  table tbody tr {}
+#receipt-view .receipt-body .bill-payments  table tbody tr td {text-align: right;}

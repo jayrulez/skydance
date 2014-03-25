@@ -4,9 +4,25 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using BillBox.Common;
 
 namespace BillBox.Models
 {
+    public class ChangePasswordModel
+    {
+        [Required]
+        [Display(Name = "Old Password")]
+        public string OldPassword { get; set; }
+
+        [Required]
+        [Display(Name = "New Password")]
+        public string NewPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Confirm New Password")]
+        public string ConfirmPassword { get; set; }
+    }
+
     public class LoginModel
     {
         [Required]
@@ -69,6 +85,7 @@ namespace BillBox.Models
 
         [Required]
         [Display(Name = "Username")]
+        [Unique(typeof(Entities), "Username")]
         public string Username { get; set; }
 
         [Display(Name = "Password")]

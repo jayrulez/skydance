@@ -43,7 +43,7 @@
                                     {
                                         <td>@captureField.DisplayName</td>
                                     }
-                                    <td>@captureField.Type</td>
+                                    <td>@BillBox.Common.Util.GetFieldType(captureField.Type.GetValueOrDefault())</td>
                                     <td>@captureField.OrderNum</td>
                                     <td>@Html.ActionLink("Edit", "EditPaymentMethodCaptureField", new { captureFieldId = @captureField.PaymentMethodCaptureFieldId })</td>
                                 </tr>
@@ -56,9 +56,8 @@
             </div>
             <div class="panel-footer">
                 <ul class="details-menu">
-                    <li>@Html.ActionLink("Edit", "EditPaymentMethod", new { paymentMethodId = Model.PaymentMethodId })</li>
-                    <li>@Html.ActionLink("Add Capture Field", "AddPaymentMethodCaptureField", new { paymentMethodId = Model.PaymentMethodId })</li>
-                    <li>@Html.ActionLink("Back to List", "ListPaymentMethods")</li>
+                    <li>@Html.ActionLink("Edit", "EditPaymentMethod", new { paymentMethodId = Model.PaymentMethodId }, new { @class = "btn btn-default" })</li>
+                    <li>@Html.ActionLink("Add Capture Field", "AddPaymentMethodCaptureField", new { paymentMethodId = Model.PaymentMethodId }, new { @class = "btn btn-default" })</li>
                 </ul>
             </div>
         </div>

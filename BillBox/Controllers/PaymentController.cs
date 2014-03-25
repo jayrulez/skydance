@@ -181,7 +181,8 @@ namespace BillBox.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    bill.Status = (int)BillStatus.Working;
+                    model.Amount = Util.Round(model.Amount);
+                    bill.Status  = (int)BillStatus.Working;
                     dbContext.Entry(bill).State = EntityState.Modified;
 
                     var paymentMethod = dbContext.PaymentMethods.Find(model.PaymentMethodId);
@@ -331,10 +332,10 @@ namespace BillBox.Controllers
                 double processingFeeGCTRate = Convert.ToDouble(Util.GetDbSetting("ProcessingFeeGCT")) / 100.00;
                 double processingFeeGCT     = processingFee * processingFeeGCTRate;
 
-                bill.Commission       = commission - commissionGCT;
-                bill.CommissionGCT    = commissionGCT;
-                bill.ProcessingFee    = processingFee;
-                bill.ProcessingFeeGCT = processingFeeGCT;
+                bill.Commission       = Util.Round(commission - commissionGCT);
+                bill.CommissionGCT    = Util.Round(commissionGCT);
+                bill.ProcessingFee    = Util.Round(processingFee - processingFeeGCT);
+                bill.ProcessingFeeGCT = Util.Round(processingFeeGCT);
 
                 if (bill.Payments.Count <= 0)
                 {
@@ -344,9 +345,9 @@ namespace BillBox.Controllers
                 }
                 else
                 {
-
                     dbContext.Entry(bill).State = EntityState.Modified;
                     dbContext.SaveChanges();
+
                     return RedirectToAction("ViewBill", new { billId = bill.BillId });
                 }
 
@@ -372,12 +373,13 @@ namespace BillBox.Controllers
                 bill.Status = (int)BillStatus.Working;
 
 
-                bill.Commission = 0.0;
-                bill.CommissionGCT = 0.0;
-                bill.ProcessingFee = 0.0;
-                bill.ProcessingFeeGCT = 0.0;
+                bill.Commission       = Util.Round(0.00);
+                bill.CommissionGCT    = Util.Round(0.00);
+                bill.ProcessingFee    = Util.Round(0.00);
+                bill.ProcessingFeeGCT = Util.Round(0.00);
 
                 dbContext.Entry(bill).State = EntityState.Modified;
+
                 dbContext.SaveChanges();
 
                 return RedirectToAction("NewPayment", new { billId = bill.BillId });

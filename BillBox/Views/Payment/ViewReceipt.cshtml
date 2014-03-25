@@ -5,33 +5,39 @@
     Layout = "~/Views/Shared/_Default.cshtml";
 }
 
-<div id="receipt-outline">
+<div id="receipt-view">
     <div class="receipt-header">
         <div class="logo">
+            <img src="@Url.Content("~/Assets/img/logo.png")" alt="Logo" />
         </div>
         <div class="address">
+            <p>
+                @Model.User.AgentBranch.AddressStreet
+                <br />
+                @Model.User.AgentBranch.AddressCity
+                <br />
+                @Model.User.AgentBranch.Parish.Name
+            </p>
         </div>
     </div>
-
     <div class="receipt-body">
         <div class="bill-fields">
             <table>
                 <tr>
-                    <td>@Html.DisplayNameFor(m => m.BillId)</td>
-                    <td>@Html.DisplayFor(m => m.BillId)</td>
+                    <td class="field">@Html.DisplayNameFor(m => m.BillId)</td>
+                    <td class="value">@Html.DisplayFor(m => m.BillId)</td>
 
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(m => m.SubscriberId)</td>
-                    <td>@Html.DisplayFor(m => m.Subscriber.Name)</td>
+                    <td class="field">@Html.DisplayNameFor(m => m.SubscriberId)</td>
+                    <td class="value">@Html.DisplayFor(m => m.Subscriber.Name)</td>
                 </tr>
                 <tr>
-                    <td>@Html.DisplayNameFor(m => m.Date)</td>
-                    <td>@Html.DisplayFor(m => m.Date)</td>
+                    <td class="field">@Html.DisplayNameFor(m => m.Date)</td>
+                    <td class="value">@Html.DisplayFor(m => m.Date)</td>
                 </tr>
             </table>
         </div>
-
         <div class="bill-payments">
             <table>
                 <thead>
@@ -44,23 +50,26 @@
                     @foreach (BillBox.Models.Payment payment in Model.Payments)
                     {
                         <tr>
-                            <td>@payment.PaymentMethod.Name</td>
+                            <td class="field">@payment.PaymentMethod.Name</td>
 
-                            <td>@BillBox.Common.Util.DisplayForDollar(payment.Amount)</td>
+                            <td class="value">@BillBox.Common.Util.DisplayForDollar(payment.Amount)</td>
                         </tr>
                     }
+                    <tr>
+                        <td class="field">Subtotal</td>
+                        <td class="value">@BillBox.Common.Util.DisplayForDollar(Model.Amount())</td>
+                    </tr>
+                    <tr>
+                        <td class="field">Processing Fee</td>
+                        <td class="value">@BillBox.Common.Util.DisplayForDollar(Model.ProcessingFee.GetValueOrDefault() + Model.ProcessingFeeGCT.GetValueOrDefault())</td>
+                    </tr>
+                    <tr>
+                        <td class="field"><strong>Total</strong></td>
+                        <td class="value">@BillBox.Common.Util.DisplayForDollar(Model.Total())</td>
+                    </tr>
                 </tbody>
             </table>
 
-        </div>
-        <hr />
-        <div class="bill-amounts">
-            <table>
-                <tr>
-                    <td>Total</td>
-                    <td>@BillBox.Common.Util.DisplayForDollar(Model.Amount())</td>
-                </tr>
-            </table>
         </div>
     </div>
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BillBox.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace BillBox.Models
     {
         [Required]
         [Display(Name = "Name")]
+        [Unique(typeof(Entities), "Name")]
         public string Name { get; set; }
 
         [Required]

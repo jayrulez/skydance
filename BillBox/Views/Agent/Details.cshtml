@@ -58,9 +58,9 @@
             </div>
             <div class="panel-footer">
                 <ul class="details-menu">
-                    <li>@Html.ActionLink("Edit", "Edit", new { agentId = Model.AgentId })</li>
-                    <li>@Html.ActionLink("Add Branch", "AddBranch", new { agentId = Model.AgentId })</li>
-                    <li>@Html.ActionLink("View Branches", "ListBranches", new { agentId = Model.AgentId })</li>
+                    <li>@Html.ActionLink("Edit", "Edit", new { agentId = Model.AgentId }, new { @class = "btn btn-default" })</li>
+                    <li>@Html.ActionLink("Add Branch", "AddBranch", new { agentId = Model.AgentId }, new { @class = "btn btn-default" })</li>
+                    <li>@Html.ActionLink("View Branches", "ListBranches", new { agentId = Model.AgentId }, new { @class = "btn btn-default" })</li>
                 </ul>
             </div>
         </div>

@@ -12,17 +12,18 @@ ul.action-menu li, ul.details-menu li {
 
 ul.action-menu li a, ul.details-menu li a {
     display: block;
+	/*
     padding: 2px 5px;
     background: #808080;
 	color: #ffffff;
-	font-weight: bold;
+	font-weight: bold;*/
 }
-
+/*
 ul.action-menu li a:hover, ul.details-menu li a:hover {
 	text-decoration: none;
 	color: #808080;
 	background: #ffffff;
-}
+}*/
 
 dl dt {}
 dl dd {

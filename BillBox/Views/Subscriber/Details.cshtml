@@ -111,7 +111,7 @@
                                 <tr>
                                     <td>@captureField.Name</td>
                                     <td>@captureField.DisplayName</td>
-                                    <td>@captureField.Type</td>
+                                    <td>@BillBox.Common.Util.GetFieldType(captureField.Type.GetValueOrDefault())</td>
                                     <td>@captureField.OrderNum</td>
                                     <td>@Html.ActionLink("Edit", "EditCaptureField", new { id = @captureField.CaptureFieldId })</td>
                                 </tr>
@@ -124,9 +124,8 @@
             </div>
             <div class="panel-footer">
                 <ul class="details-menu">
-                    <li>@Html.ActionLink("Edit", "Edit", new { id = Model.SubscriberId })</li>
-                    <li>@Html.ActionLink("Add Capture Field", "CreateCaptureField", new { id = Model.SubscriberId })</li>
-                    <li>@Html.ActionLink("Back to List", "Index")</li>
+                    <li>@Html.ActionLink("Edit", "Edit", new { id = Model.SubscriberId }, new { @class = "btn btn-default" })</li>
+                    <li>@Html.ActionLink("Add Capture Field", "CreateCaptureField", new { id = Model.SubscriberId }, new { @class = "btn btn-default" })</li>
                 </ul>
             </div>
         </div>
