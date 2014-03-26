@@ -54,6 +54,7 @@ namespace BillBox.Models
 
         public CollectionsReportModel()
         {
+            this.Count = 0;
             this.PageNumber = 1;
             this.PageSize = Util.GetPageSize(Common.PagedList.CollectionsReport);
         }

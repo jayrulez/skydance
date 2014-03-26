@@ -91,7 +91,7 @@ namespace BillBox.Controllers
                     filter.Count = collections.Count();
 
                     /*Apply paging and pass the result to the viewbag*/
-                    ViewBag.Collections = collections.OrderBy(c => c.Date).ToPagedList(filter.PageNumber, filter.PageSize);
+                    ViewBag.Collections = collections.OrderByDescending(c => c.Date).ToPagedList(filter.PageNumber, filter.PageSize);
                 }
 
                 return View(filter);        

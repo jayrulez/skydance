@@ -3,3 +3,6 @@
 *fix util.handleexception (handle additional ex)
 **exception logging
 *payment history filter [today, past 7 days, past 30 days, custom daterange]
+
+*add customer name to receipt
+*change receipt font from times new roman
