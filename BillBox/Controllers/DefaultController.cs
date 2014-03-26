@@ -58,12 +58,13 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
 
             return View(model);
         }
-         
+
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();

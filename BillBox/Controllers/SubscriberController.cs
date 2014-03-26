@@ -29,7 +29,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                 return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -56,7 +57,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                 return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -81,7 +83,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                 return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -102,7 +105,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                 return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -125,7 +129,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                 return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -152,7 +157,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                 return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -174,7 +180,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                 return RedirectToAction("Error", "Default", null);
             }
 
         }
@@ -202,7 +209,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                 return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -228,7 +236,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                 return RedirectToAction("Error", "Default", null);
             }
 
         }
@@ -256,7 +265,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                 return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -266,17 +276,6 @@ namespace BillBox.Controllers
                 dbContext.Dispose();
 
             base.Dispose(disposing);
-        }
-
-        private RedirectToRouteResult HandleErrorOnController(Exception exception)
-        {
-            string errorMessage;
-            bool isHandled = Util.HandleException(exception, out errorMessage);
-
-            if (isHandled)
-                TempData["ErrorMessage"] = errorMessage;
-
-            return RedirectToAction("Error", "Default", null);
-        }
+        }       
     }
 }

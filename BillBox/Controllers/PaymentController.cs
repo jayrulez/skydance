@@ -31,7 +31,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -47,7 +48,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -64,7 +66,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -132,7 +135,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -161,7 +165,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -182,7 +187,7 @@ namespace BillBox.Controllers
                 if (ModelState.IsValid)
                 {
                     model.Amount = Util.Round(model.Amount);
-                    bill.Status  = (int)BillStatus.Working;
+                    bill.Status = (int)BillStatus.Working;
                     dbContext.Entry(bill).State = EntityState.Modified;
 
                     var paymentMethod = dbContext.PaymentMethods.Find(model.PaymentMethodId);
@@ -221,7 +226,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -252,9 +258,11 @@ namespace BillBox.Controllers
                         dbContext.SaveChanges();
 
                         TempData["Message"] = "The payment was removed.";
-                    }catch(Exception ex)
+                    }
+                    catch (Exception ex)
                     {
-                        TempData["Error"] = ex.Message;
+                        Util.HandleException(ex.GetBaseException());
+                        return RedirectToAction("Error", "Default", null);
                     }
                 }
             }
@@ -276,12 +284,13 @@ namespace BillBox.Controllers
                 var bills = dbContext.Bills.Where(b => b.Status == (int)BillStatus.Posted).OrderByDescending(b => b.Date).ToPagedList(pageNumber, pageSize);
 
                 Util.PreparePagerInfo(ControllerContext.RequestContext, ViewBag, "PaymentHistory", pageNumber, pageSize, count, new { period = period });
-                
+
                 return View(bills);
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
 
         }
@@ -302,7 +311,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -322,19 +332,19 @@ namespace BillBox.Controllers
 
 
                 //Commission Calculations
-                double commissionRate     = Convert.ToDouble(Util.GetDbSetting("CommissionRate"))/100.00;
-                double commission         = commissionRate * bill.Amount();
-                double commissionGCTRate  = Convert.ToDouble(Util.GetDbSetting("CommissionGCT"))/100.00;
-                double commissionGCT      = commission * commissionGCTRate;
+                double commissionRate = Convert.ToDouble(Util.GetDbSetting("CommissionRate")) / 100.00;
+                double commission = commissionRate * bill.Amount();
+                double commissionGCTRate = Convert.ToDouble(Util.GetDbSetting("CommissionGCT")) / 100.00;
+                double commissionGCT = commission * commissionGCTRate;
 
                 //Processing Fee Calculations
-                double processingFee        = Convert.ToDouble(Util.GetDbSetting("ProcessingFee"));
+                double processingFee = Convert.ToDouble(Util.GetDbSetting("ProcessingFee"));
                 double processingFeeGCTRate = Convert.ToDouble(Util.GetDbSetting("ProcessingFeeGCT")) / 100.00;
-                double processingFeeGCT     = processingFee * processingFeeGCTRate;
+                double processingFeeGCT = processingFee * processingFeeGCTRate;
 
-                bill.Commission       = Util.Round(commission - commissionGCT);
-                bill.CommissionGCT    = Util.Round(commissionGCT);
-                bill.ProcessingFee    = Util.Round(processingFee - processingFeeGCT);
+                bill.Commission = Util.Round(commission - commissionGCT);
+                bill.CommissionGCT = Util.Round(commissionGCT);
+                bill.ProcessingFee = Util.Round(processingFee - processingFeeGCT);
                 bill.ProcessingFeeGCT = Util.Round(processingFeeGCT);
 
                 if (bill.Payments.Count <= 0)
@@ -354,7 +364,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -373,9 +384,9 @@ namespace BillBox.Controllers
                 bill.Status = (int)BillStatus.Working;
 
 
-                bill.Commission       = Util.Round(0.00);
-                bill.CommissionGCT    = Util.Round(0.00);
-                bill.ProcessingFee    = Util.Round(0.00);
+                bill.Commission = Util.Round(0.00);
+                bill.CommissionGCT = Util.Round(0.00);
+                bill.ProcessingFee = Util.Round(0.00);
                 bill.ProcessingFeeGCT = Util.Round(0.00);
 
                 dbContext.Entry(bill).State = EntityState.Modified;
@@ -386,7 +397,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -406,7 +418,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -416,40 +429,6 @@ namespace BillBox.Controllers
                 dbContext.Dispose();
 
             base.Dispose(disposing);
-        }
-
-        private RedirectToRouteResult HandleErrorOnController(Exception exception)
-        {
-            string errorMessage;
-            bool isHandled = Util.HandleException(exception, out errorMessage);
-
-            if (isHandled)
-                TempData["ErrorMessage"] = errorMessage;
-            else
-                TempData["ErrorMessage"] = exception.Message;
-
-            return RedirectToAction("Error", "Default", null);
-        }
-
-        private void PreparePagerInfo(dynamic dictionary, string actionName, string controllerName, int pageNumber, int pageSize, int totalRecordCount, object routeValues)
-        {
-            var routeValueDictionary = new RouteValueDictionary(routeValues);
-
-            if (pageNumber > 1)
-            {
-                routeValueDictionary.Add("page", pageNumber - 1);
-                dictionary.Previous = Url.Action(actionName, controllerName, routeValueDictionary);
-            }
-
-            if (((pageNumber * pageSize) < totalRecordCount))
-            {
-                routeValueDictionary.Add("page", pageNumber + 1);
-                dictionary.Next = Url.Action(actionName, controllerName, routeValueDictionary);
-            }
-
-            dictionary.RecordTotal = totalRecordCount;
-            dictionary.RecordBegin = ((pageNumber - 1) * pageSize) + 1;
-            dictionary.RecordEnd = (pageNumber * pageSize) < totalRecordCount ? (pageNumber * pageSize) : totalRecordCount;
         }
     }
 }
