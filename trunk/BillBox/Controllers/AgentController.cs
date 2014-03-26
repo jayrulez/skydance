@@ -34,7 +34,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -49,7 +50,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -75,7 +77,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -98,7 +101,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -122,7 +126,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -149,7 +154,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -176,7 +182,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -213,7 +220,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -233,11 +241,12 @@ namespace BillBox.Controllers
                     ViewBag.parishes = dbContext.Parishes.OrderBy(p => p.Name);
 
                     return View(branch);
-                }                
+                }
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -264,7 +273,8 @@ namespace BillBox.Controllers
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -284,11 +294,12 @@ namespace BillBox.Controllers
                     ViewBag.branch = branch;
 
                     return View(branch);
-                }                
+                }
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
         }
 
@@ -316,26 +327,16 @@ namespace BillBox.Controllers
 
                     ViewBag.Agent = agent;
 
-                    Util.PreparePagerInfo(ControllerContext.RequestContext, ViewBag, "ListBranches", pageNumber, pageSize, totalRecords, new { agentId = agentId});
+                    Util.PreparePagerInfo(ControllerContext.RequestContext, ViewBag, "ListBranches", pageNumber, pageSize, totalRecords, new { agentId = agentId });
 
                     return View(branches);
                 }
             }
             catch (Exception ex)
             {
-                return HandleErrorOnController(ex.GetBaseException());
+                Util.HandleException(ex.GetBaseException());
+                return RedirectToAction("Error", "Default", null);
             }
-        }
-
-        private RedirectToRouteResult HandleErrorOnController(Exception exception)
-        {
-            string errorMessage;
-            bool isHandled = Util.HandleException(exception, out errorMessage);
-
-            if (isHandled)
-                TempData["ErrorMessage"] = errorMessage;
-
-            return RedirectToAction("Error", "Default", null);
         }
 
         protected override void Dispose(bool disposing)
