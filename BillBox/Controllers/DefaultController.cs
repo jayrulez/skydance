@@ -18,7 +18,14 @@ namespace BillBox.Controllers
 
         public ActionResult Index()
         {
-            return RedirectToAction("NewBill", "Payment");
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("NewBill", "Payment");
+            }
+            else
+            {
+                return RedirectToAction("Default", "Login");
+            }
         }
 
         [AllowAnonymous]
@@ -95,17 +102,6 @@ namespace BillBox.Controllers
                 dbContext.Dispose();
 
             base.Dispose(disposing);
-        }
-
-        private RedirectToRouteResult HandleErrorOnController(Exception exception)
-        {
-            string errorMessage;
-            bool isHandled = Util.HandleException(exception, out errorMessage);
-
-            if (isHandled)
-                TempData["ErrorMessage"] = errorMessage;
-
-            return RedirectToAction("Error", "Default", null);
         }
     }
 }

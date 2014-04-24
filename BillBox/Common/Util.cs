@@ -189,10 +189,12 @@ namespace BillBox.Common
         }
 
               
-        public static bool HandleException(Exception baseException, out string errorMessage)
+        public static bool HandleException(Exception baseException)
         {
+            throw baseException;
+
             bool handled = false;
-            errorMessage = string.Empty;
+            string errorMessage = string.Empty;
 
             //if (baseException.Message.Contains("Cannot open database") || 
             //    baseException.Message.Contains("Login failed") || 

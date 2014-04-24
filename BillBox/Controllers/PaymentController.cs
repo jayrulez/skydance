@@ -56,19 +56,19 @@ namespace BillBox.Controllers
         [RightFilter(RightName = "PROCESS_PAYMENT")]
         public ActionResult NewBill()
         {
-            try
-            {
+            //try
+            //{
                 var subscribers = dbContext.Subscribers;
 
                 ViewBag.subscribers = subscribers;
 
                 return View();
-            }
-            catch (Exception ex)
-            {
-                Util.HandleException(ex.GetBaseException());
-                return RedirectToAction("Error", "Default", null);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Util.HandleException(ex.GetBaseException());
+            //    return RedirectToAction("Error", "Default", null);
+            //}
         }
 
         [HttpPost]

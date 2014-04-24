@@ -21,6 +21,22 @@
                     <span>An Unknown error occurred in the application! Please notify the system admistrator.</span>
                 }
             </div>
+            <div class="panel-footer">
+                <a href="#" id="back-button">Back</a>
+
+            </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $("#back-button").click(function (e) {
+                            e.preventDefault();
+                            window.history.back();
+                        });
+                    });
+                </script>
+}
